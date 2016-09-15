@@ -1,0 +1,165 @@
+---
+title: Installing the Pivotal Cloud Foundry&reg; FIM Add-On
+owner: Security Engineering
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to add file integrity monitoring to your deployment.
+
+##<a id="prereqs"></a>Prerequisites
+
+To complete the FIM installation, check that you have satisfied the following prerequisites before you begin:
+
+* PCF operator administration rights
+
+* BOSH deployed through Ops Manager 1.7 or higher
+
+<p class="note"><strong>Note</strong>: FIM only works with Ubuntu stemcells, which are available on <a href="https://network.pivotal.io/products/stemcells">Pivotal Network</a>.</p>
+
+##<a id="create-mfest"></a>Create the FIM manifest
+
+Follow these steps to create the FIM runtime config for your deployment:
+
+1. Create a FIM manifest file `fim-addon.yml` starting with the code below as a template.
+
+  <pre>releases:
+  \- {name: osquery, <strong>version</strong>: 1.0.0}<br>
+  addons:
+  \- name: fim-addon
+      jobs:
+      \- <strong>name</strong>: osqueryd
+        release: osquery
+  </pre>
+
+2. Replace the properties listed in the file as follows:
+  * <code>releases: - version:</code> Specify the version number of your FIM download from Pivotal Network.
+
+3. Optional properties:
+
+The FIM addon can be give optional properties in the runtime config to
+override the defaults.
+
+```
+addons:
+- name: osquery
+  jobs:
+    - name: osqueryd
+      release: osquery
+  properties:
+    osqueryd:
+      max_user_watches: 524288
+      file_paths:
+        - /path1/%%
+        - /path2/file1
+      watch_bosh_jobs: true
+```
+
+* osqueryd.max_user_watches - maximum number of inotify watches
+  (default 524288), increase this if there are a large number of files on the
+  instance that need to be monitored
+* osqueryd.file_paths - list of paths to monitor in
+  (osquery format)[https://osquery.readthedocs.io/en/stable/deployment/file-integrity-monitoring/],
+  a sensible default is set for the stemcell but can be overridden to change the directories that osquery watches
+* osqueryd.watch_bosh_jobs - set to true to enable monitoring of BOSH job directories (it is recommended to use default of true)
+
+##<a id="download-deploy"></a>Download and Deploy the FIM Add-on
+
+1. Download the FIM add-on software binary from the [Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
+
+2. Copy the software binary to your Ops Manager instance.
+<pre class="terminal">$ scp -i PATH/TO/PRIVATE/KEY osquery-release.tar.gz ubuntu@YOUR-OPS-MANAGER-VM-IP:</pre>
+
+3. Copy the FIM manifest file to your Ops Manager instance.
+<pre class="terminal">$ scp -i PATH/TO/PRIVATE/KEY fim-addon.yml ubuntu@YOUR-OPS-MANAGER-VM-IP:</pre>
+
+4. SSH into Ops Manager.
+ <pre class="terminal">$ ssh -i PATH-TO-PRIVATE-KEY ubuntu@YOUR-OPS-MANAGER-VM-IP</pre>
+
+5. Navigate to the software binary location in your working directory.
+<pre class="terminal">
+$ cd PATH-TO-BINARY</pre>
+
+6. Target your BOSH director instance with BOSH.<pre class="terminal">
+  $ bosh target YOUR-OPS-MANAGER-DIRECTOR-IP
+  Target set to 'Ops Manager'
+  Your username: director
+  Enter password: ******************
+  Logged in as 'director'
+</pre>
+
+7. Upload your release.<pre class="terminal">$ bosh upload release PATH-TO-BINARY/BINARY-NAME.tar.gz</pre>
+
+8. Optionally, from the command line, confirm that the upload of the FIM software binary completed. You should see the osquery release.
+<pre class="terminal">$ bosh releases</pre>
+
+9. Update your runtime configuration to include the FIM add-on.
+<pre class="terminal">$ bosh update runtime-config PATH/fim-addon.yml</pre>
+
+10. Verify your runtime configuration changes match what you specified in the FIM manifest file.
+
+    <pre class="terminal">
+    $ bosh runtime-config
+    Acting as user 'admin' on 'micro'
+
+    releases:
+     <span>-</span> {name: fim, version: 1.0.0}
+
+    addons:
+     name: fim-addon
+      jobs:
+      <span>-</span> name: osqueryd
+        release: osquery
+    ...
+    </pre>
+
+11. Navigate to your **Installation Dashboard** in Ops Manager.
+
+12. Click **Apply Changes**.
+
+##<a id="verify"></a>Verify Your FIM Installation
+
+1. Run `bosh vms` to list the job VMs in your deployment. Choose the job name and index of any VM. The exact VM does not matter, because installing the FIM add-on loads FIM on all VMs deployed by Ops Manager.
+
+1. Run `bosh ssh JOB-NAME/INDEX` to open a SSH connection into the VM.
+
+1. Run `sudo su -` to enter the root environment with root privileges.
+
+1. Run `monit summary` to confirm that your `osqueryd` job is listed as a `bosh` job.
+<pre class="terminal">
+The Monit daemon 5.2.5 uptime: 18h 32m
+...
+Process 'osqueryd'                     running
+System 'system\_localhost'           running
+</pre>
+
+1. Modify a file a verify that an alert is written to the syslog.
+
+```
+touch /bin/hackertool
+grep hackertool /var/vcap/syslog
+```
+
+Look for a message that a new file has been created:
+
+```
+Jul  1 17:37:07 n0dov6jvtu6 osqueryd[3740]: {"name":"file_events","hostIdentifier":"125d9452-3c7d-4f87-8131-d859d652f3b4","calendarTime":"Fri Jul  1 17:37:07 2016 UTC","unixTime":"1467394627","columns":{"action":"CREATED","atime":"1467394627","category":"system","ctime":"1467394627","gid":"0","hashed":"1","inode":"61625","md5":"d41d8cd98f00b204e9800998ecf8427e","mode":"0644","mtime":"1467394627","sha1":"da39a3ee5e6b4b0d3255bfef95601890afd80709","sha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","size":"0","target_path":"\/bin\/malware","time":"1467394627","transaction_id":"0","uid":"0"},"action":"added"}
+```
+
+##<a id="aggregate"></a>Aggregating FIM alerts
+
+The FIM BOSH release writes all alerts to the local syslog. Syslog forwarding
+can be used to forward the alerts to a syslog aggregator.
+
+### Forwarding Using the Elastic Runtime tile aggregator
+
+The "System Logging" section in the Pivotal Elastic Runtime tile can be used to
+set a syslog aggregator for ERT. All FIM alerts generated on ERT instances
+will be sent here if this is configured.
+
+### Forwarding Using the BOSH syslog release
+
+A BOSH release used to forward syslog can be deployed as an additional
+add-on.
+
+https://github.com/cloudfoundry/syslog-release
