@@ -11,50 +11,43 @@ deployment and general recommendations for troubleshooting.
 
 ## <a id='about-troubleshoot-fim'></a>About Troubleshooting FIM
 
-There are two types of issues that can occur with the FIM Add-on for PCF:  
-
-+ The installation of the add-on is not successful.
-
-+ Or, the installation succeeds, but at runtime a detection is not successful. 
-
-This troubleshooting topic provides information on how to ensure your installation is successful and 
-how to overcome add-on deployment and configuration problems.
-
-This topic also provides help for troubleshooting the runtime behavior, to ensure that the deployment is being protected in the way
+This topic provides help for troubleshooting the runtime behavior, to ensure that the deployment is being protected in the way
 you expect.
 
-## <a id='troubleshoot-clamav'></a>Troubleshoot Filesnitch
 
-### <a id="clamav-installation-issues"></a> FIM Installation Issues
+## <a id="clamav-runtime-issues"></a>Filesnitch Runtime Issues
 
-#### Symptom
+### Symptom
+
+Filesystem events are not reported. The logs are empty.
+
+### Explanation:
+
+Filesnitch might not be running or might be misconfigured.
+
+### Solution
+
+* Check whether `fim` is running. `monit summary` should return the following output on success.
 
 ```
-example
+The Monit daemon 5.2.5 uptime: 1d 20h 11m
+
+Process 'fim'                       running
+
 ```
-
-#### Explanation
-Sample
-
-#### Solution
-Sample
+* If the process isn't running, inspect the contents of `/var/vcap/sys/log/fim/fim.std*.log` files for clues.
 
 <hr>
 
-### <a id="clamav-runtime-issues"></a>Filesnitch Runtime Issues
+### Symptom
 
-#### Symptom
+Filesystem events are not reported from a portion of the filesystem.
 
-```
-example
-```
+### Explanation:
 
-#### Explanation:
+FIM is configured to monitor a set of critical directories in the system. It is not configured to monitor the entire filesystem by default.
 
+### Solution
 
-#### Solution
+Refer to this [configuration section](/addon-fim/configuration.html#dirs) for inspecting defaults and instructions on adjusting the list in the runtime manifest.
 
-<hr>
-
-#### Symptom
-Sample
