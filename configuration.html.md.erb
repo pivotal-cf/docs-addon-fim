@@ -1,0 +1,116 @@
+---
+title: Configuring FIM Add-on for PCF
+owner: Security Engineering
+---
+
+<strong><%= modified_date %></strong>
+
+This documentation describes how to configure and use the File Integrity Monitoring Add-on for PCF (FIM add-on).
+
+##<a id="dirs"></a>Listing directories to be monitored
+
+FIM monitors a set of critical system directories. The list of directories to be monitored by FIM can be configured using the `fim.dirs` property.
+
+*Default value:*
+
+```
+fim:
+  dirs:
+    - /bin
+    - /etc
+    - /lib
+    - /lib64
+    - /opt
+    - /sbin
+    - /srv
+    - /usr
+    - /var/lib
+    - /var/vcap/bosh
+    - /var/vcap/data/packages
+    - /var/vcap/monit/job
+    - /var/vcap/data/jobs
+```
+
+##<a id="output"></a>Directing the output
+
+FIM supports three types of output: `stdout`, `stderr` and `syslog`. Selecting `stdout` or `stderr` will send messages to `/var/vcap/sys/log/fim/fim.stdout.log` or `/var/vcap/sys/log/fim/fim.stderr.log` respectively, while setting outputs to `syslog` will direct all messages to `/var/log/messages`.
+The output can be configured using the `fim.outputs` property.
+
+*Note:* Currently FIM only supports one output at a time.
+
+*Default value:*
+
+```
+fim:
+  outputs:
+    - syslog
+```
+
+##<a id="format"></a>Setting the output format
+
+By default, the FIM release produces messages in the Common Event Format. Output format can be configured as a Golang text template using the `fim.format` property. Available variables are:
+
+*Default value:*
+
+```
+fim:
+  format: "CEF:0|cloud_foundry|fim|1.0.0|{{.Map.optype}}|file integrity monitoring event|5| {{.KeyValues}}"
+```
+
+
+###<a id="json"></a>JSON
+The `{{.Json}}` string serializes an event into a standard JSON dictionary.
+Example:
+
+```json
+{"fname":"/bin/binary","hostname":"plymouth","opname":"CREATE","optype":1,"sha1":"da39a3ee5e6b4b0d3255bfef95601890afd80709","ts":1475195084}
+```
+
+###<a id="keyvalues"></a>Key-Values
+The `{{.KeyValues}}` string serializes an event into a series of `key=value` fields.
+Example:
+
+```
+fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 sha1="da39a3ee5e6b4b0d3255bfef95601890afd80709" ts=1475195258
+```
+
+###<a id="Map"></a>Map
+The `{{.Map}}` string provides attribute-level access on an event.
+
+Example:
+
+```
+fim:
+  format: "{{.Map.fname}} {{.Map.hostname}} {{.Map.opname}} {{.Map.optype}} {{.Map.sha1}} {{.Map.ts}}"
+```
+
+produces:
+
+```
+/bin/binary plymouth CREATE 1 da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
+```
+
+##<a id="checksums"></a>Calculating file hashes
+
+FIM supports hashing of monitored files on WRITE or CREATE events. The list of supported hashing algorithms is comprised of `md5`, `sha1`, `sha256`. Hashing can be configured using the `fim.checksums` property.
+
+*Default value:*
+
+```
+fim:
+  checksums:
+    - sha1
+```
+
+###<a id="checksum_threshold"></a>File size threshold
+
+FIM puts a threshold on the size of files to be hashed. This threshold can be adjusted via the `fim.checksum_threshold` property. The property takes a value in bytes.
+
+*Default value:*
+
+```
+fim:
+  checksum_threshold: 10000000
+```
+
+
