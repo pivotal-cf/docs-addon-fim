@@ -5,11 +5,11 @@ owner: Security Engineering
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to configure and use the File Integrity Monitoring Add-on for PCF (FIM Add-On).
+This topic describes how to configure and use the File Integrity Monitoring Add-on for PCF (FIM Add-on).
 
 ##<a id="dirs"></a>Listing directories to be monitored
 
-The FIM Add-On monitors a set of critical system directories. The list of directories to be monitored by the FIM Add-On can be configured using the `fim.dirs` property. The default value of `fims.dir` is:
+The FIM Add-on monitors a set of critical system directories. The list of directories to be monitored by the FIM Add-on can be configured using the `fim.dirs` property. The default value of `fims.dir` is:
 
 ```
 fim:
@@ -51,14 +51,14 @@ fim:
 
 ##<a id="format"></a>Configure the Output Format
 
-By default, the the FIM Add-On generates messages in the Common Event Format. Output format can be configured as a Golang text template using the `fim.format` property. The default value of `fim.format` is:
+By default, the the FIM Add-on generates messages in the Common Event Format. Output format can be configured as a Golang text template using the `fim.format` property. The default value of `fim.format` is:
 
 ```
 fim:
   format: "CEF:0|cloud_foundry|fim|1.0.0|{{.Map.optype}}|file integrity monitoring event|5| {{.KeyValues}}"
 ```
 
-The FIM Add-On also supports the following variables:
+The FIM Add-on also supports the following variables:
 
 ###<a id="json"></a>JSON
 The `{{.Json}}` string serializes an event into a standard JSON dictionary.
@@ -94,7 +94,7 @@ produces the following:
 
 ##<a id="checksums"></a>Calculate File Hashes
 
-The FIM Add-On supports hashing monitored files on WRITE or CREATE events. The FIM Add-On supports the following hashing algorithms: `md5`, `sha1`, `sha256`. Hashing can be configured using the `fim.checksums` property. The default value is:
+The FIM Add-on supports hashing monitored files on WRITE or CREATE events. The FIM Add-on supports the following hashing algorithms: `md5`, `sha1`, `sha256`. Hashing can be configured using the `fim.checksums` property. The default value is:
 
 ```
 fim:
@@ -104,7 +104,7 @@ fim:
 
 ###<a id="checksum_threshold"></a>File Size Threshold
 
-The FIM Add-On puts a threshold on the size of files to be hashed. This threshold can be adjusted via the `fim.checksum_threshold` property. The property takes a value in bytes. The default value is:
+The FIM Add-on puts a threshold on the size of files to be hashed. This threshold can be adjusted via the `fim.checksum_threshold` property. The property takes a value in bytes. The default value is:
 
 ```
 fim:
