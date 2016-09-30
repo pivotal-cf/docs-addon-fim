@@ -5,13 +5,11 @@ owner: Security Engineering
 
 <strong><%= modified_date %></strong>
 
-This documentation describes how to configure and use the File Integrity Monitoring Add-on for PCF (FIM add-on).
+This topic describes how to configure and use the File Integrity Monitoring Add-on for PCF (FIM Add-On).
 
 ##<a id="dirs"></a>Listing directories to be monitored
 
-FIM monitors a set of critical system directories. The list of directories to be monitored by FIM can be configured using the `fim.dirs` property.
-
-*Default value:*
+The FIM Add-On monitors a set of critical system directories. The list of directories to be monitored by the FIM Add-On can be configured using the `fim.dirs` property. The default value of `fims.dir` is:
 
 ```
 fim:
@@ -31,14 +29,19 @@ fim:
     - /var/vcap/data/jobs
 ```
 
-##<a id="output"></a>Directing the output
+##<a id="output"></a>Configure the Output Destination
 
-FIM supports three types of output: `stdout`, `stderr` and `syslog`. Selecting `stdout` or `stderr` will send messages to `/var/vcap/sys/log/fim/fim.stdout.log` or `/var/vcap/sys/log/fim/fim.stderr.log` respectively, while setting outputs to `syslog` will direct all messages to `/var/log/messages`.
-The output can be configured using the `fim.outputs` property.
+FIM supports three types of output: 
 
-*Note:* Currently FIM only supports one output at a time.
+* `stdout`: sends messages to `/var/vcap/sys/log/fim/fim.stdout.log`.
+* `stderr`: sends messages to `/var/vcap/sys/log/fim/fim.stderr.log`.
+* `syslog`: sends messages to `/var/log/messages`.
+ 
+The output is configured using the `fim.outputs` property.
 
-*Default value:*
+<p class="note"><strong>Note</strong>: Currently, FIM only supports selecting one output at a time.</p>
+
+The default value of the `fim.outputs` property:
 
 ```
 fim:
@@ -46,17 +49,16 @@ fim:
     - syslog
 ```
 
-##<a id="format"></a>Setting the output format
+##<a id="format"></a>Configure the Output Format
 
-By default, the FIM release produces messages in the Common Event Format. Output format can be configured as a Golang text template using the `fim.format` property. Available variables are:
-
-*Default value:*
+By default, the the FIM Add-On generates messages in the Common Event Format. Output format can be configured as a Golang text template using the `fim.format` property. The default value of `fim.format` is:
 
 ```
 fim:
   format: "CEF:0|cloud_foundry|fim|1.0.0|{{.Map.optype}}|file integrity monitoring event|5| {{.KeyValues}}"
 ```
 
+The FIM Add-On also supports the following variables:
 
 ###<a id="json"></a>JSON
 The `{{.Json}}` string serializes an event into a standard JSON dictionary.
@@ -77,24 +79,22 @@ fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 sha1="da39a3ee5
 ###<a id="Map"></a>Map
 The `{{.Map}}` string provides attribute-level access on an event.
 
-Example:
+For example, the following variable definition:
 
 ```
 fim:
   format: "{{.Map.fname}} {{.Map.hostname}} {{.Map.opname}} {{.Map.optype}} {{.Map.sha1}} {{.Map.ts}}"
 ```
 
-produces:
+produces the following:
 
 ```
 /bin/binary plymouth CREATE 1 da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
 ```
 
-##<a id="checksums"></a>Calculating file hashes
+##<a id="checksums"></a>Calculate File Hashes
 
-FIM supports hashing of monitored files on WRITE or CREATE events. The list of supported hashing algorithms is comprised of `md5`, `sha1`, `sha256`. Hashing can be configured using the `fim.checksums` property.
-
-*Default value:*
+The FIM Add-On supports hashing monitored files on WRITE or CREATE events. The FIM Add-On supports the following hashing algorithms: `md5`, `sha1`, `sha256`. Hashing can be configured using the `fim.checksums` property. The default value is:
 
 ```
 fim:
@@ -102,11 +102,9 @@ fim:
     - sha1
 ```
 
-###<a id="checksum_threshold"></a>File size threshold
+###<a id="checksum_threshold"></a>File Size Threshold
 
-FIM puts a threshold on the size of files to be hashed. This threshold can be adjusted via the `fim.checksum_threshold` property. The property takes a value in bytes.
-
-*Default value:*
+The FIM Add-On puts a threshold on the size of files to be hashed. This threshold can be adjusted via the `fim.checksum_threshold` property. The property takes a value in bytes. The default value is:
 
 ```
 fim:
