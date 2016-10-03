@@ -92,23 +92,23 @@ produces the following:
 /bin/binary plymouth CREATE 1 da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
 ```
 
-##<a id="checksums"></a>Calculate File Hashes
+##<a id="digests"></a>Calculate File Hashes
 
-The FIM Add-on supports hashing monitored files on WRITE or CREATE events. The FIM Add-on supports the following hashing algorithms: `md5`, `sha1`, `sha256`. Hashing can be configured using the `fim.checksums` property. The default value is:
+The FIM Add-on supports hashing monitored files on WRITE or CREATE events. The FIM Add-on supports the following hashing algorithms: `md5`, `sha1`, `sha256`. Hashing can be configured using the `fim.digests` property. The default value is:
 
 ```
 fim:
-  checksums:
+  digests:
     - sha1
 ```
 
-###<a id="checksum_threshold"></a>File Size Threshold
+###<a id="digest_threshold"></a>File Size Threshold
 
-The FIM Add-on puts a threshold on the size of files to be hashed. This threshold can be adjusted via the `fim.checksum_threshold` property. The property takes a value in bytes. The default value is:
+The FIM Add-on puts a threshold on the size of files to be hashed. This threshold can be adjusted via the `fim.digest_threshold` property. The property takes a value in bytes. The default value is:
 
 ```
 fim:
-  checksum_threshold: 10000000
+  digest_threshold: 10000000
 ```
 
 
