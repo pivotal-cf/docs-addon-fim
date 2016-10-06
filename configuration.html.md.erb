@@ -31,12 +31,12 @@ fim:
 
 ##<a id="output"></a>Configure the Output Destination
 
-FIM supports three types of output: 
+FIM supports three types of output:
 
 * `stdout`: sends messages to `/var/vcap/sys/log/fim/fim.stdout.log`.
 * `stderr`: sends messages to `/var/vcap/sys/log/fim/fim.stderr.log`.
 * `syslog`: sends messages to `/var/log/messages`.
- 
+
 The output is configured using the `fim.outputs` property.
 
 <p class="note"><strong>Note</strong>: Currently, FIM only supports selecting one output at a time.</p>
@@ -94,7 +94,8 @@ produces the following:
 
 ##<a id="digests"></a>Calculate File Hashes
 
-The FIM Add-on supports hashing monitored files on WRITE or CREATE events. The FIM Add-on supports the following hashing algorithms: `md5`, `sha1`, `sha256`. Hashing can be configured using the `fim.digests` property. The default value is:
+The FIM Add-on supports hashing monitored files on WRITE or CREATE events using the following hash algorithms: `md5`, `sha1`, `sha256`. Hashing is disabled by default and can be configured using the `fim.digests` property, as follows:
+
 
 ```
 fim:
