@@ -43,7 +43,7 @@ so that it does not include directories affected by deployments.
 You can do this either before you deploy BOSH (as a temporary measure) or as part of the normal FIM configuration.
 Consider your threat environment and risk tolerance and configure FIM add-on accordingly. 
 
-## <a id="fim-runtime-issues"></a>FileSnitch Runtime Issues
+## <a id="fim-runtime-issues"></a>FIM Add-on Runtime Issues
 
 ### Symptom
 
@@ -51,7 +51,7 @@ Filesystem events are not reported. The logs are empty.
 
 ### Explanation:
 
-Filesnitch might not be running or might be misconfigured.
+The FIM add-on might not be running or might be misconfigured.
 
 ### Solution
 
@@ -78,13 +78,13 @@ Refer to this [configuration section](/addon-fim/configuration.html#dirs) for in
 
 ### Symptom
 
-Filesystem events are noisy during a bosh deployment.
+Filesystem events are noisy during a BOSH deployment.
 
 ### Explanation:
 
-Filesnitch will report high volume of activity during deployments if there is a high amount of file creation or deletion.
+The FIM add-on reports a high volume of activity during deployments if there is a lot of file creation or deletion.
 
 ### Solution
 
-As a workaround, you might consider suppressing FIM-based alarms at deployment times.
+As a workaround, consider suppressing FIM-based alarms at deployment times.
 <hr>
