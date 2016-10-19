@@ -5,7 +5,7 @@ owner: Security Engineering
 
 <strong><%= modified_date %></strong>
 
-This topic provides instructions to verify that the FIM add-on works with your Pivotal Cloud Foundry (PCF) 
+This topic provides instructions to verify that File Integrity Monitoring Add-on for PCF works with your Pivotal Cloud Foundry (PCF) 
 deployment and general recommendations for troubleshooting.
 
 
@@ -14,8 +14,36 @@ deployment and general recommendations for troubleshooting.
 This topic provides help for troubleshooting the runtime behavior, to ensure that the deployment is being protected in the way
 you expect.
 
+## <a id="bosh-deploy-issues"></a>BOSH Deploy Issues
 
-## <a id="clamav-runtime-issues"></a>Filesnitch Runtime Issues
+### Symptom
+
+The FIM add-on generates too much syslog activity during BOSH deploys.
+
+### Explanation
+
+The FIM add-on monitors and reports file changes. BOSH deployments often make changes to the monitored directories and files, 
+which generates corresponding FIM syslog activity during the deployment.
+
+The FIM add-on watches for unexpected file changes in all the directories that you configure it to monitor. 
+The default manifest configuration monitors files in many critical directories including `/var/vcap/data/jobs`
+ and `/var/vcap/data/packages`. 
+These directories are critical to the normal operation of PCF and are monitored because they are not expected to change during operation of the platform (between BOSH deploys).
+
+Syslog messages generated during a BOSH deploy report file changes in the `jobs` and `packages` folders in `/var/vcap/...`.  BOSH 
+deploys update the files in these folders. Thus, the FIM add-on reports filesystem events that are expected. 
+You can consider these syslog messages either as confirmation of a succeeding BOSH deployment or as false positive events.
+
+### Solution
+
+Events occurring during a planned BOSH deployments are normal and may be safely ignored.
+
+To avoid the additional syslog traffic during a BOSH deploy, customize the FIM release deployment manifest to narrow the scope of FIM 
+so that it does not include directories affected by deployments. 
+You can do this either before you deploy BOSH (as a temporary measure) or as part of the normal FIM configuration.
+Consider your threat environment and risk tolerance and configure FIM add-on accordingly. 
+
+## <a id="fim-runtime-issues"></a>FileSnitch Runtime Issues
 
 ### Symptom
 
@@ -29,12 +57,9 @@ Filesnitch might not be running or might be misconfigured.
 
 * Check whether `fim` is running. `monit summary` should return the following output on success.
 
-```
-The Monit daemon 5.2.5 uptime: 1d 20h 11m
+    <pre class='terminal'>The Monit daemon 5.2.5 uptime: 1d 20h 11m<br> 
+    Process 'fim'                       running</pre>
 
-Process 'fim'                       running
-
-```
 * If the process isn't running, inspect the contents of `/var/vcap/sys/log/fim/fim.std*.log` files for clues.
 
 <hr>
@@ -45,7 +70,7 @@ Filesystem events are not reported from a portion of the filesystem.
 
 ### Explanation:
 
-FIM is configured to monitor a set of critical directories in the system. It is not configured to monitor the entire filesystem by default.
+The FIM add-on is configured to monitor a set of critical directories in the system. It is not configured to monitor the entire filesystem by default.
 
 ### Solution
 
