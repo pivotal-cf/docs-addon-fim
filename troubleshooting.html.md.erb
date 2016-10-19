@@ -51,3 +51,15 @@ FIM is configured to monitor a set of critical directories in the system. It is 
 
 Refer to this [configuration section](/addon-fim/configuration.html#dirs) for inspecting defaults and instructions on adjusting the list in the runtime manifest.
 
+### Symptom
+
+Filesystem events are noisy during a bosh deployment.
+
+### Explanation:
+
+Filesnitch will report high volume of activity during deployments if there is a high amount of file creation or deletion.
+
+### Solution
+
+As a workaround, you might consider suppressing FIM-based alarms at deployment times.
+<hr>
