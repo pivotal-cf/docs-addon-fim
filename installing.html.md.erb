@@ -9,7 +9,7 @@ This topic describes how to install File Integrity Monitoring (FIM) Add-on for P
 
 ##<a id="prereqs"></a>Prerequisites
 
-<p class="note"><strong>Note: </strong>PCF FIM release is not supported on Windows</p>
+<p class="note"><strong>Note</strong>: FIM Add-on for PCF does not work on Windows.</p>
 
 To complete the FIM installation:
 
@@ -119,15 +119,8 @@ See the [syslog-release](https://github.com/cloudfoundry/syslog-release) for ins
   1. Run `monit summary` again. If you do not see the processes mentioned above, check `/var/vcap/sys/log/fim` logs for errors.
 
   1. If `monit summary` does list `fim`, do the following:
-
-  ```
-  touch /bin/hackertool
-  grep hackertool /var/vcap/syslog
-  ```
-
-Look for a message that a new file has been created:
-
-```
-Sep 22 23:57:07 qvsfgv0qnrk filesnitch[3040]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/bin/hackertool" hostname="f98968fe-501a-470b-819a-c4a2a7ac45c8" md5="d41d8cd98f00b204e9800998ecf8427e" opname="CREATE" optype=1 sha1="da39a3ee5e6b4b0d3255bfef95601890afd80709" ts=1474588627
-```
+    <pre class="terminal">$ touch /bin/hackertool
+    $ grep hackertool /var/vcap/syslog</pre>
+  1. Look for a message that a new file has been created:
+    <pre class="terminal">Sep 22 23:57:07 qvsfgv0qnrk filesnitch[3040]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/bin/hackertool" hostname="f98968fe-501a-470b-819a-c4a2a7ac45c8" md5="d41d8cd98f00b204e9800998ecf8427e" opname="CREATE" optype=1 sha1="da39a3ee5e6b4b0d3255bfef95601890afd80709" ts=1474588627</pre>
 
