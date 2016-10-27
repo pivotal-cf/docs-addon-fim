@@ -94,7 +94,7 @@ produces the following:
 
 ##<a id="digests"></a>Calculate File Hashes
 
-The FIM Add-on supports hashing monitored files on WRITE or CREATE events using the following hash algorithms: `md5`, `sha1`, `sha256`. Hashing is disabled by default and can be configured using the `fim.digests` property, as follows:
+The FIM Add-on supports hashing monitored files on WRITE or CREATE events using the following hash algorithms: `md5`, `sha1`, `sha256`. Hashing is disabled by default, and can be configured using the `fim.digests` property, as follows:
 
 
 ```
@@ -105,7 +105,7 @@ fim:
 
 ###<a id="digest_threshold"></a>File Size Threshold
 
-The FIM Add-on puts a threshold on the size of files to be hashed. This threshold can be adjusted via the `fim.digest_threshold` property. The property takes a value in bytes. The default value is:
+The FIM Add-on sets a threshold on the size of files to be hashed. Use the `fim.digest_threshold` property to adjust this threshold. The property takes a value in bytes. The default value is `10000000`.
 
 ```
 fim:

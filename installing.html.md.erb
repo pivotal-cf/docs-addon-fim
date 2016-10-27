@@ -5,7 +5,7 @@ owner: Security Engineering
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to install File Integrity Monitoring (FIM) Add-on for PCF on your Pivotal Cloud Foundry (PCF) deployment.
+This topic describes how to install File Integrity Monitoring Add-on for PCF (FIM Add-on) on your Pivotal Cloud Foundry (PCF) deployment.
 
 ##<a id="prereqs"></a>Prerequisites
 
@@ -20,7 +20,7 @@ See the [Understanding Pivotal Cloud Foundry User Types](https://docs.pivotal.io
 
 ##<a id="create-mfest"></a>Create the FIM Manifest
 
-The FIM manifest is a YML file that contains runtime configuration information for the FIM add-on.
+The FIM manifest is a YML file that contains runtime configuration information for the FIM Add-on.
 Follow the steps below to create the FIM manifest for your deployment:
 
 1. Create a file named `fim.yml`, using the following code as a template.
@@ -36,7 +36,7 @@ Follow the steps below to create the FIM manifest for your deployment:
 
 ##<a id="download-deploy"></a>Download and Deploy the FIM Add-on  
 
-1. Download the FIM add-on software binary from the [Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
+1. Download the FIM Add-on software binary from the [Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
 
 2. Copy the software binary to your Ops Manager VM.
   <pre class="terminal">$ scp -i PATH/TO/PRIVATE/KEY fim-release.tar.gz ubuntu@YOUR-OPS-MANAGER-VM-IP:</pre>
@@ -66,7 +66,7 @@ Follow the steps below to create the FIM manifest for your deployment:
 software binary completed. You should see the FIM release.
   <pre class="terminal">$ bosh releases</pre>
 
-9. <a name="update"></a>Update your runtime configuration to include the FIM add-on.
+9. <a name="update"></a>Update your runtime configuration to include the FIM Add-on.
   <p class="note"><strong>Note</strong>: If you installed other BOSH add-ons, you must merge the FIM manifest into your existing add-on manifest. 
 Append the contents of `fim.yml` to your existing add-on YML file.</p>
 
