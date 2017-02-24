@@ -65,7 +65,7 @@ The `{{.Json}}` string serializes an event into a standard JSON dictionary.
 Example:
 
 ```json
-{"fname":"/bin/binary","hostname":"plymouth","opname":"CREATE","optype":1,"sha1":"da39a3ee5e6b4b0d3255bfef95601890afd80709","ts":1475195084}
+{"fname":"/bin/binary","hostname":"plymouth","opname":"CREATE","optype":1,"ts":1475195084}
 ```
 
 ###<a id="keyvalues"></a>Key-Values
@@ -73,7 +73,7 @@ The `{{.KeyValues}}` string serializes an event into a series of `key=value` fie
 Example:
 
 ```
-fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 sha1="da39a3ee5e6b4b0d3255bfef95601890afd80709" ts=1475195258
+fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 ts=1475195258
 ```
 
 ###<a id="Map"></a>Map
@@ -83,7 +83,7 @@ For example, the following variable definition:
 
 ```
 fim:
-  format: "{{.Map.fname}} {{.Map.hostname}} {{.Map.opname}} {{.Map.optype}} {{.Map.sha1}} {{.Map.ts}}"
+  format: "{{.Map.fname}} {{.Map.hostname}} {{.Map.opname}} {{.Map.optype}} {{.Map.ts}}"
 ```
 
 produces the following:
@@ -94,13 +94,13 @@ produces the following:
 
 ##<a id="digests"></a>Calculate File Hashes
 
-The FIM Add-on supports hashing monitored files on WRITE or CREATE events using the following hash algorithms: `md5`, `sha1`, `sha256`. Hashing is disabled by default, and can be configured using the `fim.digests` property, as follows:
+The FIM Add-on supports hashing monitored files on WRITE or CREATE events using the `sha256` algorithm. Hashing is disabled by default, and can be configured using the `fim.digests` property, as follows:
 
 
 ```
 fim:
   digests:
-    - sha1
+    - sha256
 ```
 
 ###<a id="digest_threshold"></a>File Size Threshold
