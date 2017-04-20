@@ -58,6 +58,19 @@ fim:
   format: "CEF:0|cloud_foundry|fim|1.0.0|{{.Map.optype}}|file integrity monitoring event|5| {{.KeyValues}}"
 ```
 
+The resulting log lines will look as follows:
+
+```
+Apr 20 19:12:37 localhost filesnitch[819]: FILESNITCH CHECKIN {}
+Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/passwd.lock" hostname="8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
+Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/passwd.17721" hostname="8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822
+Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/group.lock" hostname="8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
+Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/group.17721" hostname="8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822
+Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/gshadow.lock" hostname="8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
+```
+
+Please note the `FILESNITCH CHECKIN` message. This logging marker ensures that `filesnitch` is operational in absence of any filesystem events.
+
 The FIM Add-on also supports the following variables:
 
 ###<a id="json"></a>JSON
