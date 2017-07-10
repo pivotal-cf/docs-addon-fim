@@ -71,8 +71,28 @@ Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file 
 
 <p class="note"><strong>Note</strong>: The <code>FILESNITCH CHECKIN</code> message is a logging marker that ensures <code>filesnitch</code> is operational in the absence of any filesystem events.</p>
 
-The FIM Add-on also supports the following variables:
+The key-values pairs in the final field of a CEF file log carry the following meaning:
 
+* `fname` is the name of the affected file
+* `hostname` refers to the hostname of the VM on which the file event originated
+* `ts` signifies the point in time at which FIM received the file event.
+* `optype` and `opname` describe the type of file operation in the numeric and textual format, respectively. The possible values of the two fields are described by the table below.
+
+
+| opname |      optype |  Example Trigger |
+|----------|:-------------:|------|
+| CREATE | 1 | <code>touch newfile.txt</code>, <code>echo 'content' > newfile2.txt</code>
+| WRITE | 2 |  <code>echo 'hello world' >> file.txt</code>
+| REMOVE | 4 | <code>rm file.txt</code>
+| RENAME | 8 | <code>mv file.txt file.txt.orig</code>
+| CHMOD | 16 | <code>chmod 0400 file.txt</code>, <code>touch existingfile.txt</code>
+
+
+```
+```
+
+
+Other possible template values are listed below.
 ###<a id="json"></a>JSON
 The `{{.Json}}` string serializes an event into a standard JSON dictionary.
 Example:
