@@ -7,9 +7,11 @@ owner: Security Engineering
 
 This topic describes how to configure and use the File Integrity Monitoring Add-on for PCF (FIM Add-on).
 
-##<a id="dirs"></a>Listing directories to be monitored
+##<a id="dirs"></a>Listing Directories to be Monitored
 
-The FIM Add-on monitors a set of critical system directories. The list of directories to be monitored by the FIM Add-on can be configured using the `fim.dirs` property. The default value of `fim.dirs` is:
+The FIM Add-on monitors a set of critical system directories.
+The list of directories to be monitored by the FIM Add-on can be configured using the `fim.dirs` property.
+The default value of `fim.dirs` is:
 
 ```
 fim:
@@ -51,7 +53,9 @@ fim:
 
 ##<a id="format"></a>Configure the Output Format
 
-By default, the the FIM Add-on generates messages in the Common Event Format. Output format can be configured as a Golang text template using the `fim.format` property. The default value of `fim.format` is:
+By default, the FIM Add-on generates messages in the Common Event Format.
+Output format can be configured as a Golang text template using the `fim.format` property.
+The default value of `fim.format` is:
 
 ```
 fim:
@@ -69,30 +73,25 @@ Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|4|file 
 Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/gshadow.lock" hostname="8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
 ```
 
-<p class="note"><strong>Note</strong>: The <code>FILESNITCH CHECKIN</code> message is a logging marker that ensures <code>filesnitch</code> is operational in the absence of any filesystem events.</p>
+<p class="note"><strong>Note</strong>: The <code>FILESNITCH CHECKIN</code> message is a logging marker that indicates <code>filesnitch</code> is operational in the absence of any filesystem events.</p>
 
 The key-values pairs in the final field of a CEF file log carry the following meaning:
 
-* `fname` is the name of the affected file
-* `hostname` refers to the hostname of the VM on which the file event originated
-* `ts` signifies the point in time at which FIM received the file event.
-* `optype` and `opname` describe the type of file operation in the numeric and textual format, respectively. The possible values of the two fields are described by the table below.
+* `fname` is the name of the affected file.
+* `hostname` is the hostname of the VM on which the file event originated.
+* `ts` is the point in time at which FIM received the file event.
+* `optype` and `opname` are the type of file operation in the numeric and textual format, respectively.
+   The possible values of the two fields are described by the table below.
 
+    | opname |      optype |  Example Trigger |
+    |----------|:-------------:|------|
+    | CREATE | 1 | <code>touch newfile.txt</code>, <code>echo 'content' > newfile2.txt</code>
+    | WRITE | 2 |  <code>echo 'hello world' >> file.txt</code>
+    | REMOVE | 4 | <code>rm file.txt</code>
+    | RENAME | 8 | <code>mv file.txt file.txt.orig</code>
+    | CHMOD | 16 | <code>chmod 0400 file.txt</code>, <code>touch existingfile.txt</code>
 
-| opname |      optype |  Example Trigger |
-|----------|:-------------:|------|
-| CREATE | 1 | <code>touch newfile.txt</code>, <code>echo 'content' > newfile2.txt</code>
-| WRITE | 2 |  <code>echo 'hello world' >> file.txt</code>
-| REMOVE | 4 | <code>rm file.txt</code>
-| RENAME | 8 | <code>mv file.txt file.txt.orig</code>
-| CHMOD | 16 | <code>chmod 0400 file.txt</code>, <code>touch existingfile.txt</code>
-
-
-```
-```
-
-
-Other possible template values are listed below.
+Other template values are listed below.
 ###<a id="json"></a>JSON
 The `{{.Json}}` string serializes an event into a standard JSON dictionary.
 Example:
