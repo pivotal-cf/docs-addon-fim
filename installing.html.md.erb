@@ -59,7 +59,6 @@ If you are using PCF v1.10, follow the [BOSH CLI v1](#bosh-cli-v1) procedures to
 Perform the following steps to deploy the FIM Add-on:
 
 1. On the Ops Manager VM, create an alias in the BOSH CLI for your Ops Manager Director IP address. For example:
-
   <pre class="terminal">$ bosh2 alias-env my-env -e 10.0.0.3</pre>
 
 1. Log in to the BOSH Director, specifying the newly created alias. For example:
@@ -71,13 +70,13 @@ Perform the following steps to deploy the FIM Add-on:
 8. List the releases and confirm that FIM appears. For example:
   <pre class="terminal">$ bosh2 -e my-env releases</pre>
 
-9. <a name="update"></a>Update your runtime configuration to include the FIM Add-on, specifying the path to the runtime configuration file. For example:
+9. <a name="update"></a>Update your runtime configuration to include the FIM Add-on, specifying the path to the `fim.yml` file you created above. For example:
   <p class="note"><strong>Note</strong>: If you installed other BOSH add-ons, you must merge the FIM manifest into your existing add-on manifest. 
 Append the contents of `fim.yml` to your existing add-on YML file.</p>
 
-    <pre class="terminal">$ bosh2 -e my-env update-runtime-config config.yml</pre>
+    <pre class="terminal">$ bosh2 -e my-env update-runtime-config fim.yml</pre>
 
-10. Verify your runtime configuration changes match what you specified in the FIM manifest. For example:
+10. Verify that your runtime configuration changes match what you specified in the FIM manifest. For example:
   <pre class="terminal">
   $ bosh2 -e my-env runtime-config
   Acting as user 'admin' on 'micro'
@@ -123,7 +122,7 @@ Append the contents of `fim.yml` to your existing add-on YML file.</p>
 
     <pre class="terminal">$ bosh update runtime-config PATH/YOUR-ADD-ON-YML.yml</pre>
 
-10. Verify your runtime configuration changes match what you specified in the FIM manifest.
+10. Verify that your runtime configuration changes match what you specified in the FIM manifest.
   <pre class="terminal">
   $ bosh runtime-config
   Acting as user 'admin' on 'micro'
