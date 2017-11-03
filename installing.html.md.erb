@@ -50,7 +50,58 @@ Follow the steps below to create the FIM manifest for your deployment:
 5. On the Ops Manager VM, navigate to the software binary location.
   <pre class="terminal">$ cd PATH-TO-BINARY</pre>
 
-6. On the Ops Manager VM, target your BOSH director instance.
+If you are using PCF v1.11 or later, follow the [BOSH CLI v2](#bosh-cli-v2) procedures to deploy the FIM Add-on. 
+
+If you are using PCF v1.10, follow the [BOSH CLI v1](#bosh-cli-v1) procedures to deploy the FIM Add-on. 
+
+###<a id='bosh-cli-v2'></a> Deploy the FIM Add-on with the BOSH CLI v2
+
+Perform the following steps to deploy the FIM Add-on:
+
+1. On the Ops Manager VM, create an alias in the BOSH CLI for your Ops Manager Director IP address. For example:
+
+  <pre class="terminal">$ bosh2 alias-env my-env -e 10.0.0.3</pre>
+
+1. Log in to the BOSH Director, specifying the newly created alias. For example:
+  <pre class="terminal">$ bosh2 -e my-env log-in</pre>
+
+1. Upload your release, specifying the path to the tarballed FIM binary. For example:
+  <pre class="terminal">$ bosh2 -e my-env upload-release fim.tar</pre>
+
+8. List the releases and confirm that FIM appears. For example:
+  <pre class="terminal">$ bosh2 -e my-env releases</pre>
+
+9. <a name="update"></a>Update your runtime configuration to include the FIM Add-on, specifying the path to the runtime configuration file. For example:
+  <p class="note"><strong>Note</strong>: If you installed other BOSH add-ons, you must merge the FIM manifest into your existing add-on manifest. 
+Append the contents of `fim.yml` to your existing add-on YML file.</p>
+
+    <pre class="terminal">$ bosh2 -e my-env update-runtime-config config.yml</pre>
+
+10. Verify your runtime configuration changes match what you specified in the FIM manifest. For example:
+  <pre class="terminal">
+  $ bosh2 -e my-env runtime-config
+  Acting as user 'admin' on 'micro'
+  releases:
+  <span>-</span> name: fim
+      version: 1.0.0
+  <br>
+  addons:
+    name: fim
+      jobs:
+        <span>-</span> name: fim
+          release: fim
+  ...
+  </pre>
+
+11. Navigate to your Installation Dashboard in Ops Manager.
+
+12. Click **Apply Changes**.
+
+###<a id='bosh-cli-v2'></a> Deploy the FIM Add-on with the BOSH CLI v2
+
+Perform the following steps to deploy the FIM Add-on:
+
+1. On the Ops Manager VM, target your BOSH Director instance.
   <pre class="terminal">
   $ bosh target YOUR-OPS-MANAGER-DIRECTOR-IP
   Target set to 'Ops Manager'
