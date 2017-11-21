@@ -2,6 +2,8 @@
 
 This repo contains documentation for the File Integrity Monitoring Add-on for PCF.
 
+This repo is published as part of the pcfservices book. 
+
 # Style Guide
 
 Full name of the add-on for first use on the page: File Integrity Monitoring Add-on for PCF (FIM Add-on)
