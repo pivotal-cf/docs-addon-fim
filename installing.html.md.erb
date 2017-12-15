@@ -135,9 +135,9 @@ Perform the following steps to deploy the FIM Add-on:
 The FIM BOSH release writes all alerts to the syslogs of the VMs in your deployment.
 You can use syslog forwarding to forward the alerts to a syslog aggregator.
 
-* **Using the Pivotal Application Service (PAS) or Elastic Runtime (ERT) tile**: Follow the steps to [Configure System Logging](http://docs.pivotal.io/pivotalcf/customizing/cloudform-er-config.html#sys-logging) 
-in the PAS or ERT tile. 
-The syslog aggregator that you specify receives all alerts generated on PAS or ERT VMs, including the FIM alerts.
+* **Using the Pivotal Application Service (PAS) or Elastic Runtime tile**: Follow the steps to [Configure System Logging](http://docs.pivotal.io/pivotalcf/customizing/cloudform-er-config.html#sys-logging) 
+in the PAS or Elastic Runtime tile. 
+The syslog aggregator that you specify receives all alerts generated on PAS or Elastic Runtime VMs, including the FIM alerts.
 * **Using the BOSH syslog release**: You can use the syslog BOSH release to forward system logs. 
 See the [syslog-release](https://github.com/cloudfoundry/syslog-release) for instructions.
 
