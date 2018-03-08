@@ -69,8 +69,10 @@ software binary completed. You should see the FIM release.
 9. <a name="update"></a>Update your runtime configuration to include the FIM Add-on.
   <p class="note"><strong>Note</strong>: If you installed other BOSH add-ons, you must merge the FIM manifest into your existing add-on manifest. 
 Append the contents of `fim.yml` to your existing add-on YML file.</p>
-
+  * **For Ops Manager 1.10 or earlier:**
     <pre class="terminal">$ bosh update runtime-config PATH/YOUR-ADD-ON-YML.yml</pre>
+  * **For Ops Manager 1.11 or later:**
+    <pre class="terminal">$ bosh2 -e my-env update-runtime-config --name=fim PATH/YOUR-ADD-ON-YML.yml</pre>
 
 10. Verify your runtime configuration changes match what you specified in the FIM manifest.
   <pre class="terminal">
