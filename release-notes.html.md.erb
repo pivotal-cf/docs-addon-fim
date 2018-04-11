@@ -7,6 +7,13 @@ owner: Security Engineering
 
 This topic contains release notes for File Integrity Monitoring (FIM) Add-on for Pivotal Cloud Foundry (PCF).
 
+##v1.2.11
+
+**Release Date**: April 10, 2018
+
+* Includes improved reliability of smoke tests. Previously, in some environments, smoke tests might see an intermittent failure due to resource contention.  This release adds retry logic to the smoke tests, to ensure that any temporary resource contention does not result in a false positive smoke test failure.  
+* Updated golang dependency to version 1.10.1
+
 ##v1.2.3
 
 **Release Date**: November 21, 2017
