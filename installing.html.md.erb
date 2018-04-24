@@ -13,6 +13,13 @@ This topic describes how to install File Integrity Monitoring Add-on for PCF (FI
 
 To complete the FIM installation:
 
+* You must use named runtime configs (for PCF v1.11 or later).
+
+    If you have not already split your runtime config into multiple named files,
+    do so before installing or upgrading the FIM Add-on for PCF.
+    For general information about named runtime config files,
+    see <a href="https://bosh.io/docs/configs.html">Configs</a>.
+
 * You must be a PCF operator with admin rights. 
 See the [Understanding Pivotal Cloud Foundry User Types](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator) topic for more information.
 
@@ -35,6 +42,10 @@ Follow the steps below to create the FIM runtime config for your deployment:
       properties: {}
 
 ##<a id="download"></a>Download the FIM Add-on  
+
+<p class="note warning"><strong>WARNING! </strong> If you are using PCF v1.11 or later,
+   ensure that you are using named runtime configs.
+   For more information, see <a href="#prereqs">Prerequisites</a>.</p>
 
 1. Download the FIM Add-on software binary from the [Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
 
