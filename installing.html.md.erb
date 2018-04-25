@@ -65,27 +65,32 @@ Follow the steps below to create the FIM runtime config for your deployment:
 
 Perform the following steps to deploy the FIM Add-on:
 
-
 1. Upload your release, specifying the path to the tarballed FIM binary, by running one of the following commands:
-  * **For Ops Manager 1.10 or earlier:**
+    <br><br>
+    **For Ops Manager 1.10 or earlier:**
     <pre class="terminal">$ bosh upload release PATH-TO-BINARY/BINARY-NAME.tgz</pre>
-  * **For Ops Manager 1.11 or later:**
+    <br>
+    **For Ops Manager 1.11 or later:**
     <pre class="terminal">$ bosh2 -e my-env upload-release fim.tgz</pre>
-
+    <br>
 1. <a name="update"></a>Update your runtime config to include the FIM Add-on, specifying the path to the `fim.yml` file you created above, by running one of the following commands:
-  * **For Ops Manager 1.10 or earlier:**
-  <p class="note"><strong>Note</strong>: If you installed other BOSH add-ons,
+   <br><br>
+    **For Ops Manager 1.10 or earlier:**
+    
+    <pre class="terminal">$ bosh update runtime-config PATH/YOUR-ADD-ON-YML.yml</pre>
+    <br>
+    **For Ops Manager 1.11 or later:**
+    <pre class="terminal">$ bosh2 -e my-env update-runtime-config --name=fim fim.yml</pre>
+    <p class="note"><strong>Note</strong>: If you installed other BOSH add-ons,
     you must merge the FIM runtime config into your existing add-on runtime config. 
     Append the contents of `fim.yml` to your existing add-on YML file.</p>
-    <pre class="terminal">$ bosh update runtime-config PATH/YOUR-ADD-ON-YML.yml</pre>
-  * **For Ops Manager 1.11 or later:**
-    <pre class="terminal">$ bosh2 -e my-env update-runtime-config --name=fim fim.yml</pre>
-  THIS IS WHERE THE BREAKING CHANGE WARNING NEEDS TO GO. 
-
+    <br>
 1. Verify that your runtime config changes match what you specified in the FIM runtime config by running one of the following commands:
-  * **For Ops Manager 1.10 or earlier:**
+    <br><br>
+    **For Ops Manager 1.10 or earlier:**
     <pre class="terminal">$ bosh runtime-config</pre>
-  * **For Ops Manager 1.11 or later:**
+    <br>
+    **For Ops Manager 1.11 or later:**
     <pre class="terminal">$ bosh2 -e my-env runtime-config --name=fim</pre>
 
     For Example:
@@ -103,7 +108,7 @@ Perform the following steps to deploy the FIM Add-on:
             release: fim
     ...
     </pre>
-
+<br>
 1. Navigate to your Installation Dashboard in Ops Manager.
 
 1. Click **Apply Changes**.
