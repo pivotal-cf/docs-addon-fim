@@ -13,6 +13,13 @@ This topic describes how to install File Integrity Monitoring Add-on for PCF (FI
 
 To complete the FIM installation:
 
+* You must use named runtime configs (for PCF v1.11 or later).
+
+    If you have not already split your runtime config into multiple named files,
+    do so before installing or upgrading the FIM Add-on for PCF.
+    For general information about named runtime config files,
+    see <a href="https://bosh.io/docs/configs.html">Configs</a>.
+
 * You must be a PCF operator with admin rights. 
 See the [Understanding Pivotal Cloud Foundry User Types](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator) topic for more information.
 
@@ -20,13 +27,13 @@ See the [Understanding Pivotal Cloud Foundry User Types](https://docs.pivotal.io
 
 ##<a id="create-mfest"></a>Create the FIM Manifest
 
-The FIM manifest is a YML file that contains runtime configuration information for the FIM Add-on.
-Follow the steps below to create the FIM manifest for your deployment:
+The FIM runtime config is a YML file that contains runtime configuration information for the FIM Add-on.
+Follow the steps below to create the FIM runtime config for your deployment:
 
 1. Create a file named `fim.yml`, using the following code as a template.
   <pre>releases:
   \- name: fim
-      version: 1.0.0
+      version: 1.2.11
   addons:
   \- name: fim
       jobs:
@@ -36,85 +43,89 @@ Follow the steps below to create the FIM manifest for your deployment:
 
 ##<a id="download"></a>Download the FIM Add-on  
 
-1. Download the FIM Add-on software binary from the [Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
+To download the Fim Add-on software binary and move it to the Ops Manager VM, 
+do the following: 
 
-2. Copy the software binary to your Ops Manager VM.
-  <pre class="terminal">$ scp -i PATH/TO/PRIVATE/KEY fim-release.tar.gz ubuntu@YOUR-OPS-MANAGER-VM-IP:</pre>
+<p class="note warning"><strong>WARNING! </strong> If you are using PCF v1.11 or later,
+   ensure that you are using named runtime configs.
+   For more information, see <a href="#prereqs">Prerequisites</a>.</p>
 
-3. Copy the FIM manifest, `fim.yml` file, to your Ops Manager instance.
-  <pre class="terminal">$ scp -i PATH/TO/PRIVATE/KEY fim.yml ubuntu@YOUR-OPS-MANAGER-VM-IP:</pre>
+1. Download the FIM Add-on software binary from the 
+[Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
 
-4. SSH into Ops Manager.
-  <pre class="terminal">$ ssh -i PATH-TO-PRIVATE-KEY ubuntu@YOUR-OPS-MANAGER-VM-IP</pre>
+2. To copy the binary to your Ops Manager VM, run the following command:
 
-5. On the Ops Manager VM, navigate to the software binary location.
-  <pre class="terminal">$ cd PATH-TO-BINARY</pre>
+    ```
+    scp -i PATH-TO-PRIVATE-KEY fim-release.tgz ubuntu@YOUR-OPS-MANAGER-VM-IP:
+    ```
+    For example: 
+
+    <pre class="terminal">$ scp -i ~/.ssh/my-key.pem fim-1.2.11.tar.gz ubuntu@192.168.0.2:</pre> 
+
+3. To copy the FIM runtime config, `fim.yml` file, to your Ops Manager instance, run the following command:
+ 
+    ```
+    scp -i PATH-TO-PRIVATE-KEY fim.yml ubuntu@YOUR-OPS-MANAGER-VM-IP:
+    ```
+    
+    For example:
+
+    <pre class="terminal">$ scp -i ~/.ssh/my-key.pem fim.yml ubuntu@192.168.0.2:</pre>
+
+4. SSH into the Ops Manager VM.
+   For how to do this, see [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
+
+5. To navigate to the location of the binary on the Ops Manager VM, run the following command:
+ 
+    ```
+    cd PATH-TO-BINARY
+    ```
+
+    For example: 
+
+    <pre class="terminal">$ cd ~</pre>
 
 ##<a id="deploy"></a> Deploy the FIM Add-on
 
 Perform the following steps to deploy the FIM Add-on:
 
-1. Log in to the BOSH Director.
-  * **For Ops Manager 1.10 or earlier:**
-  <ol  type="i">
-    <li>
-      On the Ops Manager VM, target your BOSH Director instance. For example:
-      <pre class="terminal">
-      $ bosh target YOUR-OPS-MANAGER-DIRECTOR-IP
-      Target set to 'Ops Manager'
-      Your username: director
-      Enter password: ******************
-      Logged in as 'director'
-      </pre>
-    </li>
-  </ol>
-  * **For Ops Manager 1.11 or later:**
-  <ol type="i">
-    <li>
-      On the Ops Manager VM, create an alias in the BOSH CLI for your BOSH Director IP address. For example:
-      <pre class="terminal">$ bosh2 alias-env my-env -e 10.0.0.3</pre>
-    </li>
-    <li>
-      Log in to the BOSH Director, specifying the newly created alias. 
-      For example:
-      <pre class="terminal">$ bosh2 -e my-env log-in</pre>
-    </li>
-  </ol>
-
 1. Upload your release, specifying the path to the tarballed FIM binary, by running one of the following commands:
-  * **For Ops Manager 1.10 or earlier:**
-    <pre class="terminal">$ bosh upload release PATH-TO-BINARY/BINARY-NAME.tar</pre>
-  * **For Ops Manager 1.11 or later:**
-    <pre class="terminal">$ bosh2 -e my-env upload-release fim.tar</pre>
-
-1. List the releases by running one of the following commands, and confirm that FIM appears:
-  * **For Ops Manager 1.10 or earlier:**
-    <pre class="terminal">$ bosh releases</pre>
-  * **For Ops Manager 1.11 or later:**
-    <pre class="terminal">$ bosh2 -e my-env releases</pre>
-
-1. <a name="update"></a>Update your runtime configuration to include the FIM Add-on, specifying the path to the `fim.yml` file you created above, by running one of the following commands:
-  <p class="note"><strong>Note</strong>: If you installed other BOSH add-ons,
-    you must merge the FIM manifest into your existing add-on manifest. 
-    Append the contents of `fim.yml` to your existing add-on YML file.</p>
-  * **For Ops Manager 1.10 or earlier:**
-    <pre class="terminal">$ bosh update runtime-config PATH/YOUR-ADD-ON-YML.yml</pre>
-  * **For Ops Manager 1.11 or later:**
+    <br><br>
+    **For Ops Manager v1.10 or earlier:**
+    <pre class="terminal">$ bosh upload release ~/fim-1.2.11.tar.gz</pre>
+    <br>
+    **For Ops Manager v1.11 or later:**
+    <pre class="terminal">$ bosh2 -e my-env upload-release fim-fim-1.2.11.tar.gz</pre>
+    <br>
+1. <a name="update"></a>Update your runtime config to include the FIM Add-on,
+   specifying the path to the `fim.yml` file you created above, by running one of the following commands:
+   <br><br>
+    **For Ops Manager v1.10 or earlier:**
+    
+    <pre class="terminal">$ bosh update runtime-config ~/fim.yml</pre>
+    <br>
+    **For Ops Manager v1.11 or later:**
     <pre class="terminal">$ bosh2 -e my-env update-runtime-config --name=fim fim.yml</pre>
+    
+    <p class="note"><strong>Note</strong>: If you installed other BOSH add-ons,
+    you must merge the FIM runtime config into your existing add-on runtime config. 
+    Append the contents of <code>fim.yml</code> to your existing add-on YML file.</p>
 
-1. Verify that your runtime configuration changes match what you specified in the FIM manifest by running one of the following commands:
-  * **For Ops Manager 1.10 or earlier:**
+1. Verify that your runtime config changes match what you specified in the FIM runtime config by running one of the following commands:
+    <br><br>
+    **For Ops Manager v1.10 or earlier:**
     <pre class="terminal">$ bosh runtime-config</pre>
-  * **For Ops Manager 1.11 or later:**
-    <pre class="terminal">$ bosh2 -e my-env runtime-config</pre>
+    <br>
+    **For Ops Manager v1.11 or later:**
+    <pre class="terminal">$ bosh2 -e my-env runtime-config --name=fim</pre>
 
-    For Example:
+    For example:
     <pre class="terminal">
-    $ bosh2 -e my-env runtime-config
+    $ bosh2 -e my-env runtime-config --name=fim
     Acting as user 'admin' on 'micro'
     releases:
     <span>-</span> name: fim
-       version: 1.0.0
+       version: 1.2.11
     <br>
     addons:
       name: fim
@@ -123,19 +134,21 @@ Perform the following steps to deploy the FIM Add-on:
             release: fim
     ...
     </pre>
-
+<br>
 1. Navigate to your Installation Dashboard in Ops Manager.
 
 1. Click **Apply Changes**.
 
 ##<a id="alerts"></a> Configure Forwarding for FIM Alerts
 
-<p class="note"><strong>Note:</strong> As of PCF v2.0, Elastic Runtime is renamed Pivotal Application Service (PAS). The following procedure uses both names.</p>
+<p class="note"><strong>Note:</strong> As of PCF v2.0, Elastic Runtime is renamed Pivotal Application Service (PAS).
+The following procedure uses both names.</p>
 
 The FIM BOSH release writes all alerts to the syslogs of the VMs in your deployment.
 You can use syslog forwarding to forward the alerts to a syslog aggregator.
 
-* **Using the Pivotal Application Service (PAS) or Elastic Runtime tile**: Follow the steps to [Configure System Logging](http://docs.pivotal.io/pivotalcf/customizing/cloudform-er-config.html#sys-logging) 
+* **Using the Pivotal Application Service (PAS) or Elastic Runtime tile**:
+Follow the steps to [Configure System Logging](http://docs.pivotal.io/pivotalcf/customizing/cloudform-er-config.html#sys-logging) 
 in the PAS or Elastic Runtime tile. 
 The syslog aggregator that you specify receives all alerts generated on PAS or Elastic Runtime VMs, including the FIM alerts.
 * **Using the BOSH syslog release**: You can use the syslog BOSH release to forward system logs. 
@@ -147,7 +160,7 @@ Pivotal recommends forwarding logs to a remote syslog aggregation system.</p>
 
 ## <a id="verify"></a>Verify the Installation
 
-1. [BOSH ssh](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-ssh) into one of the VMs in your deployment.
+1. [BOSH SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-ssh) into one of the VMs in your deployment.
 
 1. Run `monit summary`. Look for the following processes in the output:
 
