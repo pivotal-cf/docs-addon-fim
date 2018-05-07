@@ -39,7 +39,25 @@ Follow the steps below to create the FIM runtime config for your deployment:
       jobs:
       \- name: fim
         release: fim
-      properties: {}
+        properties: {}
+  </pre>
+
+2. Optional Properties
+  To use these properties, place under fim subsection of `fim.yml`
+  <pre>...
+  properties:
+    fim:
+      OPTIONAL\_PROPERTIES\_HERE
+  ...
+  </pre>
+  * <code><strong>cpu\_limit</strong></code>: <a name="cpu_limit"></a>
+          Limit FIM to a percentage of available CPU resources when other tasks are running. Usage may exceed the limit if there are enough idle CPU cycles available.
+          Set to a whole number < 100. E.g. set to 50 to limit FIM to 50% CPU usage when other tasks are running.
+          Default value is `10`.
+  * <code><strong>enforce\_cpu\_limit</strong></code>: <a name="enforce_cpu_limit"></a>
+          Set this value to `true` to always enforce an upper limit on CPU usage.
+          This property is `false` by default. While `false`, FIM will backoff to `cpu_limit` when other processes require CPU resources.
+          <p class="note warning"><strong>WARNING</strong>: If `enforce_cpu_limit` is set `true`, ensure `cpu_limit` is set high enough so FIM can execute normally. If the limit is too strict, FIM will fail to start.
 
 ##<a id="download"></a>Download the FIM Add-on  
 
