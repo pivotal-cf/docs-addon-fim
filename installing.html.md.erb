@@ -18,7 +18,7 @@ To complete the FIM installation:
     If you have not already split your runtime config into multiple named files,
     do so before installing or upgrading the FIM Add-on for PCF.
     For general information about named runtime config files,
-    see <a href="https://bosh.io/docs/configs.html">Configs</a>.
+    see <a href="https://bosh.io/docs/configs.html">Generic Configs</a>.
 
 * You must be a PCF operator with admin rights. 
 See the [Understanding Pivotal Cloud Foundry User Types](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator) topic for more information.
@@ -31,15 +31,53 @@ The FIM runtime config is a YML file that contains runtime configuration informa
 Follow the steps below to create the FIM runtime config for your deployment:
 
 1. Create a file named `fim.yml`, using the following code as a template.
-  <pre>releases:
-  \- name: fim
-      version: 1.2.11
-  addons:
-  \- name: fim
-      jobs:
-      \- name: fim
-        release: fim
-      properties: {}
+
+    ```
+    releases:
+    - name: fim
+        version: X.X.X
+    addons:
+    - name: fim
+        jobs:
+        - name: fim
+          release: fim
+          properties: {}
+    ```
+
+2. (Optional) Set the properties `cpu_limit` and `enforce_cpu_limit`.
+To use these properties, place the following text under the `fim` subsection of 
+`fim.yml`, as shown below:
+  
+    ```
+    ...
+    properties:
+      fim:
+        cpu_limit: VALUE-OF-CPU-LIMIT
+        enforce_cpu_limit: TRUE|FALSE
+    ...
+    ```
+  <code><strong>cpu\_limit</strong></code>: <a name="cpu_limit"></a>
+    <ul>
+      <li>Limits FIM to a percentage of available CPU resources when other processes are using CPU resources. 
+        Usage may exceed the limit if enough idle CPU cycles are available.</li>
+      <li>Set to a whole number less than 100. 
+        For example, set to <code>50</code> to limit FIM to 50% CPU usage when other 
+        tasks are running.</li>
+        <li>The default value is <code>10</code>.</li>
+    </ul>
+
+    <code><strong>enforce\_cpu\_limit</strong></code>: <a name="enforce_cpu_limit"></a>
+    <ul>
+      <li>When <code>true</code>, the limit set by <code>cpu\_limit</code> is always enforced.</li>
+      <li>When <code>false</code>, the limit set by <code>cpu\_limit</code> is 
+        only enforced when other processes are using CPU resources. 
+        Usage may exceed the limit if enough idle CPU cycles are available.</li>
+        <li>This property is <code>false</code> by default.</li>
+    </ul>
+    
+    <p class="note warning"><strong>WARNING</strong>: If `enforce_cpu_limit` is set `true`,
+    verify that `cpu_limit` is set high enough for FIM to execute normally. 
+    If the limit is too strict, FIM fails to start.
 
 ##<a id="download"></a>Download the FIM Add-on  
 
