@@ -35,13 +35,13 @@ Follow the steps below to create the FIM runtime config for your deployment:
     ```
     releases:
     - name: fim
-        version: X.X.X
+      version: X.X.X
     addons:
     - name: fim
-        jobs:
-        - name: fim
-          release: fim
-          properties: {}
+      jobs:
+      - name: fim
+        release: fim
+        properties: {}
     ```
 
 2. (Optional) Set the properties `cpu_limit` and `enforce_cpu_limit`.
@@ -163,13 +163,13 @@ Perform the following steps to deploy the FIM Add-on:
     Acting as user 'admin' on 'micro'
     releases:
     <span>-</span> name: fim
-       version: 1.2.11
+      version: 1.2.11
     <br>
     addons:
       name: fim
         jobs:
-         <span>-</span> name: fim
-            release: fim
+        <span>-</span> name: fim
+          release: fim
     ...
     </pre>
 <br>
