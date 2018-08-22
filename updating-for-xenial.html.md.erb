@@ -56,6 +56,11 @@ stemcell:
           </tr>
 </table>
 
+If you use FIM Add-on without adding the `ubuntu-xenial` property to the runtime config, 
+the VMs running on Xenial are not monitored for file integrity. 
+
+If you add the `ubuntu-xenial` property but do not upgrade the FIM Add-on to v1.2.22 or later,
+then the FIM processes use excessive CPU.
 
 ##<a id="add"></a> Add the Xenial Stemcell Property to the FIM Add-on
 
