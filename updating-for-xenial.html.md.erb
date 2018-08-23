@@ -6,16 +6,17 @@ owner: Security Engineering
 <strong><%= modified_date %></strong>
 
 This topic describes how to determine if your existing deployment of File
-Integrity Monitoring Add-on for PCF (FIM Add-on) can run on product tiles that
-require Xenial stemcells.
+Integrity Monitoring Add-on for PCF (FIM Add-on) can run on 
+Xenial stemcells.
 
-This topic also explains how to update your FIM Add-on if it does not support product tiles that need Xenial stemcells.
+This topic also explains how to update your FIM Add-on if it does not support Xenial stemcells.
 
-Follow the instructions on this page if you are running the FIM Add-on and product tiles that require the Xenial stemcell.
+Follow the instructions on this page if you are running the FIM Add-on and any Xenial stemcells deployment.
 
 ##<a id="background"></a> Background
 
-Pivotal Cloud Foundry (PCF) products and tiles that are released after July 2018 require Ubuntu Xenial stemcells instead of Ubuntu Trusty stemcells.
+Pivotal Cloud Foundry (PCF) products and tiles that are released after July 2018 require
+Ubuntu Xenial stemcells instead of Ubuntu Trusty stemcells.
 
 Only recent versions of the FIM Add-on and ClamAV Add-on for PCF run correctly on Xenial stemcell-based VMs. 
 
@@ -29,13 +30,13 @@ The following product tiles require the Xenial stemcell:
 
 ##<a id="who-me"></a<a id="who-me"></a> Do I Need to Modify the FIM Add-on? 
 
-Review the following table and make any required changes before you install or upgrade to a product tile that requires Xenial stemcells.
+Review the following table and make any required changes before you upgrade to Xenial stemcells.
 
 <table class="nice">
     <col width="25%">
     <col width="75%">
     <th>If you are using this version of the FIM Add-on…</td>
-    <th> and want to use a product tile that runs on Xenial stemcells, then you need to do the following…</td>
+    <th> and want to use Xenial stemcells, then you need to do the following…</td>
     <tr>
       <td>1.2.23</td>
       <td>Verify that your runtime config file, <code>fim.yml</code>, includes 
@@ -57,7 +58,7 @@ stemcell:
 </table>
 
 If you use FIM Add-on without adding the `ubuntu-xenial` property to the runtime config, 
-the VMs running on Xenial are not monitored for file integrity. 
+the VMs running on Xenial are not being monitored for file integrity. 
 
 If you add the `ubuntu-xenial` property but do not upgrade the FIM Add-on to v1.2.22 or later,
 then the FIM processes use excessive CPU.
