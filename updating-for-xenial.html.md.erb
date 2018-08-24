@@ -70,7 +70,7 @@ before you install the following product tiles:
 ##<a id="add"></a> Add the Xenial Stemcell Property to the FIM Add-on
 
 If you use FIM Add-on v1.2.22 or v1.2.23 without the stemcell
-property in the `fim.yml`, then add the stemcell properties to your
+property in the `fim.yml`, then you must add the stemcell properties to your
 existing `fim.yml` and redeploy.  Follow these steps:
 
 1. SSH in to the Ops Manager VM.
@@ -89,7 +89,7 @@ existing `fim.yml` and redeploy.  Follow these steps:
     <pre class="terminal">$ bosh2 -e my-env runtime-config –name fim > /tmp/fim.yml </pre> 
 
 
-3. Edit the `fim.yml` file adding or editing the lines from `include` to
+3. Edit the `fim.yml` file, add the lines from `include` to
    `- os: ubuntu-xenial` after `properties: {}` as shown below.
 
 
