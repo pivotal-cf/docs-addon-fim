@@ -5,30 +5,24 @@ owner: Security Engineering
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to determine if your existing deployment of File
-Integrity Monitoring Add-on for PCF (FIM Add-on) can run on 
-Xenial stemcells.
-
-This topic also explains how to update your FIM Add-on if it does not support Xenial stemcells.
-
-Follow the instructions on this page if you are running the FIM Add-on and any Xenial stemcells deployment.
-
-##<a id="background"></a> Background
-
 Pivotal Cloud Foundry (PCF) products and tiles that are released after July 2018 require
-Ubuntu Xenial stemcells instead of Ubuntu Trusty stemcells.
+Ubuntu Xenial stemcells instead of Ubuntu Trusty stemcells. 
+You might have to modify your Integrity Monitoring Add-on for PCF (FIM Add-on) deployment
+if you use PCF products running on Xenial.
 
-Only recent versions of the FIM Add-on and ClamAV Add-on for PCF run correctly on Xenial stemcell-based VMs. 
+This topic describes how to determine if your existing deployment of
+FIM Add-on can monitor VMs that run on Xenial.
 
-## <a id="which"></a> Product Tiles that Use Xenial Stemcells
+This topic also explains how to update your FIM Add-on if it does not support Xenial.
 
-The following product tiles require the Xenial stemcell:
-
-* PCF Event Alerts v1.2.2 and later
-
-* MySQL for PCF v2.4 and later
+Follow the instructions on this page if you use FIM Add-on with any PCF products or tiles 
+that use Xenial stemcells.
+See [Product Tiles that Use Xenial Stemcells](#which) below.
 
 ##<a id="who-me"></a<a id="who-me"></a> Do I Need to Modify the FIM Add-on? 
+
+FIM Add-on v1.2.22 and later can run correctly on Xenial-based VMs if the FIM runtime config
+includes the `ubuntu-xenial` property. 
 
 Review the following table and make any required changes before you upgrade to Xenial stemcells.
 
@@ -36,7 +30,7 @@ Review the following table and make any required changes before you upgrade to X
     <col width="25%">
     <col width="75%">
     <th>If you are using this version of the FIM Add-on…</td>
-    <th> and want to use Xenial stemcells, then you need to do the following…</td>
+    <th>do the following…</td>
     <tr>
       <td>1.2.23</td>
       <td>Verify that your runtime config file, <code>fim.yml</code>, includes 
@@ -63,11 +57,21 @@ the VMs running on Xenial are not being monitored for file integrity.
 If you add the `ubuntu-xenial` property but do not upgrade the FIM Add-on to v1.2.22 or later,
 then the FIM processes use excessive CPU.
 
+## <a id="which"></a> Product Tiles that Use Xenial Stemcells
+
+Ensure that you have added the `ubuntu-xenial` property to the FIM runtime config
+before you install the following product tiles:
+
+* PCF Event Alerts v1.2.2 and later
+
+* MySQL for PCF v2.4 and later
+
+
 ##<a id="add"></a> Add the Xenial Stemcell Property to the FIM Add-on
 
-If you are running the FIM Add-on v1.2.22 or v1.2.23 without the stemcell
-property in the `fim.yml`, then you need to add the stemcell properties to your
-existing `fim.yml` and redeploy.  Follow this steps:
+If you use FIM Add-on v1.2.22 or v1.2.23 without the stemcell
+property in the `fim.yml`, then add the stemcell properties to your
+existing `fim.yml` and redeploy.  Follow these steps:
 
 1. SSH in to the Ops Manager VM.
    For how to do this, see [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
