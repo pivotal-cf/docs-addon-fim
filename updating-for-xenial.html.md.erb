@@ -84,7 +84,7 @@ existing `fim.yml` and redeploy.  Follow these steps:
 
     For example:
 
-    <pre class="terminal">$ bosh2 -e my-env runtime-config –name fim > /tmp/fim.yml </pre> 
+    <pre class="terminal">$ bosh -e my-env runtime-config –name fim > /tmp/fim.yml </pre> 
 
 
 3. Edit the `fim.yml` file, add the lines from `include` to
@@ -107,14 +107,14 @@ existing `fim.yml` and redeploy.  Follow these steps:
 4. To update the runtime config, run the following command:
 
     ```
-    bosh2 -e BOSH-ENVIRONMENT update-runtime-config --name=fim /tmp/fim.yml
+    bosh -e BOSH-ENVIRONMENT update-runtime-config --name=fim /tmp/fim.yml
     ```
 
     For example:
 
-    <pre class="terminal">bosh2 -e my-env update-runtime-config --name=fim /tmp/fim.yml</pre> 
+    <pre class="terminal">bosh -e my-env update-runtime-config --name=fim /tmp/fim.yml</pre> 
 
-5. Navigate to the Installation Dashboard in Ops Manager.
+5. Navigate to the **Installation Dashboard** in Ops Manager.
 
 6. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
    For more information about this Ops Manager page, 

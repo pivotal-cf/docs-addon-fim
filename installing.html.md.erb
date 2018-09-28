@@ -13,7 +13,7 @@ This topic describes how to install File Integrity Monitoring Add-on for PCF (FI
 
 To complete the FIM installation:
 
-* You must use named runtime configs (for PCF v1.11 or later).
+* You must use named runtime configs.<br/><br/>
 
     If you have not already split your runtime config into multiple named files,
     do so before installing or upgrading the FIM Add-on.
@@ -23,7 +23,7 @@ To complete the FIM installation:
 * You must be a PCF operator with admin rights. 
 See the [Understanding Pivotal Cloud Foundry User Types](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator) topic for more information.
 
-* You must have Pivotal Operations Manager (Ops Manager) v1.7 or later.
+* You must have Pivotal Operations Manager (Ops Manager) v2.0 or later.
 
 ##<a id="create-mfest"></a>Create the FIM Manifest
 
@@ -90,8 +90,7 @@ virtual machine (VM), perform the steps below. If you intend to run the FIM
 Add-on on a PCF deployment that includes services or components that use Ubuntu
 Xenial stemcells, you should download FIM Add-on v1.2.22 or later.
 
-<p class="note warning"><strong>WARNING! </strong> If you are using PCF v1.11 or later,
-   ensure that you are using named runtime configs.
+<p class="note warning"><strong>WARNING! </strong> Ensure that you are using named runtime configs.
    For more information, see <a href="#prereqs">Prerequisites</a>.</p>
 
 1. Download the FIM Add-on software binary from the 
@@ -104,7 +103,7 @@ Xenial stemcells, you should download FIM Add-on v1.2.22 or later.
     ```
     For example: 
 
-    <pre class="terminal">$ scp -i ~/.ssh/my-key.pem fim-1.2.11.tar.gz ubuntu@192.168.0.2:</pre> 
+    <pre class="terminal">$ scp -i ~/.ssh/my-key.pem fim-1.2.23.tar.gz ubuntu@192.168.0.2:</pre> 
 
 3. To copy the FIM runtime config, `fim.yml` file, to your Ops Manager instance, run the following command:
  
@@ -133,44 +132,49 @@ Xenial stemcells, you should download FIM Add-on v1.2.22 or later.
 
 Perform the following steps to deploy the FIM Add-on:
 
-1. Upload your release, specifying the path to the tarballed FIM binary, by running one of the following commands:
-    <br><br>
-    **For Ops Manager v1.10 or earlier:**
-    <pre class="terminal">$ bosh upload release ~/fim-1.2.11.tar.gz</pre>
-    <br>
-    **For Ops Manager v1.11 or later:**
-    <pre class="terminal">$ bosh2 -e my-env upload-release fim-1.2.11.tar.gz</pre>
-    <br>
-1. <a name="update"></a>Update your runtime config to include the FIM Add-on,
-   specifying the path to the `fim.yml` file you created above, by running one of the following commands:
-   <br><br>
-    **For Ops Manager v1.10 or earlier:**
+1. Upload your release, specifying the path to the tarballed FIM binary, by running the following command:
+
+    ```
+    bosh -e BOSH-ENVIRONMENT upload-release PATH-TO-NEW-FIM-RELEASE
+    ```
+
+    For example:
+
+    <pre class="terminal">$ bosh -e my-env upload-release fim-1.2.23.tar.gz</pre>
     
-    <pre class="terminal">$ bosh update runtime-config ~/fim.yml</pre>
-    <br>
-    **For Ops Manager v1.11 or later:**
-    <pre class="terminal">$ bosh2 -e my-env update-runtime-config --name=fim fim.yml</pre>
+1. <a name="update"></a>Update your runtime config to include the FIM Add-on,
+   specifying the path to the `fim.yml` file you created above, by running the following command:
+
+    ```
+    bosh -e BOSH-ENVIRONMENT update-runtime-config --name=fim /tmp/fim.yml
+    ```
+
+    For example:
+
+    <pre class="terminal">$ bosh -e my-env update-runtime-config --name=fim fim.yml</pre>
     
     <p class="note"><strong>Note</strong>: If you installed other BOSH add-ons,
     you must merge the FIM runtime config into your existing add-on runtime config. 
     Append the contents of <code>fim.yml</code> to your existing add-on YML file.</p>
 
-1. Verify that your runtime config changes match what you specified in the FIM runtime config by running one of the following commands:
-    <br><br>
-    **For Ops Manager v1.10 or earlier:**
-    <pre class="terminal">$ bosh runtime-config</pre>
-    <br>
-    **For Ops Manager v1.11 or later:**
-    <pre class="terminal">$ bosh2 -e my-env runtime-config --name=fim</pre>
+1. Verify that your runtime config changes match what you specified in the manifest file.
+
+    ```
+    bosh -e BOSH-ENVIRONMENT runtime-config --name fim
+    ```
 
     For example:
     <pre class="terminal">
-    $ bosh2 -e my-env runtime-config --name=fim
+    $ bosh -e my-env runtime-config --name=fim
+    </pre>
+
+    This command returns your updated FIM runtime config. For example:
+
+    <pre class="terminal">
     Acting as user 'admin' on 'micro'
     releases:
     <span>-</span> name: fim
-      version: 1.2.11
-    <br>
+      version: 1.2.23
     addons:
       name: fim
         jobs:
@@ -178,8 +182,8 @@ Perform the following steps to deploy the FIM Add-on:
           release: fim
     ...
     </pre>
-<br>
-1. Navigate to your Installation Dashboard in Ops Manager.
+
+1. Navigate to the **Installation Dashboard** in Ops Manager.
 
 1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
    For more information about this Ops Manager page, 
@@ -189,20 +193,17 @@ Perform the following steps to deploy the FIM Add-on:
 
 ##<a id="alerts"></a> Configure Forwarding for FIM Alerts
 
-<p class="note"><strong>Note:</strong> As of PCF v2.0, Elastic Runtime is renamed Pivotal Application Service (PAS).
-The following procedure uses both names.</p>
-
 The FIM BOSH release writes all alerts to the syslogs of the VMs in your deployment.
 You can use syslog forwarding to forward the alerts to a syslog aggregator.
 
-* **Using the Pivotal Application Service (PAS) or Elastic Runtime tile**:
+* **Using the Pivotal Application Service (PAS) tile**:
 Follow the steps to [Configure System Logging](http://docs.pivotal.io/pivotalcf/customizing/cloudform-er-config.html#sys-logging) 
-in the PAS or Elastic Runtime tile. 
-The syslog aggregator that you specify receives all alerts generated on PAS or Elastic Runtime VMs, including the FIM alerts.
+in PAS. 
+The syslog aggregator that you specify receives all alerts generated on PAS VMs, including the FIM alerts.
 * **Using the BOSH syslog release**: You can use the syslog BOSH release to forward system logs. 
 See the [syslog-release](https://github.com/cloudfoundry/syslog-release) for instructions.
 
-<p class="note"><strong>Note</strong>: When you configure syslog forwarding, ensure enough disk space for the logs. 
+<p class="note"><strong>Note</strong>: When you configure syslog forwarding, ensure there is enough disk space for the logs. 
 Make sure that log rotation is frequent enough. If in doubt, rotate the logs hourly or when they reach a certain size. 
 Pivotal recommends forwarding logs to a remote syslog aggregation system.</p>
 

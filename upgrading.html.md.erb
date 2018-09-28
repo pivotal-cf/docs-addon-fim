@@ -1,0 +1,116 @@
+---
+title: Upgrading the FIM Add-on for PCF
+owner: Security Engineering
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to upgrade the File Integrity Monitoring Add-on for PCF (FIM Add-on).
+
+For example, read this topic to learn how to upgrade from FIM Add-on v1.2.17 to v1.2.23.
+
+<p class="note warning"><strong>IMPORTANT: </strong> If you are deploying any product tiles that use Xenial stemcells, 
+you must upgrade to FIM Add-on for PCF v1.2.22 or later. For more information on how to update FIM to support Xenial stemcells,
+see <a href="updating-for-xenial.html">Updating FIM Add-on for PCF to Run with Xenial Stemcells</a>.</p>
+
+##<a id="assume"></a>Prerequisites
+
+Verify that you have the correct component versions for the version of FIM Add-on that
+you are upgrading to. See the [Features Snapshot](index.html#snapshot)
+or the download page on [Pivotal Network](https://network.pivotal.io/products/p-fim-addon/).
+
+##<a id="upgrade"></a>Upgrade FIM Add-on</a>
+
+To upgrade the FIM Add-on to a later version, do the following:
+
+1. Download the FIM add-on software binary
+   from the [Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
+
+3. SSH into the Ops Manager VM.
+   For how to do this, see [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
+
+3. To retrieve the current runtime config file for editing, 
+   run the following command:
+
+    ```
+    bosh -e BOSH-ENVIRONMENT runtime-config --name fim > /tmp/fim.yml
+    ```
+
+    For example:
+
+    <pre class="terminal">$ bosh -e my-env runtime-config --name fim > /tmp/fim.yml</pre> 
+
+
+2. To copy the software binary to your Ops Manager VM, run the following command:
+
+    ```
+    scp -i PATH-TO-PRIVATE-KEY fim-VERSION.tgz ubuntu@YOUR-OPS-MANAGER-VM-IP:
+    ```
+
+    For example:
+
+    <pre class="terminal">$ cp -i ~/.ssh/my-key.pem ~/Downloads/fim-1.2.23.tgz ubuntu<span>@</span>192.168.0.2: </pre> 
+
+
+5. Upload the latest FIM release, run the following command:
+
+    ```
+    bosh -e BOSH-ENVIRONMENT upload-release PATH-TO-NEW-FIM-RELEASE
+    ```
+
+    For example:
+
+    <pre class="terminal">bosh -e my-env upload-release ~/fim-1.2.23.tgz</pre>
+
+6. Edit the FIM runtime config to set the new release version.
+
+    For example, edit the version number in `/tmp/fim.yml` as follows:
+
+    ```
+    releases:
+    - name: fim
+      version: 1.2.23
+    ```
+
+7. To update the runtime config, run the following command:
+
+    ```
+    bosh -e BOSH-ENVIRONMENT update-runtime-config --name=fim /tmp/fim.yml
+    ```
+
+    For example:
+
+    <pre class="terminal">bosh -e my-env update-runtime-config --name fim /tmp/fim.yml </pre>
+
+7. (Optional) Verify that your runtime configuration changes match what you specified in the manifest file.
+
+    ```
+    bosh -e BOSH-ENVIRONMENT runtime-config --name fim
+    ```
+
+    For example:
+
+    <pre class="terminal">$ bosh -e my-env runtime-config --name fim</pre>
+
+    This command returns your updated FIM runtime config. For example:
+
+    <pre class="terminal">
+    Acting as user 'admin' on 'micro'
+    releases:
+    <span>-</span> name: fim
+      version: 1.2.23
+    addons:
+      name: fim
+        jobs:
+        <span>-</span> name: fim
+          release: fim
+    ...
+    </pre>
+
+8. Navigate to the **Installation Dashboard** in Ops Manager.
+
+9. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+   For more information about this Ops Manager page, 
+   see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
+
+10. Click **Apply Changes**.
