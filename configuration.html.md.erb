@@ -16,7 +16,6 @@ The default value of `fim.dirs` is:
 ```
 fim:
   dirs:
-    # System binaries and configuration
     - /bin
     - /etc
     - /lib
@@ -26,72 +25,10 @@ fim:
     - /srv
     - /usr
     - /var/lib
-
-    # Bosh agent
     - /var/vcap/bosh
-    - /var/vcap/monit/job
-
-    # Bosh releases
     - /var/vcap/data/packages
+    - /var/vcap/monit/job
     - /var/vcap/data/jobs
-```
-
-<p class="note"><strong>Note</strong>: The default <code>fim.dirs</code> are written for Ubuntu Trusty Stemcells. On Xenial Stemcells add <code>/lib32</code> to <code>fim.dirs</code></p>
-
-##<a id="output"></a>Ignoring Events
-
-Some monitored directories may contain transient or frequently changing files that should not be monitored. The FIM Add-on can be configured to ignore events based on path regexes using `fim.ignored_patters`.
-The default value of `fim.ignored_patterns` is:
-
-```
-fim:
-  ignored_patterns:
-    # Temporary files created when an operator or errand invoke `bosh ssh`
-    - ^/etc/passwd.+$
-    - ^/etc/shadow.+$
-    - ^/etc/subgid.+$
-    - ^/etc/subuid.+$
-    - ^/etc/group.+$
-    - ^/etc/gshadow.+$
-
-    # Temporary files created when hosts updated
-    - ^/etc/hosts.+$
-
-    # Bosh Agent logs
-    - ^/var/vcap/bosh/log/.+$
-
-    # Log rotation
-    - ^/var/lib/logrotate/status.*$
-```
-
-##<a id="output"></a>Low Severity Events
-
-Some monitored directories may contain files that are expected to occasionally change. The FIM Add-on can be configured to log events at a lower severity based on path regexes using `fim.low_severity_patterns`.
-The default value of `fim.low_severity_patterns` is:
-
-```
-fim:
-  low_severity_patterns:
-    # When an operator or errand invoke `bosh ssh` a new user is created
-    - ^/etc/passwd$
-    - ^/etc/shadow$
-    - ^/etc/subgid$
-    - ^/etc/subuid$
-    - ^/etc/group$
-    - ^/etc/gshadow$
-
-    # Bosh-DNS sync and new VM creation update hosts
-    - ^/etc/hosts$
-
-    # DHCP leases
-    - ^/var/lib/dhcp/dhclient.eth\d+.leases$
-
-    # Bosh Agent configuration changes when VM created/modified
-    - ^/var/vcap/bosh/settings.json$
-
-    # Bosh Agent CHMODs jobs and packages as part of `bosh deployment`
-    - ^/var/vcap/data/jobs$
-    - ^/var/vcap/data/packages$
 ```
 
 ##<a id="output"></a>Configure the Output Destination
@@ -122,18 +59,18 @@ The default value of `fim.format` is:
 
 ```
 fim:
-  format: "CEF:0|cloud_foundry|fim|1.0.0|{{.Optype}}|file integrity monitoring event|{{.Severity}}| {{.KeyValues}}"
+  format: "CEF:0|cloud_foundry|fim|1.0.0|{{.Map.optype}}|file integrity monitoring event|5| {{.KeyValues}}"
 ```
 
 This example output shows what log lines look like with the default `fim.format` configuration:
 
 ```
-Apr 20 19:12:37 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|0|file integrity monitoring event|3| fname="" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="FILESNITCH_CHECKIN" optype=0 ts=1492715822
-Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/passwd.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
-Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/passwd.17721" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822
-Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/group.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
-Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/group.17721" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822
-Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/gshadow.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
+Apr 20 19:12:37 localhost filesnitch[819]: FILESNITCH CHECKIN {}
+Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/passwd.lock" hostname="8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
+Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/passwd.17721" hostname="8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822
+Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/group.lock" hostname="8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
+Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/group.17721" hostname="8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822
+Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/gshadow.lock" hostname="8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
 ```
 
 <p class="note"><strong>Note</strong>: The <code>FILESNITCH CHECKIN</code> message is a logging marker that indicates <code>filesnitch</code> is operational in the absence of any filesystem events.</p>
@@ -171,28 +108,20 @@ Example:
 fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 ts=1475195258
 ```
 
-###<a id="fields"></a>Individual Fields
-| template | description |
-|----------|-------------|
-| {{.Fname}} | name of the affected file |
-| {{.Hostname}} | hostname of the VM on which the file event originated |
-| {{.OpName}} | type of file operation in textual format |
-| {{.OpType}} | type of file operation in numeric format |
-| {{.Severity}} | level of importance attributed to the event |
-| {{.Ts}} | point in time at which FIM received the file event |
-| {{.Digests}} | key-value pairs of hash algorithms and the hash of the modified file |
+###<a id="Map"></a>Map
+The `{{.Map}}` string provides attribute-level access on an event.
 
 For example, the following variable definition:
 
 ```
 fim:
-  format: "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Digests}} {{.Ts}}"
+  format: "{{.Map.fname}} {{.Map.hostname}} {{.Map.opname}} {{.Map.optype}} {{.Map.ts}}"
 ```
 
 produces the following:
 
 ```
-/bin/binary plymouth CREATE 1 sha256=da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
+/bin/binary plymouth CREATE 1 da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
 ```
 
 ##<a id="digests"></a>Calculate File Hashes

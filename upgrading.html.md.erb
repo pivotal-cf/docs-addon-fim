@@ -71,19 +71,14 @@ To upgrade the FIM Add-on to a later version, do the following:
       version: 1.2.23
     ```
 
-7. Verify that your FIM runtime config includes an `addon` element for both Trusty and Xenial stemcells. <br/><br/>
+7. Verify that your FIM runtime config includes a `stemcell` section and specifies both Trusty and Xenial stemcells. <br/><br/>
     
     Your runtime config must contain the following section:
 
-    ```
-    - name: fim-trusty
-      include:
+    ```    
+    include:
         stemcell:
         - os: ubuntu-trusty
-
-    - name: fim-xenial
-      include:
-        stemcell:
         - os: ubuntu-xenial
     ``` 
 
