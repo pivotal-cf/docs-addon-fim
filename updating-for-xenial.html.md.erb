@@ -32,23 +32,29 @@ Review the following table and make any required changes before you upgrade to X
     <th>If you are using this version of the FIM Add-on…</td>
     <th>do the following…</td>
     <tr>
-      <td>1.2.23</td>
+      <td>1.2.23+</td>
       <td>Verify that your runtime config file, <code>fim.yml</code>, includes 
 <pre>
-stemcell:
-- os: ubuntu-trusty
-- os: ubuntu-xenial
+  - name: fim-trusty
+    include:
+      stemcell:
+      - os: ubuntu-trusty
+
+  - name: fim-xenial
+    include:
+      stemcell:
+      - os: ubuntu-xenial
 </pre>
         If it does not, then follow the procedure, <a href="#add">Add the Xenial Stemcell Property to the FIM Add-on</a> below.</td>
-          </tr>
-          <tr>
-            <td>v1.2.22</td>
-            <td>Follow the procedure, <a href="#add">Add the Xenial Stemcell Property to the FIM Add-on</a> below.</td>
-          </tr>
-          <tr>
-            <td>v1.2.17 or earlier</td>
-            <td>Install FIM Add-on v1.2.23. See <a href="installing.html">Installing the FIM Add-on for PCF</a>.</td>
-          </tr>
+    </tr>
+    <tr>
+      <td>v1.2.22</td>
+      <td>Follow the procedure, <a href="#add">Add the Xenial Stemcell Property to the FIM Add-on</a> below.</td>
+    </tr>
+    <tr>
+      <td>v1.2.17 or earlier</td>
+      <td>Install FIM Add-on v1.2.23 or later. See <a href="installing.html">Installing the FIM Add-on for PCF</a>.</td>
+    </tr>
 </table>
 
 If you use FIM Add-on without adding the `ubuntu-xenial` property to the runtime config, 
@@ -87,13 +93,11 @@ existing `fim.yml` and redeploy.  Follow these steps:
     <pre class="terminal">$ bosh -e my-env runtime-config –name fim > /tmp/fim.yml </pre> 
 
 
-3. Edit the `fim.yml` file, add the lines from `include` to
-   `- os: ubuntu-xenial` after `properties: {}` as shown below.
-
+3. Edit the `fim.yml` file:
 
     ```
     addons:
-    - name: fim
+    - name: fim-trusty
       jobs:
       - name: fim
         release: fim
@@ -101,8 +105,37 @@ existing `fim.yml` and redeploy.  Follow these steps:
       include:
         stemcell:
         - os: ubuntu-trusty
+    - name: fim-xenial
+      jobs:
+      - name: fim
+        release: fim
+        properties:
+          fim:
+            dirs:
+              # System binaries and configuration
+              - /bin
+              - /etc
+              - /lib
+              - /lib32
+              - /lib64
+              - /opt
+              - /sbin
+              - /srv
+              - /usr
+              - /var/lib
+
+              # Bosh agent
+              - /var/vcap/bosh
+              - /var/vcap/monit/job
+
+              # Bosh releases
+              - /var/vcap/data/packages
+              - /var/vcap/data/jobs
+      include:
+        stemcell:
         - os: ubuntu-xenial
     ```
+    <p class="note"><strong>Note</strong>: If the existing configuration overrode <code>fim.dirs</code> then the <code>fim-xenial</code> add-on should monitor the same files with the addition of <code>/lib32</code></p>
 
 4. To update the runtime config, run the following command:
 
