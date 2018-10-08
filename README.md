@@ -10,7 +10,7 @@ As of October 2, 2018:
 
 | Branch name… | Documents version… | Publishes to… |
 |-------------|----------------|----------------|
-| master       | v1.4.x     | EDGE PIPELINE TO BE ADDED [#161005580 |
+| master       | v1.4.x     | EDGE PIPELINE TO BE ADDED [#161005580] |
 | v1.3   | v1.3.x     | not published yet |
 | v1.2   | v1.2.x     | not published anywhere. Equivalent to master just before the v1.3 release on Oct 2, 2018 |
 
