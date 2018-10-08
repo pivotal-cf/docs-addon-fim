@@ -10,8 +10,7 @@ As of October 2, 2018:
 
 | Branch name… | Documents version… | Publishes to… |
 |-------------|----------------|----------------|
-| master       | v1.4.x     | EDGE PIPELINE TO BE ADDED [#161005580] |
-| v1.3   | v1.3.x     | not published yet |
+| master       | v1.3.x     | EDGE PIPELINE TO BE ADDED [#161005580] |
 | v1.2   | v1.2.x     | http://docs-pcf-staging.cfapps.io/addon-fim/1-2/ |
 
 The master branch publishes from the PCF Services book. 
