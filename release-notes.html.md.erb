@@ -7,69 +7,26 @@ owner: Security Engineering
 
 This topic contains release notes for File Integrity Monitoring (FIM) Add-on for Pivotal Cloud Foundry (PCF).
 
-##v1.3.2
+## <a id="132"></a> v1.3.2
 
 **Release Date**: October 3, 2018
 
-* Add configuration options <code>ignored_patterns</code> and <code>low_severity_patterns</code>
-* Fix hostname in logged events
-* Improve subdirectory monitoring
+### Features
 
-##v1.2.23
+New features and changes in this release:
 
-**Release Date**: August 2, 2018
+* Adds configuration options <code>ignored_patterns</code> and <code>low_severity_patterns</code>
 
-* Namespaced the packaged golang's path to avoid potential collisions with other product teams.
+* Improves subdirectory monitoring
 
-##v1.2.22
+### Fixed Issues
 
-**Release Date**: June 28, 2018
+This release fixes the following issue:
 
-* Removed development acceptance tests from the BOSH release package.
-* Added support for Canonical Ubuntu 16.04 (Xenial) stemcells.
-* Improved coexistence of cgroups with other BOSH release jobs using cgroups.
-* Enabled configuration of hard CPU limit when using cgroups.
+* Hostname in logged events
 
-##v1.2.17
 
-**Release Date**: April 27, 2018
+## <a id="view"></a> View Release Notes for Another Version
 
-* Improves the reliability of smoke tests. This release includes a fix to work around a bug in grep on stemcell 3468.30.  
-
-##v1.2.11
-
-**Release Date**: April 10, 2018
-
-* Improves the reliability of smoke tests.
-  Previously, in some environments, smoke tests saw intermittent failure due to resource contention.
-  This release adds retry logic to the smoke tests
-  to ensure that any temporary resource contention does not result in a false-positive smoke test failure.  
-* Updated golang dependency to v1.10.1
-
-##v1.2.3
-
-**Release Date**: November 21, 2017
-
-* Includes a smoke test that can be used to verify the basic functionality of the FIM Add-on
-* Updated golang dependency to version 1.9.2
-
-##v1.2.1
-
-**Release Date**: July 18, 2017
-
-* Does not deploy on Windows cells (use a custom add-on instead)
-* Reduced number of FIM checkin messages
-
-##v1.1.2
-
-**Release Date**: April 17, 2017
-
-* Constrained resources used by the Add-on
-* Cgroup constraints are configurable
-* Workaround to avoid Garden conflict on cgroups
-
-##v1.0.13
-
-**Release Date**: February 3, 2017
-
-Beta release of FIM Add-on
+To view the release notes for another product version, select the version from 
+dropdown at the top of this page.
