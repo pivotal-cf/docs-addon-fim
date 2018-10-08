@@ -10,12 +10,16 @@ As of October 2, 2018:
 
 | Branch name… | Documents version… | Publishes to… |
 |-------------|----------------|----------------|
-| master       | v1.?.x (.2 or .3)    | https://docs-pcf-staging.cfapps.io/addon-fim/ and https://docs.pivotal.io/addon-fim |
+| master       | v1.4.x     | EDGE PIPELINE TO BE ADDED [#161005580 |
 | v1.3   | v1.3.x     | not published yet |
 | v1.2   | v1.2.x     | not published anywhere. Equivalent to master just before the v1.3 release on Oct 2, 2018 |
 
 The master branch publishes from the PCF Services book. 
 The concourse pipeline is [cf-current | pcfservices](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-current?groups=pcfservices).
+
+# Book Repo
+
+docs-book-addon-fim
 
 # Style Guide
 
