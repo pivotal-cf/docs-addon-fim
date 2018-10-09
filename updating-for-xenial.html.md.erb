@@ -136,8 +136,8 @@ existing `fim.yml` and redeploy.  Follow these steps:
         stemcell:
         - os: ubuntu-xenial
     ```
-    <p class="note"><strong>Note</strong>: If the existing configuration overrode <code>fim.dirs</code> then the <code>fim-xenial</code> add-on should monitor the same files with the addition of <code>/lib32</code></p>
-
+    <p class="note"><strong>Note</strong>: When FIM Add-on is deployed on Xenial VMs, the <code>/lib32</code> directory is added to the <code>fim.yml</code> file. If you were using the default Trusty VMs configuration, your `fim.yml` is overriden to include <code>/lib32</code>.</p>
+      
 4. To update the runtime config, run the following command:
 
     ```
@@ -155,4 +155,3 @@ existing `fim.yml` and redeploy.  Follow these steps:
    see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 7. Click **Apply Changes**.
-
