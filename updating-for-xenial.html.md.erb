@@ -136,7 +136,7 @@ existing `fim.yml` and redeploy.  Follow these steps:
         stemcell:
         - os: ubuntu-xenial
     ```
-    <p class="note"><strong>Note</strong>: When FIM Add-on is deployed on Xenial VMs, the <code>/lib32</code> directory is added to the <code>fim.yml</code> file. If you were using the default Trusty VMs configuration, your `fim.yml` is overriden to include <code>/lib32</code>.</p>
+    <p class="note"><strong>Note</strong>: If you were previously using a customized Trusty VMs configuration, you need to manually add <code>/lib32</code> to the <code>fim.yml</code> file.</p>
       
 4. To update the runtime config, run the following command:
 
