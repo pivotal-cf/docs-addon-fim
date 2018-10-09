@@ -36,11 +36,12 @@ fim:
     - /var/vcap/data/jobs
 ```
 
-<p class="note"><strong>Note</strong>: The default <code>fim.dirs</code> are written for Ubuntu Trusty Stemcells. On Xenial Stemcells add <code>/lib32</code> to <code>fim.dirs</code></p>
+<p class="note"><strong>Note</strong>: The default <code>fim.dirs</code> are written for Ubuntu Trusty Stemcells. On Xenial Stemcells add <code>/lib32</code> to <code>fim.dirs</code>.</p>
 
 ##<a id="output"></a>Ignoring Events
 
-Some monitored directories may contain transient or frequently changing files that should not be monitored. The FIM Add-on can be configured to ignore events based on path regexes using `fim.ignored_patters`.
+Some monitored directories may contain files that should not be monitored, for example, files that change frequently.
+You can configure the Fim Add-on to ignore events using path regexes with `fim.ignored_patterns`.
 The default value of `fim.ignored_patterns` is:
 
 ```
@@ -66,7 +67,8 @@ fim:
 
 ##<a id="output"></a>Low Severity Events
 
-Some monitored directories may contain files that are expected to occasionally change. The FIM Add-on can be configured to log events at a lower severity based on path regexes using `fim.low_severity_patterns`.
+Some monitored directories may contain files that occasionally change.
+You can configure The FIM Add-on to log events at a lower severity using path regexes with `fim.low_severity_patterns`.
 The default value of `fim.low_severity_patterns` is:
 
 ```
@@ -174,22 +176,22 @@ fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 ts=1475195258
 ###<a id="fields"></a>Individual Fields
 | template | description |
 |----------|-------------|
-| {{.Fname}} | name of the affected file |
-| {{.Hostname}} | hostname of the VM on which the file event originated |
-| {{.OpName}} | type of file operation in textual format |
-| {{.OpType}} | type of file operation in numeric format |
-| {{.Severity}} | level of importance attributed to the event |
-| {{.Ts}} | point in time at which FIM received the file event |
-| {{.Digests}} | key-value pairs of hash algorithms and the hash of the modified file |
+| `{{.Fname}}` | Name of the affected file |
+| `{{.Hostname}}` | Hostname of the VM on which the file event originated |
+| `{{.OpName}}` | Type of file operation in textual format |
+| `{{.OpType}}` | Type of file operation in numeric format |
+| `{{.Severity}}` | Level of importance attributed to the event |
+| `{{.Ts}}` | Point in time at which FIM received the file event |
+| `{{.Digests}}` | Key-value pairs of hash algorithms and the hash of the modified file |
 
-For example, the following variable definition:
+For example, the following variable definition...
 
 ```
 fim:
   format: "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Digests}} {{.Ts}}"
 ```
 
-produces the following:
+...produces the following:
 
 ```
 /bin/binary plymouth CREATE 1 sha256=da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574

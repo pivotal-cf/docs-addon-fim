@@ -6,7 +6,7 @@ owner: Security Engineering
 <strong><%= modified_date %></strong>
 
 Pivotal Cloud Foundry (PCF) products and tiles that are released after July 2018 require
-Ubuntu Xenial stemcells instead of Ubuntu Trusty stemcells. 
+Ubuntu Xenial stemcells instead of Ubuntu Trusty stemcells.
 You might have to modify your File Integrity Monitoring Add-on for PCF (FIM Add-on) deployment
 if you use PCF products running on Xenial.
 
@@ -15,14 +15,14 @@ FIM Add-on can monitor VMs that run on Xenial.
 
 This topic also explains how to update your FIM Add-on if it does not support Xenial.
 
-Follow the instructions on this page if you use FIM Add-on with any PCF products or tiles 
+Follow the instructions on this page if you use FIM Add-on with any PCF products or tiles
 that use Xenial stemcells.
 See [Product Tiles that Use Xenial Stemcells](#which) below.
 
-##<a id="who-me"></a<a id="who-me"></a> Do I Need to Modify the FIM Add-on? 
+##<a id="who-me"></a<a id="who-me"></a> Do I Need to Modify the FIM Add-on?
 
 FIM Add-on v1.2.22 and later can run correctly on Xenial-based VMs if the FIM runtime config
-includes the `ubuntu-xenial` property. 
+includes the `ubuntu-xenial` property.
 
 Review the following table and make any required changes before you upgrade to Xenial stemcells.
 
@@ -33,7 +33,7 @@ Review the following table and make any required changes before you upgrade to X
     <th>do the following…</td>
     <tr>
       <td>1.2.23+</td>
-      <td>Verify that your runtime config file, <code>fim.yml</code>, includes 
+      <td>Verify that your runtime config file, <code>fim.yml</code>, includes:
 <pre>
   - name: fim-trusty
     include:
@@ -45,20 +45,21 @@ Review the following table and make any required changes before you upgrade to X
       stemcell:
       - os: ubuntu-xenial
 </pre>
-        If it does not, then follow the procedure, <a href="#add">Add the Xenial Stemcell Property to the FIM Add-on</a> below.</td>
+        If the <code>fim.yml</code> file does not include the above, then follow the steps in
+        <a href="#add">Add the Xenial Stemcell Property to the FIM Add-on</a> below.</td>
     </tr>
     <tr>
       <td>v1.2.22</td>
-      <td>Follow the procedure, <a href="#add">Add the Xenial Stemcell Property to the FIM Add-on</a> below.</td>
+      <td>Follow the steps in <a href="#add">Add the Xenial Stemcell Property to the FIM Add-on</a> below.</td>
     </tr>
     <tr>
       <td>v1.2.17 or earlier</td>
-      <td>Install FIM Add-on v1.2.23 or later. See <a href="installing.html">Installing the FIM Add-on for PCF</a>.</td>
+      <td>Install FIM Add-on v1.2.23 or later. For instructions, see <a href="installing.html">Installing the FIM Add-on for PCF</a>.</td>
     </tr>
 </table>
 
-If you use FIM Add-on without adding the `ubuntu-xenial` property to the runtime config, 
-the VMs running on Xenial are not being monitored for file integrity. 
+If you use FIM Add-on without adding the `ubuntu-xenial` property to the runtime config,
+the VMs running on Xenial are not being monitored for file integrity.
 
 If you add the `ubuntu-xenial` property but do not upgrade the FIM Add-on to v1.2.22 or later,
 then the FIM processes use excessive CPU.
@@ -68,7 +69,7 @@ then the FIM processes use excessive CPU.
 Ensure that you have added the `ubuntu-xenial` property to the FIM runtime config
 before you install any product tiles that use Xenial stemcells.
 
-For a list of PCF tile releases that now use Xenial, 
+For a list of PCF tile releases that now use Xenial,
 see [Tiles Using Xenial Stemcells in PCF](https://docs.pivotal.io/pivotalcf/stemcells/xenial-tiles.html).
 
 ##<a id="add"></a> Add the Xenial Stemcell Property to the FIM Add-on
@@ -90,7 +91,7 @@ existing `fim.yml` and redeploy.  Follow these steps:
 
     For example:
 
-    <pre class="terminal">$ bosh -e my-env runtime-config –name fim > /tmp/fim.yml </pre> 
+    <pre class="terminal">$ bosh -e my-env runtime-config –name fim > /tmp/fim.yml </pre>
 
 
 3. Edit the `fim.yml` file:
@@ -145,12 +146,12 @@ existing `fim.yml` and redeploy.  Follow these steps:
 
     For example:
 
-    <pre class="terminal">bosh -e my-env update-runtime-config --name=fim /tmp/fim.yml</pre> 
+    <pre class="terminal">bosh -e my-env update-runtime-config --name=fim /tmp/fim.yml</pre>
 
 5. Navigate to the **Installation Dashboard** in Ops Manager.
 
 6. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
-   For more information about this Ops Manager page, 
+   For more information about this Ops Manager page,
    see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 7. Click **Apply Changes**.
