@@ -16,6 +16,8 @@ As of October 2, 2018:
 The master branch publishes from the PCF Services book. 
 The concourse pipeline is [cf-current | pcfservices](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-current?groups=pcfservices).
 
+But soon, the v1.2.x and v1.3.x branches will be publishing using the docs-book-addon-fim repo. 
+
 # Book Repo
 
 docs-book-addon-fim
