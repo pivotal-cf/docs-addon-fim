@@ -10,8 +10,9 @@ As of October 2, 2018:
 
 | Branch name… | Documents version… | Publishes to… |
 |-------------|----------------|----------------|
-| master       | v1.3.x     | https://docs-pcf-staging.cfapps.io/addon-fim/1-n/ |
-| v1.2   | v1.2.x     | http://docs-pcf-staging.cfapps.io/addon-fim/1-2/ |
+| master      | v1.3.x     | https://docs-pcf-staging.cfapps.io/addon-fim/1-n/ |
+| v1.3        | v1.3.x     | waiting to be published to https://docs-pcf-staging.cfapps.io/addon-fim/1-3/ |
+| v1.2        | v1.2.x     | http://docs-pcf-staging.cfapps.io/addon-fim/1-2/ |
 
 The master branch publishes from the PCF Services book. 
 The concourse pipeline is [cf-current | pcfservices](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-current?groups=pcfservices).
