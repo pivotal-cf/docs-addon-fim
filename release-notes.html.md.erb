@@ -11,6 +11,16 @@ This topic contains release notes for File Integrity Monitoring (FIM) Add-on for
 
 **Release Date**: October 11, 2018
 
+<div class="note breaking"><strong>Breaking Change</strong>: 
+This release has a breaking change in the <code>format</code> configuration option.
+ <code>.Map</code> has been removed from the format field names. 
+ <br>
+ Names now use title case,
+so that <code>{{.Map.fname}} {{.Map.hostname}} {{.Map.opname}} {{.Map.optype}} {{.Map.ts}}</code>
+becomes<br>
+<code>{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Ts}}</code>
+</div>
+
 ### Features
 
 New features and changes in this release:
@@ -25,14 +35,6 @@ that are created while FIM is running and pre-existing subdirectories.
 This release fixes the following issue:
 
 * Hostname in logged events
-
-### Breaking
-
-This release has a breaking change in the <code>format</code> configuration option:
-
-* <code>.Map</code> has been removed from the format field names and names now use title case:
-  The old values <code>{{.Map.fname}} {{.Map.hostname}} {{.Map.opname}} {{.Map.optype}} {{.Map.ts}}</code> become <code>{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Ts}}</code>
-
 
 ## <a id="view"></a> View Release Notes for Another Version
 
