@@ -86,6 +86,9 @@ fim:
     # Bosh-DNS sync and new VM creation update hosts
     - ^/etc/hosts$
 
+    # Attached devices and cgroups
+    - ^/etc/mtab$
+
     # DHCP leases
     - ^/var/lib/dhcp/dhclient.eth\d+.leases$
 
