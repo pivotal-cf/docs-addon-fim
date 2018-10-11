@@ -50,26 +50,27 @@ Follow the steps below to create the FIM runtime config for your deployment:
       - name: fim
         release: fim
         properties:
-          dirs:
-            # System binaries and configuration
-            - /bin
-            - /etc
-            - /lib
-            - /lib32 # xenial-specific
-            - /lib64
-            - /opt
-            - /sbin
-            - /srv
-            - /usr
-            - /var/lib
-
-            # Bosh agent
-            - /var/vcap/bosh
-            - /var/vcap/monit/job
-
-            # Bosh releases
-            - /var/vcap/data/packages
-            - /var/vcap/data/jobs
+          fim:
+            dirs:
+              # System binaries and configuration
+              - /bin
+              - /etc
+              - /lib
+              - /lib32 # xenial-specific
+              - /lib64
+              - /opt
+              - /sbin
+              - /srv
+              - /usr
+              - /var/lib
+  
+              # Bosh agent
+              - /var/vcap/bosh
+              - /var/vcap/monit/job
+  
+              # Bosh releases
+              - /var/vcap/data/packages
+              - /var/vcap/data/jobs
       include:
         stemcell:
         - os: ubuntu-xenial
