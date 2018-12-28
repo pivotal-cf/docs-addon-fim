@@ -39,7 +39,18 @@ fim:
 <p class="note"><strong>Note</strong>: The default <code>fim.dirs</code> are written for Ubuntu Trusty stemcells.
    On Xenial stemcells, add <code>/lib32</code> to <code>fim.dirs</code>.</p>
 
-##<a id="output"></a>Ignoring Events
+##<a id="output-severity"></a>Severity Event Logging
+
+FIM Add-on logs events with different severity levels:
+
+* `1`, which is used for heartbeats
+* `3`, which is used for low severity events
+* `5`, which is used for all other events
+
+Low severity events can be used to filter out business-as-usual events.
+This makes unexpected events easy to isolate by looking for severity `5`.
+
+##<a id="output-ignore"></a>Ignoring Events
 
 Some monitored directories may contain files that should not be monitored, for example, files that change frequently.
 You can configure the Fim Add-on to ignore events using path regexes with `fim.ignored_patterns`.
@@ -66,11 +77,8 @@ fim:
     - ^/var/lib/logrotate/status.*$
 ```
 
-##<a id="output"></a>Low Severity Events
+##<a id="output-low"></a>Low Severity Events
 
-FIM logs at severities 1, 3 and 5, where 1 is used for heartbeats, 3 is used for low severity events and 5 is used
-for all other events. Low severity events can be used to filter out business-as-usual events, making unexpected
-events easy to isolate via looking for severity 5.
 Some monitored directories may contain files that occasionally change.
 You can configure The FIM Add-on to log events at a lower severity using path regexes with `fim.low_severity_patterns`.
 The default value of `fim.low_severity_patterns` is:
@@ -103,7 +111,7 @@ fim:
     - ^/var/vcap/data/packages$
 ```
 
-##<a id="output"></a>Configure the Output Destination
+##<a id="output-configure"></a>Configure the Output Destination
 
 FIM supports three types of output:
 
