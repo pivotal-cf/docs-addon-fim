@@ -12,21 +12,21 @@ To uninstall the FIM Add-on, follow the steps below:
 
 1. Retrieve the latest runtime config by running the following command:
   <pre>
-    $ bosh -e my-env runtime-config > PATH-TO-SAVE-THE-RUNTIME-CONFIG
+    bosh -e my-env runtime-config > PATH-TO-SAVE-THE-RUNTIME-CONFIG
   </pre>
 
     Where `PATH-TO-SAVE-THE-RUNTIME-CONFIG` is the location that you want to save the runtime configuration.
 
     For example:
     <pre class="terminal">
-      $ bosh -e my-env runtime-config > /runtime/config/
+      bosh -e my-env runtime-config > /runtime/config/
     </pre>
 
 1. In the runtime config, remove all FIM properties under the `releases:` and `addons:` sections.
 
 1. Update the runtime config.
   <pre>
-    $ bosh -e my-env update-runtime-config --name=fim PATH-TO-SAVE-THE-RUNTIME-CONFIG
+    bosh -e my-env update-runtime-config --name=fim PATH-TO-SAVE-THE-RUNTIME-CONFIG
   </pre>
 
     Where `PATH-TO-SAVE-THE-RUNTIME-CONFIG` is the location of the runtime configuration you are updating.
