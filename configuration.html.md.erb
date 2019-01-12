@@ -38,49 +38,49 @@ fim:
 
 <p class="note"><strong>Note</strong>: The default <code>fim.dirs</code> are written for Ubuntu Trusty stemcells.
    On Xenial stemcells, add <code>/lib32</code> to <code>fim.dirs</code>.</p>
-   
-##<a id="output-logs"></a>Event Logging
 
-The FIM Add-on logs events that occur.
-These samples can be used to configure a Security Information and Event Management (SIEM)
-system to verify regular activity and generate alerts for unauthorized changes to a file.
+##<a id="output-log"></a>Event Logging
 
-These logs appear in the following format:
-<pre>
-2019-01-02T15:54:01.350053+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|OPERATION-TYPE|file integrity monitoring event|SEVERITY| fname="ABSOLUTE-PATH" hostname="BOSH-VM" opname="OPERATION-NAME" optype=OPERATION-TYPE ts=TIMESTAMP severity=SEVERITY
-</pre>
+ The FIM Add-on logs events that occur.
+ These samples can be used to configure a Security Information and Event Management (SIEM)
+ system to verify regular activity and generate alerts for unauthorized changes to a file.
 
-Where:
+ These logs appear in the following format:
+ 
+ <pre>
+2019-01-02T15:54:01.350053+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|OPERATION-TYPE|file integrity<br> monitoring event|SEVERITY| fname="ABSOLUTE-PATH" hostname="BOSH-VM" opname="OPERATION-NAME" optype=OPERATION-TYPE ts=TIMESTAMP<br> severity=SEVERITY</pre>
 
-* `OPERATION-TYPE` and `OPERATION-NAME` are one of the following:
-   * `1`, which is `CREATE`
-   * `2`, which is `WRITE`
-   * `4`, which is `REMOVE`
-   * `8`, which is `RENAME`
-   * `16`, which is `CHMOD`
+ Where:
 
-* `SEVERITY` is one of the following severity levels:
-   * `1`, which is used for heartbeats
-   * `3`, which is used for low severity events
-   * `5`, which is used for all other events
+ * `OPERATION-TYPE` and `OPERATION-NAME` are one of the following:
+     * `1`, which is `CREATE`
+     * `2`, which is `WRITE`
+     * `4`, which is `REMOVE`
+     * `8`, which is `RENAME`
+     * `16`, which is `CHMOD`
 
-* `ABSOLUTE-PATH` is the absolute path to the file, for example `/directory/file`
+ * `SEVERITY` is one of the following severity levels:
+     * `1`, which is used for heartbeats
+     * `3`, which is used for low severity events
+     * `5`, which is used for all other events
 
-* `BOSH-VM` is the BOSH VM name, for example `/directory/vm-name`
+ * `ABSOLUTE-PATH` is the absolute path to the file, for example `/directory/file`
 
-* `TIMESTAMP` is the timestamp in Unix epoch format.
+ * `BOSH-VM` is the BOSH VM name, for example `/directory/vm-name`
 
-For example:
-<pre class="terminal">
-2019-01-02T15:54:01.350053+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|3| fname="/test/file01" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" opname="CREATE" optype=1 ts=1546535400 severity=3
+ * `TIMESTAMP` is the timestamp in Unix epoch format.
 
-2019-01-02T15:54:19.388257+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|2|file integrity monitoring event|5| fname="/test/file02" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" opname="WRITE" optype=2 ts=1546535520 severity=5
-</pre>
+ For example:
+ <pre class="terminal">
+ 2019-01-02T15:54:01.350053+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|3|<br> fname="/test/file01" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" <br>opname="CREATE" optype=1 ts=1546535400 severity=3
+ 
+ 2019-01-02T15:54:19.388257+00:00 localhost filesnitch[5963]: <br>CEF:0|cloud_foundry|fim|1.0.0|2|file integrity monitoring event|5| fname="/test/file02" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" <br>opname="WRITE" optype=2 ts=1546535520 severity=5
+ </pre>
 
-<p class="note"><strong>Note</strong>:
-Low severity events can be used to filter out business-as-usual events.
-This makes unexpected events easy to isolate by looking for severity <code>5</code>.
-</p>
+ <p class="note"><strong>Note</strong>:
+ Low severity events can be used to filter out business-as-usual events.
+ This makes unexpected events easy to isolate by looking for severity <code>5</code>.
+ </p>
 
 ##<a id="output"></a>Ignoring Events
 
