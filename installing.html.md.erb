@@ -76,7 +76,7 @@ Follow the steps below to create the FIM runtime config for your deployment:
         - os: ubuntu-xenial
     ```
 
-2. (Optional) Set the properties `cpu_limit` and `enforce_cpu_limit`.
+2. (Optional) Set the properties `cpu_limit`, `enforce_cpu_limit` and `memory_limit`.
 To use these properties, place the following text under the `fim` subsection of 
 `fim.yml`, as shown below:
   
@@ -86,6 +86,7 @@ To use these properties, place the following text under the `fim` subsection of
       fim:
         cpu_limit: VALUE-OF-CPU-LIMIT
         enforce_cpu_limit: TRUE|FALSE
+        memory_limit: VALUE-OF-MEMORY-LIMIT-IN-BYTES
     ...
     ```
   <code><strong>cpu\_limit</strong></code>: <a name="cpu_limit"></a>
@@ -107,6 +108,12 @@ To use these properties, place the following text under the `fim` subsection of
         <li>This property is <code>false</code> by default.</li>
     </ul>
     
+    <code><strong>memory\_limit</strong></code>: <a name="memory_limit"></a>
+    <ul>
+      <li>Limits the maximum amount of user memory (including file cache) in bytes used by FIM.</li>
+      <li>The default value is <code>536870912</code>.</li>
+    </ul>
+
     <p class="note warning"><strong>WARNING</strong>: If `enforce_cpu_limit` is set `true`,
     verify that `cpu_limit` is set high enough for FIM to execute normally. 
     If the limit is too strict, FIM fails to start.
