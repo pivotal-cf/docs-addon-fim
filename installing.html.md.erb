@@ -76,7 +76,7 @@ Follow the steps below to create the FIM runtime config for your deployment:
         - os: ubuntu-xenial
     ```
 
-2. (Optional) Set the properties `cpu_limit`, `enforce_cpu_limit` and `memory_limit`.
+2. (Optional) Set the properties `cpu_limit`, `enforce_cpu_limit`, and `memory_limit`.
 To use these properties, place the following text under the `fim` subsection of 
 `fim.yml`, as shown below:
   
@@ -265,5 +265,3 @@ Pivotal recommends forwarding logs to a remote syslog aggregation system.</p>
     $ grep hackertool /var/log/messages</pre>
   1. Look for a message that a new file has been created:
     <pre class="terminal">Sep 22 23:57:07 qvsfgv0qnrk filesnitch[3040]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/bin/hackertool" hostname="f98968fe-501a-470b-819a-c4a2a7ac45c8" opname="CREATE" optype=1 ts=1474588627</pre>
-
-
