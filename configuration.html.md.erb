@@ -74,6 +74,8 @@ For example:
 2019-01-02T15:54:19.388257+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|2|file integrity monitoring event|5| fname="/test/file02" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" opname="WRITE" optype=2 ts=1546535520 severity=5
 </pre>
 
+For an example of every type of FIM log message that can be configured, see [Examples of FIM Log Messages](./log-examples.html). 
+
 <p class="note"><strong>Note</strong>:
 Low severity events can be used to filter out business-as-usual events.
 This makes unexpected events easy to isolate by looking for severity <code>5</code>.
@@ -260,5 +262,3 @@ The FIM Add-on sets a threshold on the size of files to be hashed. Use the `fim.
 fim:
   digest_threshold: 10000000
 ```
-
-
