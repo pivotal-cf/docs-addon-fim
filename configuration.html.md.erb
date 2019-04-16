@@ -36,8 +36,7 @@ fim:
     - /var/vcap/data/jobs
 ```
 
-<p class="note"><strong>Note</strong>: The default <code>fim.dirs</code> are written for Ubuntu Trusty stemcells.
-   On Xenial stemcells, add <code>/lib32</code> to <code>fim.dirs</code>.</p>
+<p class="note"><strong>Note</strong>: The default <code>fim.dirs</code> are written for Ubuntu Trusty stemcells. On Xenial stemcells, add <code>/lib32</code> to <code>fim.dirs</code>.</p>
 
 ##<a id="output-log"></a>Event Logging
 
@@ -46,7 +45,7 @@ fim:
  system to verify regular activity and generate alerts for unauthorized changes to a file.
 
  These logs appear in the following format:
- 
+
  <pre>
 2019-01-02T15:54:01.350053+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|OPERATION-TYPE|file integrity<br> monitoring event|SEVERITY| fname="ABSOLUTE-PATH" hostname="BOSH-VM" opname="OPERATION-NAME" optype=OPERATION-TYPE ts=TIMESTAMP<br> severity=SEVERITY</pre>
 
@@ -73,23 +72,16 @@ fim:
  For example:
  <pre class="terminal">
  2019-01-02T15:54:01.350053+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|3|<br> fname="/test/file01" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" <br>opname="CREATE" optype=1 ts=1546535400 severity=3
- 
+
  2019-01-02T15:54:19.388257+00:00 localhost filesnitch[5963]: <br>CEF:0|cloud_foundry|fim|1.0.0|2|file integrity monitoring event|5| fname="/test/file02" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" <br>opname="WRITE" optype=2 ts=1546535520 severity=5
  </pre>
 
-<<<<<<< HEAD
- <p class="note"><strong>Note</strong>:
- Low severity events can be used to filter out business-as-usual events.
- This makes unexpected events easy to isolate by looking for severity <code>5</code>.
- </p>
-=======
-For an example of every type of FIM log message that can be configured, see [Examples of FIM Log Messages](./log-examples.html). 
+For an example of every type of FIM log message that can be configured, see [Examples of FIM Log Messages](./log-examples.html).
 
 <p class="note"><strong>Note</strong>:
 Low severity events can be used to filter out business-as-usual events.
 This makes unexpected events easy to isolate by looking for severity <code>5</code>.
 </p>
->>>>>>> ff2c412... Rename and cross-reference [#165153007]
 
 ##<a id="output"></a>Ignoring Events
 
