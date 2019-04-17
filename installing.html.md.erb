@@ -78,7 +78,7 @@ Follow the steps below to create the FIM runtime configuration for your deployme
         - os: ubuntu-xenial
     ```
 
-2. (Optional) Set the properties `cpu_limit`, `enforce_cpu_limit`, and `memory_limit`.
+2. (Optional) Set the properties `cpu_limit`, `enforce_cpu_limit`, `memory_limit`, and  `heartbeat_interval`.
 To use these properties, place the following text under the `fim` subsection of
 `fim.yml`, as shown below:
 
@@ -88,6 +88,8 @@ To use these properties, place the following text under the `fim` subsection of
       fim:
         cpu_limit: VALUE-OF-CPU-LIMIT
         enforce_cpu_limit: TRUE|FALSE
+        memory_limit: VALUE-OF-MEMORY-LIMIT-IN-BYTES
+        heartbeat_interval: VALUE-OF-HEARTBEAT-INTERVAL
     ...
     ```
   <code><strong>cpu\_limit</strong></code>: <a name="cpu_limit"></a>
@@ -97,7 +99,7 @@ To use these properties, place the following text under the `fim` subsection of
       <li>Must be set to a whole number less than 100.
         For example, set it to <code>50</code> to limit FIM to 50% CPU usage when other
         tasks are running.</li>
-        <li>Has the default value <code>10</code>.</li>
+        <li>The default value is <code>10</code>.</li>
     </ul>
 
     <code><strong>enforce\_cpu\_limit</strong></code>: <a name="enforce_cpu_limit"></a>
@@ -108,10 +110,24 @@ To use these properties, place the following text under the `fim` subsection of
         Usage can exceed the limit if enough idle CPU cycles are available.</li>
         <li>This property is <code>false</code> by default.</li>
     </ul>
+    <p class="note warning"><strong>Warning: </strong> If <code>enforce\_cpu\_limit</code> is set <code>true</code>,
+    verify that <code>cpu_limit</code> is set high enough for FIM to execute normally.
+    If the limit is too strict, FIM fails to start.</p>
 
-    <p class="note warning"><strong>WARNING</strong>: If `enforce_cpu_limit` is set `true`,
-    verify that `cpu_limit` is set high enough for FIM to execute normally.
-    If the limit is too strict, FIM fails to start.
+    <code><strong>memory\_limit</strong></code>: <a name="memory_limit"></a>
+    <ul>
+      <li>Limits the maximum amount of user memory (including file cache) in bytes used by FIM.</li>
+      <li>Has the default value <code>536870912</code>.</li>
+    </ul>
+
+    <code><strong>heartbeat\_interval</strong></code>: <a name="heartbeat_interval"></a>
+    <ul>
+      <li>To enable the heartbeat, set to an integer greater than <code>0</code> . Negative values result in an error. </li>
+      <li>To disable the heartbeat, set to <code>0</code>. </li>
+      <li>The default value is <code>600</code>. </li>
+    </ul>
+
+
 
 ##<a id="download"></a>Download the FIM Add-on
 
