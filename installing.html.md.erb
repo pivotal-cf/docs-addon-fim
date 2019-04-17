@@ -72,7 +72,7 @@ Follow the steps below to create the FIM runtime configuration for your deployme
         - os: ubuntu-xenial
     ```
 
-2. (Optional) Set the properties `cpu_limit`, `enforce_cpu_limit`, and `memory_limit`.
+2. (Optional) Set the properties `cpu_limit`, `enforce_cpu_limit`, `memory_limit`, and  `heartbeat_interval`.
 To use these properties, place the following text under the `fim` subsection of
 `fim.yml`, as shown below:
 
@@ -83,6 +83,7 @@ To use these properties, place the following text under the `fim` subsection of
         cpu_limit: VALUE-OF-CPU-LIMIT
         enforce_cpu_limit: TRUE|FALSE
         memory_limit: VALUE-OF-MEMORY-LIMIT-IN-BYTES
+        heartbeat_interval: VALUE-OF-HEARTBEAT-INTERVAL
     ...
     ```
   <code><strong>cpu\_limit</strong></code>: <a name="cpu_limit"></a>
@@ -92,7 +93,7 @@ To use these properties, place the following text under the `fim` subsection of
       <li>Must be set to a whole number less than 100.
         For example, set it to <code>50</code> to limit FIM to 50% CPU usage when other
         tasks are running.</li>
-        <li>Has the default value <code>10</code>.</li>
+        <li>The default value is <code>10</code>.</li>
     </ul>
 
     <code><strong>enforce\_cpu\_limit</strong></code>: <a name="enforce_cpu_limit"></a>
@@ -107,6 +108,9 @@ To use these properties, place the following text under the `fim` subsection of
         If the limit is too strict, FIM fails to start.</p>
 
     </ul>
+    <p class="note warning"><strong>Warning: </strong> If <code>enforce\_cpu\_limit</code> is set <code>true</code>,
+    verify that <code>cpu_limit</code> is set high enough for FIM to execute normally.
+    If the limit is too strict, FIM fails to start.</p>
 
     <code><strong>memory\_limit</strong></code>: <a name="memory_limit"></a>
     <ul>
