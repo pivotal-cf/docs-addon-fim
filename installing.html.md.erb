@@ -102,6 +102,10 @@ To use these properties, place the following text under the `fim` subsection of
         only enforced when other processes are using CPU resources.
         Usage can exceed the limit if enough idle CPU cycles are available.</li>
         <li>This property is <code>false</code> by default.</li>
+        <p class="note warning"><strong>Warning: </strong> If <code>enforce\_cpu\_limit</code> is set <code>true</code>,
+        verify that <code>cpu_limit</code> is set high enough for FIM to execute normally.
+        If the limit is too strict, FIM fails to start.</p>
+
     </ul>
 
     <code><strong>memory\_limit</strong></code>: <a name="memory_limit"></a>
@@ -110,9 +114,15 @@ To use these properties, place the following text under the `fim` subsection of
       <li>Has the default value <code>536870912</code>.</li>
     </ul>
 
-    <p class="note warning"><strong>WARNING</strong>: If `enforce_cpu_limit` is set `true`,
-    verify that `cpu_limit` is set high enough for FIM to execute normally.
-    If the limit is too strict, FIM fails to start.
+    <code><strong>heartbeat\_interval</strong></code>: <a name="heartbeat_interval"></a>
+    <ul>
+      <li>To enable the heartbeat interval, set this value to an integer greater than <code>0</code> .
+        If you set a negative value, an error occurs. </li>
+      <li>To disable the heartbeat interval, set this value to <code>0</code>.</li>
+      <li>The default value is <code>600</code>. </li>
+    </ul>
+
+
 
 ##<a id="download"></a>Download the FIM Add-on
 
