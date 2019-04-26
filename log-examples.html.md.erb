@@ -61,12 +61,14 @@ For more information on formatting logs, see [Event Logging](./configuration.htm
 FIM supports container monitoring.
 
 ###PAS containers
-Log messages will appear on Diego Cells under `/var/vcap/data/grootfs/store/unprivileged/images/<UUID>/diff` and will look similar to:
+Log messages will appear on Diego Cells under `/var/vcap/data/grootfs/store/unprivileged/images/<UUID>` and will look similar to:
 <pre class="terminal">
 2019-04-25T14:56:10.158714+00:00 localhost filesnitch[79084]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| 
 fname="/var/vcap/data/grootfs/store/unprivileged/images/5c320add-ac1a-4bd7-78b6-1129/diff/home/vcap/app/public/test.html" 
 hostname="diego_cell/6781b720-d6c3-4b61-9055-6116559432a8" opname="CREATE" optype=1 ts=1556204170 severity=5
 </pre>
+
+<p class="note"><strong>Note</strong>: There will be duplicate entries found in `/var/vcap/data/grootfs/store/unprivileged/images/<UUID>`'s `diff` and `rootfs` folders due to grootfs' implementation. Therefore, it is recommended to configure FIM to ignore the `rootfs` directory with [ignore_patterns](./configuration.html#output)</p>
 
 ###PKS containers
 Log messages will appear on Kubernetes workers under `/var/vcap/store/docker/docker/overlay2/<UUID>/diff` and will look similar to:
