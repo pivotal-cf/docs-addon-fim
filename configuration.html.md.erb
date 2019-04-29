@@ -276,49 +276,55 @@ You can use FIM to monitor the following:
 
 To configure FIM to monitor Garden containers, do the following when configuring FIM:
 
-1. In [List Directories to Be Monitored](#dirs) above, add the `/xxx/xxx/` directory to the `fim.dirs` property:
+1. In [List Directories to Be Monitored](#dirs) above, add the following directories
+   to the `fim.dirs` property:
 
         fim:
           dirs:
             ...
-    
-            # Garden containers
-            - /xxx/xxx/
 
-2. In [Ignore Events](#output-ignore), add the `yyy/yyy` directory (or file?) to the `ignored_patterns` property:
+            # Garden containers
+            - /var/vcap/data/grootfs/store/unprivileged/images/
+            - /var/vcap/data/grootfs/store/privileged/images/
+
+    For more information about GrootFS volumes,
+    see [Volumes](https://docs.pivotal.io/pivotalcf/concepts/grootfs-disk.html#volumes).
+
+2. In [Ignore Events](#output-ignore), add the following pattern to the `ignored_patterns` property:
 
         fim:
           ignored_patterns:
             ...
             # When monitoring Garden containers,
             # ignore duplicate log messages sent to .../UUID/rootfs/
-            - xxx
+            - ^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$
 
-When files in the Garden containers are modified, FIM writes log messages to this directory in the Diego Cell VMs:
-`/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff/XXX`,<br>
-where `UUID` is the ID of the Garden container.
+    When files in the Garden containers are modified, changes are made to both the `diff` and `rootfs` directories.
+    
+    Adding this ignore pattern, means that only files
+    in the `/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff`
+    directory are monitored by FIM.
+    `UUID` is the ID of the container.
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
 
-<p class="note"><strong>Note:</strong> If you omit step 2 above, duplicate log messages are written to 
-<code>/var/vcap/data/grootfs/store/unprivileged/images/UUID/rootfs/XXX</code>.</p>
 
 ###<a id="pks"></a> Monitor Containers in Enterprise PKS
 
 To configure FIM to monitor containers on the Kubernetes worker node VMs in Enterprise PKS,
 do the following when configuring FIM:
 
-1. In [List Directories to Be Monitored](#dirs) above, add the `/xxx/xxx/` directory to the `fim.dirs` property:
+1. In [List Directories to Be Monitored](#dirs) above, add the following directory to the `fim.dirs` property:
 
         fim:
           dirs:
             ...
     
             # Containers in Enterprise PKS
-            - /xxx/xxx/
+            - /var/vcap/store/docker/docker/
 
-When files in the Docker containers are modified, FIM writes log messages to this directory
-on the Kubernetes worker node VMs: `/var/vcap/store/docker/docker/overlay2/UUID/diff`,<br>
-where `UUID` is the ID of the container.
+When files in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory are modified,
+FIM writes log messages.
+`UUID` is the ID of the container.
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
