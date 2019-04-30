@@ -62,22 +62,20 @@ For more information on formatting logs, see [Event Logging](./configuration.htm
 
 ##<a id="container-examples"></a> Examples of Log Messages from Containers
 
-Examples of FIM log messages from Garden containers and Docker containers are as follows: 
+Examples of FIM log messages from Garden containers and Docker containers are as follows:
 
 * For a Garden container in Pivotal Application Service (PAS)
 <pre class="terminal">
-2019-04-25T14:56:10.158714+00:00 localhost filesnitch[79084]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| 
+2019-04-25T14:56:10.158714+00:00 localhost filesnitch[79084]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5|
 fname="/var/vcap/data/grootfs/store/unprivileged/images/5c320add-ac1a-4bd7-78b6-1129/diff/home/vcap/app/public/test.html"
-</pre> 
+</pre>
 
-* For a Docker container in Enterprise Pivotal Container Service (PKS) 
+* For a Docker container in Enterprise Pivotal Container Service (Enterprise PKS) 
 <pre class="terminal">
-2019-04-25T18:40:48.937153+00:00 localhost filesnitch[17875]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| 
-fname="/var/vcap/store/docker/docker/overlay2/7e5685c735b2aa97a9680e0b81730a518e3188afbf0f9f1529e492f98ed35f1d/diff/test.html" 
+2019-04-25T18:40:48.937153+00:00 localhost filesnitch[17875]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5|
+fname="/var/vcap/store/docker/docker/overlay2/7e5685c735b2aa97a9680e0b81730a518e3188afbf0f9f1529e492f98ed35f1d/diff/test.html"
 hostname="worker/d1d67195-ad42-4025-83e9-0d43a193ad53" opname="CREATE" optype=1 ts=1556217648 severity=5
 </pre>
 
 For how to configure FIM to monitor containers,
 see [Monitor Containers with FIM](./configuration.html#monitor-containers).
-
-

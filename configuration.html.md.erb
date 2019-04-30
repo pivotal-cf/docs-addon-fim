@@ -270,7 +270,7 @@ You can use FIM to monitor the following:
 
 + Garden containers on the Diego Cell VMs in Pivotal Application Service (PAS)
 
-+ Containers on the Kubernetes worker node VMs in Enterprise Pivotal Container Service (PKS)
++ Containers on the Kubernetes worker node VMs in Enterprise Pivotal Container Service (Enterprise PKS)
 
 ###<a id="garden"></a> Monitor Garden Containers
 
@@ -299,12 +299,11 @@ To configure FIM to monitor Garden containers, do the following when configuring
             # ignore duplicate log messages sent to .../UUID/rootfs/
             - ^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$
 
-    When files in the Garden containers are modified, changes are made to both the `diff` and `rootfs` directories.
-
-    Adding this ignore pattern, means that files and directories
-    in the `/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff`
-    directory are ignored by FIM.
-    `UUID` is the ID of the container.
+    <p class="note"><strong>Note:</strong> When files in the Garden containers are modified,
+      changes are made to both the <code>diff</code> and <code>rootfs</code> directories.
+    Adding this ignore pattern means that files and directories
+    in the <code>/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff</code>
+    directory are ignored by FIM. <code>UUID</code> is the ID of the container.</p>
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
 
@@ -323,8 +322,8 @@ do the following when configuring FIM:
             # Containers in Enterprise PKS
             - /var/vcap/store/docker/docker/
 
-When files and directories in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory
-are created, removed, or modified, FIM writes log messages.
-`UUID` is the ID of the container.
+    When files and directories in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory
+    are created, removed, or modified, FIM writes log messages.
+    `UUID` is the ID of the container.
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
