@@ -264,3 +264,69 @@ The FIM Add-on sets a threshold on the size of files to be hashed. Use the `fim.
 fim:
   digest_threshold: 10000000
 ```
+
+
+##<a id="monitor-containers"></a>Monitor Containers with FIM
+
+You can use FIM to monitor the following:
+
++ Garden containers on the Diego Cell VMs in Pivotal Application Service (PAS)
+
++ Containers on the Kubernetes worker node VMs in Enterprise Pivotal Container Service (PKS)
+
+###<a id="garden"></a> Monitor Garden Containers
+
+To configure FIM to monitor Garden containers, do the following when configuring FIM:
+
+1. In [List Directories to Be Monitored](#dirs) above, add the following directories
+   to the `fim.dirs` property:
+
+        fim:
+          dirs:
+            ...
+
+            # Garden containers
+            - /var/vcap/data/grootfs/store/unprivileged/images/
+            - /var/vcap/data/grootfs/store/privileged/images/
+
+    For more information about GrootFS volumes,
+    see [Volumes](https://docs.pivotal.io/pivotalcf/concepts/grootfs-disk.html#volumes).
+
+2. In [Ignore Events](#output-ignore), add the following pattern to the `ignored_patterns` property:
+
+        fim:
+          ignored_patterns:
+            ...
+            # When monitoring Garden containers,
+            # ignore duplicate log messages sent to .../UUID/rootfs/
+            - ^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$
+
+    When files in the Garden containers are modified, changes are made to both the `diff` and `rootfs` directories.
+
+    Adding this ignore pattern, means that files and directories
+    in the `/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff`
+    directory are ignored by FIM.
+    `UUID` is the ID of the container.
+
+For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
+
+
+###<a id="pks"></a> Monitor Containers in Enterprise PKS
+
+To configure FIM to monitor containers on the Kubernetes worker node VMs in Enterprise PKS,
+do the following when configuring FIM:
+
+1. In [List Directories to Be Monitored](#dirs) above, add the following directory to the `fim.dirs` property:
+
+        fim:
+          dirs:
+            ...
+
+            # Containers in Enterprise PKS
+            - /var/vcap/store/docker/docker/
+
+When files and directories in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory
+are created, removed, or modified, FIM writes log messages.
+`UUID` is the ID of the container.
+
+For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
