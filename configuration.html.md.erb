@@ -74,7 +74,7 @@ For example:
 2019-01-02T15:54:19.388257+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|2|file integrity monitoring event|5| fname="/test/file02" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" opname="WRITE" optype=2 ts=1546535520 severity=5
 </pre>
 
-For an example of every type of FIM log message that can be configured, see [Examples of FIM Log Messages](./log-examples.html). 
+For an example of every type of FIM log message that can be configured, see [Examples of FIM Log Messages](./log-examples.html).
 
 <p class="note"><strong>Note</strong>:
 Low severity events can be used to filter out business-as-usual events.
@@ -300,10 +300,10 @@ To configure FIM to monitor Garden containers, do the following when configuring
             - ^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$
 
     When files in the Garden containers are modified, changes are made to both the `diff` and `rootfs` directories.
-    
-    Adding this ignore pattern, means that only files
+
+    Adding this ignore pattern, means that files and directories
     in the `/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff`
-    directory are monitored by FIM.
+    directory are ignored by FIM.
     `UUID` is the ID of the container.
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
@@ -319,12 +319,12 @@ do the following when configuring FIM:
         fim:
           dirs:
             ...
-    
+
             # Containers in Enterprise PKS
             - /var/vcap/store/docker/docker/
 
-When files in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory are modified,
-FIM writes log messages.
+When files and directories in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory
+are created, removed, or modified, FIM writes log messages.
 `UUID` is the ID of the container.
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
