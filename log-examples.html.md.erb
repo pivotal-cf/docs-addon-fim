@@ -5,17 +5,19 @@ owner: Security Engineering
 
 <strong><%= modified_date %></strong>
 
-This topic contains sample logs emitted by the File Integrity Monitoring (FIM) Add-on for Pivotal Cloud Foundry (PCF).
+This topic contains sample log messages emitted by the File Integrity Monitoring (FIM)
+Add-on for Pivotal Cloud Foundry (PCF).
 
 These samples can be used to configure a Security Information and Event Management (SIEM) system
 to verify regular activity and generate alerts for file system operations of monitored directories.
 
 
-##<a name="fim-logs-messages"></a> FIM Log Message Types
+##<a id="fim-logs-messages"></a> FIM Log Message Types
 
 FIM produces many different logs depending on what operation is being performed.
 The destination for these log files can be configured.
-For more information on configuring the path, see [Configure the Output Destination](./configuration.html#output).
+For more information on configuring the path,
+see [Configure the Output Destination](./configuration.html#output-configure).
 
 For an example of every type of FIM log message that can be configured, see the following:
 
@@ -55,6 +57,7 @@ For an example of every type of FIM log message that can be configured, see the 
 	fname="/var/vcap/data/jobs/newfile.txt" hostname="fim\_1/f66479c7-cd37-4a99-b735-f6f41ba55f01" opname="CHMOD" optype=16 ts=1554479523 severity=5
 	</pre>
 
+
 For more information on formatting logs, see [Event Logging](./configuration.html#output-logs).
 
 ##<a id="container-examples"></a> Examples of Log Messages from Containers
@@ -67,7 +70,7 @@ Examples of FIM log messages from Garden containers and Docker containers are as
 fname="/var/vcap/data/grootfs/store/unprivileged/images/5c320add-ac1a-4bd7-78b6-1129/diff/home/vcap/app/public/test.html"
 </pre>
 
-* For a Docker container in Enterprise Pivotal Container Service (Enterprise PKS)
+* For a Docker container in Enterprise Pivotal Container Service (Enterprise PKS) 
 <pre class="terminal">
 2019-04-25T18:40:48.937153+00:00 localhost filesnitch[17875]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5|
 fname="/var/vcap/store/docker/docker/overlay2/7e5685c735b2aa97a9680e0b81730a518e3188afbf0f9f1529e492f98ed35f1d/diff/test.html"
