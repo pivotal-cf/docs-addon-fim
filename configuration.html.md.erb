@@ -304,8 +304,9 @@ To configure FIM to monitor Garden containers, do the following when configuring
     When files in the Garden containers are modified, changes are made to both the `diff` and `rootfs` directories.
 
     Adding this ignore pattern, means that files and directories
-    in the `/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff`
-    directory are ignored by FIM.
+    in the `/var/vcap/data/grootfs/store/unprivileged/images/UUID/rootfs`
+    and `/var/vcap/data/grootfs/store/privileged/images/UUID/rootfs`
+    directories are ignored by FIM.
     `UUID` is the ID of the container.
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
