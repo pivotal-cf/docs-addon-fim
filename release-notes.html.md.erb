@@ -8,17 +8,16 @@ owner: Security Engineering
 This topic contains release notes for File Integrity Monitoring (FIM) Add-on for Pivotal Cloud Foundry (PCF).
 
 ## <a id="1327"></a> v1.3.27
+**Release Date**: September 3, 2019
 
-**Release Date**: August 30, 2019
+### Resolved Issues
 
-### Features
+This release has the following fix:
 
-New features and changes in this release:
-
-* Fix issue when rotating FIM logs via logrotate.
+* Fixes known issue when rotating FIM logs via logrotate. When creating a log file,
+  FIM now performs an `APPEND`. Previous behaviour used `CREATE` and `OVERWRITE`.
 
 ## <a id="1323"></a> v1.3.23
-
 **Release Date**: August 6, 2019
 
 ### Features
@@ -28,13 +27,18 @@ New features and changes in this release:
 * Adds `/boot/grub` and `/root` directories to the default list of directories under monitoring.
 * Updates golang dependency to v1.12.7.
 
-## <a id="134"></a> v1.3.4
+### Known Issues
+This release has the following issue:
 
+* Issue when opening or writing to FIM logs. When moving old FIM logs to another file,
+  it fails to properly do it. Resolved in [v1.3.27](#1327).
+
+## <a id="134"></a> v1.3.4
 **Release Date**: October 12, 2018
 
-<div class="note breaking"><strong>Breaking Change</strong>: 
+<div class="note breaking"><strong>Breaking Change</strong>:
 This release has a breaking change in the <code>format</code> configuration option.
- <code>.Map</code> has been removed from the format field names. 
+ <code>.Map</code> has been removed from the format field names.
  <br>
  Names now use title case,
 so that <code>{{.Map.fname}} {{.Map.hostname}} {{.Map.opname}} {{.Map.optype}} {{.Map.ts}}</code>
@@ -56,6 +60,12 @@ that are created while FIM is running and pre-existing subdirectories.
 This release fixes the following issue:
 
 * Hostname in logged events
+
+### Known Issues
+This release has the following issue:
+
+* Issue when opening or writing to FIM logs. When moving old FIM logs to another file,
+  it fails to properly do it. Resolved in [v1.3.27](#1327).
 
 ## <a id="view"></a> View Release Notes for Another Version
 
