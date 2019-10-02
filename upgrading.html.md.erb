@@ -71,9 +71,9 @@ To upgrade the FIM Add-on to a later version, do the following:
       version: 1.2.23
     ```
 
-7. Verify that your FIM runtime config includes an `addon` element for both Trusty and Xenial stemcells. <br/><br/>
+7. Verify that your FIM runtime config includes an `addon` element. <br/><br/>
     
-    Your runtime config must contain the following section:
+    For Linux, your runtime config must contain the following section:
 
     ```
     - name: fim-trusty
@@ -89,6 +89,18 @@ To upgrade the FIM Add-on to a later version, do the following:
 
     For more information about adding this section, 
     see [Updating FIM Add-on for PCF to Run with Xenial Stemcells](./updating-for-xenial.html).
+
+    For Windows, your runtime config must contain the following section:
+
+    ```
+    - name: fim-windows
+      include:
+        stemcell:
+        - os: windows2019
+        - os: windows1803
+        - os: windows2016
+        - os: windows2012R2
+    ```
 
 8. To update the runtime config, run the following command:
 
