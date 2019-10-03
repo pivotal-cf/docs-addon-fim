@@ -11,7 +11,7 @@ This topic describes how to configure and use the File Integrity Monitoring Add-
 
 The FIM Add-on monitors a set of critical system directories.
 The list of directories to be monitored by the FIM Add-on can be configured using the `fim.dirs` property.
-The default value of `fim.dirs` is:
+The default value of `fim.dirs` for Linux is:
 
     fim:
       dirs:
@@ -35,6 +35,17 @@ The default value of `fim.dirs` is:
         - /var/vcap/data/jobs
 
 <p class="note"><strong>Note</strong>: The default <code>fim.dirs</code> are written for Ubuntu Trusty stemcells. On Xenial stemcells, add <code>/lib32</code> to <code>fim.dirs</code>.</p>
+
+The default value of `fim.dirs` for Windows is:
+
+    fim:
+        dirs:
+        - C:\\Windows\\System32
+        - C:\\Program Files
+        - C:\\Program Files (x86)
+        - C:\\var\\vcap\\bosh
+        - C:\\var\\vcap\\data\\packages
+        - C:\\var\\vcap\\data\\jobs
 
 ##<a id="output-logs"></a>Event Logging
 
@@ -144,24 +155,34 @@ fim:
 
 ##<a id="output-configure"></a>Configure the Output Destination
 
-FIM supports three types of output:
-
-* `stdout`: sends messages to `/var/vcap/sys/log/fim/fim.stdout.log`.
-* `stderr`: sends messages to `/var/vcap/sys/log/fim/fim.stderr.log`.
-* `syslog`: sends messages to `/var/log/messages`.
-
 The output is configured using the `fim.outputs` property.
 
-<p class="note"><strong>Note</strong>: Currently, FIM only supports selecting one output at a time.</p>
+1. FIM supports three types of output for Linux:
+
+  * `stdout`: sends messages to `/var/vcap/sys/log/fim/fim.stdout.log`.
+  * `stderr`: sends messages to `/var/vcap/sys/log/fim/fim.stderr.log`.
+  * `syslog`: sends messages to `/var/log/messages`.
+
+  <p class="note"><strong>Note</strong>: Currently, FIM only supports selecting one output at a time.</p>
+
+  The default value of the `fim.outputs` property:
+
+  ```
+  fim:
+    outputs:
+    - syslog
+  ```
+1. FIM supports two types of output for Windows:
+
+* `stdout`: sends messages to `C:\\var\\vcap\\sys\\log\\fim-windows\\filesnitch\\job-service-wrapper.out.log`.
+* `stderr`: sends messages to `C:\\var\\vcap\\sys\\log\\fim-windows\\filesnitch\\job-service-wrapper.err.log`.
 
 The default value of the `fim.outputs` property:
-
 ```
 fim:
   outputs:
-    - syslog
+  - stdout
 ```
-
 ##<a id="format"></a>Configure the Output Format
 
 By default, the FIM Add-on generates messages in the Common Event Format.
@@ -194,13 +215,15 @@ The key-values pairs in the final field of a CEF file log carry the following me
 * `optype` and `opname` are the type of file operation in the numeric and textual format, respectively.
    The possible values of the two fields are described by the table below.
 
-    | opname |      optype |  Example Trigger |
-    |----------|:-------------:|------|
-    | CREATE | 1 | <code>touch newfile.txt</code>, <code>echo 'content' > newfile2.txt</code>
-    | WRITE | 2 |  <code>echo 'hello world' >> file.txt</code>
-    | REMOVE | 4 | <code>rm file.txt</code>
-    | RENAME | 8 | <code>mv file.txt file.txt.orig</code>
-    | CHMOD | 16 | <code>chmod 0400 file.txt</code>, <code>touch existingfile.txt</code>
+    | opname |      optype |  Example Linux Trigger | Example Windows Trigger |
+    |----------|:-------------:|------|------|
+    | CREATE | 1 | <code>touch newfile.txt</code>, <code>echo 'content' > newfile2.txt</code> | <code>Powershell New-Item -type File newfile.txt</code>, <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
+    | WRITE | 2 |  <code>echo 'hello world' >> file.txt</code> | <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
+    | REMOVE | 4 | <code>rm file.txt</code> | <code>Powershell rm file.txt</code>
+    | RENAME | 8 | <code>mv file.txt file.txt.orig</code> | <code>Powershell mv file.txt file.txt.orig</code>
+    | CHMOD | 16 | <code>chmod 0400 file.txt</code>, <code>touch existingfile.txt</code> | <code>Powershell icacls file.txt /grant administrators:F</code>
+
+<p class="note"><strong>Note: </strong>FIM Add-on on Windows reports `WRITE` and `CHMOD` together as `WRITE|CHMOD`. The two operations are indistinguishable.</p>
 
 Other template values are listed below.
 ###<a id="json"></a>JSON
@@ -270,6 +293,8 @@ You can use FIM to monitor the following:
 
 + Garden containers on the Diego Cell VMs in Pivotal Application Service (PAS)
 
++ Containers on the Diego Windows Cell VMs in Pivotal Application Service for Windows (PASW)
+
 + Containers on the Kubernetes worker node VMs in Enterprise Pivotal Container Service (Enterprise PKS)
 
 ###<a id="garden"></a> Monitor Garden Containers
@@ -307,6 +332,17 @@ To configure FIM to monitor Garden containers, do the following when configuring
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
 
+
+###<a id="pasw"></a> Monitor Containers in Pivotal Application Service for Windows
+
+To configure FIM to monitor containers, do the following when configuring FIM:
+1. In [List Directories to Be Monitored](#dirs) above, add the following directories
+   to the `fim.dirs` property:
+
+        fim:
+          dirs:
+            ...
+            - C:\\var\\vcap\\data\\groot
 
 ###<a id="pks"></a> Monitor Containers in Enterprise PKS
 
