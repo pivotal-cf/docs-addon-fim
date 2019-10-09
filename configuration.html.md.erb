@@ -27,15 +27,16 @@ The default value of `fim.dirs` for Linux is:
         - /usr
         - /var/lib
 
-        # Bosh agent
+        # BOSH agent
         - /var/vcap/bosh
         - /var/vcap/monit/job
 
-        # Bosh releases
+        # BOSH releases
         - /var/vcap/data/packages
         - /var/vcap/data/jobs
 
-<p class="note"><strong>Note</strong>: The default <code>fim.dirs</code> are written for Ubuntu Trusty stemcells. On Xenial stemcells, add <code>/lib32</code> to <code>fim.dirs</code>.</p>
+<p class="note"><strong>Note</strong>: The default <code>fim.dirs</code> are written for Ubuntu Trusty stemcells. On Xenial stemcells, add <code>/lib32</code> to <code>fim.dirs</code>.
+</p>
 
 The default value of `fim.dirs` for Windows is:
 
@@ -61,7 +62,7 @@ These logs appear in the following format:
 
 Where:
 
-* `OPERATION-TYPE` and `OPERATION-NAME` are one of the following:
+* `OPERATION-TYPE` and `OPERATION-NAME` are one of the below:
     * `1`, which is `CREATE`
     * `2`, which is `WRITE`
     * `4`, which is `REMOVE`
@@ -90,12 +91,12 @@ For an example of every type of FIM log message that can be configured, see [Exa
 
 <p class="note"><strong>Note</strong>:
 Low severity events can be used to filter out business-as-usual events.
-This makes unexpected events easy to isolate by looking for severity <code>5</code>.
+This allows you to isolate unexpected events by looking for severity <code>5</code>.
 </p>
 
 ##<a id="output-ignore"></a>Ignore Events
 
-Some monitored directories may contain files that should not be monitored, for example, files that change frequently.
+Some monitored directories might contain files that should not be monitored, for example, files that change frequently.
 You can configure the Fim Add-on to ignore events using path regexes with `fim.ignored_patterns`.
 The default value of `fim.ignored_patterns` is:
 
@@ -122,7 +123,7 @@ fim:
 
 ##<a id="output-low"></a>Low Severity Events
 
-Some monitored directories may contain files that occasionally change.
+Some monitored directories might contain files that occasionally change.
 You can configure The FIM Add-on to log events at a lower severity using path regexes with `fim.low_severity_patterns`.
 The default value of `fim.low_severity_patterns` is:
 
@@ -137,7 +138,7 @@ fim:
     - ^/etc/group$
     - ^/etc/gshadow$
 
-    # Bosh-DNS sync and new VM creation update hosts
+    # BOSH-DNS sync and new VM creation update hosts
     - ^/etc/hosts$
 
     # Attached devices and cgroups
@@ -146,10 +147,10 @@ fim:
     # DHCP leases
     - ^/var/lib/dhcp/dhclient.eth\d+.leases$
 
-    # Bosh Agent configuration changes when VM created/modified
+    # BOSH Agent configuration changes when VM created/modified
     - ^/var/vcap/bosh/settings.json$
 
-    # Bosh Agent CHMODs jobs and packages as part of `bosh deployment`
+    # BOSH Agent CHMODs jobs and packages as part of `bosh deployment`
     - ^/var/vcap/data/jobs$
     - ^/var/vcap/data/packages$
 ```
@@ -164,7 +165,8 @@ The output is configured using the `fim.outputs` property.
   * `stderr`: sends messages to `/var/vcap/sys/log/fim/fim.stderr.log`.
   * `syslog`: sends messages to `/var/log/messages`.
 
-  <p class="note"><strong>Note</strong>: Currently, FIM only supports selecting one output at a time.</p>
+  <p class="note"><strong>Note</strong>: Currently, FIM only supports selecting one output at a time.
+  </p>
 
   The default value of the `fim.outputs` property:
 
@@ -206,7 +208,7 @@ Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|4|file 
 Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/gshadow.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
 ```
 
-<p class="note"><strong>Note</strong>: The <code>FILESNITCH CHECKIN</code> message is a logging marker that indicates <code>filesnitch</code> is operational in the absence of any filesystem events.</p>
+<p class="note"><strong>Note</strong>: The <code>FILESNITCH CHECKIN</code> message is a logging marker that indicates <code>filesnitch</code> is operational in the absence of any file system events.</p>
 
 The key-values pairs in the final field of a CEF file log carry the following meaning:
 
@@ -254,7 +256,8 @@ The key-values pairs in the final field of a CEF file log carry the following me
     </table>
 
 
-<p class="note"><strong>Note: </strong>FIM Add-on on Windows reports <code>WRITE</code> and <code>CHMOD</code> together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.</p>
+<p class="note"><strong>Note: </strong>FIM Add-on on Windows reports <code>WRITE</code> and <code>CHMOD</code> together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.
+</p>
 
 Other template values are listed below.
 ###<a id="json"></a>JSON
@@ -291,7 +294,7 @@ fim:
   format: "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Digests}} {{.Ts}}"
 ```
 
-...produces the following:
+...produces this:
 
 ```
 /bin/binary plymouth CREATE 1 sha256=da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
@@ -320,7 +323,7 @@ fim:
 
 ##<a id="monitor-containers"></a>Monitor Containers with FIM
 
-You can use FIM to monitor the following:
+You can use FIM to monitor:
 
 + Garden containers on the Diego Cell VMs in <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
 
@@ -359,7 +362,8 @@ To configure FIM to monitor Garden containers, do the following when configuring
       changes are made to both the <code>diff</code> and <code>rootfs</code> directories.
     Adding this ignore pattern means that files and directories
     in the <code>/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff</code>
-    directory are ignored by FIM. <code>UUID</code> is the ID of the container.</p>
+    directory are ignored by FIM. <code>UUID</code> is the ID of the container.
+    </p>
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
 
