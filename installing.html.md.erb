@@ -75,8 +75,7 @@ Follow the steps below to create the FIM runtime configuration for your Linux de
     ```
 
 2. (Optional) Set the properties `cpu_limit`, `enforce_cpu_limit`, `memory_limit`, and  `heartbeat_interval`.
-To use these properties, place the following text under the `fim` subsection of
-`fim.yml`, as shown below:
+To use these properties, place this text under the `fim` subsection of `fim.yml`:
 
     ```
     ...
@@ -126,7 +125,7 @@ To use these properties, place the following text under the `fim` subsection of
     </ul>
 
 
-##<a id="create-mfest-windows"></a>Create the FIM Manifest (Windows)
+##<a id="create-mfest-windows"></a>Create the FIM Manifest (Windows) (BETA)
 
 The FIM runtime configuration file is a YAML file that contains runtime configuration
 information for the FIM Add-on.
@@ -161,8 +160,7 @@ Follow the steps below to create the FIM runtime configuration for your Windows 
     ```
 
 2. (Optional) Set the property `heartbeat_interval`.
-To use this property, place the following text under the `fim` subsection of
-`fim.yml`, as shown below:
+To use this property, place this text under the `fim` subsection of `fim.yml`:
 
     ```
     ...
@@ -301,59 +299,64 @@ Pivotal recommends forwarding logs to a remote syslog aggregation system.</p>
 ## <a id="verify"></a>Verify the Installation
 
 1. Run `bosh instances --ps` and look for the deployment.
-    1. For Linux, validate by checking that there is a `fim` process in `running` state:
-    ```
-    Deployment 'fim-xenial'
+  1. For Linux, validate by checking that there is a `fim` process in the `running` state:
 
-    Instance                                    Process  Process State  AZ  IPs
-    fim_1/8cec18fa-b1a0-4d30-bbe5-a522c12ca62e  -        running        z1  10.0.0.18
-    ~                                           fim      running        -   -
+        ```
+        Deployment 'fim-xenial'
 
-    1 instances
-    ```
+        Instance                                    Process  Process State  AZ  IPs
+        fim_1/8cec18fa-b1a0-4d30-bbe5-a522c12ca62e  -        running        z1  10.0.0.18
+        ~                                           fim      running        -   -
 
-    1. For Windows, validate by checking that there is a `filesnitch` process in `running` state:
+        1 instances
+        ```
 
-    ```
-    Deployment 'fim-windows'
+  1. For Windows, validate by checking that there is a `filesnitch` process in the `running` state:
 
-    Instance                                       Process     Process State  AZ  IPs
-    fim_2/0d11b596-ce2a-4aa6-baaa-664a83fb72c3     -           running        z1  10.0.0.4
-    ~                                              filesnitch  running        -   -
+        ```
+        Deployment 'fim-windows'
 
-    1 instances
-    ```
+        Instance                                       Process     Process State  AZ  IPs
+        fim_2/0d11b596-ce2a-4aa6-baaa-664a83fb72c3     -           running        z1  10.0.0.4
+        ~                                              filesnitch  running        -   -
 
-1. Check `fim` is logging
-    1. Use `bosh ssh` to log in to one of the VMs in your deployment with SSH.
-       For more information, see [BOSH SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-ssh).
+        1 instances
+        ```
 
-        1. For Linux, do the following:
+1. Verify that `fim` is logging. To do this, use `bosh ssh` to log in to one of
+the VMs in your deployment with SSH. For more information, see
+[BOSH SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-ssh).
 
-            1. Enter the following command:
+  1. For Linux:
 
-                ```
-                touch /bin/hackertool
-                ```
+      1. Enter this command:
 
-            1. Enter the following command:
+            ```
+            touch /bin/hackertool
+            ```
 
-                ```
-                grep hackertool /var/log/syslog
-                ```
+      1. Enter this command:
 
-            1. Check for a message that a new file has been created. For example:
-            <pre class="terminal">Sep 22 23:57:07 qvsfgv0qnrk filesnitch[3040]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/bin/hackertool" hostname="f98968fe-501a-470b-819a-c4a2a7ac45c8" opname="CREATE" optype=1 ts=1474588627</pre>
+            ```
+            grep hackertool /var/log/syslog
+            ```
 
-        1. For Windows, do the following:
-            1. Enter the following command:
-                ```
-                powershell New-Item -type File /var/vcap/data/jobs/sample_file
-                ```
-            1. Enter the following command:
-                ```
-                powershell "Get-Content /var/vcap/sys/log/fim-windows/filesnitch/job-service-wrapper.out.log | Select-String sample_file"
-                ```
+      1. Check for a message that a new file has been created. For example:
+      <pre class="terminal">Sep 22 23:57:07 qvsfgv0qnrk filesnitch[3040]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/bin/hackertool" hostname="f98968fe-501a-470b-819a-c4a2a7ac45c8" opname="CREATE" optype=1 ts=1474588627</pre>
 
-            1. Check for a message that a new file has been created. For example:
-            <pre class="terminal">CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="C:\\var\\vcap\\data\\jobs\\sample_file" hostname="no-job_1/ebee34c1-3300-4f5d-9557-bbef845d608c" opname="CREATE" optype=1 ts=1569953512 severity=5</pre>
+  1. For Windows (BETA):
+
+      1. Enter this command:
+
+            ```
+            powershell New-Item -type File /var/vcap/data/jobs/sample_file
+            ```
+
+      1. Enter this command:
+
+            ```
+            powershell "Get-Content /var/vcap/sys/log/fim-windows/filesnitch/job-service-wrapper.out.log | Select-String sample_file"
+            ```
+
+      1. Check for a message that a new file has been created. For example:
+      <pre class="terminal">CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="C:\\var\\vcap\\data\\jobs\\sample_file" hostname="no-job_1/ebee34c1-3300-4f5d-9557-bbef845d608c" opname="CREATE" optype=1 ts=1569953512 severity=5</pre>

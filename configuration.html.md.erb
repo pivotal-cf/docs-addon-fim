@@ -11,6 +11,7 @@ This topic describes how to configure and use the File Integrity Monitoring Add-
 
 The FIM Add-on monitors a set of critical system directories.
 The list of directories to be monitored by the FIM Add-on can be configured using the `fim.dirs` property.
+
 The default value of `fim.dirs` for Linux is:
 
     fim:
@@ -213,17 +214,47 @@ The key-values pairs in the final field of a CEF file log carry the following me
 * `hostname` is the hostname of the VM on which the file event originated.
 * `ts` is the point in time at which FIM received the file event.
 * `optype` and `opname` are the type of file operation in the numeric and textual format, respectively.
-   The possible values of the two fields are described by the table below.
+   The possible values of the two fields are described by the table below:
 
-    | opname |      optype |  Example Linux Trigger | Example Windows Trigger |
-    |----------|:-------------:|------|------|
-    | CREATE | 1 | <code>touch newfile.txt</code>, <code>echo 'content' > newfile2.txt</code> | <code>Powershell New-Item -type File newfile.txt</code>, <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
-    | WRITE | 2 |  <code>echo 'hello world' >> file.txt</code> | <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
-    | REMOVE | 4 | <code>rm file.txt</code> | <code>Powershell rm file.txt</code>
-    | RENAME | 8 | <code>mv file.txt file.txt.orig</code> | <code>Powershell mv file.txt file.txt.orig</code>
-    | CHMOD | 16 | <code>chmod 0400 file.txt</code>, <code>touch existingfile.txt</code> | <code>Powershell icacls file.txt /grant administrators:F</code>
+    <table class="nice">
+        <th>opname</th>
+        <th>optype</th>
+        <th>Example Linux Trigger</th>
+        <th>Example Windows Trigger</th>
+        <tr>
+            <td>CREATE</td>
+            <td align="center">1</td>
+            <td><code>touch newfile.txt</code>, <code>echo 'content' > newfile2.txt</code></td>
+            <td><code>Powershell New-Item -type File newfile.txt</code>, <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code></td>
+        </tr>
+        <tr>
+            <td>WRITE</td>
+            <td align="center">2</td>
+            <td><code>echo 'hello world' >> file.txt</code></td>
+            <td><code>Powershell Add-Content -Path newfile.txt -Value 'content'</code></td>
+        </tr>
+        <tr>
+            <td>REMOVE</td>
+            <td align="center">4</td>
+            <td><code>rm file.txt</code></td>
+            <td><code>Powershell rm file.txt</code></td>
+        </tr>
+        <tr>
+            <td>RENAME</td>
+            <td align="center">8</td>
+            <td><code>mv file.txt file.txt.orig</code></td>
+            <td><code>Powershell mv file.txt file.txt.orig</code></td>
+        </tr>
+        <tr>
+            <td>CHMOD</td>
+            <td align="center">16</td>
+            <td><code>chmod 0400 file.txt</code>, <code>touch existingfile.txt</code></td>
+            <td><code>Powershell icacls file.txt /grant administrators:F</code></td>
+        </tr>
+    </table>
 
-<p class="note"><strong>Note: </strong>FIM Add-on on Windows reports `WRITE` and `CHMOD` together as `WRITE|CHMOD`. The two operations are indistinguishable.</p>
+
+<p class="note"><strong>Note: </strong>FIM Add-on on Windows reports <code>WRITE</code> and <code>CHMOD</code> together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.</p>
 
 Other template values are listed below.
 ###<a id="json"></a>JSON
@@ -291,11 +322,11 @@ fim:
 
 You can use FIM to monitor the following:
 
-+ Garden containers on the Diego Cell VMs in Pivotal Application Service (PAS)
++ Garden containers on the Diego Cell VMs in <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
 
-+ Containers on the Diego Windows Cell VMs in Pivotal Application Service for Windows (PASW)
++ Containers on the Diego Windows Cell VMs in <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
 
-+ Containers on the Kubernetes worker node VMs in Enterprise Pivotal Container Service (Enterprise PKS)
++ Containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>)
 
 ###<a id="garden"></a> Monitor Garden Containers
 
@@ -335,7 +366,7 @@ For an example log message, see [Examples of Log Messages from Containers](./log
 
 ###<a id="pasw"></a> Monitor Containers in Pivotal Application Service for Windows
 
-To configure FIM to monitor containers, do the following when configuring FIM:
+To configure FIM to monitor containers:
 1. In [List Directories to Be Monitored](#dirs) above, add the following directories
    to the `fim.dirs` property:
 
@@ -346,8 +377,7 @@ To configure FIM to monitor containers, do the following when configuring FIM:
 
 ###<a id="pks"></a> Monitor Containers in Enterprise PKS
 
-To configure FIM to monitor containers on the Kubernetes worker node VMs in Enterprise PKS,
-do the following when configuring FIM:
+To configure FIM to monitor containers on the Kubernetes worker node VMs in Enterprise PKS:
 
 1. In [List Directories to Be Monitored](#dirs) above, add the following directory to the `fim.dirs` property:
 

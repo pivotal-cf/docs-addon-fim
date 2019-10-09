@@ -9,7 +9,7 @@ This topic describes how to upgrade the File Integrity Monitoring Add-on for PCF
 
 For example, read this topic to learn how to upgrade from FIM Add-on v1.2.17 to v1.2.23.
 
-<p class="note warning"><strong>IMPORTANT: </strong> If you are deploying any product tiles that use Xenial stemcells, 
+<p class="note warning"><strong>IMPORTANT: </strong> If you are deploying any product tiles that use Xenial stemcells,
 you must upgrade the FIM Add-on for PCF to v1.2.22 or later.</p>
 
 ##<a id="assume"></a>Prerequisites
@@ -25,10 +25,10 @@ To upgrade the FIM Add-on to a later version, do the following:
 1. Download the FIM add-on software binary
    from the [Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
 
-3. SSH into the Ops Manager VM.
+1. SSH into the Ops Manager VM.
    For how to do this, see [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
 
-3. To retrieve the current runtime config file for editing, 
+1. To retrieve the current runtime config file for editing,
    run the following command:
 
     ```
@@ -37,10 +37,10 @@ To upgrade the FIM Add-on to a later version, do the following:
 
     For example:
 
-    <pre class="terminal">$ bosh -e my-env runtime-config --name fim > /tmp/fim.yml</pre> 
+    <pre class="terminal">$ bosh -e my-env runtime-config --name fim > /tmp/fim.yml</pre>
 
 
-2. To copy the software binary to your Ops Manager VM, run the following command:
+1. To copy the software binary to your Ops Manager VM, run the following command:
 
     ```
     scp -i PATH-TO-PRIVATE-KEY fim-VERSION.tgz ubuntu@YOUR-OPS-MANAGER-VM-IP:
@@ -48,10 +48,10 @@ To upgrade the FIM Add-on to a later version, do the following:
 
     For example:
 
-    <pre class="terminal">$ cp -i ~/.ssh/my-key.pem ~/Downloads/fim-1.2.23.tgz ubuntu<span>@</span>192.168.0.2: </pre> 
+    <pre class="terminal">$ cp -i ~/.ssh/my-key.pem ~/Downloads/fim-1.2.23.tgz ubuntu<span>@</span>192.168.0.2: </pre>
 
 
-5. Upload the latest FIM release, run the following command:
+1. Upload the latest FIM release, run the following command:
 
     ```
     bosh -e BOSH-ENVIRONMENT upload-release PATH-TO-NEW-FIM-RELEASE
@@ -61,7 +61,7 @@ To upgrade the FIM Add-on to a later version, do the following:
 
     <pre class="terminal">bosh -e my-env upload-release ~/fim-1.2.23.tgz</pre>
 
-6. Edit the FIM runtime config to set the new release version.<br/><br/>
+1. Edit the FIM runtime config to set the new release version.<br/><br/>
 
     For example, edit the version number in `/tmp/fim.yml` as follows:
 
@@ -71,38 +71,38 @@ To upgrade the FIM Add-on to a later version, do the following:
       version: 1.2.23
     ```
 
-7. Verify that your FIM runtime config includes an `addon` element. <br/><br/>
-    
-    For Linux, your runtime config must contain the following section:
+1. Verify that your FIM runtime config includes an `addon` element. <br/><br/>
 
-    ```
-    - name: fim-trusty
-      include:
-        stemcell:
-        - os: ubuntu-trusty
+    1. For Linux, your runtime config must contain this section:
 
-    - name: fim-xenial
-      include:
-        stemcell:
-        - os: ubuntu-xenial
-    ``` 
+        ```
+        - name: fim-trusty
+          include:
+            stemcell:
+            - os: ubuntu-trusty
 
-    For more information about adding this section, 
-    see [Updating FIM Add-on for PCF to Run with Xenial Stemcells](./updating-for-xenial.html).
+        - name: fim-xenial
+          include:
+            stemcell:
+            - os: ubuntu-xenial
+        ```
 
-    For Windows, your runtime config must contain the following section:
+      For more information about adding this section,
+      see [Updating FIM Add-on for PCF to Run with Xenial Stemcells](./updating-for-xenial.html).
 
-    ```
-    - name: fim-windows
-      include:
-        stemcell:
-        - os: windows2019
-        - os: windows1803
-        - os: windows2016
-        - os: windows2012R2
-    ```
+    1. For Windows, your runtime config must contain this section:
 
-8. To update the runtime config, run the following command:
+        ```
+        - name: fim-windows
+          include:
+            stemcell:
+            - os: windows2019
+            - os: windows1803
+            - os: windows2016
+            - os: windows2012R2
+        ```
+
+1. To update the runtime config, run the following command:
 
     ```
     bosh -e BOSH-ENVIRONMENT update-runtime-config --name=fim /tmp/fim.yml
@@ -112,7 +112,7 @@ To upgrade the FIM Add-on to a later version, do the following:
 
     <pre class="terminal">bosh -e my-env update-runtime-config --name fim /tmp/fim.yml </pre>
 
-9. (Optional) Verify that your runtime configuration changes match what you specified in the manifest file.
+1. (Optional) Verify that your runtime configuration changes match what you specified in the manifest file.
 
     ```
     bosh -e BOSH-ENVIRONMENT runtime-config --name fim
@@ -137,10 +137,10 @@ To upgrade the FIM Add-on to a later version, do the following:
     ...
     </pre>
 
-10. Navigate to the **Installation Dashboard** in Ops Manager.
+1. Navigate to the **Installation Dashboard** in Ops Manager.
 
-11. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
-   For more information about this Ops Manager page, 
+1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+   For more information about this Ops Manager page,
    see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
-12. Click **Apply Changes**.
+1. Click **Apply Changes**.
