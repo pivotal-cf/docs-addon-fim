@@ -29,7 +29,7 @@ Review the following table and make any required changes before you upgrade to X
 <table class="nice">
     <col width="25%">
     <col width="75%">
-    <th>If you are using this version of the FIM Add-on…</td>
+    <th>If you use this version of the FIM Add-on…</td>
     <th>do the following…</td>
     <tr>
       <td>1.2.23+</td>
@@ -76,7 +76,7 @@ see [Tiles Using Xenial Stemcells in PCF](https://docs.pivotal.io/pivotalcf/stem
 
 If you use FIM Add-on v1.2.22 or v1.2.23 without the stemcell
 property in the `fim.yml`, then you must add the stemcell properties to your
-existing `fim.yml` and redeploy.  Follow these steps:
+existing `fim.yml` and redeploy:
 
 1. SSH in to the Ops Manager VM.
    For how to do this, see [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
@@ -125,19 +125,20 @@ existing `fim.yml` and redeploy.  Follow these steps:
               - /usr
               - /var/lib
 
-              # Bosh agent
+              # BOSH agent
               - /var/vcap/bosh
               - /var/vcap/monit/job
 
-              # Bosh releases
+              # BOSH releases
               - /var/vcap/data/packages
               - /var/vcap/data/jobs
       include:
         stemcell:
         - os: ubuntu-xenial
     ```
-    <p class="note"><strong>Note</strong>: If you customized your Trusty VMs configuration, you need to manually add the <code>/lib32</code> directory to your <code>fim.yml</code> file.</p>
-      
+    <p class="note"><strong>Note</strong>: If you customized your Trusty VMs configuration, you need to manually add the <code>/lib32</code> directory to your <code>fim.yml</code> file.
+    </p>
+
 4. To update the runtime config, run the following command:
 
     ```
@@ -150,7 +151,7 @@ existing `fim.yml` and redeploy.  Follow these steps:
 
 5. Navigate to the **Installation Dashboard** in Ops Manager.
 
-6. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+6. If you use Ops Manager v2.3 or later, click **Review Pending Changes**.
    For more information about this Ops Manager page,
    see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
