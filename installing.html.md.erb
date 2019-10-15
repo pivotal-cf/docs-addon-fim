@@ -19,7 +19,7 @@ To complete the FIM installation:
 See [Operators](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator)
 in the Pivotal Cloud Foundry documentation.
 
-* You must have Ops Manager v2.0 or later.
+* You must have Ops Manager v2.3 or later.
 
 ##<a id="create-mfest-linux"></a>Create the FIM Manifest (Linux)
 
@@ -345,7 +345,7 @@ the VMs in your deployment with SSH. For more information, see
             grep hackertool /var/log/syslog
             ```
 
-      1. Check for a message that a new file has been created. For example:
+      1. Verify in the logs that a new file has been created. For example:
       <pre class="terminal">Sep 22 23:57:07 qvsfgv0qnrk filesnitch[3040]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/bin/hackertool" hostname="f98968fe-501a-470b-819a-c4a2a7ac45c8" opname="CREATE" optype=1 ts=1474588627</pre>
 
   1. For Windows (BETA):
@@ -362,5 +362,5 @@ the VMs in your deployment with SSH. For more information, see
             powershell "Get-Content /var/vcap/sys/log/fim-windows/filesnitch/job-service-wrapper.out.log | Select-String sample_file"
             ```
 
-      1. Check for a message that a new file has been created. For example:
+      1. Verify in the logs that a new file has been created. For example:
       <pre class="terminal">CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="C:\\var\\vcap\\data\\jobs\\sample_file" hostname="no-job_1/ebee34c1-3300-4f5d-9557-bbef845d608c" opname="CREATE" optype=1 ts=1569953512 severity=5</pre>

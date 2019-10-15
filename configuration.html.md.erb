@@ -219,39 +219,68 @@ The key-values pairs in the final field of a CEF file log carry the following me
    The possible values of the two fields are described by the table below:
 
     <table class="nice">
-        <th>opname</th>
-        <th>optype</th>
-        <th>Example Linux Trigger</th>
-        <th>Example Windows Trigger</th>
+        <th width="5%">opname</th>
+        <th width="5%">optype</th>
+        <th width="45%">Example Linux Trigger</th>
+        <th width="45%">Example Windows Trigger</th>
         <tr>
             <td>CREATE</td>
             <td align="center">1</td>
-            <td><code>touch newfile.txt</code>, <code>echo 'content' > newfile2.txt</code></td>
-            <td><code>Powershell New-Item -type File newfile.txt</code>, <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code></td>
+            <td>
+              <code>touch newfile.txt</code>
+              <br>
+              <br>
+              <code>echo 'content' > newfile2.txt</code>
+            </td>
+            <td>
+              <code>Powershell New-Item -type File newfile.txt</code>
+              <br>
+              <br>
+              <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
+            </td>
         </tr>
         <tr>
             <td>WRITE</td>
             <td align="center">2</td>
-            <td><code>echo 'hello world' >> file.txt</code></td>
-            <td><code>Powershell Add-Content -Path newfile.txt -Value 'content'</code></td>
+            <td>
+              <code>echo 'hello world' >> file.txt</code>
+            </td>
+            <td>
+              <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
+            </td>
         </tr>
         <tr>
             <td>REMOVE</td>
             <td align="center">4</td>
-            <td><code>rm file.txt</code></td>
-            <td><code>Powershell rm file.txt</code></td>
+            <td>
+              <code>rm file.txt</code>
+            </td>
+            <td>
+              <code>Powershell rm file.txt</code>
+            </td>
         </tr>
         <tr>
             <td>RENAME</td>
             <td align="center">8</td>
-            <td><code>mv file.txt file.txt.orig</code></td>
-            <td><code>Powershell mv file.txt file.txt.orig</code></td>
+            <td>
+              <code>mv file.txt file.txt.orig</code>
+            </td>
+            <td>
+              <code>Powershell mv file.txt file.txt.orig</code>
+            </td>
         </tr>
         <tr>
             <td>CHMOD</td>
             <td align="center">16</td>
-            <td><code>chmod 0400 file.txt</code>, <code>touch existingfile.txt</code></td>
-            <td><code>Powershell icacls file.txt /grant administrators:F</code></td>
+            <td>
+              <code>chmod 0400 file.txt</code>
+              <br>
+              <br>
+              <code>touch existingfile.txt</code>
+            </td>
+            <td>
+              <code>Powershell icacls file.txt /grant administrators:F</code>
+            </td>
         </tr>
     </table>
 
@@ -277,7 +306,7 @@ fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 ts=1475195258
 ```
 
 ###<a id="fields"></a>Individual Fields
-| template | description |
+| Template | Description |
 |----------|-------------|
 | `{{.Fname}}` | Name of the affected file |
 | `{{.Hostname}}` | Hostname of the VM on which the file event originated |
