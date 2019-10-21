@@ -294,7 +294,7 @@ The <%= vars.product_abbr %> BOSH release writes all alerts to the syslogs of th
 You can use syslog forwarding to forward the alerts to a syslog aggregator.
 
 * **Using the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile**:
-Follow the steps to configure system logging in <%= vars.app_runtime_abbr %> in [Configuring Logging in PAS](https://docs.pivotal.io/pivotalcf/2-4/opsguide/logging-config-opsman.html).
+Follow the steps to configure system logging in <%= vars.app_runtime_abbr %> in [Configuring Logging in <%= vars.app_runtime_abbr %>](https://docs.pivotal.io/pivotalcf/2-4/opsguide/logging-config-opsman.html).
 The syslog aggregator that you specify receives all alerts generated on <%= vars.app_runtime_abbr %> VMs, including the <%= vars.product_abbr %> alerts.
 * **Using the syslog BOSH release**: You can use the syslog BOSH release to forward system logs.
 See [syslog-release](https://github.com/cloudfoundry/syslog-release) in GitHub for instructions.
