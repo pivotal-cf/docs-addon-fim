@@ -19,7 +19,7 @@ To complete the <%= vars.product_abbr %> installation:
 See [Operators](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator)
 in the <%= vars.platform_name %> documentation.
 
-* You must have Ops Manager v2.3 or later.
+* You must have <%= vars.ops_manager_full %> v2.3 or later.
 
 ##<a id="create-mfest-linux"></a>Create the <%= vars.product_abbr %> Manifest (Linux)
 
@@ -188,13 +188,13 @@ To use this property, place this text under the `fim` subsection of `fim.yml`:
 
 ##<a id="download"></a>Download <%= vars.product_abbr %>
 
-To download the <%= vars.product_abbr %> software binary file and move it to your Ops Manager
+To download the <%= vars.product_abbr %> software binary file and move it to your <%= vars.ops_manager %>
 VM, follow the steps below:
 
 1. Download the <%= vars.product_abbr %> software binary file from
 [Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
 
-2. Copy the binary file to your Ops Manager VM by running:
+2. Copy the binary file to your <%= vars.ops_manager %> VM by running:
 
     ```
     scp -i PATH-TO-PRIVATE-KEY fim-release.tgz ubuntu@YOUR-OPS-MANAGER-VM-IP:
@@ -203,7 +203,7 @@ VM, follow the steps below:
 
     <pre class="terminal">$ scp -i ~/.ssh/my-key.pem fim-1.2.23.tar.gz ubuntu@192.0.2.0:</pre>
 
-3. Copy the <%= vars.product_abbr %> runtime configuration `fim.yml` file to your Ops Manager instance by running:
+3. Copy the <%= vars.product_abbr %> runtime configuration `fim.yml` file to your <%= vars.ops_manager %> instance by running:
 
     ```
     scp -i PATH-TO-PRIVATE-KEY fim.yml ubuntu@YOUR-OPS-MANAGER-VM-IP:
@@ -213,9 +213,9 @@ VM, follow the steps below:
 
     <pre class="terminal">$ scp -i ~/.ssh/my-key.pem fim.yml ubuntu@192.0.2.0:</pre>
 
-4. [Log in to the Ops Manager VM with SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
+4. [Log in to the <%= vars.ops_manager %> VM with SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
 
-5. Navigate to the location of the binary file on the Ops Manager VM by running:
+5. Navigate to the location of the binary file on the <%= vars.ops_manager %> VM by running:
 
     ```
     cd PATH-TO-BINARY-FILE
@@ -282,7 +282,7 @@ Perform these steps to deploy <%= vars.product_abbr %>:
     ...
     </pre>
 
-1. Navigate to the **Installation Dashboard** in Ops Manager.
+1. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %>.
 
 1. Click **Review Pending Changes**.
 

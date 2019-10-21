@@ -20,8 +20,8 @@ To upgrade <%= vars.product_abbr %> to a later version:
 1. Download the <%= vars.product_abbr %> software binary
    from the [Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
 
-1. SSH into the Ops Manager VM.
-   For how to do this, see [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
+1. SSH into the <%= vars.ops_manager %> VM.
+   For how to do this, see [SSH into <%= vars.ops_manager %>](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
 
 1. To retrieve the current runtime config file for editing,
    run the following command:
@@ -35,7 +35,7 @@ To upgrade <%= vars.product_abbr %> to a later version:
     <pre class="terminal">$ bosh -e my-env runtime-config --name fim > /tmp/fim.yml</pre>
 
 
-1. To copy the software binary to your Ops Manager VM, run the following command:
+1. To copy the software binary to your <%= vars.ops_manager %> VM, run the following command:
 
     ```
     scp -i PATH-TO-PRIVATE-KEY fim-VERSION.tgz ubuntu@YOUR-OPS-MANAGER-VM-IP:
@@ -135,7 +135,7 @@ To upgrade <%= vars.product_abbr %> to a later version:
     ...
     </pre>
 
-1. Navigate to the **Installation Dashboard** in Ops Manager.
+1. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %>.
 
 1. Click **Review Pending Changes**.
 
