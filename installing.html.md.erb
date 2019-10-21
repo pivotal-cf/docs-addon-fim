@@ -1,19 +1,19 @@
 ---
-title: Installing the FIM Add-on for PCF
+title: Installing File Integrity Monitoring
 owner: Security Engineering
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to install File Integrity Monitoring Add-on for PCF
-(FIM Add-on) on your Pivotal Cloud Foundry (PCF) deployment.
+This topic describes how to install <%= vars.product_full %>
+(<%= vars.product_abbr %>) on your deployment.
 
 ##<a id="prereqs"></a>Prerequisites
 
-<p class="note warning"><strong>Warning: </strong>FIM Add-on on Windows is in BETA.
+<p class="note warning"><strong>Warning: </strong>FIM Add-on on Windows is in Beta.
 </p>
 
-To complete the FIM installation:
+To complete the <%= vars.product_abbr %> installation:
 
 * You must be a PCF operator with admin rights.
 See [Operators](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator)
@@ -21,11 +21,11 @@ in the Pivotal Cloud Foundry documentation.
 
 * You must have Ops Manager v2.3 or later.
 
-##<a id="create-mfest-linux"></a>Create the FIM Manifest (Linux)
+##<a id="create-mfest-linux"></a>Create the <%= vars.product_abbr %> Manifest (Linux)
 
-The FIM runtime configuration file is a YAML file that contains runtime configuration
-information for the FIM Add-on.
-Follow the steps below to create the FIM runtime configuration for your Linux deployment:
+The <%= vars.product_abbr %> runtime configuration file is a YAML file that contains runtime configuration
+information for the <%= vars.product_abbr %>.
+Follow the steps below to create the <%= vars.product_abbr %> runtime configuration for your Linux deployment:
 
 1. Create a file named `fim.yml`, using the following code as a template.
 
@@ -90,12 +90,19 @@ To use these properties, place this text under the `fim` subsection of `fim.yml`
     ```
   <code><strong>cpu\_limit</strong></code>: <a name="cpu_limit"></a>
     <ul>
-      <li>Limits FIM to a percentage of available CPU resources when other processes use CPU resources.
-        Usage can exceed the limit if enough idle CPU cycles are available.</li>
-      <li>Must be set to a whole number less than 100.
-        For example, set it to <code>50</code> to limit FIM to 50% CPU usage when other
-        tasks are running.</li>
-        <li>The default value is <code>10</code>.</li>
+      <li>
+        Limits <%= vars.product_abbr %> to a percentage of available CPU
+        resources when other processes use CPU resources.
+        Usage can exceed the limit if enough idle CPU cycles are available.
+      </li>
+      <li>
+        Must be set to a whole number less than 100.
+        For example, set it to <code>50</code> to limit <%= vars.product_abbr %>
+         to 50% CPU usage when other tasks are running.
+       </li>
+        <li>
+          The default value is <code>10</code>.
+        </li>
     </ul>
 
     <code><strong>enforce\_cpu\_limit</strong></code>: <a name="enforce_cpu_limit"></a>
@@ -114,7 +121,7 @@ To use these properties, place this text under the `fim` subsection of `fim.yml`
 
     <code><strong>memory\_limit</strong></code>: <a name="memory_limit"></a>
     <ul>
-      <li>Limits the maximum amount of user memory (including file cache) in bytes used by FIM.</li>
+      <li>Limits the maximum amount of user memory (including file cache) in bytes used by <%= vars.product_abbr %>.</li>
       <li>Has the default value <code>536870912</code>.</li>
     </ul>
 
@@ -127,11 +134,11 @@ To use these properties, place this text under the `fim` subsection of `fim.yml`
     </ul>
 
 
-##<a id="create-mfest-windows"></a>Create the FIM Manifest (Windows) (BETA)
+##<a id="create-mfest-windows"></a>Create the <%= vars.product_abbr %> Manifest (Windows) (BETA)
 
 The FIM runtime configuration file is a YAML file that contains runtime configuration
-information for the FIM Add-on.
-Follow the steps below to create the FIM runtime configuration for your Windows deployment:
+information for <%= vars.product_abbr %>.
+Follow the steps below to create the <%= vars.product_abbr %> runtime configuration for your Windows deployment:
 
 1. Create a file named `fim.yml`, using the following code as a template.
 
@@ -179,17 +186,15 @@ To use this property, place this text under the `fim` subsection of `fim.yml`:
       <li>The default value is <code>600</code>. </li>
     </ul>
 
-##<a id="download"></a>Download the FIM Add-on
+##<a id="download"></a>Download <%= vars.product_abbr %>
 
-To download the FIM Add-on software binary file and move it to your Ops Manager
-VM, follow the steps below. If you intend to run the FIM
-Add-on on a PCF deployment that includes services or components that use Ubuntu
-Xenial stemcells, download FIM Add-on v1.2.22 or later.
+To download the <%= vars.product_abbr %> software binary file and move it to your Ops Manager
+VM, follow the steps below:
 
-1. Download the FIM Add-on software binary file from
+1. Download the <%= vars.product_abbr %> software binary file from
 [Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
 
-2. Copy the binary file to your Ops Manager VM by running the following command:
+2. Copy the binary file to your Ops Manager VM by running:
 
     ```
     scp -i PATH-TO-PRIVATE-KEY fim-release.tgz ubuntu@YOUR-OPS-MANAGER-VM-IP:
@@ -198,7 +203,7 @@ Xenial stemcells, download FIM Add-on v1.2.22 or later.
 
     <pre class="terminal">$ scp -i ~/.ssh/my-key.pem fim-1.2.23.tar.gz ubuntu@192.0.2.0:</pre>
 
-3. Copy the FIM runtime configuration `fim.yml` file to your Ops Manager instance by running the following command:
+3. Copy the <%= vars.product_abbr %> runtime configuration `fim.yml` file to your Ops Manager instance by running:
 
     ```
     scp -i PATH-TO-PRIVATE-KEY fim.yml ubuntu@YOUR-OPS-MANAGER-VM-IP:
@@ -210,7 +215,7 @@ Xenial stemcells, download FIM Add-on v1.2.22 or later.
 
 4. [Log in to the Ops Manager VM with SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
 
-5. Navigate to the location of the binary file on the Ops Manager VM by running the following command:
+5. Navigate to the location of the binary file on the Ops Manager VM by running:
 
     ```
     cd PATH-TO-BINARY-FILE
@@ -220,11 +225,11 @@ Xenial stemcells, download FIM Add-on v1.2.22 or later.
 
     <pre class="terminal">$ cd ~</pre>
 
-##<a id="deploy"></a> Deploy the FIM Add-on
+##<a id="deploy"></a> Deploy <%= vars.product_abbr %>
 
-Perform the following steps to deploy the FIM Add-on:
+Perform these steps to deploy <%= vars.product_abbr %>:
 
-1. Upload your release, specifying the path to the tarballed FIM binary file, by running the following command:
+1. Upload your release, specifying the path to the tarballed <%= vars.product_abbr %> binary file, by running:
 
     ```
     bosh -e BOSH-ENVIRONMENT upload-release PATH-TO-NEW-FIM-RELEASE
@@ -234,8 +239,8 @@ Perform the following steps to deploy the FIM Add-on:
 
     <pre class="terminal">$ bosh -e my-env upload-release fim-1.2.23.tar.gz</pre>
 
-1. <a name="update"></a>Update your runtime configuration to include the FIM Add-on,
-   specifying the path to the `fim.yml` file you created earlier, by running the following command:
+1. <a name="update"></a>Update your runtime configuration to include <%= vars.product_abbr %>,
+   specifying the path to the `fim.yml` file you created earlier, by running:
 
     ```
     bosh -e BOSH-ENVIRONMENT update-runtime-config --name=fim /tmp/fim.yml
@@ -246,7 +251,7 @@ Perform the following steps to deploy the FIM Add-on:
     <pre class="terminal">$ bosh -e my-env update-runtime-config --name=fim fim.yml</pre>
 
     <p class="note"><strong>Note</strong>: If you installed other BOSH add-ons,
-    you must merge the FIM runtime configuration into your existing add-on runtime configuration.
+    you must merge the <%= vars.product_abbr %> runtime configuration into your existing add-on runtime configuration.
     Append the contents of <code>fim.yml</code> to your existing add-on YAML file.
     </p>
 
@@ -261,8 +266,9 @@ Perform the following steps to deploy the FIM Add-on:
     $ bosh -e my-env runtime-config --name=fim
     </pre>
 
-    This command returns your updated FIM runtime configuration. For example:
+    This command returns your updated <%= vars.product_abbr %> runtime configuration.
 
+    For example:
     <pre class="terminal">
     Acting as user 'admin' on 'micro'
     releases:
@@ -278,20 +284,18 @@ Perform the following steps to deploy the FIM Add-on:
 
 1. Navigate to the **Installation Dashboard** in Ops Manager.
 
-1. If you use Ops Manager v2.3 or later, click **Review Pending Changes**.
-   For more information about this Ops Manager page,
-   see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
+1. Click **Review Pending Changes**.
 
 1. Click **Apply Changes**.
 
-##<a id="alerts"></a> Configure Forwarding for FIM Alerts
+##<a id="alerts"></a> Configure Forwarding for <%= vars.product_abbr %> Alerts
 
-The FIM BOSH release writes all alerts to the syslogs of the VMs in your deployment.
+The <%= vars.product_abbr %> BOSH release writes all alerts to the syslogs of the VMs in your deployment.
 You can use syslog forwarding to forward the alerts to a syslog aggregator.
 
-* **Using the Pivotal Application Service (PAS) tile**:
-Follow the steps to configure system logging in PAS in [Configuring Logging in PAS](https://docs.pivotal.io/pivotalcf/2-4/opsguide/logging-config-opsman.html).
-The syslog aggregator that you specify receives all alerts generated on PAS VMs, including the FIM alerts.
+* **Using the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile**:
+Follow the steps to configure system logging in <%= vars.app_runtime_abbr %> in [Configuring Logging in PAS](https://docs.pivotal.io/pivotalcf/2-4/opsguide/logging-config-opsman.html).
+The syslog aggregator that you specify receives all alerts generated on <%= vars.app_runtime_abbr %> VMs, including the <%= vars.product_abbr %> alerts.
 * **Using the syslog BOSH release**: You can use the syslog BOSH release to forward system logs.
 See [syslog-release](https://github.com/cloudfoundry/syslog-release) in GitHub for instructions.
 
@@ -348,7 +352,7 @@ the VMs in your deployment with SSH. For more information, see
       1. Verify in the logs that a new file has been created. For example:
       <pre class="terminal">Sep 22 23:57:07 qvsfgv0qnrk filesnitch[3040]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/bin/hackertool" hostname="f98968fe-501a-470b-819a-c4a2a7ac45c8" opname="CREATE" optype=1 ts=1474588627</pre>
 
-  1. For Windows (BETA):
+  1. For Windows (Beta):
 
       1. Enter this command:
 

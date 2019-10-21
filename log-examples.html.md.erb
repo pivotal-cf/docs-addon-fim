@@ -5,21 +5,20 @@ owner: Security Engineering
 
 <strong><%= modified_date %></strong>
 
-This topic contains sample log messages emitted by the File Integrity Monitoring (FIM)
-Add-on for Pivotal Cloud Foundry (PCF).
+This topic contains sample log messages emitted by <%= vars.product_full %> (<%= vars.product_abbr %>).
 
 These samples can be used to configure a Security Information and Event Management (SIEM) system
 to verify regular activity and generate alerts for file system operations of monitored directories.
 
 
-##<a id="fim-logs-messages"></a> FIM Log Message Types
+##<a id="fim-logs-messages"></a> <%= vars.product_abbr %> Log Message Types
 
-FIM produces many different logs depending on what operation is being performed.
+<%= vars.product_abbr %> produces many different logs depending on what operation is being performed.
 The destination for these log files can be configured.
 For more information about configuring the path,
 see [Configure the Output Destination](./configuration.html#output-configure).
 
-For an example of every type of FIM log message that can be configured, see below:
+For an example of every type of <%= vars.product_abbr %> log message that can be configured, see below:
 
 * `HEARTBEAT`
 	<pre class="terminal">
@@ -62,7 +61,7 @@ For more information about formatting logs, see [Event Logging](./configuration.
 
 ##<a id="container-examples"></a> Examples of Log Messages from Containers
 
-Examples of FIM log messages from Garden containers and Docker containers are as follows:
+Examples of <%= vars.product_abbr %> log messages from Garden containers and Docker containers:
 
 * For a Garden container in <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
 <pre class="terminal">
@@ -77,5 +76,5 @@ fname="/var/vcap/store/docker/docker/overlay2/7e5685c735b2aa97a9680e0b81730a518e
 hostname="worker/d1d67195-ad42-4025-83e9-0d43a193ad53" opname="CREATE" optype=1 ts=1556217648 severity=5
 </pre>
 
-For how to configure FIM to monitor containers,
-see [Monitor Containers with FIM](./configuration.html#monitor-containers).
+For how to configure <%= vars.product_abbr %> to monitor containers,
+see [Monitor Containers with <%= vars.product_abbr %>](./configuration.html#monitor-containers).

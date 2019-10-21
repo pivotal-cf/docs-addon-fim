@@ -1,14 +1,14 @@
 ---
-title: Uninstalling the FIM Add-on for PCF
+title: Uninstalling File Integrity Monitoring
 owner: Security Engineering
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to uninstall the File Integrity Monitoring Add-on for PCF (FIM Add-on) from your deployment, and how to verify the uninstallation.
+This topic describes how to uninstall <%= vars.product_full %> (<%= vars.product_abbr %>) from your deployment, and how to verify the uninstallation.
 
-## <a id='uninstall-fim'></a>Uninstall FIM Add-on
-To uninstall the FIM Add-on, follow the steps below:
+## <a id='uninstall-fim'></a>Uninstall <%= vars.product_abbr %>
+To uninstall <%= vars.product_abbr %>, follow the steps below:
 
 1. Retrieve the latest runtime config by running:
   <pre>
@@ -22,7 +22,7 @@ To uninstall the FIM Add-on, follow the steps below:
       $ bosh -e my-env runtime-config > /runtime/config/
     </pre>
 
-1. In the runtime config, remove all FIM properties under the `releases:` and `addons:` sections.
+1. In the runtime config, remove all <%= vars.product_abbr %> properties under the `releases:` and `addons:` sections.
 
 1. Update the runtime config.
   <pre>
@@ -31,14 +31,14 @@ To uninstall the FIM Add-on, follow the steps below:
 
     Where `PATH-TO-SAVE-THE-RUNTIME-CONFIG` is the location of the runtime configuration you are updating.
 
-      For example:
-      <pre class="terminal">
-        $ bosh -e my-env update-runtime-config --name=fim /runtime/config/
-      </pre>
+    For example:
+    <pre class="terminal">
+      $ bosh -e my-env update-runtime-config --name=fim /runtime/config/
+    </pre>
 
 1. Navigate to your **Installation Dashboard** in Ops Manager.
 
-1. If you use Ops Manager v2.3 or later, click **Review Pending Changes**.
+1. Click **Review Pending Changes**.
    For more information about this Ops Manager page,
    see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
@@ -47,11 +47,11 @@ To uninstall the FIM Add-on, follow the steps below:
 1. Wait for the installation to complete.
 
 ## <a id='verify-uninstall'></a>Verify the Uninstallation
-To verify the uninstallation of the FIM Add-on is successful:
+To verify the uninstallation of <%= vars.product_abbr %> is successful:
 
 1. Use `bosh ssh` to SSH into one of the VMs in your deployment.<br>
 For more information,
 see [BOSH SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-ssh)
 
-1. Run `monit summary`. If FIM has uninstalled successfully,
+1. Run `monit summary`. If <%= vars.product_abbr %> has uninstalled successfully,
 it does not show the `fim` process.

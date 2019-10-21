@@ -1,16 +1,16 @@
 ---
-title: Configuring the FIM Add-on for PCF
+title: Configuring File Integrity Monitoring
 owner: Security Engineering
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to configure and use the File Integrity Monitoring Add-on for PCF (FIM Add-on).
+This topic describes how to configure and use <%= vars.product_full %> (<%= vars.product_abbr %>).
 
 ##<a id="dirs"></a>List Directories to be Monitored
 
-The FIM Add-on monitors a set of critical system directories.
-The list of directories to be monitored by the FIM Add-on can be configured using the `fim.dirs` property.
+<%= vars.product_abbr %> monitors a set of critical system directories.
+The list of directories to be monitored by <%= vars.product_abbr %> can be configured using the `fim.dirs` property.
 
 The default value of `fim.dirs` for Linux is:
 
@@ -51,7 +51,7 @@ The default value of `fim.dirs` for Windows is:
 
 ##<a id="output-logs"></a>Event Logging
 
-The FIM Add-on logs events that occur.
+<%= vars.product_abbr %> logs events that occur.
 These samples can be used to configure a Security Information and Event Management (SIEM)
 system to verify regular activity and generate alerts for unauthorized changes to a file.
 
@@ -87,7 +87,7 @@ For example:
 2019-01-02T15:54:19.388257+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|2|file integrity monitoring event|5| fname="/test/file02" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" opname="WRITE" optype=2 ts=1546535520 severity=5
 </pre>
 
-For an example of every type of FIM log message that can be configured, see [Examples of FIM Log Messages](./log-examples.html).
+For an example of every type of <%= vars.product_abbr %> log message that can be configured, see [Examples of <%= vars.product_abbr %> Log Messages](./log-examples.html).
 
 <p class="note"><strong>Note</strong>:
 Low severity events can be used to filter out business-as-usual events.
@@ -97,7 +97,7 @@ This allows you to isolate unexpected events by looking for severity <code>5</co
 ##<a id="output-ignore"></a>Ignore Events
 
 Some monitored directories might contain files that should not be monitored, for example, files that change frequently.
-You can configure the Fim Add-on to ignore events using path regexes with `fim.ignored_patterns`.
+You can configure <%= vars.product_abbr %> to ignore events using path regexes with `fim.ignored_patterns`.
 The default value of `fim.ignored_patterns` is:
 
 ```
@@ -124,7 +124,7 @@ fim:
 ##<a id="output-low"></a>Low Severity Events
 
 Some monitored directories might contain files that occasionally change.
-You can configure The FIM Add-on to log events at a lower severity using path regexes with `fim.low_severity_patterns`.
+You can configure <%= vars.product_abbr %> to log events at a lower severity using path regexes with `fim.low_severity_patterns`.
 The default value of `fim.low_severity_patterns` is:
 
 ```
@@ -159,12 +159,12 @@ fim:
 
 The output is configured using the `fim.outputs` property.
 
-1. FIM supports three types of output for Linux:
+1. <%= vars.product_abbr %> supports three types of output for Linux:
   * `stdout`: sends messages to `/var/vcap/sys/log/fim/fim.stdout.log`.
   * `stderr`: sends messages to `/var/vcap/sys/log/fim/fim.stderr.log`.
   * `syslog`: sends messages to `/var/log/messages`.
 
-    <p class="note"><strong>Note</strong>: Currently, FIM only supports selecting one output at a time.
+    <p class="note"><strong>Note</strong>: Currently, <%= vars.product_abbr %> only supports selecting one output at a time.
     </p>
 
     The default value of the `fim.outputs` property:
@@ -175,7 +175,7 @@ The output is configured using the `fim.outputs` property.
       - syslog
     ```
 
-1. FIM supports two types of output for Windows:
+1. <%= vars.product_abbr %> supports two types of output for Windows:
   * `stdout`: sends messages to `C:\\var\\vcap\\sys\\log\\fim-windows\\filesnitch\\job-service-wrapper.out.log`.
   * `stderr`: sends messages to `C:\\var\\vcap\\sys\\log\\fim-windows\\filesnitch\\job-service-wrapper.err.log`.
 
@@ -189,7 +189,7 @@ The output is configured using the `fim.outputs` property.
 
 ##<a id="format"></a>Configure the Output Format
 
-By default, the FIM Add-on generates messages in the Common Event Format.
+By default, <%= vars.product_abbr %> generates messages in the Common Event Format.
 Output format can be configured as a Golang text template using the `fim.format` property.
 The default value of `fim.format` is:
 
@@ -215,7 +215,7 @@ The key-values pairs in the final field of a CEF file log carry the following me
 
 * `fname` is the name of the affected file.
 * `hostname` is the hostname of the VM on which the file event originated.
-* `ts` is the point in time at which FIM received the file event.
+* `ts` is the point in time at which <%= vars.product_abbr %> received the file event.
 * `optype` and `opname` are the type of file operation in the numeric and textual format, respectively.
    The possible values of the two fields are described by the table below:
 
@@ -286,7 +286,7 @@ The key-values pairs in the final field of a CEF file log carry the following me
     </table>
 
 
-<p class="note"><strong>Note: </strong>FIM Add-on on Windows reports <code>WRITE</code> and <code>CHMOD</code> together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.
+<p class="note"><strong>Note: </strong><%= vars.product_abbr %> on Windows reports <code>WRITE</code> and <code>CHMOD</code> together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.
 </p>
 
 Other template values are listed below.
@@ -314,7 +314,7 @@ fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 ts=1475195258
 | `{{.OpName}}` | Type of file operation in textual format |
 | `{{.OpType}}` | Type of file operation in numeric format |
 | `{{.Severity}}` | Level of importance attributed to the event |
-| `{{.Ts}}` | Point in time at which FIM received the file event |
+| `{{.Ts}}` | Point in time at which <%= vars.product_abbr %> received the file event |
 | `{{.Digests}}` | Key-value pairs of hash algorithms and the hash of the modified file |
 
 For example, the following variable definition...
@@ -332,7 +332,7 @@ fim:
 
 ##<a id="digests"></a>Calculate File Hashes
 
-The FIM Add-on supports hashing monitored files on WRITE or CREATE events using the `sha256` algorithm. Hashing is disabled by default, and can be configured using the `fim.digests` property, as follows:
+<%= vars.product_abbr %> supports hashing monitored files on WRITE or CREATE events using the `sha256` algorithm. Hashing is disabled by default, and can be configured using the `fim.digests` property, as follows:
 
 
 ```
@@ -343,7 +343,7 @@ fim:
 
 ###<a id="digest_threshold"></a>File Size Threshold
 
-The FIM Add-on sets a threshold on the size of files to be hashed. Use the `fim.digest_threshold` property to adjust this threshold. The property takes a value in bytes. The default value is `10000000`.
+<%= vars.product_abbr %> sets a threshold on the size of files to be hashed. Use the `fim.digest_threshold` property to adjust this threshold. The property takes a value in bytes. The default value is `10000000`.
 
 ```
 fim:
@@ -351,19 +351,18 @@ fim:
 ```
 
 
-##<a id="monitor-containers"></a>Monitor Containers with FIM
+##<a id="monitor-containers"></a>Monitor Containers with <%= vars.product_abbr %>
 
-You can use FIM to monitor:
+You can use <%= vars.product_abbr %> to monitor:
 
-+ Garden containers on the Diego Cell VMs in <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
+* Garden containers on the Diego Cell VMs in <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
+* Containers on the Diego Windows Cell VMs in <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
+* Containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>)
 
-+ Containers on the Diego Windows Cell VMs in <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
-
-+ Containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>)
 
 ###<a id="garden"></a> Monitor Garden Containers
 
-To configure FIM to monitor Garden containers, do the following when configuring FIM:
+To configure <%= vars.product_abbr %> to monitor Garden containers:
 
 1. In [List Directories to Be Monitored](#dirs) above, add the following directories
    to the `fim.dirs` property:
@@ -392,15 +391,15 @@ To configure FIM to monitor Garden containers, do the following when configuring
       changes are made to both the <code>diff</code> and <code>rootfs</code> directories.
     Adding this ignore pattern means that files and directories
     in the <code>/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff</code>
-    directory are ignored by FIM. <code>UUID</code> is the ID of the container.
+    directory are ignored by <%= vars.product_abbr %>. <code>UUID</code> is the ID of the container.
     </p>
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
 
 
-###<a id="pasw"></a> Monitor Containers in Pivotal Application Service for Windows
+###<a id="pasw"></a> Monitor Containers in <%= vars.windows_runtime_abbr %>
 
-To configure FIM to monitor containers:
+To configure <%= vars.product_abbr %> to monitor containers:
 
 1. In [List Directories to Be Monitored](#dirs) above, add the following directories
    to the `fim.dirs` property:
@@ -410,9 +409,9 @@ To configure FIM to monitor containers:
             ...
             - C:\\var\\vcap\\data\\groot
 
-###<a id="pks"></a> Monitor Containers in Enterprise PKS
+###<a id="pks"></a> Monitor Containers in <%= vars.k8s_runtime %>
 
-To configure FIM to monitor containers on the Kubernetes worker node VMs in Enterprise PKS:
+To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime %>:
 
 1. In [List Directories to Be Monitored](#dirs) above, add the following directory to the `fim.dirs` property:
 
@@ -420,11 +419,11 @@ To configure FIM to monitor containers on the Kubernetes worker node VMs in Ente
           dirs:
             ...
 
-            # Containers in Enterprise PKS
+            # Containers in <%= vars.k8s_runtime %>
             - /var/vcap/store/docker/docker/
 
     When files and directories in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory
-    are created, removed, or modified, FIM writes log messages.
+    are created, removed, or modified, <%= vars.product_abbr %> writes log messages.
     `UUID` is the ID of the container.
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).

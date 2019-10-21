@@ -1,5 +1,5 @@
 ---
-title: Updating FIM Add-on for PCF to Run with Xenial Stemcells
+title: Updating FIM to Run with Xenial Stemcells
 owner: Security Engineering
 ---
 
@@ -7,29 +7,30 @@ owner: Security Engineering
 
 Pivotal Cloud Foundry (PCF) products and tiles that are released after July 2018 require
 Ubuntu Xenial stemcells instead of Ubuntu Trusty stemcells.
-You might have to modify your File Integrity Monitoring Add-on for PCF (FIM Add-on) deployment
+You might have to modify your <%= vars.product_full %> (<%= vars.product_abbr %>) deployment
 if you use PCF products running on Xenial.
 
 This topic describes how to determine if your existing deployment of
-FIM Add-on can monitor VMs that run on Xenial.
+<%= vars.product_abbr %> can monitor VMs that run on Xenial.
 
-This topic also explains how to update your FIM Add-on if it does not support Xenial.
+This topic also explains how to update your <%= vars.product_abbr %> deployment
+if it does not support Xenial.
 
-Follow the instructions on this page if you use FIM Add-on with any PCF products or tiles
-that use Xenial stemcells.
-See [Product Tiles that Use Xenial Stemcells](#which) below.
+Follow the instructions on this page if you use <%= vars.product_abbr %> with
+any PCF products or tiles that use Xenial stemcells. For more information,
+see [Product Tiles that Use Xenial Stemcells](#which) below.
 
-##<a id="who-me"></a<a id="who-me"></a> Do I Need to Modify the FIM Add-on?
+##<a id="who-me"></a<a id="who-me"></a> Do I Need to Modify <%= vars.product_abbr %>?
 
-FIM Add-on v1.2.22 and later can run correctly on Xenial-based VMs if the FIM runtime config
-includes the `ubuntu-xenial` property.
+<%= vars.product_abbr %> v1.2.22 and later can run correctly on Xenial-based VMs
+if the <%= vars.product_abbr %> runtime config includes the `ubuntu-xenial` property.
 
 Review the following table and make any required changes before you upgrade to Xenial stemcells.
 
 <table class="nice">
     <col width="25%">
     <col width="75%">
-    <th>If you use this version of the FIM Add-on…</td>
+    <th>If you use this version of <%= vars.product_abbr %>…</td>
     <th>do the following…</td>
     <tr>
       <td>1.2.23+</td>
@@ -46,42 +47,42 @@ Review the following table and make any required changes before you upgrade to X
       - os: ubuntu-xenial
 </pre>
         If the <code>fim.yml</code> file does not include the above, then follow the steps in
-        <a href="#add">Add the Xenial Stemcell Property to the FIM Add-on</a> below.</td>
+        <a href="#add">Add the Xenial Stemcell Property to <%= vars.product_abbr %></a> below.</td>
     </tr>
     <tr>
       <td>v1.2.22</td>
-      <td>Follow the steps in <a href="#add">Add the Xenial Stemcell Property to the FIM Add-on</a> below.</td>
+      <td>Follow the steps in <a href="#add">Add the Xenial Stemcell Property to <%= vars.product_abbr %></a></a> below.</td>
     </tr>
     <tr>
       <td>v1.2.17 or earlier</td>
-      <td>Install FIM Add-on v1.2.23 or later. For instructions, see <a href="installing.html">Installing the FIM Add-on for PCF</a>.</td>
+      <td>Install <%= vars.product_abbr %></a> v1.2.23 or later. For instructions, see <a href="installing.html">Installing <%= vars.product_short %></a></a>.</td>
     </tr>
 </table>
 
-If you use FIM Add-on without adding the `ubuntu-xenial` property to the runtime config,
-the VMs running on Xenial are not being monitored for file integrity.
+If you use <%= vars.product_abbr %> without adding the `ubuntu-xenial` property
+to the runtime config, the VMs running on Xenial are not being monitored for file integrity.
 
-If you add the `ubuntu-xenial` property but do not upgrade the FIM Add-on to v1.2.22 or later,
-then the FIM processes use excessive CPU.
+If you add the `ubuntu-xenial` property but do not upgrade <%= vars.product_abbr %>
+to v1.2.22 or later, then the <%= vars.product_abbr %> processes use excessive CPU.
 
 ## <a id="which"></a> Product Tiles that Use Xenial Stemcells
 
-Ensure that you have added the `ubuntu-xenial` property to the FIM runtime config
-before you install any product tiles that use Xenial stemcells.
+Ensure that you have added the `ubuntu-xenial` property to the <%= vars.product_abbr %>
+runtime config before you install any product tiles that use Xenial stemcells.
 
 For a list of PCF tile releases that now use Xenial,
 see [Tiles Using Xenial Stemcells in PCF](https://docs.pivotal.io/pivotalcf/stemcells/xenial-tiles.html).
 
-##<a id="add"></a> Add the Xenial Stemcell Property to the FIM Add-on
+##<a id="add"></a> Add the Xenial Stemcell Property to <%= vars.product_abbr %>
 
-If you use FIM Add-on v1.2.22 or v1.2.23 without the stemcell
+If you use <%= vars.product_abbr %> v1.2.22 or v1.2.23 without the stemcell
 property in the `fim.yml`, then you must add the stemcell properties to your
 existing `fim.yml` and redeploy:
 
 1. SSH in to the Ops Manager VM.
    For how to do this, see [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
 
-2. To retrieve and save FIM add-on runtime config, run the following command:
+2. To retrieve and save <%= vars.product_abbr %> runtime config, run:
 
     ```
     bosh -e BOSH-ENVIRONMENT runtime-config –name fim > /tmp/fim.yml
@@ -151,7 +152,7 @@ existing `fim.yml` and redeploy:
 
 5. Navigate to the **Installation Dashboard** in Ops Manager.
 
-6. If you use Ops Manager v2.3 or later, click **Review Pending Changes**.
+6. Click **Review Pending Changes**.
    For more information about this Ops Manager page,
    see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 

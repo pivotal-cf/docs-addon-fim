@@ -1,15 +1,15 @@
 ---
-title: Troubleshooting the FIM Add-on for PCF
+title: Troubleshooting File Integrity Monitoring
 owner: Security Engineering
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic provides instructions to verify that File Integrity Monitoring Add-on for PCF (FIM Add-on) works with your Pivotal Cloud Foundry (PCF)
+This topic provides instructions to verify that <%= vars.product_full %> (<%= vars.product_abbr %>) works with your <%= vars.platform_name %>
 deployment and makes general recommendations for troubleshooting.
 
 
-## <a id='about-troubleshoot-fim'></a>About Troubleshooting FIM
+## <a id='about-troubleshoot-fim'></a>About Troubleshooting <%= vars.product_abbr %>
 
 This topic provides help for troubleshooting the runtime behavior, to ensure that the deployment is being protected in the way
 you expect.
@@ -18,32 +18,32 @@ you expect.
 
 ### Symptom
 
-The FIM Add-on generates too much syslog activity during BOSH deploys.
+<%= vars.product_abbr %> generates too much syslog activity during BOSH deploys.
 
 ### Explanation
 
-The FIM Add-on monitors and reports file changes. BOSH deployments often make changes to the monitored directories and files,
-which generates corresponding FIM syslog activity during the deployment.
+<%= vars.product_abbr %> monitors and reports file changes. BOSH deployments often make changes to the monitored directories and files,
+which generates corresponding <%= vars.product_abbr %> syslog activity during the deployment.
 
-The FIM Add-on watches for unexpected file changes in all the directories that you configure it to monitor.
+<%= vars.product_abbr %> watches for unexpected file changes in all the directories that you configure it to monitor.
 The default manifest configuration monitors files in many critical directories including `/var/vcap/data/jobs`
  and `/var/vcap/data/packages`.
-These directories are critical to the normal operation of PCF and are monitored because they are not expected to change during operation of the platform (between BOSH deploys).
+These directories are critical to the normal operation of <%= vars.platform_name %> and are monitored because they are not expected to change during operation of the platform (between BOSH deploys).
 
 Syslog messages generated during a BOSH deploy report file changes in the `jobs` and `packages` directories in `/var/vcap/...`.  BOSH
-deploys update the files in these directories. Thus, the FIM Add-on reports file-system events that are expected.
+deploys update the files in these directories. Thus, <%= vars.product_abbr %> reports file-system events that are expected.
 You can consider these syslog messages either as confirmation of a succeeding BOSH deployment or as false positive events.
 
 ### Solution
 
 Events occurring during a planned BOSH deployments are normal and can be safely ignored.
 
-To avoid the additional syslog traffic during a BOSH deploy, customize the FIM release deployment manifest to narrow the scope of FIM
+To avoid the additional syslog traffic during a BOSH deploy, customize the <%= vars.product_abbr %> release deployment manifest to narrow the scope of <%= vars.product_abbr %>
 so that it does not include directories affected by deployments.
-You can do this either before you deploy BOSH (as a temporary measure) or as part of the normal FIM configuration.
-Consider your threat environment and risk tolerance and configure FIM Add-on accordingly.
+You can do this either before you deploy BOSH (as a temporary measure) or as part of the normal <%= vars.product_abbr %> configuration.
+Consider your threat environment and risk tolerance and configure <%= vars.product_abbr %> accordingly.
 
-## <a id="fim-runtime-issues"></a>FIM Add-on Runtime Issues
+## <a id="fim-runtime-issues"></a><%= vars.product_abbr %> Runtime Issues
 
 ### Symptom
 
@@ -51,7 +51,7 @@ Filesystem events are not reported. The logs are empty.
 
 ### Explanation:
 
-The FIM Add-on might not be running or might be misconfigured.
+<%= vars.product_abbr %> might not be running or might be misconfigured.
 
 ### Solution
 
@@ -70,7 +70,7 @@ Filesystem events are not reported from a portion of the file system.
 
 ### Explanation:
 
-The FIM Add-on is configured to monitor a set of critical directories in the system. It is not configured to monitor the entire file system by default.
+<%= vars.product_abbr %> is configured to monitor a set of critical directories in the system. It is not configured to monitor the entire file system by default.
 
 ### Solution
 
