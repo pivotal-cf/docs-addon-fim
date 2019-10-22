@@ -396,19 +396,6 @@ To configure <%= vars.product_abbr %> to monitor Garden containers:
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
 
-
-###<a id="pasw"></a> Monitor Containers in <%= vars.windows_runtime_abbr %>
-
-To configure <%= vars.product_abbr %> to monitor containers:
-
-1. In [List Directories to Be Monitored](#dirs) above, add the following directories
-   to the `fim.dirs` property:
-
-        fim:
-          dirs:
-            ...
-            - C:\\var\\vcap\\data\\groot
-
 ###<a id="pks"></a> Monitor Containers in <%= vars.k8s_runtime %>
 
 To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime %>:
