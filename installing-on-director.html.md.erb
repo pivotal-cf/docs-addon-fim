@@ -1,0 +1,152 @@
+---
+title: Installing File Integrity Monitoring on BOSH director 
+owner: Security Engineering
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to install <%= vars.product_full %>
+(<%= vars.product_abbr %>) on BOSH director.
+
+##<a id="prereqs"></a>Prerequisites
+
+To complete the <%= vars.product_abbr %> installation:
+
+* You must be a <%= vars.platform_name %> operator with admin rights.
+See [Operators](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator)
+in the <%= vars.platform_name %> documentation.
+
+* You must have <%= vars.ops_manager_full %> v2.5 or later.
+
+* You must have a webserver accessible from Ops Manager to serve the fim binary.
+
+##<a id="install"></a>Install <%= vars.product_abbr %>
+
+To install <%= vars.product_abbr %> software binary file on your BOSH director follow steps below:
+
+1. Download <%= vars.product_abbr %> software binary file from
+[Pivotal Network](https://network.pivotal.io/products/p-fim-addon.
+
+2. Get sha1 for the fim binary by running:
+    ```
+    shasum <PATH_TO_FIM_BINARY>
+    ```
+   the output would look like
+
+   **15c52a9e56ca8e796dd61b55a48d962e2f4e763b**  public/fim-1.4.8.tgz
+
+3. Copy software binary to the webserver.
+
+4. Run `om` command to add FIM to the BOSH director
+
+    ```
+    om  \
+    -t <OPS_NAMAGE_URL> \
+    -u <OPS_NAMAGE_USERNAME> \
+    -p <OPS_NAMAGE_PASSWORD> \
+    curl -p "/api/v0/staged/director/manifest_operations/add_job_to_instance_group" \
+    -x POST \
+    -H "Content-Type: application/json" \
+    -d '{
+            "add_job_to_instance_group": {
+              "instance_group": "bosh",
+              "job_name": "fim",
+              "release_name": "fim",
+              "release_url": "<URL_TO_FIM_BINARY_ON_WEBSERVER>",
+              "release_sha1": "<SHA1_FOR_FIM>",
+              "job_properties": {"fim": {}}
+            }
+        }'
+    ```
+
+    the output would look like
+
+    ```
+    Status: 201 Created
+    Cache-Control: no-cache, no-store
+    Connection: keep-alive
+    Content-Type: application/json; charset=utf-8
+    Date: Mon, 04 Nov 2019 17:09:08 GMT
+    Expires: Fri, 01 Jan 1990 00:00:00 GMT
+    Pragma: no-cache
+    Referrer-Policy: strict-origin-when-cross-origin
+    Server: Ops Manager
+    Strict-Transport-Security: max-age=31536000; includeSubDomains
+    X-Content-Type-Options: nosniff
+    X-Download-Options: noopen
+    X-Frame-Options: SAMEORIGIN
+    X-Permitted-Cross-Domain-Policies: none
+    X-Request-Id: 7d961c91-b7d6-428c-a68d-c36c9059f7f9
+    X-Runtime: 0.220906
+    X-Xss-Protection: 1; mode=block
+    {
+      "add_job_to_instance_group": {
+        "instance_group": "bosh",
+        "job_name": "fim",
+        "release_name": "fim",
+        "release_url": "http://localhost:4567/fim-1.4.8.tgz",
+        "release_sha1": "15c52a9e56ca8e796dd61b55a48d962e2f4e763b",
+        "job_properties": {
+          "fim": {}
+        },
+        "guid": "op-653b1111a60a",
+        "product_guid": "p-bosh-eb686414b9fa37183507"
+      }
+    }
+  ```
+5. Note the `guid` in the output. You will require this in case you wist to delete FIM from the diretor 
+
+6. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %>.
+
+7. Click **Review Pending Changes**.
+
+8. Select ***BOSH Director*** only.
+
+9. Click **Apply Changes**.
+
+##<a id="uninstall"></a>Verify <%= vars.product_abbr %> is running on BOSH director
+  
+To verify <%= vars.product_abbr %> software binary file on your BOSH director follow steps below:
+
+1. SSH to the BOSH Director.
+
+2. Run `sudo monit summary`
+
+3. Verify `fim` is present in the output
+    ```
+    bosh/0:~$ sudo monit summary
+    The Monit daemon 5.2.5 uptime: 4m
+
+    Process 'system-metrics-server'     running
+    Process 'nats'                      running
+    Process 'postgres'                  running
+    Process 'director'                  running
+    Process 'worker_1'                  running
+    Process 'worker_2'                  running
+    Process 'worker_3'                  running
+    Process 'worker_4'                  running
+    Process 'worker_5'                  running
+    Process 'director_scheduler'        running
+    Process 'director_sync_dns'         running
+    Process 'director_nginx'            running
+    Process 'health_monitor'            running
+    Process 'uaa'                       running
+    Process 'credhub'                   running
+    Process 'blobstore_nginx'           running
+    Process 'fim'                       running
+    System 'system_localhost'           running
+    ```
+
+##<a id="uninstall"></a>Uninstall <%= vars.product_abbr %>
+
+To uninstall <%= vars.product_abbr %> software binary file on your BOSH director follow steps below:
+
+1. Run `om` command to uninstall FIM to the BOSH director using the `guid` from step 5.
+
+    ```
+    om  \
+    -t <OPS_NAMAGE_URL> \
+    -u <OPS_NAMAGE_USERNAME> \
+    -p <OPS_NAMAGE_PASSWORD> \
+    curl -p "/api/v0/staged/director/manifest_operations/add_job_to_instance_group/<GUID>" \
+    -x DELETE \
