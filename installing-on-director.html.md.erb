@@ -1,0 +1,192 @@
+---
+title: Installing File Integrity Monitoring on BOSH director 
+owner: Security Engineering
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to install <%= vars.product_full %>
+(<%= vars.product_abbr %>) on BOSH director.
+
+##<a id="prereqs"></a>Prerequisites
+
+To complete the <%= vars.product_abbr %> installation:
+
+* You must be a <%= vars.platform_name %> operator with admin rights.
+See [Operators](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator)
+in the <%= vars.platform_name %> documentation.
+
+* You must have <%= vars.ops_manager_full %> v2.5 or later.
+
+##<a id="download"></a>Download <%= vars.product_abbr %>
+
+To download the <%= vars.product_abbr %> software binary file and move it to your <%= vars.ops_manager %>
+VM, follow the steps below:
+
+1. Download the <%= vars.product_abbr %> software binary file from
+[Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
+
+2. Copy the binary file to your <%= vars.ops_manager %> VM by running:
+
+    ```
+    scp -i PATH-TO-PRIVATE-KEY fim-release.tgz ubuntu@YOUR-OPS-MANAGER-VM-IP:
+    ```
+    For example:
+
+    <pre class="terminal">$ scp -i ~/.ssh/my-key.pem fim-1.2.23.tar.gz ubuntu@192.0.2.0:</pre>
+
+4. [Log in to the <%= vars.ops_manager %> VM with SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
+
+5. Navigate to the location of the binary file on the <%= vars.ops_manager %> VM by running:
+
+    ```
+    cd PATH-TO-BINARY-FILE
+    ```
+
+    For example:
+
+    <pre class="terminal">$ cd ~</pre>
+
+##<a id="deploy"></a> Deploy <%= vars.product_abbr %>
+
+Perform these steps to deploy <%= vars.product_abbr %>:
+
+1. Upload your release, specifying the path to the tarballed <%= vars.product_abbr %> binary file, by running:
+
+    ```
+      bosh -e BOSH-ENVIRONMENT upload-release PATH-TO-NEW-FIM-RELEASE
+    ```
+
+    For example:
+
+    <pre class="terminal">$ bosh -e my-env upload-release fim-1.2.23.tar.gz</pre>
+
+1. <a name="update"></a>Update your runtime configuration to include <%= vars.product_abbr %>,
+   specifying the path to the `fim.yml` file you created earlier, by running:
+
+    ```
+    bosh -e BOSH-ENVIRONMENT update-runtime-config --name=fim /tmp/fim.yml
+    ```
+
+    For example:
+
+    <pre class="terminal">$ bosh -e my-env update-runtime-config --name=fim fim.yml</pre>
+
+    <p class="note"><strong>Note</strong>: If you installed other BOSH add-ons,
+    you must merge the <%= vars.product_abbr %> runtime configuration into your existing add-on runtime configuration.
+    Append the contents of <code>fim.yml</code> to your existing add-on YAML file.
+    </p>
+
+1. Verify that your runtime configuration changes match what you specified in the manifest file.
+
+    ```
+    bosh -e BOSH-ENVIRONMENT runtime-config --name fim
+    ```
+
+    For example:
+    <pre class="terminal">
+    $ bosh -e my-env runtime-config --name=fim
+    </pre>
+
+    This command returns your updated <%= vars.product_abbr %> runtime configuration.
+
+    For example:
+    <pre class="terminal">
+    Acting as user 'admin' on 'micro'
+    releases:
+    <span>-</span> name: fim
+      version: 1.2.23
+    addons:
+      name: fim
+        jobs:
+        <span>-</span> name: fim
+          release: fim
+    ...
+    </pre>
+
+1. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %>.
+
+1. Click **Review Pending Changes**.
+
+1. Click **Apply Changes**.
+
+##<a id="alerts"></a> Configure Forwarding for <%= vars.product_abbr %> Alerts
+
+The <%= vars.product_abbr %> BOSH release writes all alerts to the syslogs of the VMs in your deployment.
+You can use syslog forwarding to forward the alerts to a syslog aggregator.
+
+* **Using the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile**:
+Follow the steps to configure system logging in <%= vars.app_runtime_abbr %> in [Configuring Logging in <%= vars.app_runtime_abbr %>](https://docs.pivotal.io/pivotalcf/2-4/opsguide/logging-config-opsman.html).
+The syslog aggregator that you specify receives all alerts generated on <%= vars.app_runtime_abbr %> VMs, including the <%= vars.product_abbr %> alerts.
+* **Using the syslog BOSH release**: You can use the syslog BOSH release to forward system logs.
+See [syslog-release](https://github.com/cloudfoundry/syslog-release) in GitHub for instructions.
+
+<p class="note"><strong>Note</strong>: When you configure syslog forwarding, ensure there is enough disk space for the logs.
+Ensure that the log rotation is frequent enough. If in doubt, rotate the logs hourly or when they reach a certain size.
+Pivotal recommends forwarding logs to a remote syslog aggregation system.
+</p>
+
+## <a id="verify"></a>Verify the Installation
+
+1. Run `bosh instances --ps` and look for the deployment.
+  1. For Linux, validate by checking that there is a `fim` process in the `running` state:
+
+        ```
+        Deployment 'fim-xenial'
+
+        Instance                                    Process  Process State  AZ  IPs
+        fim_1/8cec18fa-b1a0-4d30-bbe5-a522c12ca62e  -        running        z1  10.0.0.18
+        ~                                           fim      running        -   -
+
+        1 instances
+        ```
+
+  1. For Windows, validate by checking that there is a `filesnitch` process in the `running` state:
+
+        ```
+        Deployment 'fim-windows'
+
+        Instance                                       Process     Process State  AZ  IPs
+        fim_2/0d11b596-ce2a-4aa6-baaa-664a83fb72c3     -           running        z1  10.0.0.4
+        ~                                              filesnitch  running        -   -
+
+        1 instances
+        ```
+
+1. Verify that `fim` is logging. To do this, use `bosh ssh` to log in to one of
+the VMs in your deployment with SSH. For more information, see
+[BOSH SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-ssh).
+
+  1. For Linux:
+
+      1. Enter this command:
+
+            ```
+            touch /bin/hackertool
+            ```
+
+      1. Enter this command:
+
+            ```
+            grep hackertool /var/log/syslog
+            ```
+
+      1. Verify in the logs that a new file has been created. For example:
+      <pre class="terminal">Sep 22 23:57:07 qvsfgv0qnrk filesnitch[3040]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/bin/hackertool" hostname="f98968fe-501a-470b-819a-c4a2a7ac45c8" opname="CREATE" optype=1 ts=1474588627</pre>
+
+  1. For Windows (Beta):
+
+      1. Enter this command:
+
+            ```
+            powershell New-Item -type File /var/vcap/data/jobs/sample_file
+            ```
+
+      1. Enter this command:
+
+            ```
+            powershell "Get-Content /var/vcap/sys/log/fim-windows/filesnitch/job-service-wrapper.out.log | Select-String sample_file"
+            ```
+
+      1. Verify in the logs that a new file has been created. For example:
+      <pre class="terminal">CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="C:\\var\\vcap\\data\\jobs\\sample_file" hostname="no-job_1/ebee34c1-3300-4f5d-9557-bbef845d608c" opname="CREATE" optype=1 ts=1569953512 severity=5</pre>
