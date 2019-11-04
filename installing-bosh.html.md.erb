@@ -5,25 +5,25 @@ owner: Security Engineering
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to install <%= vars.product_full %>
-(<%= vars.product_abbr %>) on BOSH Director.
+This topic describes how to install Pivotal File Integrity Monitoring
+(FIM) on BOSH Director.
 
 ##<a id="prereqs"></a>Prerequisites
 
-Before you install <%= vars.product_abbr %>, you must have:
+Before you install FIM, you must have:
 
-* A <%= vars.platform_name %> operator user account with admin rights.
+* A PCF operator user account with admin rights.
 See [Pivotal Platform Operators](https://docs.pivotal.io/platform/customizing/platform-operators.html).
 
 * <%= vars.ops_manager_full %> v2.5 or later.
 
-* A web server accessible from Ops Manager to serve the <%= vars.product_abbr %> binary.
+* A web server accessible from Ops Manager to serve the FIM binary.
 
-##<a id="install"></a>Install <%= vars.product_abbr %>
+##<a id="install"></a>Install FIM
 
-To install <%= vars.product_abbr %> on your BOSH Director: 
+To install FIM on your BOSH Director: 
 
-1. Download the <%= vars.product_abbr %> binary file from
+1. Download the FIM binary file from
 [Pivotal Network](https://network.pivotal.io/products/p-fim-addon).
 
 2. Find and record the SHA checksum for the binary file by running:
@@ -38,7 +38,7 @@ To install <%= vars.product_abbr %> on your BOSH Director:
 
 3. Copy the binary file to your web server.
 
-4. Add <%= vars.product_abbr %> to BOSH Director by running:
+4. Add FIM to BOSH Director by running:
 
     ```
     om  \
@@ -109,9 +109,9 @@ To install <%= vars.product_abbr %> on your BOSH Director:
 
 9. Click **Apply Changes**.
 
-##<a id="verify"></a>Verify <%= vars.product_abbr %> Installation
+##<a id="verify"></a>Verify FIM Installation
   
-To verify that <%= vars.product_abbr %> is running on your BOSH director:
+To verify that FIM is running on your BOSH director:
 
 1. SSH into the BOSH Director VM by running:
     
@@ -150,11 +150,11 @@ To verify that <%= vars.product_abbr %> is running on your BOSH director:
     
 3. Confirm that `fim` is present in the above output.
 
-##<a id="uninstall"></a>Uninstall <%= vars.product_abbr %>
+##<a id="uninstall"></a>Uninstall FIM
 
-To uninstall <%= vars.product_abbr %> from your BOSH Director:
+To uninstall FIM from your BOSH Director:
 
-1. Uninstall <%= vars.product_abbr %> by running:
+1. Uninstall FIM by running:
     
     ```
     om  \
@@ -164,4 +164,4 @@ To uninstall <%= vars.product_abbr %> from your BOSH Director:
     curl -p "/api/v0/staged/director/manifest_operations/add_job_to_instance_group/FIM-GUID" \
     -x DELETE \
     ```
-    Where `FIM-GUID` is the value of `guid` you recorded in [Install <%= vars.product_abbr %>](#install) above. 
+    Where `FIM-GUID` is the value of `guid` you recorded in [Install FIM](#install) above. 
