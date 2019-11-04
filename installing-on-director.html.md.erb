@@ -1,49 +1,50 @@
 ---
-title: Installing File Integrity Monitoring on BOSH director 
+title: Installing File Integrity Monitoring on BOSH Director
 owner: Security Engineering
 ---
 
 <strong><%= modified_date %></strong>
 
 This topic describes how to install <%= vars.product_full %>
-(<%= vars.product_abbr %>) on BOSH director.
+(<%= vars.product_abbr %>) on BOSH Director.
 
 ##<a id="prereqs"></a>Prerequisites
 
-To complete the <%= vars.product_abbr %> installation:
+Before you install <%= vars.product_abbr %>, you must have:
 
-* You must be a <%= vars.platform_name %> operator with admin rights.
-See [Operators](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator)
-in the <%= vars.platform_name %> documentation.
+* A <%= vars.platform_name %> operator user account with admin rights.
+See [Pivotal Platform Operators](https://docs.pivotal.io/platform/customizing/platform-operators.html).
 
-* You must have <%= vars.ops_manager_full %> v2.5 or later.
+* <%= vars.ops_manager_full %> v2.5 or later.
 
-* You must have a webserver accessible from Ops Manager to serve the fim binary.
+* A web server accessible from Ops Manager to serve the fim binary.
 
 ##<a id="install"></a>Install <%= vars.product_abbr %>
 
-To install <%= vars.product_abbr %> software binary file on your BOSH director follow steps below:
+To install <%= vars.product_abbr %> on your BOSH Director: 
 
-1. Download <%= vars.product_abbr %> software binary file from
-[Pivotal Network](https://network.pivotal.io/products/p-fim-addon.
+1. Download the <%= vars.product_abbr %> software binary file from
+[Pivotal Network](https://network.pivotal.io/products/p-fim-addon).
 
-2. Get sha1 for the fim binary by running:
+2. Find and record the SHA checksum for the binary file by running:
+    
     ```
-    shasum <PATH_TO_FIM_BINARY>
+    shasum PATH-TO-BINARY-FILE
     ```
-   the output would look like
+   For example:
+   <pre class="terminal">$ shasum fim-1.4.8.tgz
+     15c52a9e56ca8e796dd61b55a48d962e2f4e763b fim-1.4.8.tgz</pre>
 
-   **15c52a9e56ca8e796dd61b55a48d962e2f4e763b**  public/fim-1.4.8.tgz
 
-3. Copy software binary to the webserver.
+3. Copy the binary file to your web server.
 
-4. Run `om` command to add FIM to the BOSH director
+4. Add <%= vars.product_abbr %> to BOSH Director by running:
 
     ```
     om  \
-    -t <OPS_NAMAGE_URL> \
-    -u <OPS_NAMAGE_USERNAME> \
-    -p <OPS_NAMAGE_PASSWORD> \
+    -t OPS-MANAGER-URL \
+    -u OPS-MANAGER-USERNAME \
+    -p OPS-MANAGER-PASSWORD \
     curl -p "/api/v0/staged/director/manifest_operations/add_job_to_instance_group" \
     -x POST \
     -H "Content-Type: application/json" \
@@ -52,17 +53,20 @@ To install <%= vars.product_abbr %> software binary file on your BOSH director f
               "instance_group": "bosh",
               "job_name": "fim",
               "release_name": "fim",
-              "release_url": "<URL_TO_FIM_BINARY_ON_WEBSERVER>",
-              "release_sha1": "<SHA1_FOR_FIM>",
+              "release_url": "FIM-BINARY-URL",
+              "release_sha1": "FIM-SHA1",
               "job_properties": {"fim": {}}
             }
         }'
     ```
+    
+    Where:
+    + `FIM-BINARY-URL` is the URL to the binary file on your web server.
+    + `FIM-SHA1` is the SHA checksum for the binary file you recorded in the above step. 
 
-    the output would look like
+    The output of the above command looks similar to the following:
 
-    ```
-    Status: 201 Created
+    <pre class="terminal">Status: 201 Created
     Cache-Control: no-cache, no-store
     Connection: keep-alive
     Content-Type: application/json; charset=utf-8
@@ -93,28 +97,37 @@ To install <%= vars.product_abbr %> software binary file on your BOSH director f
         "product_guid": "p-bosh-eb686414b9fa37183507"
       }
     }
-  ```
-5. Note the `guid` in the output. You will require this in case you wist to delete FIM from the diretor 
+  </pre>
+
+1. Record the value of `guid` in the above output. If you want to delete FIM from BOSH Director, you need this value. 
 
 6. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %>.
 
 7. Click **Review Pending Changes**.
 
-8. Select ***BOSH Director*** only.
+8. Select **BOSH Director***. Do not select any other checkbox.
 
 9. Click **Apply Changes**.
 
-##<a id="uninstall"></a>Verify <%= vars.product_abbr %> is running on BOSH director
+##<a id="verify"></a>Verify <%= vars.product_abbr %> Installation
   
-To verify <%= vars.product_abbr %> software binary file on your BOSH director follow steps below:
+To verify that <%= vars.product_abbr %> is running on your BOSH director:
 
-1. SSH to the BOSH Director.
-
-2. Run `sudo monit summary`
-
-3. Verify `fim` is present in the output
+1. SSH into the BOSH Director VM by running:
+    
     ```
-    bosh/0:~$ sudo monit summary
+    bosh -e MY-ENVIRONMENT -D MY-DEPLOYMENT ssh 
+    ``` 
+
+2. View the status of processes running on BOSH Director by running: 
+
+    ```
+    sudo monit summary
+    ```
+    
+    For example:
+    
+    <pre class=terminal>bosh/0:~$ sudo monit summary
     The Monit daemon 5.2.5 uptime: 4m
 
     Process 'system-metrics-server'     running
@@ -124,8 +137,6 @@ To verify <%= vars.product_abbr %> software binary file on your BOSH director fo
     Process 'worker_1'                  running
     Process 'worker_2'                  running
     Process 'worker_3'                  running
-    Process 'worker_4'                  running
-    Process 'worker_5'                  running
     Process 'director_scheduler'        running
     Process 'director_sync_dns'         running
     Process 'director_nginx'            running
@@ -135,18 +146,22 @@ To verify <%= vars.product_abbr %> software binary file on your BOSH director fo
     Process 'blobstore_nginx'           running
     Process 'fim'                       running
     System 'system_localhost'           running
-    ```
+    </pre>
+    
+3. Confirm that `fim` is present in the above output.
 
 ##<a id="uninstall"></a>Uninstall <%= vars.product_abbr %>
 
-To uninstall <%= vars.product_abbr %> software binary file on your BOSH director follow steps below:
+To uninstall <%= vars.product_abbr %> from your BOSH Director:
 
-1. Run `om` command to uninstall FIM to the BOSH director using the `guid` from step 5.
-
+1. Uninstall <%= vars.product_abbr %> by running:
+    
     ```
     om  \
-    -t <OPS_NAMAGE_URL> \
-    -u <OPS_NAMAGE_USERNAME> \
-    -p <OPS_NAMAGE_PASSWORD> \
-    curl -p "/api/v0/staged/director/manifest_operations/add_job_to_instance_group/<GUID>" \
+    -t OPS-MANAGER-URL \
+    -u OPS-MANAGER-USERNAME \
+    -p OPS-MANAGER-PASSWORD \
+    curl -p "/api/v0/staged/director/manifest_operations/add_job_to_instance_group/FIM-GUID" \
     -x DELETE \
+    ```
+    Where `GUID` is the GUID you recorded in [Install <%= vars.product_abbr %>](#install) above. 
