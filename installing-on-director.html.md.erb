@@ -17,13 +17,13 @@ See [Pivotal Platform Operators](https://docs.pivotal.io/platform/customizing/pl
 
 * <%= vars.ops_manager_full %> v2.5 or later.
 
-* A web server accessible from Ops Manager to serve the fim binary.
+* A web server accessible from Ops Manager to serve the <%= vars.product_abbr %> binary.
 
 ##<a id="install"></a>Install <%= vars.product_abbr %>
 
 To install <%= vars.product_abbr %> on your BOSH Director: 
 
-1. Download the <%= vars.product_abbr %> software binary file from
+1. Download the <%= vars.product_abbr %> binary file from
 [Pivotal Network](https://network.pivotal.io/products/p-fim-addon).
 
 2. Find and record the SHA checksum for the binary file by running:
@@ -105,7 +105,7 @@ To install <%= vars.product_abbr %> on your BOSH Director:
 
 7. Click **Review Pending Changes**.
 
-8. Select **BOSH Director***. Do not select any other checkbox.
+8. Select **BOSH Director**. Do not select any other checkbox.
 
 9. Click **Apply Changes**.
 
@@ -164,4 +164,4 @@ To uninstall <%= vars.product_abbr %> from your BOSH Director:
     curl -p "/api/v0/staged/director/manifest_operations/add_job_to_instance_group/FIM-GUID" \
     -x DELETE \
     ```
-    Where `GUID` is the GUID you recorded in [Install <%= vars.product_abbr %>](#install) above. 
+    Where `GUID` is the value of `guid` you recorded in [Install <%= vars.product_abbr %>](#install) above. 
