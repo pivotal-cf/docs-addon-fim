@@ -42,12 +42,12 @@ The default value of `fim.dirs` for Windows is:
 
     fim:
         dirs:
-        - C:\\Windows\\System32
-        - C:\\Program Files
-        - C:\\Program Files (x86)
-        - C:\\var\\vcap\\bosh
-        - C:\\var\\vcap\\data\\packages
-        - C:\\var\\vcap\\data\\jobs
+        - C:\Windows\System32
+        - C:\Program Files
+        - C:\Program Files (x86)
+        - C:\var\vcap\bosh
+        - C:\var\vcap\data\packages
+        - C:\var\vcap\data\jobs
 
 ##<a id="output-logs"></a>Event Logging
 
@@ -98,7 +98,7 @@ This allows you to isolate unexpected events by looking for severity <code>5</co
 
 Some monitored directories might contain files that should not be monitored, for example, files that change frequently.
 You can configure <%= vars.product_abbr %> to ignore events using path regexes with `fim.ignored_patterns`.
-The default value of `fim.ignored_patterns` is:
+The default value of `fim.ignored_patterns` for Linux is:
 
 ```
 fim:
@@ -120,6 +120,19 @@ fim:
     # Log rotation
     - ^/var/lib/logrotate/status.*$
 ```
+
+When definining `fim.ignored_patterns` for Windows, you must replace all single back-slashes with double back-slashes.
+For instance, to ignore all files in the directory `C:\var\vcap\bosh\ignore_me\`:
+
+```
+fim:
+  ignored_patterns:
+    - ^C:\\var\\vcap\\bosh\\ignore_me\\.*$
+```
+
+<p class="note"><strong>Note</strong>:
+We do not currently have a default value for `fim.ignored_patterns` for Windows.
+</p>
 
 ##<a id="output-low"></a>Low Severity Events
 
@@ -176,8 +189,8 @@ The output is configured using the `fim.outputs` property.
     ```
 
 1. <%= vars.product_abbr %> supports two types of output for Windows:
-  * `stdout`: sends messages to `C:\\var\\vcap\\sys\\log\\fim-windows\\filesnitch\\job-service-wrapper.out.log`.
-  * `stderr`: sends messages to `C:\\var\\vcap\\sys\\log\\fim-windows\\filesnitch\\job-service-wrapper.err.log`.
+  * `stdout`: sends messages to `C:\var\vcap\sys\log\fim-windows\filesnitch\job-service-wrapper.out.log`.
+  * `stderr`: sends messages to `C:\var\vcap\sys\log\fim-windows\filesnitch\job-service-wrapper.err.log`.
 
     The default value of the `fim.outputs` property:
 
