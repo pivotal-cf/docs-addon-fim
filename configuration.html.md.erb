@@ -97,8 +97,9 @@ This allows you to isolate unexpected events by looking for severity <code>5</co
 ##<a id="output-ignore"></a>Ignore Events
 
 Some monitored directories might contain files that should not be monitored, for example, files that change frequently.
-You can configure <%= vars.product_abbr %> to ignore events using path regexes with `fim.ignored_patterns`.
-The default value of `fim.ignored_patterns` for Linux is:
+You can configure <%= vars.product_abbr %> to ignore events using path regular expressions with `fim.ignored_patterns`.
+
+The default values for `fim.ignored_patterns` for Linux are:
 
 ```
 fim:
@@ -114,15 +115,16 @@ fim:
     # Temporary files created when hosts updated
     - ^/etc/hosts.+$
 
-    # Bosh Agent logs
+    # BOSH Agent logs
     - ^/var/vcap/bosh/log/.+$
 
     # Log rotation
     - ^/var/lib/logrotate/status.*$
 ```
 
-When definining `fim.ignored_patterns` for Windows, you must replace all single back-slashes with double back-slashes.
-For instance, to ignore all files in the directory `C:\var\vcap\bosh\ignore_me\`:
+When defining `fim.ignored_patterns` for Windows, you must replace all single
+back slashes with double back slashes.
+For example, to ignore all files in the directory `C:\var\vcap\bosh\ignore_me\` use:
 
 ```
 fim:
@@ -131,7 +133,7 @@ fim:
 ```
 
 <p class="note"><strong>Note</strong>:
-We do not currently have a default value for `fim.ignored_patterns` for Windows.
+There is currently no default value for <code>fim.ignored_patterns</code> for Windows.
 </p>
 
 ##<a id="output-low"></a>Low Severity Events
