@@ -1,0 +1,163 @@
+---
+title: Installing File Integrity Monitoring on BOSH Director
+owner: Security Engineering
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to install <%= vars.product_full %>
+(<%= vars.product_abbr %>) on BOSH Director.
+
+##<a id="prereqs"></a>Prerequisites
+
+Before you install <%= vars.product_abbr %>, you must have:
+
+* A <%= vars.platform_name %> operator user account with admin rights.
+See [Pivotal Platform Operators](https://docs.pivotal.io/platform/customizing/platform-operators.html).
+
+* <%= vars.ops_manager_full %> v2.5 or later.
+
+* A web server accessible from Ops Manager to serve the <%= vars.product_abbr %> binary.
+
+##<a id="install"></a>Install <%= vars.product_abbr %>
+
+To install <%= vars.product_abbr %> on your BOSH Director:
+
+1. Download the <%= vars.product_abbr %> binary file from
+[Pivotal Network](https://network.pivotal.io/products/p-fim-addon).
+
+2. Find and record the SHA checksum for the binary file by running:
+
+    ```
+    shasum PATH-TO-BINARY-FILE
+    ```
+   For example:
+   <pre class="terminal">$ shasum fim-1.4.8.tgz
+     15c52a9e56ca8e796dd61b55a48d962e2f4e763b fim-1.4.8.tgz</pre>
+
+
+3. Copy the binary file to your web server.
+
+4. Add <%= vars.product_abbr %> to BOSH Director by running:
+
+    ```
+    om  \
+    -t OPS-MANAGER-URL \
+    -u OPS-MANAGER-USERNAME \
+    -p OPS-MANAGER-PASSWORD \
+    curl -p "/api/v0/staged/director/manifest_operations/add_job_to_instance_group" \
+    -x POST \
+    -H "Content-Type: application/json" \
+    -d '{
+            "add_job_to_instance_group": {
+              "instance_group": "bosh",
+              "job_name": "fim",
+              "release_name": "fim",
+              "release_url": "FIM-BINARY-URL",
+              "release_sha1": "FIM-SHA1",
+              "job_properties": {"fim": {}}
+            }
+        }'
+    ```
+
+    Where:
+    + `FIM-BINARY-URL` is the URL to the binary file on your web server.
+    + `FIM-SHA1` is the SHA checksum for the binary file you recorded in the above step.
+
+    The output of the above command looks similar to the following:
+
+    <pre class="terminal">Status: 201 Created
+    Cache-Control: no-cache, no-store
+    Connection: keep-alive
+    Content-Type: application/json; charset=utf-8
+    Date: Mon, 04 Nov 2019 17:09:08 GMT
+    Expires: Fri, 01 Jan 1990 00:00:00 GMT
+    Pragma: no-cache
+    Referrer-Policy: strict-origin-when-cross-origin
+    Server: Ops Manager
+    Strict-Transport-Security: max-age=31536000; includeSubDomains
+    X-Content-Type-Options: nosniff
+    X-Download-Options: noopen
+    X-Frame-Options: SAMEORIGIN
+    X-Permitted-Cross-Domain-Policies: none
+    X-Request-Id: 7d961c91-b7d6-428c-a68d-c36c9059f7f9
+    X-Runtime: 0.220906
+    X-Xss-Protection: 1; mode=block
+    {
+      "add_job_to_instance_group": {
+        "instance_group": "bosh",
+        "job_name": "fim",
+        "release_name": "fim",
+        "release_url": "http://localhost:4567/fim-1.4.8.tgz",
+        "release_sha1": "15c52a9e56ca8e796dd61b55a48d962e2f4e763b",
+        "job_properties": {
+          "fim": {}
+        },
+        "guid": "op-653b1111a60a",
+        "product_guid": "p-bosh-eb686414b9fa37183507"
+      }
+    }
+  </pre>
+
+1. Record the value of `guid` in the above output. If you want to delete FIM from BOSH Director, you need this value.
+
+6. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %>.
+
+7. Click **Review Pending Changes**.
+
+8. Select **BOSH Director**. Do not select any other checkbox.
+
+9. Click **Apply Changes**.
+
+##<a id="verify"></a>Verify <%= vars.product_abbr %> Installation
+
+To verify that <%= vars.product_abbr %> is running on your BOSH Director:
+
+1. SSH into the BOSH Director VM. For instructions, see [SSH Into the BOSH Director VM](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-director-ssh).
+
+2. View the status of processes running on BOSH Director by running:
+
+    ```
+    sudo monit summary
+    ```
+
+    For example:
+
+    <pre class=terminal>bosh/0:~$ sudo monit summary
+    The Monit daemon 5.2.5 uptime: 4m
+
+    Process 'system-metrics-server'     running
+    Process 'nats'                      running
+    Process 'postgres'                  running
+    Process 'director'                  running
+    Process 'worker_1'                  running
+    Process 'worker_2'                  running
+    Process 'worker_3'                  running
+    Process 'director_scheduler'        running
+    Process 'director_sync_dns'         running
+    Process 'director_nginx'            running
+    Process 'health_monitor'            running
+    Process 'uaa'                       running
+    Process 'credhub'                   running
+    Process 'blobstore_nginx'           running
+    Process 'fim'                       running
+    System 'system_localhost'           running
+    </pre>
+
+3. Confirm that `fim` is present in the above output.
+
+##<a id="uninstall"></a>Uninstall <%= vars.product_abbr %>
+
+To uninstall <%= vars.product_abbr %> from your BOSH Director:
+
+1. Uninstall <%= vars.product_abbr %> by running:
+
+    ```
+    om  \
+    -t OPS-MANAGER-URL \
+    -u OPS-MANAGER-USERNAME \
+    -p OPS-MANAGER-PASSWORD \
+    curl -p "/api/v0/staged/director/manifest_operations/add_job_to_instance_group/FIM-GUID" \
+    -x DELETE \
+    ```
+    Where `FIM-GUID` is the value of `guid` you recorded in [Install <%= vars.product_abbr %>](#install) above.
