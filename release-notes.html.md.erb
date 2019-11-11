@@ -5,7 +5,7 @@ owner: Security Engineering
 
 <strong><%= modified_date %></strong>
 
-<p class="note"><strong>Note:</strong> Pivotal has renamed <i>File Integrity Monitoring Add-on for PCF</i> to <i>Pivotal File Integrity Monitoring</i>.
+<p class="note"><strong>Note:</strong> Pivotal has renamed <i>File Integrity Monitoring Add-on for PCF</i> to <i><%= vars.product_full %></i>.
 </p>
 
 <%= partial '../../fim/partials/pcf-name-change' %>
@@ -18,9 +18,8 @@ This topic contains release notes for <%= vars.product_full %> (<%= vars.product
 ### Features
 New features and changes in this release:
 
-* Adds support for running FIM on the BOSH Director VM
-  * For more information, see
-    [Installing File Integrity Monitoring on BOSH Director](./installing-bosh.html).
+* Adds support for running <%= vars.product_abbr %> on the BOSH Director VM.
+For more information, see [Installing File Integrity Monitoring on BOSH Director](./installing-bosh.html).
 
 ### Known Issues
 This release has the following known issue:
@@ -34,9 +33,9 @@ This release has the following known issue:
 ### Features
 New features and changes in this release:
 
-* Adds support for <%= vars.product_abbr %> on Windows (Beta)
-  * For more information, see
-    [Create the <%= vars.product_abbr %> Manifest (Windows)](./installing.html#create-mfest-windows).
+* Adds support for <%= vars.product_abbr %> on Windows (Beta).
+For more information, see
+[Create the <%= vars.product_abbr %> Manifest (Windows)](./installing.html#create-mfest-windows).
 * Updates golang dependency to v1.13.1 for Linux
 * Updates golang dependency to v1.12.9 for Windows
 
