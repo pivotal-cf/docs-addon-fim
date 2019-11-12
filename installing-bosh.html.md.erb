@@ -32,8 +32,8 @@ To install <%= vars.product_abbr %> on your BOSH Director:
     shasum PATH-TO-BINARY-FILE
     ```
    For example:
-   <pre class="terminal">$ shasum fim-1.4.8.tgz
-     15c52a9e56ca8e796dd61b55a48d962e2f4e763b fim-1.4.8.tgz</pre>
+   <pre class="terminal">$ shasum fim-1.5.0.tgz
+     15c52a9e56ca8e796dd61b55a48d962e2f4e763b fim-1.5.0.tgz</pre>
 
 
 3. Copy the binary file to your web server.
@@ -88,7 +88,7 @@ To install <%= vars.product_abbr %> on your BOSH Director:
         "instance_group": "bosh",
         "job_name": "fim",
         "release_name": "fim",
-        "release_url": "http://localhost:4567/fim-1.4.8.tgz",
+        "release_url": "http://localhost:4567/fim-1.5.0.tgz",
         "release_sha1": "15c52a9e56ca8e796dd61b55a48d962e2f4e763b",
         "job_properties": {
           "fim": {}
