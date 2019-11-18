@@ -10,44 +10,42 @@ This topic describes how to configure and use <%= vars.product_full %> (<%= vars
 ##<a id="dirs"></a>List Directories to be Monitored
 
 <%= vars.product_abbr %> monitors a set of critical system directories.
-The list of directories to be monitored by <%= vars.product_abbr %> can be configured using the `fim.dirs` property.
+The list of directories to be monitored by <%= vars.product_abbr %> can be configured using the **Watchlist** field.
 
-The default value of `fim.dirs` for Linux is:
+The default value of **Watchlist** for Linux is:
 
-    fim:
-      dirs:
-        # System binaries and configuration
-        - /bin
-        - /etc
-        - /lib
-        - /lib64
-        - /opt
-        - /sbin
-        - /srv
-        - /usr
-        - /var/lib
+```
+# System binaries and configuration
+- /bin
+- /etc
+- /lib
+- /lib32
+- /lib64
+- /opt
+- /sbin
+- /srv
+- /usr
+- /var/lib
 
-        # BOSH agent
-        - /var/vcap/bosh
-        - /var/vcap/monit/job
+# BOSH agent
+- /var/vcap/bosh
+- /var/vcap/monit/job
 
-        # BOSH releases
-        - /var/vcap/data/packages
-        - /var/vcap/data/jobs
+# BOSH releases
+- /var/vcap/data/packages
+- /var/vcap/data/jobs
+```
 
-<p class="note"><strong>Note</strong>: The default <code>fim.dirs</code> are written for Ubuntu Trusty stemcells. On Xenial stemcells, add <code>/lib32</code> to <code>fim.dirs</code>.
-</p>
+The default value of **Watchlist** for Windows is:
 
-The default value of `fim.dirs` for Windows is:
-
-    fim:
-        dirs:
-        - C:\Windows\System32
-        - C:\Program Files
-        - C:\Program Files (x86)
-        - C:\var\vcap\bosh
-        - C:\var\vcap\data\packages
-        - C:\var\vcap\data\jobs
+```
+- C:\Windows\System32
+- C:\Program Files
+- C:\Program Files (x86)
+- C:\var\vcap\bosh
+- C:\var\vcap\data\packages
+- C:\var\vcap\data\jobs
+```
 
 ##<a id="output-logs"></a>Event Logging
 
@@ -57,7 +55,7 @@ system to verify regular activity and generate alerts for unauthorized changes t
 
 These logs appear in the following format:
 <pre>
-2019-01-02T15:54:01.350053+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|OPERATION-TYPE|file integrity monitoring event|SEVERITY| fname="ABSOLUTE-PATH" hostname="BOSH-VM" opname="OPERATION-NAME" optype=OPERATION-TYPE ts=TIMESTAMP severity=SEVERITY
+CEF:0|cloud_foundry|fim|1.0.0|OPERATION-TYPE|file integrity monitoring event|SEVERITY| fname="ABSOLUTE-PATH" hostname="BOSH-VM" opname="OPERATION-NAME" optype=OPERATION-TYPE ts=TIMESTAMP severity=SEVERITY
 </pre>
 
 Where:
@@ -70,7 +68,7 @@ Where:
     * `16`, which is `CHMOD`
 
 * `SEVERITY` is one of the following severity levels:
-    * `1`, which is used for heartbeats
+    * `0`, which is used for heartbeats
     * `3`, which is used for low severity events
     * `5`, which is used for all other events
 
@@ -82,9 +80,9 @@ Where:
 
 For example:
 <pre class="terminal">
-2019-01-02T15:54:01.350053+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|3| fname="/test/file01" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" opname="CREATE" optype=1 ts=1546535400 severity=3
+CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|3| fname="/test/file01" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" opname="CREATE" optype=1 ts=1546535400 severity=3
 
-2019-01-02T15:54:19.388257+00:00 localhost filesnitch[5963]: CEF:0|cloud_foundry|fim|1.0.0|2|file integrity monitoring event|5| fname="/test/file02" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" opname="WRITE" optype=2 ts=1546535520 severity=5
+CEF:0|cloud_foundry|fim|1.0.0|2|file integrity monitoring event|5| fname="/test/file02" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" opname="WRITE" optype=2 ts=1546535520 severity=5
 </pre>
 
 For an example of every type of <%= vars.product_abbr %> log message that can be configured, see [Examples of <%= vars.product_abbr %> Log Messages](./log-examples.html).
@@ -97,131 +95,112 @@ This allows you to isolate unexpected events by looking for severity <code>5</co
 ##<a id="output-ignore"></a>Ignore Events
 
 Some monitored directories might contain files that should not be monitored, for example, files that change frequently.
-You can configure <%= vars.product_abbr %> to ignore events using path regular expressions with `fim.ignored_patterns`.
+You can configure <%= vars.product_abbr %> to ignore events using path regular expressions with the **Ignore patterns** field.
 
-The default values for `fim.ignored_patterns` for Linux are:
+The default values for **Ignore patterns** for Linux are:
 
 ```
-fim:
-  ignored_patterns:
-    # Temporary files created when an operator or errand invoke `bosh ssh`
-    - ^/etc/passwd.+$
-    - ^/etc/shadow.+$
-    - ^/etc/subgid.+$
-    - ^/etc/subuid.+$
-    - ^/etc/group.+$
-    - ^/etc/gshadow.+$
+# Temporary files created when an operator or errand invoke `bosh ssh`
+- ^/etc/passwd.+$
+- ^/etc/shadow.+$
+- ^/etc/subgid.+$
+- ^/etc/subuid.+$
+- ^/etc/group.+$
+- ^/etc/gshadow.+$
 
-    # Temporary files created when hosts updated
-    - ^/etc/hosts.+$
+# Temporary files created when hosts updated
+- ^/etc/hosts.+$
 
-    # BOSH Agent logs
-    - ^/var/vcap/bosh/log/.+$
+# BOSH Agent logs
+- ^/var/vcap/bosh/log/.+$
 
-    # Log rotation
-    - ^/var/lib/logrotate/status.*$
+# Log rotation
+- ^/var/lib/logrotate/status.*$
 ```
 
-When defining `fim.ignored_patterns` for Windows, you must replace all single
+When defining **Ignore patterns** for Windows, you must replace all single
 back slashes with double back slashes.
-For example, to ignore all files in the directory `C:\var\vcap\bosh\ignore_me\` use:
+For example, to ignore all files in the directory `C:\var\vcap\bosh\ignore_me\`, use:
 
 ```
-fim:
-  ignored_patterns:
-    - ^C:\\var\\vcap\\bosh\\ignore_me\\.*$
+^C:\\var\\vcap\\bosh\\ignore_me\\.*$
 ```
+
+<p class="note"><strong>Note</strong>: the regular expressions must be compatible with Golang's regular expression syntax.
+  To test whether a regular expression is valid, we recommend using [Regex101](https://regex101.com?flavor=golang).
+</p>
 
 <p class="note"><strong>Note</strong>:
-There is currently no default value for <code>fim.ignored_patterns</code> for Windows.
+There is currently no default value for **Ignored patterns** for Windows.
 </p>
 
 ##<a id="output-low"></a>Low Severity Events
 
 Some monitored directories might contain files that occasionally change.
-You can configure <%= vars.product_abbr %> to log events at a lower severity using path regexes with `fim.low_severity_patterns`.
-The default value of `fim.low_severity_patterns` is:
+You can configure <%= vars.product_abbr %> to log events at a lower severity using path regexes with **Low severity tagging for frequently changed files**.
+The default values for **Low severity tagging for frequently changed files** for Linux are:
 
 ```
-fim:
-  low_severity_patterns:
-    # When an operator or errand invoke `bosh ssh` a new user is created
-    - ^/etc/passwd$
-    - ^/etc/shadow$
-    - ^/etc/subgid$
-    - ^/etc/subuid$
-    - ^/etc/group$
-    - ^/etc/gshadow$
+# When an operator or errand invoke `bosh ssh` a new user is created
+- ^/etc/passwd$
+- ^/etc/shadow$
+- ^/etc/subgid$
+- ^/etc/subuid$
+- ^/etc/group$
+- ^/etc/gshadow$
 
-    # BOSH-DNS sync and new VM creation update hosts
-    - ^/etc/hosts$
+# BOSH-DNS sync and new VM creation update hosts
+- ^/etc/hosts$
 
-    # Attached devices and cgroups
-    - ^/etc/mtab$
+# Attached devices and cgroups
+- ^/etc/mtab$
 
-    # DHCP leases
-    - ^/var/lib/dhcp/dhclient.eth\d+.leases$
+# DHCP leases
+- ^/var/lib/dhcp/dhclient.eth\d+.leases$
 
-    # BOSH Agent configuration changes when VM created/modified
-    - ^/var/vcap/bosh/settings.json$
+# BOSH Agent configuration changes when VM created/modified
+- ^/var/vcap/bosh/settings.json$
 
-    # BOSH Agent CHMODs jobs and packages as part of `bosh deployment`
-    - ^/var/vcap/data/jobs$
-    - ^/var/vcap/data/packages$
+# BOSH Agent CHMODs jobs and packages as part of `bosh deployment`
+- ^/var/vcap/data/jobs$
+- ^/var/vcap/data/packages$
 ```
 
-##<a id="output-configure"></a>Configure the Output Destination
+When defining **Low severity tagging for frequently changed files** for Windows, you must replace all single
+back slashes with double back slashes.
+For example, to mark all files in the directory `C:\var\vcap\bosh\ignore_me\` as low severity, use:
 
-The output is configured using the `fim.outputs` property.
+```
+^C:\\var\\vcap\\bosh\\ignore_me\\.*$
+```
 
-1. <%= vars.product_abbr %> supports three types of output for Linux:
-  * `stdout`: sends messages to `/var/vcap/sys/log/fim/fim.stdout.log`.
-  * `stderr`: sends messages to `/var/vcap/sys/log/fim/fim.stderr.log`.
-  * `syslog`: sends messages to `/var/log/messages`.
+<p class="note"><strong>Note</strong>: the regular expressions must be compatible with Golang's regular expression syntax.
+  To test whether a regular expression is valid, we recommend using [Regex101](https://regex101.com?flavor=golang).
+</p>
 
-    <p class="note"><strong>Note</strong>: Currently, <%= vars.product_abbr %> only supports selecting one output at a time.
-    </p>
-
-    The default value of the `fim.outputs` property:
-
-    ```
-    fim:
-      outputs:
-      - syslog
-    ```
-
-1. <%= vars.product_abbr %> supports two types of output for Windows:
-  * `stdout`: sends messages to `C:\var\vcap\sys\log\fim-windows\filesnitch\job-service-wrapper.out.log`.
-  * `stderr`: sends messages to `C:\var\vcap\sys\log\fim-windows\filesnitch\job-service-wrapper.err.log`.
-
-    The default value of the `fim.outputs` property:
-
-    ```
-    fim:
-      outputs:
-      - stdout
-    ```
+<p class="note"><strong>Note</strong>:
+There is currently no default value for **Low severity tagging for frequently changed files** for Windows.
+</p>
 
 ##<a id="format"></a>Configure the Output Format
 
 By default, <%= vars.product_abbr %> generates messages in the Common Event Format.
-Output format can be configured as a Golang text template using the `fim.format` property.
-The default value of `fim.format` is:
+Output format can be configured as a Golang text template using the **Output log format** field.
+The default value of **Output log format** is:
 
 ```
-fim:
-  format: "CEF:0|cloud_foundry|fim|1.0.0|{{.Optype}}|file integrity monitoring event|{{.Severity}}| {{.KeyValues}}"
+"CEF:0|cloud_foundry|fim|1.0.0|{{.Optype}}|file integrity monitoring event|{{.Severity}}| {{.KeyValues}}"
 ```
 
-This example output shows what log lines look like with the default `fim.format` configuration:
+This example output shows what log lines look like with the default **Output log format** configuration:
 
 ```
-Apr 20 19:12:37 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|0|file integrity monitoring event|3| fname="" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="FILESNITCH_CHECKIN" optype=0 ts=1492715822
-Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/passwd.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
-Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/passwd.17721" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822
-Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/group.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
-Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/group.17721" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822
-Apr 20 19:17:02 localhost filesnitch[819]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/gshadow.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822
+CEF:0|cloud_foundry|fim|1.0.0|0|file integrity monitoring event|0| fname="" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="FILESNITCH_CHECKIN" optype=0 ts=1492715822 severity=0
+CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/passwd.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822 severity=5
+CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/passwd.17721" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822 severity=5
+CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/group.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822 severity=5
+CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/group.17721" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822 severity=5
+CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/gshadow.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822 severity=5
 ```
 
 <p class="note"><strong>Note</strong>: The <code>FILESNITCH CHECKIN</code> message is a logging marker that indicates <code>filesnitch</code> is operational in the absence of any file system events.</p>
@@ -335,8 +314,7 @@ fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 ts=1475195258
 For example, the following variable definition...
 
 ```
-fim:
-  format: "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Digests}} {{.Ts}}"
+format: "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Digests}} {{.Ts}}"
 ```
 
 ...produces this:
@@ -347,24 +325,11 @@ fim:
 
 ##<a id="digests"></a>Calculate File Hashes
 
-<%= vars.product_abbr %> supports hashing monitored files on WRITE or CREATE events using the `sha256` algorithm. Hashing is disabled by default, and can be configured using the `fim.digests` property, as follows:
-
-
-```
-fim:
-  digests:
-    - sha256
-```
+<%= vars.product_abbr %> supports hashing monitored files on WRITE or CREATE events using the `sha256` algorithm. Hashing is disabled by default, and can be enabled by setting **Log file digest for write/create events** to **Enable**:
 
 ###<a id="digest_threshold"></a>File Size Threshold
 
-<%= vars.product_abbr %> sets a threshold on the size of files to be hashed. Use the `fim.digest_threshold` property to adjust this threshold. The property takes a value in bytes. The default value is `10000000`.
-
-```
-fim:
-  digest_threshold: 10000000
-```
-
+<%= vars.product_abbr %> sets a threshold on the size of files to be hashed. Use the **A threshold of file size beyond which digests are not calculated (in bytes)** field to adjust this threshold. The field takes a value in bytes. The default value is `10000000`.
 
 ##<a id="monitor-containers"></a>Monitor Containers with <%= vars.product_abbr %>
 
@@ -379,28 +344,24 @@ You can use <%= vars.product_abbr %> to monitor:
 
 To configure <%= vars.product_abbr %> to monitor Garden containers:
 
-1. In [List Directories to Be Monitored](#dirs) above, add the following directories
-   to the `fim.dirs` property:
+1. In [List Directories to Be Monitored](#dirs) above, add the following directories to the **Watchlist** field:
 
-        fim:
-          dirs:
-            ...
-
-            # Garden containers
-            - /var/vcap/data/grootfs/store/unprivileged/images/
-            - /var/vcap/data/grootfs/store/privileged/images/
+    ```
+    # Garden containers
+    - /var/vcap/data/grootfs/store/unprivileged/images/
+    - /var/vcap/data/grootfs/store/privileged/images/
+    ```
 
     For more information about GrootFS volumes,
     see [Volumes](https://docs.pivotal.io/pivotalcf/concepts/grootfs-disk.html#volumes).
 
-2. In [Ignore Events](#output-ignore), add the following pattern to the `ignored_patterns` property:
+2. In [Ignore Events](#output-ignore), add the following pattern to the **Ignore patterns** field:
 
-        fim:
-          ignored_patterns:
-            ...
-            # When monitoring Garden containers,
-            # ignore duplicate log messages sent to .../UUID/rootfs/
-            - ^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$
+    ```
+    # When monitoring Garden containers,
+    # ignore duplicate log messages sent to .../UUID/rootfs/
+    - ^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$
+    ```
 
     <p class="note"><strong>Note:</strong> When files in the Garden containers are modified,
       changes are made to both the <code>diff</code> and <code>rootfs</code> directories.
@@ -411,18 +372,47 @@ To configure <%= vars.product_abbr %> to monitor Garden containers:
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
 
+###<a id="garden-windows"></a> Monitor Windows Garden Containers
+
+To configure <%= vars.product_abbr %> to monitor Windows Garden containers:
+
+1. In [List Directories to Be Monitored](#dirs) above, add the following directories to the **Watchlist** field for Windows:
+
+    ```
+    # Garden containers
+    - C:\proc
+    ```
+
+2. In [Ignore Events](#output-ignore), we recommend adding the following patterns to the **Ignore patterns** field for Windows:
+
+    ```
+    # We recommend ignoring paths in the container other than the application files
+    # These files reside in C:\proc\PID\root\Users\vcap\app\*
+    - ^C:\\proc\\[^\\]+\\root\\[^U]
+    - ^C:\\proc\\[^\\]+\\root\\Users\\[^v]
+    - ^C:\\proc\\[^\\]+\\root\\Users\\vcap\\[^a]
+    ```
+
+    When files and directories in the `C:\proc\PID\root` directory
+    are created, removed, or modified, <%= vars.product_abbr %> writes log messages.
+    `PID` is the process ID of the container.
+
+    <p class="note"><strong>Note:</strong> The above recommendations for **Ignore patterns** ignore all events
+      in the container filesystem outside of `C:\proc\PID\root\Users\vcap\app`.
+    </p>
+
+For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
+
 ###<a id="pks"></a> Monitor Containers in <%= vars.k8s_runtime %>
 
 To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime %>:
 
-1. In [List Directories to Be Monitored](#dirs) above, add the following directory to the `fim.dirs` property:
-
-        fim:
-          dirs:
-            ...
-
-            # Containers in <%= vars.k8s_runtime %>
-            - /var/vcap/store/docker/docker/
+1. In [List Directories to Be Monitored](#dirs) above, add the following directory to the **Watchlist** field:
+    
+    ```
+    # Containers in <%= vars.k8s_runtime %>
+    - /var/vcap/store/docker/docker/
+    ```
 
     When files and directories in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory
     are created, removed, or modified, <%= vars.product_abbr %> writes log messages.

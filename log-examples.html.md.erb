@@ -65,13 +65,20 @@ Examples of <%= vars.product_abbr %> log messages from Garden containers and Doc
 
 * For a Garden container in <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
 <pre class="terminal">
-2019-04-25T14:56:10.158714+00:00 localhost filesnitch[79084]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5|
+CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5|
 fname="/var/vcap/data/grootfs/store/unprivileged/images/5c320add-ac1a-4bd7-78b6-1129/diff/home/vcap/app/public/test.html"
+</pre>
+
+* For a Windows Garden container in <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
+<pre class="terminal">
+CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5|
+fname="C:\\proc\\8174\\root\\Users\\vcap\\app\\test.html"
+hostname="worker/be1f4854-299d-47d1-98eb-60b0741a3f6b" opname="CREATE" optype=1 ts=1556218123 severity=5
 </pre>
 
 * For a Docker container in <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>)
 <pre class="terminal">
-2019-04-25T18:40:48.937153+00:00 localhost filesnitch[17875]: CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5|
+CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5|
 fname="/var/vcap/store/docker/docker/overlay2/7e5685c735b2aa97a9680e0b81730a518e3188afbf0f9f1529e492f98ed35f1d/diff/test.html"
 hostname="worker/d1d67195-ad42-4025-83e9-0d43a193ad53" opname="CREATE" optype=1 ts=1556217648 severity=5
 </pre>
