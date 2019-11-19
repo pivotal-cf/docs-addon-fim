@@ -21,19 +21,19 @@ See [Pivotal Platform Operators](https://docs.pivotal.io/platform/customizing/pl
 
 ##<a id="install"></a>Install <%= vars.product_abbr %>
 
-To install <%= vars.product_abbr %> on your BOSH Director: 
+To install <%= vars.product_abbr %> on your BOSH Director:
 
 1. Download the <%= vars.product_abbr %> tile from
 [Pivotal Network](https://network.pivotal.io/products/p-fim-addon).
 
 1. Untar the <%= vars.product_abbr %> tile with the following command
 
-   ```
-   tar zxvf p-fim-X.X.X.pivotal -C PATH-TO-UNTAR
-   ```
+    ```
+    tar zxvf p-fim-X.X.X.pivotal -C PATH-TO-UNTAR
+    ```
 
 1. Find and record the SHA checksum for the binary file by running:
-    
+
     ```
     shasum PATH-TO-UNTAR/releases/fim-X.X.X.tgz
     ```
@@ -65,10 +65,10 @@ To install <%= vars.product_abbr %> on your BOSH Director:
             }
         }'
     ```
-    
+
     Where:
     + `FIM-BINARY-URL` is the URL to the binary file on your web server.
-    + `FIM-SHA1` is the SHA checksum for the binary file you recorded in the above step. 
+    + `FIM-SHA1` is the SHA checksum for the binary file you recorded in the above step.
 
     The output of the above command looks similar to the following:
 
@@ -105,7 +105,7 @@ To install <%= vars.product_abbr %> on your BOSH Director:
     }
   </pre>
 
-1. Record the value of `guid` in the above output. If you want to delete FIM from BOSH Director, you need this value. 
+1. Record the value of `guid` in the above output. If you want to delete FIM from BOSH Director, you need this value.
 
 6. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %>.
 
@@ -116,19 +116,19 @@ To install <%= vars.product_abbr %> on your BOSH Director:
 9. Click **Apply Changes**.
 
 ##<a id="verify"></a>Verify <%= vars.product_abbr %> Installation
-  
+
 To verify that <%= vars.product_abbr %> is running on your BOSH Director:
 
 1. SSH into the BOSH Director VM. For instructions, see [SSH Into the BOSH Director VM](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-director-ssh).
 
-2. View the status of processes running on BOSH Director by running: 
+2. View the status of processes running on BOSH Director by running:
 
     ```
     sudo monit summary
     ```
-    
+
     For example:
-    
+
     <pre class=terminal>bosh/0:~$ sudo monit summary
     The Monit daemon 5.2.5 uptime: 4m
 
@@ -149,7 +149,7 @@ To verify that <%= vars.product_abbr %> is running on your BOSH Director:
     Process 'fim'                       running
     System 'system_localhost'           running
     </pre>
-    
+
 3. Confirm that `fim` is present in the above output.
 
 ##<a id="uninstall"></a>Uninstall <%= vars.product_abbr %>
@@ -157,7 +157,7 @@ To verify that <%= vars.product_abbr %> is running on your BOSH Director:
 To uninstall <%= vars.product_abbr %> from your BOSH Director:
 
 1. Uninstall <%= vars.product_abbr %> by running:
-    
+
     ```
     om  \
     -t OPS-MANAGER-URL \
@@ -166,4 +166,4 @@ To uninstall <%= vars.product_abbr %> from your BOSH Director:
     curl -p "/api/v0/staged/director/manifest_operations/add_job_to_instance_group/FIM-GUID" \
     -x DELETE \
     ```
-    Where `FIM-GUID` is the value of `guid` you recorded in [Install <%= vars.product_abbr %>](#install) above. 
+    Where `FIM-GUID` is the value of `guid` you recorded in [Install <%= vars.product_abbr %>](#install) above.
