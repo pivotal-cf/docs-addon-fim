@@ -17,7 +17,7 @@ See [Pivotal Platform Operators](https://docs.pivotal.io/platform/customizing/pl
 
 * <%= vars.ops_manager_full %> v2.5 or later.
 
-* A web server accessible from Ops Manager to serve the <%= vars.product_abbr %> binary.
+* A web server accessible from <%= vars.ops_manager %> to serve the <%= vars.product_abbr %> binary.
 
 ##<a id="install"></a>Install <%= vars.product_abbr %>
 
@@ -26,7 +26,7 @@ To install <%= vars.product_abbr %> on your BOSH Director:
 1. Download the <%= vars.product_abbr %> tile from
 [Pivotal Network](https://network.pivotal.io/products/p-fim-addon).
 
-1. Untar the <%= vars.product_abbr %> tile with the following command
+1. Untar the <%= vars.product_abbr %> tile by running:
 
     ```
     tar zxvf p-fim-X.X.X.pivotal -C PATH-TO-UNTAR
@@ -37,10 +37,13 @@ To install <%= vars.product_abbr %> on your BOSH Director:
     ```
     shasum PATH-TO-UNTAR/releases/fim-X.X.X.tgz
     ```
-   For example:
-   <pre class="terminal">$ shasum fim-2.0.0.tgz
-   5edf5fd2f9bf8e876b6bdc871e53b5db97593b21 fim-2.0.0.tgz</pre>
 
+    For example:
+
+    <pre class="terminal">
+    $ shasum fim-2.0.0.tgz
+    5edf5fd2f9bf8e876b6bdc871e53b5db97593b21 fim-2.0.0.tgz
+    </pre>
 
 1. Copy the binary file to your web server.
 

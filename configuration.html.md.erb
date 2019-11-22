@@ -10,7 +10,9 @@ This topic describes how to configure and use <%= vars.product_full %> (<%= vars
 ##<a id="dirs"></a>List Directories to be Monitored
 
 <%= vars.product_abbr %> monitors a set of critical system directories.
-The list of directories to be monitored by <%= vars.product_abbr %> can be configured using the **Watchlist** field.
+
+You can configure the list of directories that <%= vars.product_abbr %> monitors
+in the **Watchlist** field.
 
 The default value of **Watchlist** for Linux is:
 
@@ -94,8 +96,15 @@ This allows you to isolate unexpected events by looking for severity <code>5</co
 
 ##<a id="output-ignore"></a>Ignore Events
 
-Some monitored directories might contain files that should not be monitored, for example, files that change frequently.
-You can configure <%= vars.product_abbr %> to ignore events using path regular expressions with the **Ignore patterns** field.
+Some monitored directories might contain files that you do not want
+<%= vars.product_abbr %> to monitor, for example, files that change frequently.
+You can configure <%= vars.product_abbr %> to ignore events using path regular
+expressions in the **Ignore patterns** field.
+
+<p class="note"><strong>Note</strong>:
+  The regular expressions must be compatible with regular expression syntax for golang.
+  To test whether a regular expression is valid, you can use [Regex101](https://regex101.com?flavor=golang).
+</p>
 
 The default values for **Ignore patterns** for Linux are:
 
@@ -118,6 +127,10 @@ The default values for **Ignore patterns** for Linux are:
 - ^/var/lib/logrotate/status.*$
 ```
 
+<p class="note"><strong>Note</strong>:
+There is currently no default value for **Ignored patterns** for Windows.
+</p>
+
 When defining **Ignore patterns** for Windows, you must replace all single
 back slashes with double back slashes.
 For example, to ignore all files in the directory `C:\var\vcap\bosh\ignore_me\`, use:
@@ -126,18 +139,17 @@ For example, to ignore all files in the directory `C:\var\vcap\bosh\ignore_me\`,
 ^C:\\var\\vcap\\bosh\\ignore_me\\.*$
 ```
 
-<p class="note"><strong>Note</strong>: the regular expressions must be compatible with Golang's regular expression syntax.
-  To test whether a regular expression is valid, we recommend using [Regex101](https://regex101.com?flavor=golang).
-</p>
-
-<p class="note"><strong>Note</strong>:
-There is currently no default value for **Ignored patterns** for Windows.
-</p>
-
 ##<a id="output-low"></a>Low Severity Events
 
 Some monitored directories might contain files that occasionally change.
-You can configure <%= vars.product_abbr %> to log events at a lower severity using path regexes with **Low severity tagging for frequently changed files**.
+You can configure <%= vars.product_abbr %> to log events at a lower severity using
+path regular exepressions in the **Low severity tagging for frequently changed files** field.
+
+<p class="note"><strong>Note</strong>:
+  The regular expressions must be compatible with regular expression syntax for golang.
+  To test whether a regular expression is valid, you can use [Regex101](https://regex101.com?flavor=golang).
+</p>
+
 The default values for **Low severity tagging for frequently changed files** for Linux are:
 
 ```
@@ -166,6 +178,10 @@ The default values for **Low severity tagging for frequently changed files** for
 - ^/var/vcap/data/packages$
 ```
 
+<p class="note"><strong>Note</strong>:
+There is currently no default value for **Low severity tagging for frequently changed files** for Windows.
+</p>
+
 When defining **Low severity tagging for frequently changed files** for Windows, you must replace all single
 back slashes with double back slashes.
 For example, to mark all files in the directory `C:\var\vcap\bosh\ignore_me\` as low severity, use:
@@ -174,18 +190,10 @@ For example, to mark all files in the directory `C:\var\vcap\bosh\ignore_me\` as
 ^C:\\var\\vcap\\bosh\\ignore_me\\.*$
 ```
 
-<p class="note"><strong>Note</strong>: the regular expressions must be compatible with Golang's regular expression syntax.
-  To test whether a regular expression is valid, we recommend using [Regex101](https://regex101.com?flavor=golang).
-</p>
-
-<p class="note"><strong>Note</strong>:
-There is currently no default value for **Low severity tagging for frequently changed files** for Windows.
-</p>
-
 ##<a id="format"></a>Configure the Output Format
 
 By default, <%= vars.product_abbr %> generates messages in the Common Event Format.
-Output format can be configured as a Golang text template using the **Output log format** field.
+Output format can be configured as a golang text template using the **Output log format** field.
 The default value of **Output log format** is:
 
 ```
@@ -203,7 +211,10 @@ CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/g
 CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/gshadow.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 ts=1492715822 severity=5
 ```
 
-<p class="note"><strong>Note</strong>: The <code>FILESNITCH CHECKIN</code> message is a logging marker that indicates <code>filesnitch</code> is operational in the absence of any file system events.</p>
+<p class="note"><strong>Note</strong>:
+  The <code>FILESNITCH CHECKIN</code> message is a logging marker that indicates
+  <code>filesnitch</code> is operational in the absence of any file system events.
+</p>
 
 The key-values pairs in the final field of a CEF file log carry the following meaning:
 
@@ -280,10 +291,13 @@ The key-values pairs in the final field of a CEF file log carry the following me
     </table>
 
 
-<p class="note"><strong>Note: </strong><%= vars.product_abbr %> on Windows reports <code>WRITE</code> and <code>CHMOD</code> together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.
+<p class="note"><strong>Note: </strong>
+  <%= vars.product_abbr %> on Windows reports <code>WRITE</code> and <code>CHMOD</code>
+  together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.
 </p>
 
 Other template values are listed below.
+
 ###<a id="json"></a>JSON
 The `{{.Json}}` string serializes an event into a standard JSON dictionary.
 Example:
@@ -408,7 +422,7 @@ For an example log message, see [Examples of Log Messages from Containers](./log
 To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime %>:
 
 1. In [List Directories to Be Monitored](#dirs) above, add the following directory to the **Watchlist** field:
-    
+
     ```
     # Containers in <%= vars.k8s_runtime %>
     - /var/vcap/store/docker/docker/

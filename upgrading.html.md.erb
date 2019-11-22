@@ -9,22 +9,20 @@ This topic describes how to upgrade <%= vars.product_full %> (<%= vars.product_a
 
 ##<a id="assume"></a>Prerequisites
 
-Verify that you have the correct component versions for the version of <%= vars.product_abbr %> that
-you are upgrading to. See the [Features Snapshot](./index.html#snapshot)
-or the download page on [Pivotal Network](https://network.pivotal.io/products/p-fim-addon/).
+To ensure you have the required component versions, see the [Product Snapshot](./index.html#snapshot).
 
-##<a id="upgrade"></a>Upgrade <%= vars.product_abbr %>
+##<a id="upgrade"></a> Replace <%= vars.product_abbr %> add-on v1.x with v2.x
 
-To upgrade <%= vars.product_abbr %> from 1.x to 2.x:
+To uninstall <%= vars.product_abbr %> v1.x and install v2.x in its place:
 
 1. SSH into the <%= vars.ops_manager %> VM.
    For how to do this, see [SSH into <%= vars.ops_manager %>](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
 
-1. To delete the existing runtime configs, run the following command(s):
+1. Delete the existing runtime configs by running:
 
     ```
     bosh -e BOSH-ENVIRONMENT delete-config --type=runtime --name=fim
     bosh -e BOSH-ENVIRONMENT delete-config --type=runtime --name=fim-windows
     ```
 
-1. To install the 2.x tile, follow the installation instructions in [Install <%= vars.product_abbr %>](./installing.html#install-addon).
+1. Install the 2.x tile. For installation instructions, see [Installing <%= vars.product_short %>](./installing.html#install-addon).
