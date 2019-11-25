@@ -10,9 +10,16 @@ This topic describes how to configure and use <%= vars.product_full %> (<%= vars
 ##<a id="dirs"></a>List Directories to be Monitored
 
 <%= vars.product_abbr %> monitors a set of critical system directories.
+<%# maybe add a sentence saying to see subsections for installation specific info.%>
 
 You can configure the list of directories that <%= vars.product_abbr %> monitors
-in the **Watchlist** field.
+using the **Watchlist** field.
+For instructions, see **Watchlist**
+in [Configure <%= vars.product_abbr %> for Ubuntu](./installing.html#configure-ubuntu)
+or [Configure <%= vars.product_abbr %> for Windows](./installing#configure-windows),  depending on your installation.
+
+
+###<a name="linux-dirs"></a> Watchlist for Linux
 
 The default value of **Watchlist** for Linux is:
 
@@ -38,6 +45,8 @@ The default value of **Watchlist** for Linux is:
 - /var/vcap/data/jobs
 ```
 
+###<a name="windows-dirs"></a> Watchlist for Windows
+
 The default value of **Watchlist** for Windows is:
 
 ```
@@ -52,8 +61,8 @@ The default value of **Watchlist** for Windows is:
 ##<a id="output-logs"></a>Event Logging
 
 <%= vars.product_abbr %> logs events that occur.
-These samples can be used to configure a Security Information and Event Management (SIEM)
-system to verify regular activity and generate alerts for unauthorized changes to a file.
+You can use these samples to configure a Security Information and Event Management (SIEM)
+system, to verify regular activity and generate alerts for unauthorized changes to a file.
 
 These logs appear in the following format:
 <pre>
@@ -98,13 +107,20 @@ This allows you to isolate unexpected events by looking for severity <code>5</co
 
 Some monitored directories might contain files that you do not want
 <%= vars.product_abbr %> to monitor, for example, files that change frequently.
+<%# maybe add a sentence saying to see subsections for installation specific info.%>
+
 You can configure <%= vars.product_abbr %> to ignore events using path regular
-expressions in the **Ignore patterns** field.
+expressions using the **Ignore patterns** field.
+For instructions, see **Ignore patterns**
+in [Configure <%= vars.product_abbr %> for Ubuntu](./installing.html#configure-ubuntu)
+or [Configure <%= vars.product_abbr %> for Windows](./installing#configure-windows),  depending on your installation.
 
 <p class="note"><strong>Note</strong>:
   The regular expressions must be compatible with regular expression syntax for golang.
-  To test whether a regular expression is valid, you can use [Regex101](https://regex101.com?flavor=golang).
+  To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
 </p>
+
+###<a name="linux-ignore"></a> Ignore Patterns for Linux
 
 The default values for **Ignore patterns** for Linux are:
 
@@ -127,8 +143,10 @@ The default values for **Ignore patterns** for Linux are:
 - ^/var/lib/logrotate/status.*$
 ```
 
+###<a name="windows-ignore"></a> Ignore Patterns for Windows
+
 <p class="note"><strong>Note</strong>:
-There is currently no default value for **Ignored patterns** for Windows.
+There is currently no default value for <strong>Ignored patterns</strong> for Windows.
 </p>
 
 When defining **Ignore patterns** for Windows, you must replace all single
@@ -139,16 +157,26 @@ For example, to ignore all files in the directory `C:\var\vcap\bosh\ignore_me\`,
 ^C:\\var\\vcap\\bosh\\ignore_me\\.*$
 ```
 
+
 ##<a id="output-low"></a>Low Severity Events
 
 Some monitored directories might contain files that occasionally change.
+<%# maybe add a sentence saying to see subsections for installation specific info. %>
+
 You can configure <%= vars.product_abbr %> to log events at a lower severity using
-path regular exepressions in the **Low severity tagging for frequently changed files** field.
+path regular exepressions using the **Low severity tagging for frequently changed
+files** field.
+For instructions, see **Low severity tagging for frequently changed files**
+in [Configure <%= vars.product_abbr %> for Ubuntu](./installing.html#configure-ubuntu)
+or [Configure <%= vars.product_abbr %> for Windows](./installing#configure-windows),  depending on your installation.
+
 
 <p class="note"><strong>Note</strong>:
   The regular expressions must be compatible with regular expression syntax for golang.
-  To test whether a regular expression is valid, you can use [Regex101](https://regex101.com?flavor=golang).
+  To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
 </p>
+
+###<a name="linux-output-low"></a> Low Severity Tagging for Frequently Changed Files for Linux
 
 The default values for **Low severity tagging for frequently changed files** for Linux are:
 
@@ -178,8 +206,10 @@ The default values for **Low severity tagging for frequently changed files** for
 - ^/var/vcap/data/packages$
 ```
 
+###<a name="windows-output-low"></a> Low Severity Tagging for Frequently Changed Files for Windows
+
 <p class="note"><strong>Note</strong>:
-There is currently no default value for **Low severity tagging for frequently changed files** for Windows.
+There is currently no default value for <strong>Low severity tagging for frequently changed files</strong> for Windows.
 </p>
 
 When defining **Low severity tagging for frequently changed files** for Windows, you must replace all single
@@ -193,7 +223,13 @@ For example, to mark all files in the directory `C:\var\vcap\bosh\ignore_me\` as
 ##<a id="format"></a>Configure the Output Format
 
 By default, <%= vars.product_abbr %> generates messages in the Common Event Format.
-Output format can be configured as a golang text template using the **Output log format** field.
+<%# maybe add a sentence saying to see subsections for installation specific info.%>
+
+You can configure the output format as a golang text template using the **Output log format** field.
+For instructions, see **Output log format**
+in [Configure <%= vars.product_abbr %> for Ubuntu](./installing.html#configure-ubuntu)
+or [Configure <%= vars.product_abbr %> for Windows](./installing#configure-windows),  depending on your installation.
+
 The default value of **Output log format** is:
 
 ```
@@ -339,11 +375,24 @@ format: "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Digests}} {{.Ts}}"
 
 ##<a id="digests"></a>Calculate File Hashes
 
-<%= vars.product_abbr %> supports hashing monitored files on WRITE or CREATE events using the `sha256` algorithm. Hashing is disabled by default, and can be enabled by setting **Log file digest for write/create events** to **Enable**:
+<%= vars.product_abbr %> supports hashing monitored files on WRITE or CREATE events
+using the `sha256` algorithm.
+Hashing is disabled by default.
+
+You can enable hashing using the **Log file digest for write/create events** field.
+For instructions, see **Log file digest for write/create events**
+in [Configure <%= vars.product_abbr %> for Ubuntu](./installing.html#configure-ubuntu)
+or [Configure <%= vars.product_abbr %> for Windows](./installing#configure-windows),  depending on your installation.
 
 ###<a id="digest_threshold"></a>File Size Threshold
 
-<%= vars.product_abbr %> sets a threshold on the size of files to be hashed. Use the **A threshold of file size beyond which digests are not calculated (in bytes)** field to adjust this threshold. The field takes a value in bytes. The default value is `10000000`.
+<%= vars.product_abbr %> sets a threshold on the size of files, in bytes, to be hashed.
+The default value is `10000000` bytes.
+
+You can adjust the threshold using the **Log file digest for write/create events** field.
+For instructions, see **Log file digest for write/create events**
+in [Configure <%= vars.product_abbr %> for Ubuntu](./installing.html#configure-ubuntu)
+or [Configure <%= vars.product_abbr %> for Windows](./installing#configure-windows),  depending on your installation.
 
 ##<a id="monitor-containers"></a>Monitor Containers with <%= vars.product_abbr %>
 
@@ -358,7 +407,9 @@ You can use <%= vars.product_abbr %> to monitor:
 
 To configure <%= vars.product_abbr %> to monitor Garden containers:
 
-1. In [List Directories to Be Monitored](#dirs) above, add the following directories to the **Watchlist** field:
+1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
+
+1. Add the following directories to the **Watchlist** field:
 
     ```
     # Garden containers
@@ -366,16 +417,20 @@ To configure <%= vars.product_abbr %> to monitor Garden containers:
     - /var/vcap/data/grootfs/store/privileged/images/
     ```
 
+    For more information about the **Watchlist** field, see [List Directories to Be Monitored](#dirs) above.
+
     For more information about GrootFS volumes,
     see [Volumes](https://docs.pivotal.io/pivotalcf/concepts/grootfs-disk.html#volumes).
 
-2. In [Ignore Events](#output-ignore), add the following pattern to the **Ignore patterns** field:
+2. Add the following pattern to the **Ignore patterns** field:
 
     ```
     # When monitoring Garden containers,
     # ignore duplicate log messages sent to .../UUID/rootfs/
     - ^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$
     ```
+
+    For more information about the **Ignore patterns** field, see [Ignore Events](#output-ignore) above.
 
     <p class="note"><strong>Note:</strong> When files in the Garden containers are modified,
       changes are made to both the <code>diff</code> and <code>rootfs</code> directories.
@@ -390,29 +445,36 @@ For an example log message, see [Examples of Log Messages from Containers](./log
 
 To configure <%= vars.product_abbr %> to monitor Windows Garden containers:
 
-1. In [List Directories to Be Monitored](#dirs) above, add the following directories to the **Watchlist** field for Windows:
+1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Windows (beta)**.
+
+1. Add the following directories to the **Watchlist** field:
 
     ```
     # Garden containers
     - C:\proc
     ```
 
-2. In [Ignore Events](#output-ignore), we recommend adding the following patterns to the **Ignore patterns** field for Windows:
+    For more information about the **Watchlist** field, see [List Directories to Be Monitored](#dirs) above.
+
+2. Pivotal recommends that you add the following patterns to the **Ignore patterns** field:
 
     ```
-    # We recommend ignoring paths in the container other than the application files
+    # Pivotal recommends ignoring paths in the container other than the application files
     # These files reside in C:\proc\PID\root\Users\vcap\app\*
     - ^C:\\proc\\[^\\]+\\root\\[^U]
     - ^C:\\proc\\[^\\]+\\root\\Users\\[^v]
     - ^C:\\proc\\[^\\]+\\root\\Users\\vcap\\[^a]
     ```
 
+    For more information about the **Ignore patterns** field, see [Ignore Events](#output-ignore) above.
+    <br><br>
     When files and directories in the `C:\proc\PID\root` directory
     are created, removed, or modified, <%= vars.product_abbr %> writes log messages.
     `PID` is the process ID of the container.
 
-    <p class="note"><strong>Note:</strong> The above recommendations for **Ignore patterns** ignore all events
-      in the container filesystem outside of `C:\proc\PID\root\Users\vcap\app`.
+    <p class="note"><strong>Note:</strong>
+      The above recommendations for <strong>Ignore patterns</strong> ignore all events
+      in the container filesystem outside of <code>C:\proc\PID\root\Users\vcap\app</code>.
     </p>
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
@@ -421,15 +483,19 @@ For an example log message, see [Examples of Log Messages from Containers](./log
 
 To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime %>:
 
-1. In [List Directories to Be Monitored](#dirs) above, add the following directory to the **Watchlist** field:
+1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
+
+1. Add the following directory to the **Watchlist** field:
 
     ```
-    # Containers in <%= vars.k8s_runtime %>
+    # Containers in PKS
     - /var/vcap/store/docker/docker/
     ```
 
-    When files and directories in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory
-    are created, removed, or modified, <%= vars.product_abbr %> writes log messages.
-    `UUID` is the ID of the container.
+    For more information about the **Watchlist** field, see [List Directories to Be Monitored](#dirs) above.
+
+When files and directories in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory
+are created, removed, or modified, <%= vars.product_abbr %> writes log messages.
+`UUID` is the ID of the container.
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
