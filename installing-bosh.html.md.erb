@@ -32,6 +32,12 @@ To install <%= vars.product_abbr %> on your BOSH Director:
     tar zxvf p-fim-X.X.X.pivotal -C PATH-TO-UNTAR
     ```
 
+    For example:
+
+    <p class="terminal">
+      $ tar zxvf p-fim-2.0.0.pivotal -C /tmp
+    </p>
+
 1. Find and record the SHA checksum for the binary file by running:
 
     ```
@@ -41,7 +47,7 @@ To install <%= vars.product_abbr %> on your BOSH Director:
     For example:
 
     <pre class="terminal">
-    $ shasum fim-2.0.0.tgz
+    $ shasum /tmp/releases/fim-2.0.0.tgz
     5edf5fd2f9bf8e876b6bdc871e53b5db97593b21 fim-2.0.0.tgz
     </pre>
 
