@@ -25,7 +25,7 @@ For compatible versions, see the [Product Snapshot](./index.html#snapshot).
 To install the <%= vars.product_abbr %> file on the Ops Manager Installation Dashboard:
 
 <p class="note"><strong>Note: </strong>If you are upgrading from version 1.4 or below,
-  you must follow the instructions in [Upgrade <%= vars.product_abbr %>].
+  you must follow the instructions in <a href="./upgrading.html">Upgrading <%= vars.product_abbr %></a>.
 </p>
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-fim-addon).
@@ -51,10 +51,9 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
       <tr>
         <td><strong>Watchlist</strong></td>
         <td>
-          Enter a list of file paths to monitor for file system events.
+          Enter a list of file paths to monitor for file system events.<br><br>
           For more information about the <strong>Watchlist</strong> field,
           see <a href="./configuration.html#dirs">List Directories to be Monitored</a>.
-
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -64,10 +63,9 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
         <td><strong>Ignore patterns</strong></td>
         <td>
           Enter a list of path regular expressions to ignore.
-          Events for files matching any of the provided regular expressions are not included in the logs.
+          Events for files matching any of the provided regular expressions are not included in the logs.<br><br>
           For more information about the <strong>Ignore patterns</strong> field,
           see <a href="./configuration.html#output-ignore">Ignore Events</a>.
-
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.ignored_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -79,23 +77,22 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
           Enter a list of path regular expressions to be marked as low severity.
           Events for files matching any of the provided regular expressions
           are logged with severity <code>3</code>, instead of the default value of <code>5</code>.
-          This can be useful to filter out business-as-usual events. <%# is there a better way to say BAU %>
+          This can be useful to filter out business-as-usual events.<br><br> <%# is there a better way to say BAU %>
           For more information about the <strong>Low severity tagging for
           frequently changed files</strong> field, see
           <a href="./configuration.html#output-low">Low Severity Events</a>.
-
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.low_severity_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
+        </td>
       </tr>
       <tr>
         <td><strong>Output log format</strong></td>
         <td>
           Enter a template for log lines.
-          This template must be compatible with the golang package <code>text/template</code>.
+          This template must be compatible with the golang package <code>text/template</code>.<br><br>
           For more information about the <strong>Output log format</strong> field,
           see <a href="./configuration.html#format">Configure the Output Format</a>.
-
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.format</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -123,7 +120,6 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
           Set the value in bytes to limit the maximum amount of user memory
           including file cache used by <%= vars.product_abbr %>.
           The default value is <code>536870912</code> (512 MB).
-
           <p class="note"><strong>Note</strong>:
             This field corresponds with <code>fim.memory_limit</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -137,12 +133,10 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
           The limit is set per core.
           Setting this field to <code>100</code> permits the use of one full core.
           The default value is <code>10</code>.
-
           <p class="note"><strong>Note</strong>:
             If <strong>Enforce CPU Limit</strong> is set to <strong>When other processes are using CPU resource</strong>,
             the <%= vars.product_abbr %> process can use more CPU if there are idle CPU cycles.
           </p>
-
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.cpu_limit</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -165,7 +159,6 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
             execute correctly.
             If the limit is too strict, <%= vars.product_abbr %> fails to start.
           </p>
-
           <div class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.enforce_cpu_limit</code> in <%= vars.product_abbr %> v1.4 and earlier.
             <ul>
@@ -177,16 +170,19 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
       </tr>
       <tr>
         <td><strong>Log file digest for write/create events</strong></td>
-        <td>To enable computing digests for write/create events:<br>
+        <td>To enable computing digests for write/create events:
             <ol>
               <li><strong>Enable</strong>: Select this to enable digests</li>
               <li><strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>: set a threshold on the size of files to be hashed.</li>
             </ol>
 
-            For more information about configuring **Log file digest for write/create events**, see [Calculate File Hashes](./configuration.html#digests).
+            For more information about configuring <strong>Log file digest for write/create events</strong>, see <a href="./configuration.html#digests">Calculate File Hashes</a>.
 
-            <p class="note"><strong>Note</strong>: these fields correspond with `fim.digests` and `fim.digest_threshold` in version 1.4 and below.<br>
-              Setting **Log file digest for write/create events** to **Enable** is equivalent to `fim.digests == [sha256]`.
+            <p class="note"><strong>Note</strong>:
+              These fields correspond to <code>fim.digests</code> and <code>fim.digest_threshold</code>
+              in <%= vars.product_abbr %> v1.4 and earlier.<br>
+              Setting <strong>Log file digest for write/create events</strong> to <strong>Enable</strong>
+              is equivalent to <code>fim.digests == [sha256]</code>.
           </p>
         </td>
       </tr>
@@ -216,73 +212,83 @@ To configure <%= vars.product_abbr %> for Windows VMs:
     <tr>
       <td><strong>Watchlist</strong></td>
       <td>
-        Input a list of file paths to monitor for filesystem events. For more information about configuring **Watchlist**,
-        see [List Directories to be Monitored](./configuration.html#dirs).
-
-        <p class="note"><strong>Note</strong>: this field corresponds with `fim.dirs` in version 1.4.
+        Enter a list of file paths to monitor for file system events.
+        For more information about the <strong>Watchlist</strong> field,
+        see <a href="./configuration.html#dirs">List Directories to be Monitored</a>.
+        <p class="note"><strong>Note</strong>:
+          This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
         </p>
       </td>
     </tr>
     <tr>
       <td><strong>Ignore patterns</strong></td>
-      <td>Input a list of path regular expressions to ignore. Events for files matching any of the provided regular expressions
-        will not be included in the logs. For more information about configuring **Ignore patterns**, see [Ignore Events](./configuration.html#output-ignore).
-
-        <p class="note"><strong>Note</strong>: when defining **Ignore patterns** for Windows, you must replace all single
-          back slashes with double back slashes.
-        </p>
-
-        <p class="note"><strong>Note</strong>: this field corresponds with `fim.ignored_patterns` in version 1.4.
+      <td>
+        Enter a list of path regular expressions to ignore.
+        Events for files matching any of the provided regular expressions are not included in the logs.
+        For more information about the <strong>Ignore patterns</strong> field,
+        see <a href="./configuration.html#output-ignore">Ignore Events</a>.
+        <p class="note"><strong>Note</strong>:
+          This field corresponds to <code>fim.ignored_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
         </p>
       </td>
     </tr>
     <tr>
       <td><strong>Low severity tagging for frequently changed files</strong></td>
-      <td>Input a list of path regular expressions to be marked as low severity. Events for files matching any of the provided regular expressions
-        will be logged with severity `3` (as opposed to the default value of `5`). This can be useful to filter out business-as-usual events.
-        For more information about configuring **Low severity tagging for frequently changed files**, see [Low Severity Events](./configuration.html#output-low).
-
-        <p class="note"><strong>Note</strong>: when defining **Low severity tagging for frequently changed files** for Windows, you must replace all single
-          back slashes with double back slashes.
+      <td>
+        Enter a list of path regular expressions to be marked as low severity.
+        Events for files matching any of the provided regular expressions
+        are logged with severity <code>3</code>, instead of the default value of <code>5</code>.
+        This can be useful to filter out business-as-usual events. <%# is there a better way to say BAU %>
+        For more information about the <strong>Low severity tagging for
+        frequently changed files</strong> field, see
+        <a href="./configuration.html#output-low">Low Severity Events</a>.
+        <p class="note"><strong>Note</strong>:
+          This field corresponds to <code>fim.low_severity_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
         </p>
-
-        <p class="note"><strong>Note</strong>: this field corresponds with `fim.low_severity_patterns` in version 1.4.
-        </p>
-      </p>
+      </td>
     </tr>
     <tr>
       <td><strong>Output log format</strong></td>
-      <td>Enter a template for log lines. This must be a template compatible with Golang's `text/template` package.
-        For more information about configuring **Output log format**, see [Configure the Output Format](./configuration.html#format).
-
-        <p class="note"><strong>Note</strong>: this field corresponds with `fim.format` in version 1.4.
+      <td>
+        Enter a template for log lines.
+        This template must be compatible with the golang package <code>text/template</code>.
+        For more information about the <strong>Output log format</strong> field,
+        see <a href="./configuration.html#format">Configure the Output Format</a>.
+        <p class="note"><strong>Note</strong>:
+          This field corresponds to <code>fim.format</code> in <%= vars.product_abbr %> v1.4 and earlier.
+        </p>
       </td>
     </tr>
     <tr>
       <td><strong>Heartbeat interval (in seconds)</strong></td>
       <td>
+        Set the heartbeat interval as follows:
         <ul>
-          <li>To enable the heartbeat interval, set this value to an integer greater than <code>0</code> .
-            If you set a negative value, an error occurs. </li>
-          <li>To disable the heartbeat interval, set this value to <code>0</code>.</li>
-          <li>The default value is <code>600</code>. </li>
+          <li>
+            To enable the heartbeat interval, set the value to an integer greater than <code>0</code> .
+            If you set a negative value, an error occurs.
+          </li>
+          <li>To disable the heartbeat interval, set the value to <code>0</code>.</li>
         </ul>
-
-        <p class="note"><strong>Note</strong>: this field corresponds with `fim.heartbeat_interval` in version 1.4.
+        The default value is <code>600</code>.
+        <p class="note"><strong>Note</strong>:
+          This field corresponds to <code>fim.heartbeat_interval</code> in <%= vars.product_abbr %> v1.4 and earlier.
       </td>
     </tr>
     <tr>
       <td><strong>Log file digest for write/create events</strong></td>
-      <td>To enable computing digests for write/create events:<br>
-          <ol>
-            <li><strong>Enable</strong>: Select this to enable digests</li>
-            <li><strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>: set a threshold on the size of files to be hashed.</li>
-          </ol>
-
-          For more information about configuring **Log file digest for write/create events**, see [Calculate File Hashes](./configuration.html#digests).
-
-          <p class="note"><strong>Note</strong>: these fields correspond with `fim.digests` and `fim.digest_threshold` in version 1.4.<br>
-            Setting **Log file digest for write/create events** to **Enable** is equivalent to `fim.digests == [sha256]`.
+      <td>To enable computing digests for write/create events:
+        <ol>
+          <li><strong>Enable</strong>: Select this to enable digests</li>
+          <li><strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>: set a threshold on the size of files to be hashed.</li>
+        </ol>
+        For more information about configuring <strong>Log file digest for write/create events</strong>,
+        see <a href="./configuration.html#digests">Calculate File Hashes</a>.
+        <p class="note"><strong>Note</strong>:
+          These fields correspond to <code>fim.digests</code> and <code>fim.digest_threshold</code>
+          in <%= vars.product_abbr %> v1.4 and earlier.<br>
+          Setting <strong>Log file digest for write/create events</strong> to <strong>Enable</strong>
+          is equivalent to <code>fim.digests == [sha256]</code>.
         </p>
       </td>
     </tr>
