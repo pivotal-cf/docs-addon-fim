@@ -66,13 +66,17 @@ Filesystem events are not reported. The logs are empty.
 
 ### Symptom
 
-Filesystem events are not reported from a portion of the file system.
+Files system events are not reported from a portion of the file system.
 
 ### Explanation:
 
-<%= vars.product_abbr %> is configured to monitor a set of critical directories in the system. It is not configured to monitor the entire file system by default.
+<%= vars.product_abbr %> is configured to monitor a set of critical directories in the system.
+It is not configured to monitor the entire file system by default.
 
 ### Solution
 
-See [Listing Directories to be Monitored](./configuration.html#dirs) for inspecting defaults, and instructions on adjusting the list in the runtime manifest.
+See [Watchlist](./installing.html#dirs) to see the default list of file paths
+that <%= vars.product_abbr %> monitors for file system events.
+To modify the configuration, see [Configure <%= vars.product_abbr %> for Ubuntu](installing.html#configure-ubuntu)
+or [Configure <%= vars.product_abbr %> for Windows](installing.html#configure-windows) depending on your installation.
 <hr>

@@ -1,5 +1,5 @@
 ---
-title: Installing File Integrity Monitoring
+title: Installing and Configuring File Integrity Monitoring
 owner: Security Engineering
 ---
 
@@ -9,10 +9,6 @@ This topic describes how to install <%= vars.product_full %>
 (<%= vars.product_abbr %>).
 
 ##<a id="prereqs"></a>Prerequisites
-
-<p class="note warning"><strong>Warning: </strong>
-  <%= vars.product_abbr %> for Windows is in beta.
-</p>
 
 * You must be a <%= vars.platform_name %> operator with admin rights.
 See [Operators](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator)
@@ -52,8 +48,8 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
       <tr>
         <td><strong>Watchlist</strong></td>
         <td>
-          Enter a list of file paths to monitor for file system events.<br><br>
-          For more information, see <a href="#dirs">List Directories to be Monitored</a>.
+          Enter a <%# comma-delimited? %> list of file paths to monitor for file system events.<br><br>
+          For more information, see <a href="#dirs">Watchlist</a>.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -67,8 +63,7 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           Events for files matching any of the provided regular expressions are
           not included in the logs.<br><br>
-          For more information about the <strong>Ignore patterns</strong> field,
-          see <a href="#output-ignore">Ignore Events</a>.
+          For more information, see <a href="#output-ignore">Ignore Events</a>.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.ignored_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -78,7 +73,7 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
         <td><strong>Low severity tagging for frequently changed files</strong></td>
         <td>
           Using golang-flavored path regular expressions, enter a list of files to be marked as low severity.
-          To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
+          To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.<br><br>
           For more information, see <a href="#output-low">Low Severity Events</a>.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.low_severity_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
@@ -91,7 +86,7 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
           Enter a template for log lines.
           This template must be compatible with the golang package <code>text/template</code>.<br><br>
           For more information about the <strong>Output log format</strong> field,
-          see <a href="#format">Configure the Output Format</a>.
+          see <a href="#format">Output Log Format</a>.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.format</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -111,12 +106,13 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
           The default value is <code>600</code>.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.heartbeat_interval</code> in <%= vars.product_abbr %> v1.4 and earlier.
+          </p>
         </td>
       </tr>
       <tr>
         <td><strong>Max memory usage (in bytes)</strong></td>
         <td>
-          Set a limit in bytes for the maximum amount of RAM, including file cache,
+          Set a limit in bytes for the maximum amount of memory, including file cache,
           that <%= vars.product_abbr %> can use per VM.
           The default value is <code>536870912</code> (512&nbsp;MB).
           <p class="note"><strong>Note</strong>:
@@ -168,12 +164,10 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
         <td>
           Choose whether to enable computing digests for write/create events using
           the <strong>Enable</strong> or <strong>Disable</strong> radio buttons.
-          If you enable digests you can set a value for the maximum file size for
-          <%= vars.product_abbr %> to hash in the
+          If you enable digests, a field for
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
-          field.<br><br>
-          For more information, see
-          <a href="#digests">Calculate File Hashes</a>.
+          appears after you select the option.<br><br>
+          For more information, see <a href="#digests">Calculate File Hashes</a>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digests</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -185,24 +179,22 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
       <tr>
         <td><strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong></td>
         <td>
-          If you have enabled computing digests for write/create events,
-          enter a positive value for the threshold for the maximum size of files to
-          be hashed in this field.
+          Enter a positive value for the threshold for the maximum size of files
+          for <%= vars.product_abbr %> to hash.
+          This field only appears if you have enabled computing digests for write/create events.
           The default value is <code>10000000</code>.<br><br>
-          For more information file hashes in <%= vars.product_abbr %>, see <a href="#digests">Calculate File Hashes</a>.
+          For more information, see <a href="#digest_threshold">File Size Threshold</a>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digest_threshold</code> in
             <%= vars.product_abbr %> v1.4 and earlier.<br>
-            Setting <strong>Log file digest for write/create events</strong> to <strong>Enable</strong>
-            is equivalent to <code>fim.digests == [sha256]</code>.
           </p>
         </td>
       </tr>
       <tr>
         <td><strong>List of instance group names that will be excluded from deployment</strong></td>
         <td>
-          Enter a comma-separated list of the instance groups that you do not
-          want <%= vars.product_abbr %> deployed on.
+          Enter a comma-separated list of instance groups that you do not want
+          <%= vars.product_abbr %> deployed on.
         </td>
       </tr>
     </table>
@@ -228,8 +220,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td><strong>Watchlist</strong></td>
         <td>
           Enter a <%# comma-delimited? %> list of file paths to monitor for file system events.<br><br>
-          For more information about the <strong>Watchlist</strong> field,
-          see <a href="#dirs">List Directories to be Monitored</a>.
+          For more information, see <a href="#dirs">Watchlist</a>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -238,12 +229,12 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>Ignore patterns</strong></td>
         <td>
-          Using path regular expressions, enter a list of files that you want
+          Using golang-flavored path regular expressions, enter a list of files that you want
           <%= vars.product_abbr %> to ignore.
+          To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           Events for files matching any of the provided regular expressions are
           not included in the logs.<br><br>
-          For more information about the <strong>Ignore patterns</strong> field,
-          see <a href="#output-ignore">Ignore Events</a>.
+          For more information, see <a href="#output-ignore">Ignore Events</a>.
           <p class="note"><strong>Note: </strong>
             When defining <strong>Ignore patterns</strong> for Windows, you must replace all
             single back slashes with double back slashes.
@@ -257,10 +248,10 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>Low severity tagging for frequently changed files</strong></td>
         <td>
-          Using path golang-compatible regular expressions, enter a list of files to be marked as low severity.
+          Using golang-flavored path regular expressions, enter a list of files to be marked as low severity.
           When defining <strong>Low severity tagging for frequently changed files</strong> for Windows, you must
           replace all single back slashes with double back slashes.
-          To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
+          To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.<br><br>
           For more information, see <a href="#output-low">Low Severity Events</a>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.low_severity_patterns</code> in
@@ -273,8 +264,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td>
           Enter a template for log lines.
           This template must be compatible with the golang package <code>text/template</code>.<br><br>
-          For more information about the <strong>Output log format</strong> field,
-          see <a href="#format">Configure the Output Format</a>.
+          For more information, see <a href="#format">Output Log Format</a>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.format</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -294,6 +284,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           The default value is <code>600</code>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.heartbeat_interval</code> in <%= vars.product_abbr %> v1.4 and earlier.
+          </p>
         </td>
       </tr>
       <tr>
@@ -301,12 +292,10 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td>
           Choose whether to enable computing digests for write/create events using
           the <strong>Enable</strong> or <strong>Disable</strong> radio buttons.
-          If you enable digests you can set a value for the maximum file size for
-          <%= vars.product_abbr %> to hash in the
+          If you enable digests, a field for
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
-          field.<br><br>
-          For more information, see
-          <a href="#digests">Calculate File Hashes</a>.
+          appears after you select the option.<br><br>
+          For more information, see <a href="#digests">Calculate File Hashes</a>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digests</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -318,24 +307,22 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong></td>
         <td>
-          If you have enabled computing digests for write/create events,
-          enter a positive value for the threshold for the maximum size of files to
-          be hashed in this field.
+          Enter a positive value for the threshold for the maximum size of files
+          for <%= vars.product_abbr %> to hash.
+          This field only appears if you have enabled computing digests for write/create events.
           The default value is <code>10000000</code>.<br><br>
-          For more information file hashes in <%= vars.product_abbr %>, see <a href="#digests">Calculate File Hashes</a>.
+          For more information, see <a href="#digest_threshold">File Size Threshold</a>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digest_threshold</code> in
             <%= vars.product_abbr %> v1.4 and earlier.<br>
-            Setting <strong>Log file digest for write/create events</strong> to <strong>Enable</strong>
-            is equivalent to <code>fim.digests == [sha256]</code>.
           </p>
         </td>
       </tr>
       <tr>
         <td><strong>List of instance group names that will be excluded from deployment</strong></td>
         <td>
-          Enter a comma-separated list of the instance groups that you do not
-          want <%= vars.product_abbr %> deployed on.
+          Enter a comma-separated list of instance groups that you do not want
+          <%= vars.product_abbr %> deployed on.
         </td>
       </tr>
     </table>
@@ -354,6 +341,101 @@ To disable installing <%= vars.product_abbr %> on Windows VMs:
 
 1. Click **Apply Changes**.
 
+##<a id="monitor-containers"></a>Monitor Containers with <%= vars.product_abbr %>
+
+You can use <%= vars.product_abbr %> to monitor:
+
+* Garden containers on the Diego Cell VMs in <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
+* Containers on the Diego Windows Cell VMs in <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
+* Containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>)
+
+
+###<a id="garden"></a> Monitor Garden Containers
+
+To configure <%= vars.product_abbr %> to monitor Garden containers:
+
+1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
+
+1. Add the following directories to the **Watchlist** field:
+
+    ```
+    # Garden containers
+    - /var/vcap/data/grootfs/store/unprivileged/images/
+    - /var/vcap/data/grootfs/store/privileged/images/
+    ```
+    For more information about GrootFS volumes,
+    see [Volumes](https://docs.pivotal.io/pivotalcf/concepts/grootfs-disk.html#volumes).
+
+2. Add the following pattern to the **Ignore patterns** field:
+
+    ```
+    # When monitoring Garden containers,
+    # ignore duplicate log messages sent to .../UUID/rootfs/
+    - ^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$
+    ```
+
+    For more information about the **Ignore patterns** field, see [Ignore Events](#output-ignore) above.
+
+    <p class="note"><strong>Note:</strong> When files in the Garden containers are modified,
+      changes are made to both the <code>diff</code> and <code>rootfs</code> directories.
+    Adding this ignore pattern means that files and directories
+    in the <code>/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff</code>
+    directory are ignored by <%= vars.product_abbr %>. <code>UUID</code> is the ID of the container.
+    </p>
+
+For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
+
+###<a id="garden-windows"></a> Monitor Windows Garden Containers
+
+To configure <%= vars.product_abbr %> to monitor Windows Garden containers:
+
+1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Windows (beta)**.
+
+1. Add the following directories to the **Watchlist** field:
+
+    ```
+    # Garden containers
+    - C:\proc
+    ```
+
+2. Pivotal recommends that you add the following patterns to the **Ignore patterns** field:
+
+    ```
+    # Pivotal recommends ignoring paths in the container other than the application files
+    # These files reside in C:\proc\PID\root\Users\vcap\app\*
+    - ^C:\\proc\\[^\\]+\\root\\[^U]
+    - ^C:\\proc\\[^\\]+\\root\\Users\\[^v]
+    - ^C:\\proc\\[^\\]+\\root\\Users\\vcap\\[^a]
+    ```
+    When files and directories in the `C:\proc\PID\root` directory
+    are created, removed, or modified, <%= vars.product_abbr %> writes log messages.
+    `PID` is the process ID of the container.
+
+    <p class="note"><strong>Note:</strong>
+      The above recommendations for <strong>Ignore patterns</strong> ignore all events
+      in the container file system outside of <code>C:\proc\PID\root\Users\vcap\app</code>.
+    </p>
+
+For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
+
+###<a id="pks"></a> Monitor Containers in <%= vars.k8s_runtime %>
+
+To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime %>:
+
+1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
+
+1. Add the following directory to the **Watchlist** field:
+
+    ```
+    # Containers in PKS
+    - /var/vcap/store/docker/docker/
+    ```
+When files and directories in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory
+are created, removed, or modified, <%= vars.product_abbr %> writes log messages.
+`UUID` is the ID of the container.
+
+For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
+
 ##<a id="alerts"></a> Configure Forwarding for <%= vars.product_abbr %> Alerts
 
 The <%= vars.product_abbr %> writes all alerts to the BOSH logs (`/var/vcap/sys/log/fim/fim.stdout.log`, `C:\var\vcap\sys\log\fim-windows\filesnitch\job-service-wrapper.out.log`) of the VMs in your deployment.
@@ -365,9 +447,11 @@ The syslog aggregator that you specify receives all alerts generated on <%= vars
 * **Using the syslog BOSH release**: You can use the syslog BOSH release to forward system logs.
 See [syslog-release](https://github.com/cloudfoundry/syslog-release) in GitHub for instructions.
 
-<p class="note"><strong>Note:</strong> When you configure syslog forwarding, ensure there is enough disk space for the logs.
-Ensure that the log rotation is frequent enough. If in doubt, rotate the logs hourly or when they reach a certain size.
-Pivotal recommends forwarding logs to a remote syslog aggregation system.
+<p class="note"><strong>Note:</strong>
+  When you configure syslog forwarding, ensure there is enough disk space for the logs.
+  Ensure that the log rotation is frequent enough.
+  If in doubt, rotate the logs hourly or when they reach a certain size.
+  Pivotal recommends forwarding logs to a remote syslog aggregation system.
 </p>
 
 ## <a id="verify"></a>Verify the Installation
@@ -508,6 +592,9 @@ This allows you to isolate unexpected events by looking for severity <code>5</co
 
 Some monitored directories might contain files that you do not want
 <%= vars.product_abbr %> to monitor, such as files that change frequently.
+You can configure <%= vars.product_abbr %> to ignore events using path regular
+expressions in the **Ignore patterns** field.
+
 
 ###<a name="linux-ignore"></a> Ignore Patterns for Linux
 
@@ -549,21 +636,15 @@ For example, to ignore all files in the directory `C:\var\vcap\bosh\ignore_me\`,
 
 ##<a id="output-low"></a>Low Severity Events
 
-Some monitored directories might contain files that occasionally change.
-<%# maybe add a sentence saying to see subsections for installation specific info. %>
-
+Some monitored directories might contain files that only change occasionally.
 You can configure <%= vars.product_abbr %> to log events at a lower severity using
-path regular expressions using the **Low severity tagging for frequently changed
+path regular expressions in the **Low severity tagging for frequently changed
 files** field.
+<%# is this for files that don't change that often? %>
 
 Events for files matching any of the provided regular expressions
 are logged with severity <code>3</code>, instead of the default value of <code>5</code>.
-This can be useful to filter out business-as-usual events.<br><br> <%# is there a better way to say BAU? %>
-
-For instructions, see **Low severity tagging for frequently changed files**
-in [Configure <%= vars.product_abbr %> for Ubuntu](#configure-ubuntu)
-or [Configure <%= vars.product_abbr %> for Windows](#configure-windows),  depending on your installation.
-
+This can be useful to filter out business-as-usual events.
 
 ###<a name="linux-output-low"></a> Low Severity Tagging for Frequently Changed Files for Linux
 
@@ -572,7 +653,7 @@ The default values for **Low severity tagging for frequently changed files** for
 <%# Should this all be in a giant code snippet? %>
 
 ```
-# When an operator or errand invoke `bosh ssh` a new user is created
+# When an operator or errand invokes `bosh ssh` a new user is created
 - ^/etc/passwd$
 - ^/etc/shadow$
 - ^/etc/subgid$
@@ -611,10 +692,9 @@ For example, to mark all files in the directory `C:\var\vcap\bosh\ignore_me\` as
 ^C:\\var\\vcap\\bosh\\ignore_me\\.*$
 ```
 
-##<a id="format"></a>Configure the Output Format
+##<a id="format"></a>Output Log Format
 
 By default, <%= vars.product_abbr %> generates messages in the Common Event Format.
-
 You can configure the output format as a golang text template using the **Output log format** field.
 
 The default value of **Output log format** is:
@@ -766,123 +846,8 @@ format: "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Digests}} {{.Ts}}"
 using the `sha256` algorithm.
 Hashing is disabled by default.
 
-You can enable hashing using the **Log file digest for write/create events** field.
-For instructions, see **Log file digest for write/create events**
-in [Configure <%= vars.product_abbr %> for Ubuntu](#configure-ubuntu)
-or [Configure <%= vars.product_abbr %> for Windows](#configure-windows),  depending on your installation.
 
 ###<a id="digest_threshold"></a>File Size Threshold
 
 <%= vars.product_abbr %> sets a threshold on the size of files, in bytes, to be hashed.
 The default value is `10000000` bytes.
-
-You can adjust the threshold using the **Log file digest for write/create events** field.
-For instructions, see **Log file digest for write/create events**
-in [Configure <%= vars.product_abbr %> for Ubuntu](#configure-ubuntu)
-or [Configure <%= vars.product_abbr %> for Windows](#configure-windows),  depending on your installation.
-
-##<a id="monitor-containers"></a>Monitor Containers with <%= vars.product_abbr %>
-
-You can use <%= vars.product_abbr %> to monitor:
-
-* Garden containers on the Diego Cell VMs in <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
-* Containers on the Diego Windows Cell VMs in <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
-* Containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>)
-
-
-###<a id="garden"></a> Monitor Garden Containers
-
-To configure <%= vars.product_abbr %> to monitor Garden containers:
-
-1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
-
-1. Add the following directories to the **Watchlist** field:
-
-    ```
-    # Garden containers
-    - /var/vcap/data/grootfs/store/unprivileged/images/
-    - /var/vcap/data/grootfs/store/privileged/images/
-    ```
-
-    For more information about the **Watchlist** field, see [List Directories to Be Monitored](#dirs) above.
-
-    For more information about GrootFS volumes,
-    see [Volumes](https://docs.pivotal.io/pivotalcf/concepts/grootfs-disk.html#volumes).
-
-2. Add the following pattern to the **Ignore patterns** field:
-
-    ```
-    # When monitoring Garden containers,
-    # ignore duplicate log messages sent to .../UUID/rootfs/
-    - ^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$
-    ```
-
-    For more information about the **Ignore patterns** field, see [Ignore Events](#output-ignore) above.
-
-    <p class="note"><strong>Note:</strong> When files in the Garden containers are modified,
-      changes are made to both the <code>diff</code> and <code>rootfs</code> directories.
-    Adding this ignore pattern means that files and directories
-    in the <code>/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff</code>
-    directory are ignored by <%= vars.product_abbr %>. <code>UUID</code> is the ID of the container.
-    </p>
-
-For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
-
-###<a id="garden-windows"></a> Monitor Windows Garden Containers
-
-To configure <%= vars.product_abbr %> to monitor Windows Garden containers:
-
-1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Windows (beta)**.
-
-1. Add the following directories to the **Watchlist** field:
-
-    ```
-    # Garden containers
-    - C:\proc
-    ```
-
-    For more information about the **Watchlist** field, see [List Directories to Be Monitored](#dirs) above.
-
-2. Pivotal recommends that you add the following patterns to the **Ignore patterns** field:
-
-    ```
-    # Pivotal recommends ignoring paths in the container other than the application files
-    # These files reside in C:\proc\PID\root\Users\vcap\app\*
-    - ^C:\\proc\\[^\\]+\\root\\[^U]
-    - ^C:\\proc\\[^\\]+\\root\\Users\\[^v]
-    - ^C:\\proc\\[^\\]+\\root\\Users\\vcap\\[^a]
-    ```
-
-    For more information about the **Ignore patterns** field, see [Ignore Events](#output-ignore) above.
-    <br><br>
-    When files and directories in the `C:\proc\PID\root` directory
-    are created, removed, or modified, <%= vars.product_abbr %> writes log messages.
-    `PID` is the process ID of the container.
-
-    <p class="note"><strong>Note:</strong>
-      The above recommendations for <strong>Ignore patterns</strong> ignore all events
-      in the container file system outside of <code>C:\proc\PID\root\Users\vcap\app</code>.
-    </p>
-
-For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
-
-###<a id="pks"></a> Monitor Containers in <%= vars.k8s_runtime %>
-
-To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime %>:
-
-1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
-
-1. Add the following directory to the **Watchlist** field:
-
-    ```
-    # Containers in PKS
-    - /var/vcap/store/docker/docker/
-    ```
-
-    For more information about the **Watchlist** field, see [List Directories to Be Monitored](#dirs) above.
-
-When files and directories in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory
-are created, removed, or modified, <%= vars.product_abbr %> writes log messages.
-`UUID` is the ID of the container.
-
-For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
