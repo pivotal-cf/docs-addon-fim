@@ -63,7 +63,7 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           Events for files matching any of the provided regular expressions are
           not included in the logs.<br><br>
-          For more information, see <a href="#output-ignore">Ignore Events</a>.
+          For more information, see <a href="#output-ignore">Ignore Patterns</a>.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.ignored_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -181,7 +181,7 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
         <td>
           Enter a positive value for the threshold for the maximum size of files
           for <%= vars.product_abbr %> to hash.
-          This field only appears if you have enabled computing digests for write/create events.
+          This field only appears if you have selected <strong>Enable</strong> for <strong>Log file digest for write/create events</strong>.
           The default value is <code>10000000</code>.<br><br>
           For more information, see <a href="#digest_threshold">File Size Threshold</a>.
           <p class="note"><strong>Note</strong>:
@@ -198,6 +198,8 @@ To configure <%= vars.product_abbr %> for Ubuntu VMs:
         </td>
       </tr>
     </table>
+
+1. Click **Save**.
 
 ## <a id='configure-windows'></a> Configure <%= vars.product_abbr %> for Windows (Beta)
 
@@ -231,14 +233,12 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td>
           Using golang-flavored path regular expressions, enter a list of files that you want
           <%= vars.product_abbr %> to ignore.
+          When defining <strong>Ignore patterns</strong> for Windows, you must replace all
+          single back slashes with double back slashes.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           Events for files matching any of the provided regular expressions are
           not included in the logs.<br><br>
-          For more information, see <a href="#output-ignore">Ignore Events</a>.
-          <p class="note"><strong>Note: </strong>
-            When defining <strong>Ignore patterns</strong> for Windows, you must replace all
-            single back slashes with double back slashes.
-          </p>
+          For more information, see <a href="#output-ignore">Ignore Patterns</a>.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.ignored_patterns</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -309,7 +309,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td>
           Enter a positive value for the threshold for the maximum size of files
           for <%= vars.product_abbr %> to hash.
-          This field only appears if you have enabled computing digests for write/create events.
+          This field only appears if you have selected <strong>Enable</strong> for <strong>Log file digest for write/create events</strong>.
           The default value is <code>10000000</code>.<br><br>
           For more information, see <a href="#digest_threshold">File Size Threshold</a>.
           <p class="note"><strong>Note</strong>:
@@ -327,19 +327,19 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       </tr>
     </table>
 
+1. Click **Save**.
+
+
 ###<a id="disable-windows"></a> Disable Windows
 
 To disable installing <%= vars.product_abbr %> on Windows VMs:
 
-1. Add instance group **windows_diego_cell** to the field **List of instance group names that will be excluded from deployment**
+1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
 
-##<a id="deploy"></a> Deploy <%= vars.product_abbr %>
+1. Add the instance group **windows\_diego\_cell** to the field
+**List of instance group names that will be excluded from deployment**.<%# I assume this is in the Ubuntu settings %>
 
-1. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %>.
-
-1. Click **Review Pending Changes**.
-
-1. Click **Apply Changes**.
+1. Click **Save**.
 
 ##<a id="monitor-containers"></a>Monitor Containers with <%= vars.product_abbr %>
 
@@ -348,6 +348,8 @@ You can use <%= vars.product_abbr %> to monitor:
 * Garden containers on the Diego Cell VMs in <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
 * Containers on the Diego Windows Cell VMs in <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
 * Containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>)
+
+For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
 
 
 ###<a id="garden"></a> Monitor Garden Containers
@@ -374,16 +376,15 @@ To configure <%= vars.product_abbr %> to monitor Garden containers:
     - ^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$
     ```
 
-    For more information about the **Ignore patterns** field, see [Ignore Events](#output-ignore) above.
-
-    <p class="note"><strong>Note:</strong> When files in the Garden containers are modified,
-      changes are made to both the <code>diff</code> and <code>rootfs</code> directories.
-    Adding this ignore pattern means that files and directories
-    in the <code>/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff</code>
-    directory are ignored by <%= vars.product_abbr %>. <code>UUID</code> is the ID of the container.
+    <p class="note"><strong>Note:</strong>
+      When files in the Garden containers are modified, changes are made to both
+      the <code>diff</code> and <code>rootfs</code> directories.
+      Adding this ignore pattern means that files and directories
+      in the <code>/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff</code>
+      directory are ignored by <%= vars.product_abbr %>. <code>UUID</code> is the ID of the container.
     </p>
 
-For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
+1. Click **Save**.
 
 ###<a id="garden-windows"></a> Monitor Windows Garden Containers
 
@@ -416,7 +417,7 @@ To configure <%= vars.product_abbr %> to monitor Windows Garden containers:
       in the container file system outside of <code>C:\proc\PID\root\Users\vcap\app</code>.
     </p>
 
-For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
+1. Click **Save**.
 
 ###<a id="pks"></a> Monitor Containers in <%= vars.k8s_runtime %>
 
@@ -434,16 +435,21 @@ When files and directories in the `/var/vcap/store/docker/docker/overlay2/UUID/d
 are created, removed, or modified, <%= vars.product_abbr %> writes log messages.
 `UUID` is the ID of the container.
 
-For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
+1. Click **Save**.
+
 
 ##<a id="alerts"></a> Configure Forwarding for <%= vars.product_abbr %> Alerts
 
-The <%= vars.product_abbr %> writes all alerts to the BOSH logs (`/var/vcap/sys/log/fim/fim.stdout.log`, `C:\var\vcap\sys\log\fim-windows\filesnitch\job-service-wrapper.out.log`) of the VMs in your deployment.
+<%= vars.product_abbr %> writes all alerts to the BOSH logs for the VMs in your deployment.
+These logs are located at `/var/vcap/sys/log/fim/fim.stdout.log` and
+`C:\var\vcap\sys\log\fim-windows\filesnitch\job-service-wrapper.out.log`.
+
 You can use syslog forwarding to forward the alerts to a syslog aggregator.
 
 * **Using the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile**:
 Follow the steps to configure system logging in <%= vars.app_runtime_abbr %> in [Configuring Logging in <%= vars.app_runtime_abbr %>](https://docs.pivotal.io/pivotalcf/2-4/opsguide/logging-config-opsman.html).
 The syslog aggregator that you specify receives all alerts generated on <%= vars.app_runtime_abbr %> VMs, including the <%= vars.product_abbr %> alerts.
+
 * **Using the syslog BOSH release**: You can use the syslog BOSH release to forward system logs.
 See [syslog-release](https://github.com/cloudfoundry/syslog-release) in GitHub for instructions.
 
@@ -453,6 +459,18 @@ See [syslog-release](https://github.com/cloudfoundry/syslog-release) in GitHub f
   If in doubt, rotate the logs hourly or when they reach a certain size.
   Pivotal recommends forwarding logs to a remote syslog aggregation system.
 </p>
+
+##<a id="deploy"></a> Apply Changes from Your Configuration
+
+Your installation is not complete until you apply your configuration changes:
+
+1. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %>.
+
+1. Click **Review Pending Changes**.
+
+<%# do you need to ensure that all products are selected before applying changes? %>
+1. Click **Apply Changes** to complete the <%= vars.product_abbr %> installation.
+
 
 ## <a id="verify"></a>Verify the Installation
 
@@ -474,8 +492,11 @@ To verify the installation for Linux:
     ```
 
 1. Verify in the logs that a new file has been created. For example:
-<pre class="terminal">CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/bin/hackertool" hostname="fim_1/3ad6ff1f-37e0-4b8a-80bd-d16b7f79c149" opname="CREATE" optype=1 ts=1574098829 severity=5</pre>
+<pre class="terminal">
+CEF:0|cloud\_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/bin/hackertool" hostname="fim_1/3ad6ff1f-37e0-4b8a-80bd-d16b7f79c149" opname="CREATE" optype=1 ts=1574098829 severity=5
+</pre>
 
+<br>
 To verify the installation for Windows:
 
 1. `bosh ssh` into the VMs in your deployment. For more information, see
@@ -494,14 +515,16 @@ To verify the installation for Windows:
     ```
 
 1. Verify in the logs that a new file has been created. For example:
-<pre class="terminal">CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="C:\\var\\vcap\\data\\jobs\\sample_file" hostname="no-job_1/ebee34c1-3300-4f5d-9557-bbef845d608c" opname="CREATE" optype=1 ts=1569953512 severity=5</pre>
+<pre class="terminal">
+CEF:0|cloud\_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="C:\\var\\vcap\\data\\jobs\\sample\_file" hostname="no-job_1/ebee34c1-3300-4f5d-9557-bbef845d608c" opname="CREATE" optype=1 ts=1569953512 severity=5
+</pre>
 
 
 ##<a id="dirs"></a> Watchlist
 
 <%= vars.product_abbr %> monitors a set of critical system directories.
 
-<%# Delete the watchlists below if their information is already within the fields %>
+<%# Is their information is already within the fields %>
 
 ###<a name="linux-dirs"></a> Watchlist for Linux
 
@@ -588,11 +611,11 @@ Low severity events can be used to filter out business-as-usual events.
 This allows you to isolate unexpected events by looking for severity <code>5</code>.
 </p>
 
-##<a id="output-ignore"></a>Ignore Events
+##<a id="output-ignore"></a>Ignore Patterns
 
 Some monitored directories might contain files that you do not want
 <%= vars.product_abbr %> to monitor, such as files that change frequently.
-You can configure <%= vars.product_abbr %> to ignore events using path regular
+You can configure <%= vars.product_abbr %> to ignore these events using path regular
 expressions in the **Ignore patterns** field.
 
 
