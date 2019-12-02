@@ -219,10 +219,26 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>Watchlist</strong></td>
         <td>
-          Enter a <%# comma-delimited? %> list of file paths to monitor for file system events.<br><br>
+          Enter a list of file paths to monitor for file system events.<br><br>
           For more information, see <a href="#dirs">Watchlist</a>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Container Watchlist</strong></td>
+        <td>
+          Enter a list of file paths to monitor for file system events per container on the Windows Diego Cell.<br><br>
+          For instance, to monitor file system events on application files, add <code>C:\Users\vcap\app</code> to **Container Watchlist**.
+
+          <p class="note"><strong>Note</strong>:
+            The filepath for generated logs from container events will be relative to the filesystem of the Diego cell, rather than the container.
+            For instance, a file event for the container path <code>C:\Users\vcap\app\test.html</code> will appear as a filesystem event as
+            <code>C:\proc\PID\root\Users\vcap\app\test.html</code>, where PID is the process ID of the container.
+          </p>
+          <p class="note"><strong>Note</strong>:
+            If **Container Watchlist** is left blank, <%= vars.product_abbr %> will not monitor any filesystem events on containers.
           </p>
         </td>
       </tr>
@@ -238,6 +254,12 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           <p class="note"><strong>Note: </strong>
             When defining <strong>Ignore patterns</strong> for Windows, you must replace all
             single back slashes with double back slashes.
+          </p>
+          <p class="note"><strong>Note: </strong>
+            To ignore events for files in containers, the regular expression must be relative to the filesystem of the Diego cell, rather than the container.
+            Specifically, the regular expression should start with <code>^C:\\proc\\[^\\]+\\root</code>.
+            For instance, to ignore all files in containers within the directory <code>C:\Users\vcap\app</code>,
+            input <code>^C:\\proc\\[^\\]+\\root\\Users\\vcap\\app\\.*$</code>.
           </p>
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.ignored_patterns</code> in
@@ -391,30 +413,12 @@ To configure <%= vars.product_abbr %> to monitor Windows Garden containers:
 
 1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Windows (beta)**.
 
-1. Add the following directories to the **Watchlist** field:
+1. Add at least one directory to the **Container Watchlist** field. Pivotal recommends that you add at least the following:
 
     ```
-    # Garden containers
-    - C:\proc
+    # Application files
+    - C:\Users\vcap\app
     ```
-
-2. Pivotal recommends that you add the following patterns to the **Ignore patterns** field:
-
-    ```
-    # Pivotal recommends ignoring paths in the container other than the application files
-    # These files reside in C:\proc\PID\root\Users\vcap\app\*
-    - ^C:\\proc\\[^\\]+\\root\\[^U]
-    - ^C:\\proc\\[^\\]+\\root\\Users\\[^v]
-    - ^C:\\proc\\[^\\]+\\root\\Users\\vcap\\[^a]
-    ```
-    When files and directories in the `C:\proc\PID\root` directory
-    are created, removed, or modified, <%= vars.product_abbr %> writes log messages.
-    `PID` is the process ID of the container.
-
-    <p class="note"><strong>Note:</strong>
-      The above recommendations for <strong>Ignore patterns</strong> ignore all events
-      in the container file system outside of <code>C:\proc\PID\root\Users\vcap\app</code>.
-    </p>
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
 
