@@ -83,7 +83,7 @@ Low severity events can be used to filter out business-as-usual events.
 This makes unexpected events easy to isolate by looking for severity <code>5</code>.
 </p>
 
-##<a id="output"></a>Ignoring Events
+##<a id="output-ignore"></a>Ignoring Events
 
 Some monitored directories may contain files that should not be monitored, for example, files that change frequently.
 You can configure the Fim Add-on to ignore events using path regexes with `fim.ignored_patterns`.
@@ -110,7 +110,7 @@ fim:
     - ^/var/lib/logrotate/status.*$
 ```
 
-##<a id="output"></a>Low Severity Events
+##<a id="output-low"></a>Low Severity Events
 
 Some monitored directories may contain files that occasionally change.
 You can configure The FIM Add-on to log events at a lower severity using path regexes with `fim.low_severity_patterns`.
