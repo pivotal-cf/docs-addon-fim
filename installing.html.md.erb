@@ -364,10 +364,10 @@ To configure <%= vars.product_abbr %> for Windows VMs:
 
 To disable installing <%= vars.product_abbr %> on Windows VMs:
 
-1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
+1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Windows (Beta)**. <%# unsure %>
 
 1. Add the instance group **windows\_diego\_cell** to the field
-**List of instance group names that will be excluded from deployment**.<%# I assume this is in the Ubuntu settings %>
+**List of instance group names that will be excluded from deployment**.
 
 1. Click **Save**.
 
@@ -675,7 +675,8 @@ For example, to ignore all files in the directory `C:\var\vcap\bosh\ignore_me\`,
 
 ##<a id="output-low"></a>Low Severity Events
 
-Some monitored directories might contain files that only change occasionally.
+Some monitored directories might contain files that only change occasionally
+or files that update frequently but are low impact.
 You can configure <%= vars.product_abbr %> to log events at a lower severity using
 path regular expressions in the **Low severity tagging for frequently changed
 files** field.
