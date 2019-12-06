@@ -29,7 +29,7 @@ For compatible versions, see the [Product Snapshot](./index.html#snapshot).
 
 To install the <%= vars.product_abbr %> file on the <%= vars.ops_manager %> Installation Dashboard:
 
-<p class="note"><strong>Note:</strong> If you are upgrading from v1.4 or below,
+<p class="note"><strong>Note:</strong> If you are upgrading from v1.4 or earlier,
   you must follow the instructions in <a href="./upgrading.html">Upgrading <%= vars.product_abbr %></a>.
 </p>
 
@@ -850,7 +850,7 @@ The key-values pairs in the final field of a CEF file log carry the following me
 Other template values are listed below.
 
 ###<a id="json"></a>JSON
-The `{{.Json}}` string serializes an event into a standard JSON dictionary.
+The `{{.Json}}` string serializes an event into a standard JSON dictionary.<br>
 Example:
 
 ```json
@@ -858,7 +858,7 @@ Example:
 ```
 
 ###<a id="keyvalues"></a>Key-Values
-The `{{.KeyValues}}` string serializes an event into a series of `key=value` fields.
+The `{{.KeyValues}}` string serializes an event into a series of `key=value` fields.<br>
 Example:
 
 ```
