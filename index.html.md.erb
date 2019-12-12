@@ -38,26 +38,29 @@ The following table provides version and version-support information about <%= v
     </tr>
     <tr>
         <td>Compatible <%= vars.ops_manager_full %> versions</td>
-        <td>2.3, 2.4, 2.5, 2.6, and 2.7</td>
+        <td>2.5, 2.6, and 2.7</td>
     </tr>
     <tr>
         <td>Compatible <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) versions</td>
-        <td>2.3, 2.4, 2.5, 2.6, and 2.7</td>
+        <td>2.5, 2.6, and 2.7</td>
     </tr>
      <tr>
         <td>(Beta) Compatible <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) versions</td>
-        <td>2.3, 2.4, 2.5, 2.6, and 2.7</td>
-    </tr>
-    <tr>
-        <td>Compatible <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>) versions</td>
-        <td>1.2 and later</td>
+        <td>2.5, 2.6, and 2.7</td>
     </tr>
     <tr>
         <td>Compatible BOSH stemcells</td>
-        <td>Ubuntu (Xenial and Trusty) and Windows (2012 R2, 2016, 10v1803, 2019)</td>
+        <td>Ubuntu Xenial and Windows 2016, 1803, 2019</td>
     </tr>
     <tr>
         <td>IaaS support</td>
         <td>vSphere, GCP, AWS, Azure, and OpenStack</td>
     </tr>
 </table>
+
+## <a id="limitations"></a>Limitations
+
+<%= vars.product_short %> has the following limitations:
+
+* Windows support is in Beta
+* Remove runtime configurations not deployed through Ops Manager
