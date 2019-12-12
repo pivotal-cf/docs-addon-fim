@@ -1,6 +1,6 @@
 ---
 title: Pivotal File Integrity Monitoring
-owner: Security Engineering
+owner: Pivotal Compliance and Innovation (PCI) Team
 ---
 
 <strong><%= modified_date %></strong>
@@ -10,13 +10,22 @@ owner: Security Engineering
 
 <%= partial '../../fim/partials/pcf-name-change' %>
 
-<%= vars.product_full %> (<%= vars.product_abbr %>) might be necessary for
-regulatory purposes if your compliance auditor requires <%= vars.product_abbr %>
-protection within the <%= vars.platform_name %> environment.
+## <a id='overview'></a>Overview
 
-For example, auditors sometimes expect that <%= vars.product_abbr %> protection be present in an environment that must comply with standards
-such as Payment Card Industry Data Security Standard (PCI DSS) or Health Insurance Portability and Accountability Act
-(HIPAA).
+<%= vars.product_full %> (<%= vars.product_abbr %>) provides platform operators and auditors logs of file and directory modifications in monitored paths.
+
+<%= vars.product_full %> helps satisfy security requirements for file integrity monitoring within the <%= vars.platform_name %> environment.
+
+<%= vars.product_abbr %> can be used to help achieve compliance for compliance standards such as Payment Card Industry Data Security Standard (PCI DSS) or Health Insurance Portability and Accountability Act (HIPAA).
+
+## <a id='features'></a>Key Features
+<%= vars.product_short %> includes the following key features:
+
+* Monitor PCF VMs and Containers
+* Specify path patterns to be excluded
+* Group path patterns under low severity
+* Format log output
+* Provide digest calculations of files
 
 ## <a id='snapshot'></a> Product Snapshot
 
@@ -61,3 +70,10 @@ The following table provides version and version-support information about <%= v
         <td>vSphere, GCP, AWS, Azure, and OpenStack</td>
     </tr>
 </table>
+
+
+## <a id="limitations"></a>Limitations
+
+<%= vars.product_short %> has the following limitations:
+
+* Windows support is in Beta
