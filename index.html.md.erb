@@ -5,24 +5,29 @@ owner: Pivotal Compliance and Innovation (PCI) Team
 
 <strong><%= modified_date %></strong>
 
-<p class="note"><strong>Note:</strong> Pivotal has renamed <i>File Integrity Monitoring Add-on for PCF</i> to <i>Pivotal File Integrity Monitoring</i>.
+<p class="note"><strong>Note:</strong> Pivotal has renamed <i>File Integrity Monitoring Add-on for PCF</i> to <i>Pivotal File Integrity Monitoring<%# Use <%= vars.product_full %></i>.
 </p>
 
 <%= partial '../../fim/partials/pcf-name-change' %>
 
+This documentation describes setting up and using <%= vars.product_full %> (<%= vars.product_abbr %>).
+
 ## <a id='overview'></a>Overview
 
-<%= vars.product_full %> (<%= vars.product_abbr %>) provides platform operators and auditors logs of file and directory modifications in monitored paths.
+<%= vars.product_full %> provides operators and auditors logs of file and directory
+modifications in monitored paths.
+<%= vars.product_full %> helps to satisfy security requirements for file integrity
+monitoring within the <%= vars.platform_name %> environment.
 
-<%= vars.product_full %> helps satisfy security requirements for file integrity monitoring within the <%= vars.platform_name %> environment.
-
-<%= vars.product_abbr %> can be used to help achieve compliance for compliance standards such as Payment Card Industry Data Security Standard (PCI DSS) or Health Insurance Portability and Accountability Act (HIPAA).
+You can use <%= vars.product_abbr %> to help achieve compliance
+standards such as Payment Card Industry Data Security Standard (PCI DSS) or Health
+Insurance Portability and Accountability Act (HIPAA).
 
 ## <a id='features'></a>Key Features
 <%= vars.product_short %> includes the following key features:
 
-* Monitor PCF VMs and Containers
-* Specify path patterns to be excluded
+* Monitor <%= vars.platform_name %> VMs and containers
+* Specify path patterns to exclude
 * Group path patterns under low severity
 * Format log output
 * Provide digest calculations of files
@@ -31,7 +36,8 @@ owner: Pivotal Compliance and Innovation (PCI) Team
 
 The following table provides version and version-support information about <%= vars.product_abbr %>.
 
-<p class="note warning"><strong>Warning: </strong>FIM Add-on on Windows is in Beta.
+<p class="note warning"><strong>Warning: </strong>
+  <%= vars.product_abbr %> Add-on on Windows is in beta.
 </p>
 
 <table class="nice">
@@ -54,7 +60,7 @@ The following table provides version and version-support information about <%= v
         <td>2.5, 2.6, and 2.7</td>
     </tr>
      <tr>
-        <td>(Beta) Compatible <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) versions</td>
+        <td>Compatible <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) versions</td>
         <td>2.5, 2.6, and 2.7</td>
     </tr>
     <tr>
@@ -67,16 +73,9 @@ The following table provides version and version-support information about <%= v
     </tr>
 </table>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 377d4af... Update overview page
 ## <a id="limitations"></a>Limitations
 
 <%= vars.product_short %> has the following limitations:
 
-* Windows support is in Beta
-<<<<<<< HEAD
-* Remove runtime configurations not deployed through Ops Manager
-=======
->>>>>>> 377d4af... Update overview page
+* Windows support is in beta
+* Remove runtime configurations not deployed through <%= vars.ops_manager %>
