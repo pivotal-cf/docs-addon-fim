@@ -47,7 +47,7 @@ This adds the tile to your staging area.
 To configure <%= vars.product_abbr %> for Linux VMs:
 
 1. Select **FIM Configuration for Ubuntu**.
-<%# screenshot needed %>
+![](linux-config.png)
 
 1. Configure the following fields:
 
@@ -57,7 +57,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>Watchlist</strong></td>
         <td>
-          Enter a <%# comma-delimited? %> list of file paths to monitor for file system events.<br><br>
+          Use the **Add** button and trash can icons to create a list of file paths to monitor for file system events.<br><br>
           For more information, see <a href="#dirs">Watchlist</a>.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
@@ -67,8 +67,9 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>Ignore patterns</strong></td>
         <td>
-          Using golang-flavored path regular expressions, enter a list of files that you want
+          Use the **Add** button and trash can icons to create a list of files that you want
           <%= vars.product_abbr %> to ignore.
+          The items that you add must use golang-flavored path regular expressions.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           Events for files matching any of the provided regular expressions are
           not included in the logs.<br><br>
@@ -81,7 +82,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>Low severity tagging for frequently changed files</strong></td>
         <td>
-          Using golang-flavored path regular expressions, enter a list of files to be marked as low severity.
+          Use the **Add** button and trash can icons to create a list of files to be marked as low severity.
+          The items that you add must use golang-flavored path regular expressions.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.<br><br>
           For more information, see <a href="#output-low">Low Severity Events</a>.
           <p class="note"><strong>Note: </strong>
@@ -210,6 +212,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
 
 1. Click **Save**.
 
+
 ## <a id='configure-windows'></a> Configure <%= vars.product_abbr %> for Windows (Beta)
 
 <p class="note warning"><strong>Warning: </strong>
@@ -221,7 +224,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
 To configure <%= vars.product_abbr %> for Windows VMs:
 
 1. Select **FIM Configuration for Windows (Beta)**.
-<%# screenshot needed %>
+![](windows-config.png)
 
 1. Configure the following fields:
 
@@ -231,7 +234,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>Watchlist</strong></td>
         <td>
-          Enter a list of file paths to monitor for file system events.<br><br>
+          Use the **Add** button and trash can icons to create a list of file paths to monitor for file system events.<br><br>
           For more information, see <a href="#dirs">Watchlist</a> below.
           <p class="note"><strong>Note:</strong>
             This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
@@ -241,7 +244,8 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>Container Watchlist</strong></td>
         <td>
-          Enter a list of file paths to monitor for file system events per container on
+          Use the **Add** button and trash can icons to create a list of file paths
+          to monitor for file system events per container on
           the Windows Diego Cell. For example, to monitor file system events for app files,
           enter <code>C:\Users\vcap\app</code>. <br><br>
 
@@ -261,8 +265,9 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>Ignore patterns</strong></td>
         <td>
-          Using golang-flavored path regular expressions, enter a list of files that you want
+          Use the **Add** button and trash can icons to create a list of files that you want
           <%= vars.product_abbr %> to ignore.
+          The items that you add must use golang-flavored path regular expressions.
           When defining <strong>Ignore patterns</strong> for Windows, you must replace all
           single back slashes with double back slashes.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
@@ -286,7 +291,8 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>Low severity tagging for frequently changed files</strong></td>
         <td>
-          Using golang-flavored path regular expressions, enter a list of files to be marked as low severity.
+          Use the **Add** button and trash can icons to create a list of files to be marked as low severity.
+          The items that you add must use golang-flavored path regular expressions.
           When defining <strong>Low severity tagging for frequently changed files</strong> for Windows, you must
           replace all single back slashes with double back slashes.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.<br><br>
