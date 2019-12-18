@@ -47,7 +47,8 @@ This adds the tile to your staging area.
 To configure <%= vars.product_abbr %> for Linux VMs:
 
 1. Select **FIM Configuration for Ubuntu**.
-![](linux-config.png)
+
+  ![](linux-config.png)
 
 1. Configure the following fields:
 
@@ -57,7 +58,10 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>Watchlist</strong></td>
         <td>
-          Use the **Add** button and trash can icons to create a list of file paths to monitor for file system events.<br><br>
+          Create a list of file paths to monitor for file system events.
+          Use the <strong>Add</strong> button and trash can icons to add and
+          remove file paths from the list.
+          <br><br>
           For more information, see <a href="#dirs">Watchlist</a>.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
@@ -67,12 +71,15 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>Ignore patterns</strong></td>
         <td>
-          Use the **Add** button and trash can icons to create a list of files that you want
-          <%= vars.product_abbr %> to ignore.
+          Create a list of files that you want <%= vars.product_abbr %> to ignore.
+          Events for files matching any of the provided regular expressions are
+          not included in the logs.
+          Use the <strong>Add</strong> button and trash can icons to add and
+          remove files from the list.
+          <br><br>
           The items that you add must use golang-flavored path regular expressions.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
-          Events for files matching any of the provided regular expressions are
-          not included in the logs.<br><br>
+          <br><br>
           For more information, see <a href="#output-ignore">Ignore Patterns</a>.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.ignored_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
@@ -82,9 +89,12 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>Low severity tagging for frequently changed files</strong></td>
         <td>
-          Use the **Add** button and trash can icons to create a list of files to be marked as low severity.
+          Create a list of files to be marked as low severity.
+          Use the <strong>Add</strong> button and trash can icons to add and remove files from the list.
+          <br><br>
           The items that you add must use golang-flavored path regular expressions.
-          To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.<br><br>
+          To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
+          <br><br>
           For more information, see <a href="#output-low">Low Severity Events</a>.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.low_severity_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
@@ -95,7 +105,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
         <td><strong>Output log format</strong></td>
         <td>
           Enter a template for log lines.
-          This template must be compatible with the golang package <code>text/template</code>.<br><br>
+          This template must be compatible with the golang package <code>text/template</code>.
+          <br><br>
           For more information about the <strong>Output log format</strong> field,
           see <a href="#format">Output Log Format</a>.
           <p class="note"><strong>Note: </strong>
@@ -177,7 +188,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           the <strong>Enable</strong> or <strong>Disable</strong> radio buttons.
           If you enable digests, a field for
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
-          appears after you select the option.<br><br>
+          appears after you select the option.
+          <br><br>
           For more information, see <a href="#digests">Calculate File Hashes</a>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digests</code> in
@@ -193,7 +205,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           Enter a positive value for the threshold for the maximum size of files
           for <%= vars.product_abbr %> to hash.
           This field only appears if you have selected <strong>Enable</strong> for <strong>Log file digest for write/create events</strong>.
-          The default value is <code>10000000</code>.<br><br>
+          The default value is <code>10000000</code>.
+          <br><br>
           For more information, see <a href="#digest_threshold">File Size Threshold</a>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digest_threshold</code> in
@@ -234,7 +247,10 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>Watchlist</strong></td>
         <td>
-          Use the **Add** button and trash can icons to create a list of file paths to monitor for file system events.<br><br>
+          Create a list of file paths to monitor for file system events.
+          Use the <strong>Add</strong> button and trash can icons to add and
+          remove file paths from the list.
+          <br><br>
           For more information, see <a href="#dirs">Watchlist</a> below.
           <p class="note"><strong>Note:</strong>
             This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
@@ -244,11 +260,13 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>Container Watchlist</strong></td>
         <td>
-          Use the **Add** button and trash can icons to create a list of file paths
-          to monitor for file system events per container on
-          the Windows Diego Cell. For example, to monitor file system events for app files,
-          enter <code>C:\Users\vcap\app</code>. <br><br>
-
+          Create a list of file paths to monitor for file system events per container on
+          the Windows Diego Cell.
+          Use the <strong>Add</strong> button and trash can icons to add and
+          remove file paths from the list.
+          For example, to monitor file system events for app files,
+          enter <code>C:\Users\vcap\app</code>.
+          <br><br>
           If you do not enter a file path,
           <%= vars.product_abbr %> does not monitor any file system events for containers.
 
@@ -265,14 +283,16 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>Ignore patterns</strong></td>
         <td>
-          Use the **Add** button and trash can icons to create a list of files that you want
-          <%= vars.product_abbr %> to ignore.
+          Create a list of files that you want <%= vars.product_abbr %> to ignore.
+          Use the <strong>Add</strong> button and trash can icons to add and remove files from the list.
+          <br><br>
           The items that you add must use golang-flavored path regular expressions.
           When defining <strong>Ignore patterns</strong> for Windows, you must replace all
           single back slashes with double back slashes.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           Events for files matching any of the provided regular expressions are
-          not included in the logs.<br><br>
+          not included in the logs.
+          <br><br>
           For more information, see <a href="#output-ignore">Ignore Patterns</a>.
           <p class="note"><strong>Note: </strong>
             To ignore events for files in containers, you must enter regular expressions that are
@@ -291,11 +311,14 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>Low severity tagging for frequently changed files</strong></td>
         <td>
-          Use the **Add** button and trash can icons to create a list of files to be marked as low severity.
+          Create a list of files to be marked as low severity.
+          Use the <strong>Add</strong> button and trash can icons to add and remove files from the list.
+          <br><br>
           The items that you add must use golang-flavored path regular expressions.
           When defining <strong>Low severity tagging for frequently changed files</strong> for Windows, you must
           replace all single back slashes with double back slashes.
-          To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.<br><br>
+          To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
+          <br><br>
           For more information, see <a href="#output-low">Low Severity Events</a>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.low_severity_patterns</code> in
@@ -402,30 +425,22 @@ To configure <%= vars.product_abbr %> to monitor Garden containers:
 
 1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
 
-1. Add the following directories to the **Watchlist** field:
+1. Add the Garden container directories to the **Watchlist** section:
+    - `/var/vcap/data/grootfs/store/unprivileged/images/`
+    - `/var/vcap/data/grootfs/store/privileged/images/`
 
-    ```
-    # Garden containers
-    - /var/vcap/data/grootfs/store/unprivileged/images/
-    - /var/vcap/data/grootfs/store/privileged/images/
-    ```
     For more information about GrootFS volumes,
     see [Volumes](https://docs.pivotal.io/pivotalcf/concepts/grootfs-disk.html#volumes).
 
-2. Add the following pattern to the **Ignore patterns** field:
-
-    ```
-    # When monitoring Garden containers,
-    # ignore duplicate log messages sent to .../UUID/rootfs/
-    - ^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$
-    ```
+2. Add the following pattern to the **Ignore patterns** section:
+    - `^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$`
 
     <p class="note"><strong>Note:</strong>
       When files in the Garden containers are modified, changes are made to both
       the <code>diff</code> and <code>rootfs</code> directories.
-      Adding this ignore pattern means that files and directories
-      in the <code>/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff</code>
-      directory are ignored by <%= vars.product_abbr %>. <code>UUID</code> is the ID of the container.
+      Adding this ignore pattern means that <%= vars.product_abbr %> ignores
+      files and directories in the <code>/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff</code>
+      directory, where <code>UUID</code> is the ID of the container.
     </p>
 
 1. Click **Save**.
@@ -434,15 +449,11 @@ To configure <%= vars.product_abbr %> to monitor Garden containers:
 
 To configure <%= vars.product_abbr %> to monitor Windows Garden containers:
 
-1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Windows (beta)**.
+1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %>
+Configuration for Windows (beta)**.
 
-1. Add at least one directory to the **Container Watchlist** field.
-Pivotal recommends that you add the following:
-
-    ```
-    # Application files
-    - C:\Users\vcap\app
-    ```
+1. Add at least one directory to the **Container Watchlist** section.
+Pivotal recommends that you add `C:\Users\vcap\app`, which is the directory for app files.
 
 1. Click **Save**.
 
@@ -452,15 +463,13 @@ To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes wo
 
 1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
 
-1. Add the following directory to the **Watchlist** field:
+1. Add the PKS container directory `/var/vcap/store/docker/docker/` to the **Watchlist** section.
+  <p class="note"><strong>Note:</strong>
+    <%= vars.product_abbr %> writes log messages when files and directories in the
+    <code>/var/vcap/store/docker/docker/overlay2/UUID/diff</code> directory are created, removed, or modified.
+    <code>UUID</code> is the ID of the container.
+  </p>
 
-    ```
-    # Containers in PKS
-    - /var/vcap/store/docker/docker/
-    ```
-When files and directories in the `/var/vcap/store/docker/docker/overlay2/UUID/diff` directory
-are created, removed, or modified, <%= vars.product_abbr %> writes log messages.
-`UUID` is the ID of the container.
 
 1. Click **Save**.
 
@@ -550,47 +559,64 @@ CEF:0|cloud\_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="C:\\v
 ##<a id="dirs"></a> Watchlist
 
 <%= vars.product_abbr %> monitors a set of critical system directories.
-
-<%# Is their information is already within the fields %>
+You can configure the directories that <%= vars.product_abbr %> monitors by adding
+and removing items in the **Watchlist** section.
 
 ###<a name="linux-dirs"></a> Watchlist for Linux
 
-The default value of **Watchlist** for Linux is:
+Below is the default list of file paths in **Watchlist** section of **FIM Configuration for Ubuntu**.
 
-```
-# System binaries and configuration
-- /bin
-- /etc
-- /lib
-- /lib32
-- /lib64
-- /opt
-- /sbin
-- /srv
-- /usr
-- /var/lib
-
-# BOSH agent
-- /var/vcap/bosh
-- /var/vcap/monit/job
-
-# BOSH releases
-- /var/vcap/data/packages
-- /var/vcap/data/jobs
-```
+<%# check the items in the list below matches the list in the FIM UI %>
+<table>
+  <col width="40%">
+  <col width="60%">
+  <tr>
+    <th></th>
+    <th>File Paths</th>
+  </tr>
+  <tr>
+    <td>System binaries and configuration</td>
+    <td>
+      <code>/bin</code><br>
+      <code>/etc</code><br>
+      <code>/lib</code><br>
+      <code>/lib32</code><br>
+      <code>/lib64</code><br>
+      <code>/opt</code><br>
+      <code>/sbin</code><br>
+      <code>/srv</code><br>
+      <code>/usr</code><br>
+      <code>/var/lib</code>
+    </td>
+  </tr>
+  <tr>
+    <td>BOSH agent</td>
+    <td>
+      <code>/var/vcap/bosh</code><br>
+      <code>/var/vcap/monit/job</code>
+    </td>
+  </tr>
+  <tr>
+    <td>BOSH releases</td>
+    <td>
+      <code>/var/vcap/data/packages</code><br>
+      <code>/var/vcap/data/jobs</code>
+    </td>
+  </tr>
+</table>
 
 ###<a name="windows-dirs"></a> Watchlist for Windows
 
-The default value of **Watchlist** for Windows is:
+Below is the default list of file paths in **Watchlist** section of **FIM Configuration for Windows**.
 
-```
-- C:\Windows\System32
-- C:\Program Files
-- C:\Program Files (x86)
-- C:\var\vcap\bosh
-- C:\var\vcap\data\packages
-- C:\var\vcap\data\jobs
-```
+<%# check the items in the list below matches the list in the FIM UI %>
+- `C:\Windows\System32`
+- `C:\Program Files`
+- `C:\Program Files (x86)`
+- `C:\var\vcap\bosh`
+- `C:\var\vcap\data\packages`
+- `C:\var\vcap\data\jobs`
+
 
 ##<a id="output-logs"></a>Event Logging
 
@@ -642,35 +668,50 @@ This allows you to isolate unexpected events by looking for severity <code>5</co
 
 Some monitored directories might contain files that you do not want
 <%= vars.product_abbr %> to monitor, such as files that change frequently.
-You can configure <%= vars.product_abbr %> to ignore these events using path regular
-expressions in the **Ignore patterns** field.
-
+You can configure <%= vars.product_abbr %> to ignore these events by adding and
+removing items in the **Ignore patterns** section.
+Use path regular expressions.
 
 ###<a name="linux-ignore"></a> Ignore Patterns for Linux
 
-The default values for **Ignore patterns** for Linux are:
+Below is the default list in **Ignore Patterns** section of **FIM Configuration for Ubuntu**.
 
-```
-# Temporary files created when an operator or errand invoke `bosh ssh`
-- ^/etc/passwd.+$
-- ^/etc/shadow.+$
-- ^/etc/subgid.+$
-- ^/etc/subuid.+$
-- ^/etc/group.+$
-- ^/etc/gshadow.+$
-
-# Temporary files created when hosts updated
-- ^/etc/hosts.+$
-
-# BOSH Agent logs
-- ^/var/vcap/bosh/log/.+$
-
-# Log rotation
-- ^/var/lib/logrotate/status.*$
-
-# Monit state
-- ^/root/\.monit\.state$
-```
+<%# check the items in the list below matches the list in the FIM UI %>
+<table>
+  <col width="40%">
+  <col width="60%">
+  <tr>
+    <th></th>
+    <th>List</th>
+  </tr>
+  <tr>
+    <td>Temporary files created when an operator or errand runs <code>bosh ssh</code></td>
+    <td>
+      <code>^/etc/passwd.+$</code><br>
+      <code>^/etc/shadow.+$</code><br>
+      <code>^/etc/subgid.+$</code><br>
+      <code>^/etc/subuid.+$</code><br>
+      <code>^/etc/group.+$</code><br>
+      <code>^/etc/gshadow.+$</code><br>
+    </td>
+  </tr>
+  <tr>
+    <td>Temporary files created when hosts are updated</td>
+    <td><code>^/etc/hosts.+$</code></td>
+  </tr>
+  <tr>
+    <td>BOSH agent logs</td>
+    <td><code>^/var/vcap/bosh/log/.+$</code></td>
+  </tr>
+  <tr>
+    <td>Log rotation</td>
+    <td><code>^/var/lib/logrotate/status.*$</code></td>
+  </tr>
+  <tr>
+    <td>Monit state</td>
+    <td><code>^/root/\.monit\.state$</code></td>
+  </tr>
+</table>
 
 ###<a name="windows-ignore"></a> Ignore Patterns for Windows
 
@@ -691,10 +732,9 @@ For example, to ignore all files in the directory `C:\var\vcap\bosh\ignore_me\`,
 
 Some monitored directories might contain files that only change occasionally
 or files that update frequently but are low impact.
-You can configure <%= vars.product_abbr %> to log events at a lower severity using
-path regular expressions in the **Low severity tagging for frequently changed
-files** field.
-<%# is this for files that don't change that often? %>
+You can configure <%= vars.product_abbr %> to log events at a lower severity
+by adding and removing items in the **Low severity tagging for frequently changed
+files** section. Use path regular expressions.
 
 Events for files matching any of the provided regular expressions
 are logged with severity <code>3</code>, instead of the default value of <code>5</code>.
@@ -702,35 +742,51 @@ This can be useful to filter out business-as-usual events.
 
 ###<a name="linux-output-low"></a> Low Severity Tagging for Frequently Changed Files for Linux
 
-The default values for **Low severity tagging for frequently changed files** for Linux are:
+Below is the default list in **Low severity tagging for frequently changed files**
+section of **FIM Configuration for Ubuntu**.
 
-<%# Should this all be in a giant code snippet? %>
-
-```
-# When an operator or errand invokes `bosh ssh` a new user is created
-- ^/etc/passwd$
-- ^/etc/shadow$
-- ^/etc/subgid$
-- ^/etc/subuid$
-- ^/etc/group$
-- ^/etc/gshadow$
-
-# BOSH-DNS sync and new VM creation update hosts
-- ^/etc/hosts$
-
-# Attached devices and cgroups
-- ^/etc/mtab$
-
-# DHCP leases
-- ^/var/lib/dhcp/dhclient.eth\d+.leases$
-
-# BOSH Agent configuration changes when VM created/modified
-- ^/var/vcap/bosh/settings.json$
-
-# BOSH Agent CHMODs jobs and packages as part of `bosh deployment`
-- ^/var/vcap/data/jobs$
-- ^/var/vcap/data/packages$
-```
+<table>
+  <col width="40%">
+  <col width="60%">
+  <tr>
+    <th></th>
+    <th>List</th>
+  </tr>
+  <tr>
+    <td>When an operator or errand runs the <code>bosh ssh</code> a new user is created</td>
+    <td>
+      <code>^/etc/passwd$</code><br>
+      <code>^/etc/shadow$</code><br>
+      <code>^/etc/subgid$</code><br>
+      <code>^/etc/subuid$</code><br>
+      <code>^/etc/group$</code><br>
+      <code>^/etc/gshadow$</code>
+    </td>
+  </tr>
+  <tr>
+    <td>BOSH-DNS sync and new VM creation update hosts</td>
+    <td><code>^/etc/hosts$</code></td>
+  </tr>
+  <tr>
+    <td>Attached devices and cgroups</td>
+    <td><code>^/etc/mtab$</code></td>
+  </tr>
+  <tr>
+    <td>DHCP leases</td>
+    <td><code>^/var/lib/dhcp/dhclient.eth\d+.leases$</code></td>
+  </tr>
+  <tr>
+    <td>BOSH agent configuration changes when VM created/modified</td>
+    <td><code>^/var/vcap/bosh/settings.json$</code></td>
+  </tr>
+  <tr>
+    <td>BOSH agent CHMODs jobs and packages as part of <code>bosh deployment</code></td>
+    <td>
+      <code>^/var/vcap/data/jobs$</code><br>
+      <code>^/var/vcap/data/packages$</code>
+    </td>
+  </tr>
+</table>
 
 ###<a name="windows-output-low"></a> Low Severity Tagging for Frequently Changed Files for Windows
 
