@@ -29,11 +29,19 @@ For more information, see [Monitor Windows Garden Containers](./installing.html#
   <%= vars.product_abbr %> for Windows is currently in beta.
 </p>
 
+* <%= vars.product_abbr %> now adds security metadata for `CREATE` and `CHMOD` events on Linux.
+For more information, see [Metadata](./installing.html#metadata).
+
+* <%= vars.product_abbr %> can be configured to keep track of file metadata using an in-memory cache on Linux.
+Enabling this feature will use more memory, but can limit the number of redundant file events being logged.
+For more information, see [In-Memory Cache](./installing.html#in-memory-cache).
+
 ### Known Issues
 
 This release has the following known issue:
 
-*
+* The **`user`** and **`group`** metadata fields may not be accurate for files in containers on PAS/PKS.
+However, the proper username and group name can be determined using the **`uid`** and **`gid`** metadata fields.
 
 ## <a id="view"></a> View Release Notes for Another Version
 
