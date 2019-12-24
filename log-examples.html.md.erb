@@ -27,7 +27,7 @@ For an example of every type of <%= vars.product_abbr %> log message that can be
 * `CREATE`
 	<pre class="terminal">
 	2019-04-05T15:52:03.296265+00:00 localhost filesnitch[5990]: CEF:0|cloud\_foundry|fim|1.0.0|1|file integrity monitoring event|5|<br>
-	fname="/var/vcap/data/jobs/newfile.txt" hostname="fim\_1/f66479c7-cd37-4a99-b735-f6f41ba55f01" opname="CREATE" optype=1 ts=1554479523 severity=5
+	fname="/var/vcap/data/jobs/newfile.txt" hostname="fim\_1/f66479c7-cd37-4a99-b735-f6f41ba55f01" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1554479523 severity=5
 	</pre>
 
 * `WRITE`
@@ -51,7 +51,7 @@ For an example of every type of <%= vars.product_abbr %> log message that can be
 * `CHMOD`
 	<pre class="terminal">
 	2019-04-05T15:52:03.297424+00:00 localhost filesnitch[5990]: CEF:0|cloud\_foundry|fim|1.0.0|16|file integrity monitoring event|5|<br>
-	fname="/var/vcap/data/jobs/newfile.txt" hostname="fim\_1/f66479c7-cd37-4a99-b735-f6f41ba55f01" opname="CHMOD" optype=16 ts=1554479523 severity=5
+	fname="/var/vcap/data/jobs/newfile.txt" hostname="fim\_1/f66479c7-cd37-4a99-b735-f6f41ba55f01" opname="CHMOD" optype=16 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1554479523 severity=5
 	</pre>
 
 
@@ -64,7 +64,7 @@ Examples of <%= vars.product_abbr %> log messages from Garden containers and Doc
 * For a Garden container in <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
 <pre class="terminal">
 CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5|
-fname="/var/vcap/data/grootfs/store/unprivileged/images/5c320add-ac1a-4bd7-78b6-1129/diff/home/vcap/app/public/test.html"
+fname="/var/vcap/data/grootfs/store/unprivileged/images/5c320add-ac1a-4bd7-78b6-1129/diff/home/vcap/app/public/test.html" opname="CREATE" optype=1 mode="-rw-r--r--" uid=2000 user="unknown" gid=2000 group="unknown" ts=1556218123 severity=5
 </pre>
 
 * For a Windows Garden container in <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
@@ -78,7 +78,7 @@ hostname="windows_diego_cell/be1f4854-299d-47d1-98eb-60b0741a3f6b" opname="CREAT
 <pre class="terminal">
 CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5|
 fname="/var/vcap/store/docker/docker/overlay2/7e5685c735b2aa97a9680e0b81730a518e3188afbf0f9f1529e492f98ed35f1d/diff/test.html"
-hostname="worker/d1d67195-ad42-4025-83e9-0d43a193ad53" opname="CREATE" optype=1 ts=1556217648 severity=5
+hostname="worker/d1d67195-ad42-4025-83e9-0d43a193ad53" opname="CREATE" optype=1 mode="-rw-r--r--" uid=2000 user="unknown" gid=2000 group="unknown" ts=1556217648 severity=5
 </pre>
 
 For how to configure <%= vars.product_abbr %> to monitor containers,
