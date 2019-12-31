@@ -184,11 +184,11 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>Log file digest for write/create events</strong></td>
         <td>
-          Choose whether to enable computing digests for write/create events using
-          the <strong>Enable</strong> or <strong>Disable</strong> radio buttons.
-          If you enable digests, a field for
+          If you want to enable computing digests for write/create events, select
+          <strong>Enable</strong>.
+          When you select this option, a field for
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
-          appears after you select the option.
+          appears.
           <br><br>
           For more information, see <a href="#digests">Calculate File Hashes</a>.
           <p class="note"><strong>Note</strong>:
@@ -217,18 +217,10 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>In-memory cache to reduce noise when files do not change</strong></td>
         <td>
-          Choose whether to enable an in-memory cache of file information using the <strong>Enable</strong> or <strong>Disable</strong> radio buttons.
-          If you enable the in-memory cache, a field for
-          <strong>Maximum cache size (number of files)</strong>
-          appears after you select the option.
+          If you want to enable an in-memory cache of file information, select <strong>Enable</strong>.
+          When you select this option, a field for <strong>Maximum cache size (number of files)</strong> appears.
           <br><br>
           For more information about the in-memory cache, see <a href="#in-memory-cache">In-Memory Cache</a>.
-
-          <p class="note"><strong>Note</strong>:
-            Enabling the in-memory cache will cause <%= vars.product_abbr %> to use additional memory.
-            Ensure that <strong>Maximum cache size (number of files)</strong> is configured appropriately.
-            For instructions on choosing an appropriate value, see <a href="#in-memory-cache_size">In-Memory Cache Size</a>.
-          </p>
 
           <p class="note"><strong>Note</strong>:
             <strong>In-memory cache to reduce noise when files do not change</strong> is currently only supported
@@ -239,12 +231,19 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>Maximum cache size (in number of files)</strong></td>
         <td>
-          Enter a positive value for the maximum number of files to keep track of in the in-memory cache.
-          This field only appears if you have selected <strong>Enable</strong> for <strong>In-memory cache to reduce noise when files do not change</strong>.
+          Enter a positive value for the maximum number of files to keep track of in the in-memory cache. <br><br>
+          This field only appears if you have selected <strong>Enable</strong> for
+          <strong>In-memory cache to reduce noise when files do not change</strong>.
           The default value is <code>200000</code>, which can result in an increase in memory usage of
-          up to roughly 100MB.
+          up to roughly 100&nbsp;MB.
           <br><br>
           For more information, see <a href="#in-memory-cache_size">In-Memory Cache Size</a>.
+
+          <p class="note"><strong>Note</strong>:
+            Enabling the in-memory cache causes <%= vars.product_abbr %> to use additional memory.
+            Ensure that <strong>Maximum cache size (number of files)</strong> is configured with an appropriate value
+            using the instructions in <a href="#in-memory-cache_size">In-Memory Cache Size</a>.
+          </p>
         </td>
       </tr>
       <tr>
@@ -958,16 +957,57 @@ fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 mode="-rw-r--r-
 ```
 
 ###<a id="fields"></a>Individual Fields
-| Template | Description |
-|----------|-------------|
-| `{{.Fname}}` | Name of the affected file |
-| `{{.Hostname}}` | Hostname of the VM on which the file event originated |
-| `{{.OpName}}` | Type of file operation in textual format |
-| `{{.OpType}}` | Type of file operation in numeric format |
-| `{{.Severity}}` | Level of importance attributed to the event |
-| `{{.Ts}}` | Point in time at which <%= vars.product_abbr %> received the file event |
-| `{{.Metadata}}` | Key-value pairs of security information (file mode, owner, and group) for `CREATE` and `CHMOD` events. Metadata is only supported on Linux |
-| `{{.Digests}}` | Key-value pairs of hash algorithms and the hash of the modified file |
+
+<table class="nice">
+  <tr>
+    <th width="140">Template</th>
+    <th>Description</th>
+  </tr>
+
+
+  <tr>
+    <td><code>{{.Fname}}</code></td>
+    <td>Name of the affected file</td>
+  </tr>
+
+  <tr>
+    <td><code>{{.Hostname}}</code></td>
+    <td>Hostname of the VM on which the file event originated</td>
+  </tr>
+
+  <tr>
+    <td><code>{{.OpName}}</code></td>
+    <td>Type of file operation in textual format</td>
+  </tr>
+
+  <tr>
+    <td><code>{{.OpType}}</code></td>
+    <td>Type of file operation in numeric format</td>
+  </tr>
+
+  <tr>
+    <td><code>{{.Severity}}</code></td>
+    <td>Level of importance attributed to the event</td>
+  </tr>
+
+  <tr>
+    <td><code>{{.Ts}}</code></td>
+    <td>Point in time at which <%= vars.product_abbr %> received the file event</td>
+  </tr>
+
+  <tr>
+    <td><code>{{.Metadata}}</code></td>
+    <td>Key-value pairs of security information for <code>CREATE</code> and <code>CHMOD</code> events. <br>
+      The information includes the file mode, owner, and group. <br>
+      Metadata is only supported on Linux</td>
+  </tr>
+
+  <tr>
+    <td><code>{{.Digests}}</code></td>
+    <td>Key-value pairs of hash algorithms and the hash of the modified file</td>
+  </tr>
+</table>
+
 
 For example, the following variable definition...
 
@@ -996,26 +1036,81 @@ The default value is `10000000` bytes.
 ##<a id="metadata"></a> Metadata
 
 <%= vars.product_abbr %> adds security metadata to `CREATE` and `CHMOD` file events.
-In particular, it adds the following key-value pairs:
+The metadata uses the following key-value pairs:
 
-* **`mode`:** encodes the following properties:
-  * The file's permissions (read/write/execute for the file's owner, group, and other users). For instance, a file mode of `-rwxrw-r--` indicates that the file's owner has read + write + execute permissions, the group has read + write permissions, and other users have only read permissions
-  * The file's special type. For instance, the `d` in `drwxrw-rw-` indicates the file is a directory
-  * The setuid, setgid, and sticky bit flags. Note that the output of this field differs from the standard representation in `ls`. A file with all 3 flags set will have an output similar to: `ugtr-xr--r--` (`u` indicates setuid is set, `g` indicates setgid is set, `t` indicates the sticky bit is set). The normal behaviour in `ls` for the same file would be `-r-sr-Sr-T`.
-* **`uid`:** the user id of the owner of the file
-* **`user`:** the username corresponding with the **`uid`**. If the **`uid`** lookup fails, this will be set to `"unknown"`
-* **`gid`:** the group id of the file
-* **`group`:** the group name corresponding with the **`gid`**. If the **`gid`** lookup fails, this will be set to `"unknown"`
 
-<p class="note"><strong>Note:</strong>
-  Metadata is currently only supported on Linux
+<table>
+  <tr>
+    <th width="75">Key</th>
+    <th>Description</th>
+  </tr>
+
+  <tr>
+    <td><code>mode</code></td>
+    <td>This key encodes the following properties:
+          <ul>
+            <li><strong>File Permissions:</strong>
+              This is the read, write, and execute permissions for the file owner, group and other users.
+              For example, the <code>-rwxrw-r--</code> file mode indicates the following:
+                <ul>
+                  <li>The owner has read, write, and execute permissions.</li>
+                  <li>Groups has read and write permissions.</li>
+                  <li>Other users only have read permissions.</li>
+                </ul>
+            </li>
+
+            <li>
+              <strong>File Special Type:</strong>
+              For example, <code>d</code> in <code>drwxrw-rw-</code> indicates the file is a directory.
+            </li>
+
+            <li><strong><code>setuid</code>, <code>getgid</code>, and sticky bit flags:</strong>
+              The output of this field differs from the standard representation in the output of the
+              <code>ls</code> command.
+              <br>A file with all 3 flags set has an output similar to <code>ugtr-xr--r-- </code>.
+                <ul>
+                  <li><code>u</code> indicates that <code>setuid</code> is set.</li>
+                  <li> <code>g</code> indicates that <code>setgid</code> is set.</li>
+                  <li><code>t</code> indicates that sticky bit is set.</li>
+                </ul>
+                The normal output of the <code>ls</code> command for the same file is <code>-r-sr-Sr-T</code>.
+            </li>
+          </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td><code>uid</code></td>
+    <td>The user id of the owner of the file.</td>
+  </tr>
+
+  <tr>
+    <td><code>user</code></td>
+    <td>The username that corresponds with the <code>uid</code>.
+      If the <code>uid</code> lookup fails, this is set to <code>"unknown"</code>.</td>
+  </tr>
+
+  <tr>
+    <td><code>gid</code></td>
+    <td>The group id of the file.</td>
+  </tr>
+
+  <tr>
+    <td><code>group</code></td>
+    <td>The group name that corresponds with the <code>gid</code>.
+      If the <code>gid</code> lookup fails, this is set to  <code>"unknown"</code>.</td>
+  </tr>
+</table>
+
+
+<p class="note"><strong>Note:</strong> Metadata is currently only supported on Linux.
 </p>
 
 ##<a id="in-memory-cache"></a> In-Memory Cache
 
 Enabling the in-memory cache will reduce the frequency of file events being logged
 despite there being no significant change to the file. It also can make it easier to
-see how the security attributes of a file changed in a `CHMOD` event by displaying 
+see how the security attributes of a file changed in a `CHMOD` event by displaying
 the difference between the previous set of security attributes and the current ones.
 The cache can affect the behaviour of the following event types:
 
@@ -1095,7 +1190,7 @@ cache (i.e. the number of descendents under all directories in the <strong>Watch
 it was enabled. We recommend setting <strong>Maximum cache size (in number of files)</strong> to be
 1.5 times as large as the highest number you see to accomodate for new files being created.
 
-Once you set <strong>In-memory cache to reduce noise when files do not change</strong> to 
-<strong>Enabled</strong>, the number after `"Num files evicted"` will indicate how many files 
-could not fit into the cache. If this number is non-zero, consider increasing 
+Once you set <strong>In-memory cache to reduce noise when files do not change</strong> to
+<strong>Enabled</strong>, the number after `"Num files evicted"` will indicate how many files
+could not fit into the cache. If this number is non-zero, consider increasing
 <strong>Maximum cache size (in number of files)</strong> to make room for these files.
