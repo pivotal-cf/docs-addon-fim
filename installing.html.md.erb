@@ -217,7 +217,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>In-memory cache to reduce noise when files do not change</strong></td>
         <td>
-          If you want to enable an in-memory cache of file information, select <strong>Enable</strong>.
+          If you want to enable an in-memory cache for file metadata, select <strong>Enable</strong>.
           When you select this option, a field for <strong>Maximum cache size (number of files)</strong> appears.
           <br><br>
           For more information about the in-memory cache, see <a href="#in-memory-cache">In-Memory Cache</a>.
@@ -231,7 +231,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>Maximum cache size (in number of files)</strong></td>
         <td>
-          Enter a positive value for the maximum number of files to keep track of in the in-memory cache. <br><br>
+          Enter a positive integer for the maximum number of files to keep track of in the in-memory cache.
+          <br><br>
           This field only appears if you have selected <strong>Enable</strong> for
           <strong>In-memory cache to reduce noise when files do not change</strong>.
           The default value is <code>200000</code>, which can result in an increase in memory usage of
@@ -997,7 +998,7 @@ fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 mode="-rw-r--r-
 
   <tr>
     <td><code>{{.Metadata}}</code></td>
-    <td>Key-value pairs of security information for <code>CREATE</code> and <code>CHMOD</code> events. <br>
+    <td>Key-value pairs of security metadata for <code>CREATE</code> and <code>CHMOD</code> events. <br>
       The information includes the file mode, owner, and group. <br>
       Metadata is only supported on Linux.</td>
   </tr>
@@ -1065,7 +1066,7 @@ The table below describes the key-value pairs that the metadata uses:
             </li>
 
             <li><strong><code>setuid</code>, <code>getgid</code>, and sticky bit flags:</strong>
-              The output of this field differs from the standard representation in the output of the
+              The output for these flags differ from the standard representation in the output of the
               <code>ls</code> command.
               <br>A file with all 3 flags set has an output similar to <code>ugtr-xr--r-- </code>.
                 <ul>
@@ -1108,16 +1109,19 @@ The table below describes the key-value pairs that the metadata uses:
 
 ##<a id="in-memory-cache"></a> In&#8209;Memory Cache
 
+<p class="note"><strong>Note:</strong>
+  In&#8209;Memory Cache is currently only supported on Linux
+</p>
+
 When you enable the in&#8209;memory cache, the frequency of logged file events is reduced
 because trivial changes to files are not logged. This feature also enables
 you to compare the current security attributes of a file with previous versions in a `CHMOD` event.
 
 <p class="note"><strong>Note:</strong>
   If you enable the in-memory cache, <%= vars.product_abbr %> uses additional memory.
-  The additional memory cost can be changed by configure the cache size.
+  The additional memory cost can be changed by configuring the cache size.
   See <a href="#in-memory-cache_size">In&#8209;Memory Cache Size</a> below.
 </p>
-
 
 The table below describes the file events that are logged and ignored
 for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
@@ -1137,7 +1141,7 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
         <li>Changes to the file mode</li>
         <li>Changes to group or owner file ownership</li>
         <li>Changes to security attributes in the metadata.
-          Only the changed and previous attributes are logged in the event metadata.
+          Only the current and previous attributes are logged in the event metadata.
           For example, if only the file mode changes, the metadata only includes
           <code>mode</code> and <code>oldMode</code>.</li>
       </ul>
@@ -1147,7 +1151,7 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
       <ul>
         <li>File events that are not changes to the file mode or ownership.
           This includes changes to file attributes that do not indicate security threats,
-          such timestamp changes.</li>
+          such as timestamp changes.</li>
       </ul>
     </td>
   </tr>
@@ -1157,15 +1161,15 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
     <td>
         <ul>
           <li>If <strong>Log file digest for write/create events</strong> is set to <strong>Disable</strong>,
-            <code>WRITE</code> events are logged.</li>
+            all <code>WRITE</code> events are logged.</li>
         </ul>
     </td>
 
     <td>
         <ul>
-          <li>If <strong>Log file digest for write/create events</strong> is set to <strong>Enable</strong>,
+          <li>If <strong>Log file digest for write/create events</strong> is set to <strong>Enable</strong>
             and the hashed SHA256 file content has not changed from the last known hash,
-            the <code>WRITE</code> event is not logged.
+            <code>WRITE</code> events are not logged.
             This can happen if a file is overwritten with contents that are identical to
             the previous contents.</li>
         </ul>
@@ -1178,12 +1182,6 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
   is not large enough for the file, file events are logged as if the cache were disabled.
 </p>
 
-
-
-<p class="note"><strong>Note:</strong>
-  In&#8209;Memory Cache is currently only supported on Linux
-</p>
-
 ##<a id="in-memory-cache_size"></a> In&#8209;Memory Cache Size
 
 The in&#8209;memory cache size is the maximum number of files that <%= vars.product_abbr %>
@@ -1192,11 +1190,11 @@ least recently accessed file. If a file is removed from the cache, the next time
 it is logged as if the cache was disabled.
 
 On startup, <%= vars.product_abbr %> creates a cache consisting of all
-files that are descendants of the directories in the <strong>Watchlist</strong>.
+files that are descendants of the directories in that are configured in <strong>Watchlist</strong>.
 The cache does not store full files and only stores relevant metadata
 about each file.
 
-For example, if <strong>Watchlist</strong> is set monitor the following directories:
+For example, if <strong>Watchlist</strong> is set to monitor the following directories:
 
 ```
 /A
