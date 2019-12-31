@@ -999,7 +999,7 @@ fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 mode="-rw-r--r-
     <td><code>{{.Metadata}}</code></td>
     <td>Key-value pairs of security information for <code>CREATE</code> and <code>CHMOD</code> events. <br>
       The information includes the file mode, owner, and group. <br>
-      Metadata is only supported on Linux</td>
+      Metadata is only supported on Linux.</td>
   </tr>
 
   <tr>
@@ -1036,7 +1036,7 @@ The default value is `10000000` bytes.
 ##<a id="metadata"></a> Metadata
 
 <%= vars.product_abbr %> adds security metadata to `CREATE` and `CHMOD` file events.
-The metadata uses the following key-value pairs:
+The table below describes the key-value pairs that the metadata uses:
 
 
 <table>
@@ -1106,35 +1106,104 @@ The metadata uses the following key-value pairs:
 <p class="note"><strong>Note:</strong> Metadata is currently only supported on Linux.
 </p>
 
-##<a id="in-memory-cache"></a> In-Memory Cache
+##<a id="in-memory-cache"></a> In&#8209;Memory Cache
 
-Enabling the in-memory cache will reduce the frequency of file events being logged
-despite there being no significant change to the file. It also can make it easier to
-see how the security attributes of a file changed in a `CHMOD` event by displaying
-the difference between the previous set of security attributes and the current ones.
-The cache can affect the behaviour of the following event types:
+When you enable the in&#8209;memory cache, the frequency of logged file events is reduced
+because trivial changes to files are not logged. This feature also enables
+you to compare the current security attributes of a file with previous versions in a `CHMOD` event.
 
-* **`CHMOD`**
-  * If the file mode changes from the previous value, the event will be logged
-  * If the file ownership changes (either the owner or group), the event will be logged
-  * If neither the file mode nor the file ownership changes, the event will **not** be logged. This includes changes to file attributes that do not indicate security threats, such timestamp changes
-  * Only the changed attribute(s) will be logged in the event metadata, along with the old value. For instance, if only the file mode changes, the metadata will include only `mode` and `oldMode`
-  * If the file is not contained in the cache (likely because <strong>Maximum cache size (in number of files)</strong> is not large enough), the event will be logged as if the cache were disabled
-* **`WRITE`**
-  * If <strong>Log file digest for write/create events</strong> is <strong>Enabled</strong>, and the hashed file content (SHA256) has not changed from the last known hash, the event will **not** be logged. This can happen if a file is overwritten with contents that are identical to the previous contents.
-  * If <strong>Log file digest for write/create events</strong> is <strong>Disabled</strong>, `WRITE` events will always be logged
+<p class="note"><strong>Note:</strong>
+  If you enable the in-memory cache, <%= vars.product_abbr %> uses additional memory.
+  The additional memory cost can be changed by configure the cache size.
+  See <a href="#in-memory-cache_size">In&#8209;Memory Cache Size</a> below.
+</p>
 
-On startup, <%= vars.product_abbr %> will construct a cache consisting of all
+
+The table below describes the file events that are logged and ignored
+for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
+
+<table>
+
+  <tr>
+    <th width="75">File Event</th>
+    <th>Logged Events</th>
+    <th>Ignored Events</th>
+  </tr>
+
+  <tr>
+    <td><code>CHMOD</code></td>
+    <td>
+      <ul>
+        <li>Changes to the file mode</li>
+        <li>Changes to group or owner file ownership</li>
+        <li>Changes to security attributes in the metadata.
+          Only the changed and previous attributes are logged in the event metadata.
+          For example, if only the file mode changes, the metadata only includes
+          <code>mode</code> and <code>oldMode</code>.</li>
+      </ul>
+    </td>
+
+    <td>
+      <ul>
+        <li>File events that are not changes to the file mode or ownership.
+          This includes changes to file attributes that do not indicate security threats,
+          such timestamp changes.</li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td><code>WRITE</code></td>
+    <td>
+        <ul>
+          <li>If <strong>Log file digest for write/create events</strong> is set to <strong>Disable</strong>,
+            <code>WRITE</code> events are logged.</li>
+        </ul>
+    </td>
+
+    <td>
+        <ul>
+          <li>If <strong>Log file digest for write/create events</strong> is set to <strong>Enable</strong>,
+            and the hashed SHA256 file content has not changed from the last known hash,
+            the <code>WRITE</code> event is not logged.
+            This can happen if a file is overwritten with contents that are identical to
+            the previous contents.</li>
+        </ul>
+    </td>
+  </tr>
+</table>
+
+<p class="note"><strong>Note:</strong> If a file is not contained in the cache
+  because <strong>Maximum cache size (in number of files)</strong>
+  is not large enough for the file, file events are logged as if the cache were disabled.
+</p>
+
+
+
+<p class="note"><strong>Note:</strong>
+  In&#8209;Memory Cache is currently only supported on Linux
+</p>
+
+##<a id="in-memory-cache_size"></a> In&#8209;Memory Cache Size
+
+The in&#8209;memory cache size is the maximum number of files that <%= vars.product_abbr %>
+can keep track of at once. If there are more files being watched than fit into the cache, the cache removes the
+least recently accessed file. If a file is removed from the cache, the next time it is accessed,
+it is logged as if the cache was disabled.
+
+On startup, <%= vars.product_abbr %> creates a cache consisting of all
 files that are descendants of the directories in the <strong>Watchlist</strong>.
+The cache does not store full files and only stores relevant metadata
+about each file.
 
-For instance, if <strong>Watchlist</strong> is set to:
+For example, if <strong>Watchlist</strong> is set monitor the following directories:
 
 ```
 /A
 /B
 ```
 
-And the filesystem has the following structure:
+And the file system has the following structure:
 
 ```
 /
@@ -1147,50 +1216,41 @@ And the filesystem has the following structure:
     └── 4
 ```
 
-Then the cache will have 7 files (`A`, `B`, `C`, `1`, `2`, `3`, `4`).
+Then the cache contains seven files: `A`, `B`, `C`, `1`, `2`, `3`, `4`.
 
-Note that the cache does not store full files. It only stores relevant metadata
-about each file.
+###<a id="configure-cache_size"></a> Configure Cache Size
 
-<p class="note"><strong>Note:</strong>
-  Enabling the in-memory cache will cause <%= vars.product_abbr %> to use additional memory.
-  The additional memory cost can be changed by [tuning the cache size](#in-memory-cache_size).
-</p>
+To determine how large to set **Maximum cache size (in number of files)**:
 
-<p class="note"><strong>Note:</strong>
-  In-Memory Cache is currently only supported on Linux
-</p>
+1. Set **In-memory cache to reduce noise when files do not change**
+to **Disable**.
 
-##<a id="in-memory-cache_size"></a> In-Memory Cache Size
+1. Deploy <%= vars.product_abbr %>.
 
-The in-memory cache size is the maximum number of files that can be kept track of at once.
-If there are more files being watched than fit into the cache, the cache will remove the
-least recently accessed file. If a file is removed from the cache, the next time it is accessed,
-it will be logged as if the cache was disabled.
+1. View the <%= vars.product_abbr %> `stderr` logs for some of your VMs. These can be found in
+ `/var/vcap/sys/log/fim/fim.stderr.log`. The logs look similar to the following:
 
-<p class="note"><strong>Note:</strong>
-  For every `200,000` file increase to <strong>Maximum cache size (in number of files)</strong>,
-  anticipate a memory increase of approximately 100MB.
+    ```
+    ...
+    2019/12/20 18:23:47 Num files added: 71011
+    2019/12/20 18:23:47 Num files evicted: 0
+    ```
 
-  Ensure that the field <strong>Max memory usage (in bytes)</strong> is set to be large enough
-  to account for the additional memory overhead of the cache.
-</p>
+1. Record the number after `Num files added` for some of your VMS.
+This number indicates how many files would be added to the in&#8209;memory cache if it was enabled.
 
-To determine how large to set <strong>Maximum cache size (in number of files)</strong>, we recommend
-first deploying <%= vars.product_abbr %> with <strong>In-memory cache to reduce noise when files do not change</strong> set to <strong>Disabled</strong>. Observe the <%= vars.product_abbr %> `stderr` logs for some of your VMs (can be found at `/var/vcap/sys/log/fim/fim.stderr.log`). You should see something like:
+1. Set **In-memory cache to reduce noise when files do not change** to **Enable**.
 
-```
-...
-2019/12/20 18:23:47 Num files added: 71011
-2019/12/20 18:23:47 Num files evicted: 0
-```
+1. Set **Maximum cache size (in number of files)** to 1.5 times
+the largest number you recorded. This accommodates for any new files that are created.
 
-The number after `"Num files added"` indicates how many files would have been added to the in-memory
-cache (i.e. the number of descendents under all directories in the <strong>Watchlist</strong>) if
-it was enabled. We recommend setting <strong>Maximum cache size (in number of files)</strong> to be
-1.5 times as large as the highest number you see to accomodate for new files being created.
+1. Set **Max memory usage (in bytes)** to a value that is
+large enough to account for the additional memory cost for the cache.
+For every `200000` file increase to **Maximum cache size (in number of files)**,
+memory increases by approximately 100&nbsp;MB.
 
-Once you set <strong>In-memory cache to reduce noise when files do not change</strong> to
-<strong>Enabled</strong>, the number after `"Num files evicted"` will indicate how many files
+1. Repeat steps 2 and 3.
+
+1. Record the number after `Num files evicted`. This indicates how many files
 could not fit into the cache. If this number is non-zero, consider increasing
-<strong>Maximum cache size (in number of files)</strong> to make room for these files.
+**Maximum cache size (in number of files)** to make room for these files.

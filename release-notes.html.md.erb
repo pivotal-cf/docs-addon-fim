@@ -20,20 +20,23 @@ This topic contains release notes for <%= vars.product_full %> (<%= vars.product
 
 New features and changes in this release:
 
-
-* <%= vars.product_abbr %> now adds security metadata for `CREATE` and `CHMOD` events on Linux.
+* Adds security metadata for `CREATE` and `CHMOD` events on Linux.
 For more information, see [Metadata](./installing.html#metadata).
 
-* <%= vars.product_abbr %> can be configured to keep track of file metadata using an in-memory cache on Linux.
-Enabling this feature will use more memory, but can limit the number of redundant file events being logged.
+* Adds support for in&#8209;memory cache on Linux to keep track of file metadata.
+If you enable this feature, <%= vars.product_abbr %> uses more memory,
+but reduces the number of trival file events that are logged.
 For more information, see [In-Memory Cache](./installing.html#in-memory-cache).
 
 ### Known Issues
 
 This release has the following known issue:
 
-* The **`user`** and **`group`** metadata fields may not be accurate for files in containers on PAS/PKS.
-However, the proper username and group name can be determined using the **`uid`** and **`gid`** metadata fields.
+* `user` and `group` security metadata
+might not be accurate for files in containers on <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
+and <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>).
+However, you can determine the correct username and group name for a file from the
+the `uid` and `gid` metadata keys.
 
 ## <a id="view"></a> View Release Notes for Another Version
 
