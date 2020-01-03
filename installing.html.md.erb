@@ -1100,7 +1100,7 @@ The table below describes the key-value pairs that the metadata uses:
 
 When you enable the in&#8209;memory cache, the frequency of logged file events is reduced
 because trivial changes to files are not logged. This feature also enables
-you to compare the current security metadata of a file with previous versions in a `CHMOD` event.
+you to compare the current security metadata of a file with last known version in a `CHMOD` event.
 
 <p class="note"><strong>Note:</strong>
   If you enable the in&#8209;memory cache, <%= vars.product_abbr %> uses additional memory.
@@ -1124,9 +1124,9 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
     <td>
       <ul>
         <li>Changes to the file mode</li>
-        <li>Changes to group or owner file ownership</li>
-        <li>Changes to security metadata values.
-          Only the current and previous values are logged in the event metadata.
+        <li>Changes to user file ownership and group file ownership</li>
+        <li>An aggregation of file mode and file ownership changes.
+          Only the current and last known versions are logged.
           For example, if only the file mode changes, the metadata only includes
           <code>mode</code> and <code>oldMode</code>.</li>
       </ul>
