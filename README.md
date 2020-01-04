@@ -29,3 +29,5 @@ docs-book-addon-fim
 Full name of the add-on for first use on the page: Pivotal File Integrity Monitoring (FIM)
 
 Subsequent use on the page: "File Integrity Monitoring" or "FIM"
+
+_security metadata_ instead of the other phrases: _security information_ and _security attributes_.

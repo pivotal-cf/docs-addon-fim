@@ -9,7 +9,7 @@ This topic describes how to install <%= vars.product_full %>
 (<%= vars.product_abbr %>).
 
 <p class="note"><strong>Note:</strong>
-  When you install the <%= vars.product_abbr %> tile using Ops Manager,
+  When you install the <%= vars.product_abbr %> tile using <%= vars.ops_manager %>,
   <%= vars.product_abbr %> does not monitor the files on your BOSH Director.
   To apply <%= vars.product_abbr %> to the BOSH Director VM,
   see <a href="./installing-bosh.html">Installing File Integrity Monitoring on BOSH Director</a>.
@@ -42,13 +42,13 @@ This adds the tile to your staging area.
 
 1. Click the newly added **<%= vars.product_abbr %>** tile.
 
-## <a id='configure-ubuntu'></a> Configure <%= vars.product_abbr %> for Linux
+## <a id='configure-ubuntu'></a> Configure <%= vars.product_abbr %> for Linux.
 
 To configure <%= vars.product_abbr %> for Linux VMs:
 
 1. Select **FIM Configuration for Ubuntu**.
 
-  ![](linux-config.png)
+    ![](linux-config.png)
 
 1. Configure the following fields:
 
@@ -59,10 +59,9 @@ To configure <%= vars.product_abbr %> for Linux VMs:
         <td><strong>Watchlist</strong></td>
         <td>
           Create a list of file paths to monitor for file system events.
-          Use the <strong>Add</strong> button and trash can icons to add and
-          remove file paths from the list.
+          Use <strong>Add</strong> to remove file paths from the list.
           <br><br>
-          For more information, see <a href="#dirs">Watchlist</a>.
+          For more information, see <a href="#dirs">Watchlist</a> below.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -74,13 +73,13 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           Create a list of files that you want <%= vars.product_abbr %> to ignore.
           Events for files matching any of the provided regular expressions are
           not included in the logs.
-          Use the <strong>Add</strong> button and trash can icons to add and
-          remove files from the list.
+          Use <strong>Add</strong> to add files to the list,
+          and use the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           <br><br>
-          For more information, see <a href="#output-ignore">Ignore Patterns</a>.
+          For more information, see <a href="#output-ignore">Ignore Patterns</a> below.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.ignored_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -90,12 +89,13 @@ To configure <%= vars.product_abbr %> for Linux VMs:
         <td><strong>Low severity tagging for frequently changed files</strong></td>
         <td>
           Create a list of files to be marked as low severity.
-          Use the <strong>Add</strong> button and trash can icons to add and remove files from the list.
+          Use <strong>Add</strong> to add files to the list,
+          and use the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           <br><br>
-          For more information, see <a href="#output-low">Low Severity Events</a>.
+          For more information, see <a href="#output-low">Low Severity Events</a> below.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.low_severity_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -108,7 +108,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           This template must be compatible with the golang package <code>text/template</code>.
           <br><br>
           For more information about the <strong>Output log format</strong> field,
-          see <a href="#format">Output Log Format</a>.
+          see <a href="#format">Output Log Format</a> below.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.format</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -184,13 +184,13 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>Log file digest for write/create events</strong></td>
         <td>
-          If you want to enable computing digests for write/create events, select
+          To enable computing digests for write/create events, select
           <strong>Enable</strong>.
           When you select this option, a field for
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
           appears.
           <br><br>
-          For more information, see <a href="#digests">Calculate File Hashes</a>.
+          For more information, see <a href="#digests">Calculate File Hashes</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digests</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -207,7 +207,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           This field only appears if you have selected <strong>Enable</strong> for <strong>Log file digest for write/create events</strong>.
           The default value is <code>10000000</code>.
           <br><br>
-          For more information, see <a href="#digest_threshold">File Size Threshold</a>.
+          For more information, see <a href="#digest_threshold">File Size Threshold</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digest_threshold</code> in
             <%= vars.product_abbr %> v1.4 and earlier.<br>
@@ -217,10 +217,10 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>In&#8209;memory cache to reduce noise when files do not change</strong></td>
         <td>
-          If you want to enable an in&#8209;memory cache for security metadata, select <strong>Enable</strong>.
+          To enable an in&#8209;memory cache for security metadata, select <strong>Enable</strong>.
           When you select this option, a field for <strong>Maximum cache size (number of files)</strong> appears.
           <br><br>
-          For more information about the in&#8209;memory cache, see <a href="#in-memory-cache">In&#8209;Memory Cache</a>.
+          For more information about the in&#8209;memory cache, see <a href="#in-memory-cache">In&#8209;Memory Cache</a> below.
 
           <p class="note"><strong>Note</strong>:
             <strong>In&#8209;memory cache to reduce noise when files do not change</strong> is currently only supported
@@ -238,13 +238,13 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           The default value is <code>200000</code>, which can result in an increase in memory usage of
           up to roughly 100&nbsp;MB.
           <br><br>
-          For more information, see <a href="#in-memory-cache_size">In&#8209;Memory Cache Size</a>.
+          For more information, see <a href="#in-memory-cache_size">In&#8209;Memory Cache Size</a> below.
 
           <p class="note"><strong>Note</strong>:
             Enabling the in&#8209;memory cache causes <%= vars.product_abbr %> to use additional memory.
             Ensure that <strong>Maximum cache size (number of files)</strong> is configured with
             an appropriate value using the instructions in
-            <a href="#in-memory-cache_size">In&#8209;Memory Cache Size</a>.
+            <a href="#in-memory-cache_size">In&#8209;Memory Cache Size</a> below.
           </p>
         </td>
       </tr>
@@ -282,8 +282,8 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td><strong>Watchlist</strong></td>
         <td>
           Create a list of file paths to monitor for file system events.
-          Use the <strong>Add</strong> button and trash can icons to add and
-          remove file paths from the list.
+          Use <strong>Add</strong> to add file paths to the list,
+          and use the trash can icon to remove file paths from the list.
           <br><br>
           For more information, see <a href="#dirs">Watchlist</a> below.
           <p class="note"><strong>Note:</strong>
@@ -296,8 +296,8 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td>
           Create a list of file paths to monitor for file system events per container on
           the Windows Diego Cell.
-          Use the <strong>Add</strong> button and trash can icons to add and
-          remove file paths from the list.
+          Use <strong>Add</strong> to add file paths to the list,
+          and use the trash can icon to remove file paths from the list.
           For example, to monitor file system events for app files,
           enter <code>C:\Users\vcap\app</code>.
           <br><br>
@@ -318,7 +318,8 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td><strong>Ignore patterns</strong></td>
         <td>
           Create a list of files that you want <%= vars.product_abbr %> to ignore.
-          Use the <strong>Add</strong> button and trash can icons to add and remove files from the list.
+          Use <strong>Add</strong> to add files to the list,
+          and use the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
           When defining <strong>Ignore patterns</strong> for Windows, you must replace all
@@ -327,7 +328,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           Events for files matching any of the provided regular expressions are
           not included in the logs.
           <br><br>
-          For more information, see <a href="#output-ignore">Ignore Patterns</a>.
+          For more information, see <a href="#output-ignore">Ignore Patterns</a> below.
           <p class="note"><strong>Note: </strong>
             To ignore events for files in containers, you must enter regular expressions that are
             relative to the file system for the Diego Cell, rather than the container.
@@ -346,14 +347,15 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td><strong>Low severity tagging for frequently changed files</strong></td>
         <td>
           Create a list of files to be marked as low severity.
-          Use the <strong>Add</strong> button and trash can icons to add and remove files from the list.
+          Use <strong>Add</strong> to add files to the list,
+          and use the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
           When defining <strong>Low severity tagging for frequently changed files</strong> for Windows, you must
           replace all single back slashes with double back slashes.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           <br><br>
-          For more information, see <a href="#output-low">Low Severity Events</a>.
+          For more information, see <a href="#output-low">Low Severity Events</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.low_severity_patterns</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -365,7 +367,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td>
           Enter a template for log lines.
           This template must be compatible with the golang package <code>text/template</code>.<br><br>
-          For more information, see <a href="#format">Output Log Format</a>.
+          For more information, see <a href="#format">Output Log Format</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.format</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -396,7 +398,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           If you enable digests, a field for
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
           appears after you select the option.<br><br>
-          For more information, see <a href="#digests">Calculate File Hashes</a>.
+          For more information, see <a href="#digests">Calculate File Hashes</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digests</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -412,7 +414,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           for <%= vars.product_abbr %> to hash.
           This field only appears if you have selected <strong>Enable</strong> for <strong>Log file digest for write/create events</strong>.
           The default value is <code>10000000</code>.<br><br>
-          For more information, see <a href="#digest_threshold">File Size Threshold</a>.
+          For more information, see <a href="#digest_threshold">File Size Threshold</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digest_threshold</code> in
             <%= vars.product_abbr %> v1.4 and earlier.<br>
@@ -435,7 +437,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
 
 To disable installing <%= vars.product_abbr %> on Windows VMs:
 
-1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Windows (Beta)**. <%# unsure %>
+1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Windows (Beta)**.
 
 1. Add the instance group **windows\_diego\_cell** to the field
 **List of instance group names that will be excluded from deployment**.
@@ -1068,7 +1070,7 @@ The table below describes the key-value pairs that the metadata uses:
 
   <tr>
     <td><code>uid</code></td>
-    <td>The user id of the owner of the file.</td>
+    <td>The user ID of the owner of the file.</td>
   </tr>
 
   <tr>
@@ -1079,7 +1081,7 @@ The table below describes the key-value pairs that the metadata uses:
 
   <tr>
     <td><code>gid</code></td>
-    <td>The group id of the file.</td>
+    <td>The group ID of the file.</td>
   </tr>
 
   <tr>
