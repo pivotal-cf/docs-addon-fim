@@ -59,8 +59,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
         <td><strong>Watchlist</strong></td>
         <td>
           Create a list of file paths to monitor for file system events.
-          Use the <strong>Add</strong> button and trash can icons to add and
-          remove file paths from the list.
+          Click <strong>Add</strong> to add file paths to the list,
+          and use the trash can icon to remove file paths from the list.
           <br><br>
           For more information, see <a href="#dirs">Watchlist</a>.
           <p class="note"><strong>Note: </strong>
@@ -74,8 +74,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           Create a list of files that you want <%= vars.product_abbr %> to ignore.
           Events for files matching any of the provided regular expressions are
           not included in the logs.
-          Use the <strong>Add</strong> button and trash can icons to add and
-          remove files from the list.
+          Click <strong>Add</strong> to add files to the list,
+          and use the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
@@ -90,7 +90,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
         <td><strong>Low severity tagging for frequently changed files</strong></td>
         <td>
           Create a list of files to be marked as low severity.
-          Use the <strong>Add</strong> button and trash can icons to add and remove files from the list.
+          Click <strong>Add</strong> to add files to the list,
+          and use the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
@@ -138,7 +139,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           that <%= vars.product_abbr %> can use per VM.
           The default value is <code>536870912</code> (512&nbsp;MB).
           <p class="note"><strong>Note</strong>:
-            This field corresponds with <code>fim.memory_limit</code> in <%= vars.product_abbr %> v1.4 and earlier.
+            This field corresponds to <code>fim.memory_limit</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
         </td>
       </tr>
@@ -157,18 +158,18 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       </tr>
       <tr>
         <td><strong>Enforce CPU limit</strong></td>
-        <td>Select the enforcement policy for the <strong>CPU limit</strong>:
+        <td>Select the enforcement policy for the <strong>>CPU limit (percentage)</strong>:
           <ul>
-            <li><strong>Always</strong>: Ensures the <strong>CPU limit</strong> is always enforced</li>
+            <li><strong>Always</strong>: Ensures the <strong>>CPU limit (percentage)</strong> is always enforced</li>
             <li><strong>When other processes are using CPU resources</strong>: Permits the CPU usage to
-              exceed the limit set by <strong>CPU limit</strong> if idle CPU cycles are available</li>
+              exceed the limit set by <strong>>CPU limit (percentage)</strong> if idle CPU cycles are available</li>
           </ul>
 
           The default setting is <strong>When other processes are using CPU resources</strong>.
 
           <p class="note warning"><strong>Warning: </strong>
             If <strong>Enforce CPU limit</strong> is set <strong>Always</strong>,
-            verify that the <strong>CPU limit</strong> is set high enough for <%= vars.product_abbr %> to
+            verify that the <strong>>CPU limit (percentage)</strong> is set high enough for <%= vars.product_abbr %> to
             execute correctly.
             If the limit is too strict, <%= vars.product_abbr %> fails to start.
           </p>
@@ -248,8 +249,8 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td><strong>Watchlist</strong></td>
         <td>
           Create a list of file paths to monitor for file system events.
-          Use the <strong>Add</strong> button and trash can icons to add and
-          remove file paths from the list.
+          Click <strong>Add</strong> to add file paths to the list,
+          and use the trash can icon to remove file paths from the list.
           <br><br>
           For more information, see <a href="#dirs">Watchlist</a> below.
           <p class="note"><strong>Note:</strong>
@@ -262,8 +263,8 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td>
           Create a list of file paths to monitor for file system events per container on
           the Windows Diego Cell.
-          Use the <strong>Add</strong> button and trash can icons to add and
-          remove file paths from the list.
+          Click <strong>Add</strong> to add file paths to the list,
+          and use the trash can icon to remove file paths from the list.
           For example, to monitor file system events for app files,
           enter <code>C:\Users\vcap\app</code>.
           <br><br>
@@ -284,7 +285,8 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td><strong>Ignore patterns</strong></td>
         <td>
           Create a list of files that you want <%= vars.product_abbr %> to ignore.
-          Use the <strong>Add</strong> button and trash can icons to add and remove files from the list.
+          Click <strong>Add</strong> to add files to the list,
+          and use the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
           When defining <strong>Ignore patterns</strong> for Windows, you must replace all
@@ -312,7 +314,8 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td><strong>Low severity tagging for frequently changed files</strong></td>
         <td>
           Create a list of files to be marked as low severity.
-          Use the <strong>Add</strong> button and trash can icons to add and remove files from the list.
+          Click <strong>Add</strong> to add files to the list,
+          and use the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
           When defining <strong>Low severity tagging for frequently changed files</strong> for Windows, you must
@@ -571,7 +574,7 @@ Below is the default list of file paths in **Watchlist** section of **FIM Config
   <col width="40%">
   <col width="60%">
   <tr>
-    <th></th>
+    <th>Component</th>
     <th>File Paths</th>
   </tr>
   <tr>
@@ -681,7 +684,7 @@ Below is the default list in **Ignore Patterns** section of **FIM Configuration 
   <col width="40%">
   <col width="60%">
   <tr>
-    <th></th>
+    <th>Scenario</th>
     <th>List</th>
   </tr>
   <tr>
@@ -749,7 +752,7 @@ section of **FIM Configuration for Ubuntu**.
   <col width="40%">
   <col width="60%">
   <tr>
-    <th></th>
+    <th>Scenario</th>
     <th>List</th>
   </tr>
   <tr>
