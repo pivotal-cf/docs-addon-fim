@@ -1107,7 +1107,7 @@ you to compare the current security metadata of a file with the last known versi
 
 <p class="note"><strong>Note:</strong>
   If you enable the in&#8209;memory cache, <%= vars.product_abbr %> uses additional memory.
-  The additional memory cost can be changed by configuring the cache size.
+  You can change the additional memory cost by configuring the cache size.
   See <a href="#in-memory-cache_size">In&#8209;Memory Cache Size</a> below.
 </p>
 
@@ -1165,9 +1165,9 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
   </tr>
 </table>
 
-<p class="note"><strong>Note:</strong> If a file is not contained in the cache
-  because <strong>Maximum cache size (in number of files)</strong>
-  is not large enough for the file, file events are logged as if the cache were disabled.
+<p class="note"><strong>Note:</strong> If the cache is full,
+  because <strong>Maximum cache size (in number of files)</strong> is too small,
+  <%= vars.product_abbr %> logs file event as if the cache was disabled.
 </p>
 
 ##<a id="in-memory-cache_size"></a> In&#8209;Memory Cache Size
@@ -1175,8 +1175,9 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
 The in&#8209;memory cache size is the maximum number of files that <%= vars.product_abbr %>
 can store at once. If there are more files being watched than can fit into the cache,
 the cache removes the least-recently accessed file.
-If a file is removed from the cache, the next time the file is accessed,
-it is logged as if the cache was disabled.
+<%= vars.product_abbr %> removes a file from the cache,
+the next time the file is accessed,
+<%= vars.product_abbr %> logs it as if the cache was disabled.
 
 On startup, <%= vars.product_abbr %> creates a cache consisting of all
 files that are descendants of the directories that are configured in <strong>Watchlist</strong>.
@@ -1212,7 +1213,7 @@ To determine how large to set **Maximum cache size (in number of files)**:
 1. Set **In&#8209;memory cache to reduce noise when files do not change**
 to **Disable**.
 
-1. Deploy <%= vars.product_abbr %>.
+1.  Navigate to **Installation Dashboard** > **Review Pending Changes** and click **Apply Changes**.
 
 1. View the <%= vars.product_abbr %> `stderr` logs for some of your VMs. These can be found in
  `/var/vcap/sys/log/fim/fim.stderr.log`. The logs look similar to the following:
@@ -1233,8 +1234,7 @@ the largest number you recorded. This accommodates for any new files that are cr
 
 1. Set **Max memory usage (in bytes)** to a value that is
 large enough to account for the additional memory cost for the cache.
-For every `200000` file increase to **Maximum cache size (in number of files)**,
-memory increases by approximately 100&nbsp;MB.
+For example. 200,000 files cost approximately 100&nbsp;MB in memory.
 
 1. Repeat steps 2 and 3.
 
