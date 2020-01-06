@@ -1174,8 +1174,7 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
 
 The in&#8209;memory cache size is the maximum number of files that <%= vars.product_abbr %>
 can store at once. If there are more files being watched than can fit into the cache,
-the cache removes the least-recently accessed file.
-<%= vars.product_abbr %> removes a file from the cache,
+the cache removes the least-recently accessed file. If the cache removes a file,
 the next time the file is accessed,
 <%= vars.product_abbr %> logs it as if the cache was disabled.
 
