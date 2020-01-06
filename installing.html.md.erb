@@ -59,7 +59,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
         <td><strong>Watchlist</strong></td>
         <td>
           Create a list of file paths to monitor for file system events.
-          Use <strong>Add</strong> to remove file paths from the list.
+          Click <strong>Add</strong> to add file paths to the list,
+          and use the trash can icon to remove file paths from the list.
           <br><br>
           For more information, see <a href="#dirs">Watchlist</a> below.
           <p class="note"><strong>Note: </strong>
@@ -73,7 +74,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           Create a list of files that you want <%= vars.product_abbr %> to ignore.
           Events for files matching any of the provided regular expressions are
           not included in the logs.
-          Use <strong>Add</strong> to add files to the list,
+          Click <strong>Add</strong> to add files to the list,
           and use the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
@@ -89,7 +90,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
         <td><strong>Low severity tagging for frequently changed files</strong></td>
         <td>
           Create a list of files to be marked as low severity.
-          Use <strong>Add</strong> to add files to the list,
+          Click <strong>Add</strong> to add files to the list,
           and use the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
@@ -138,7 +139,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           that <%= vars.product_abbr %> can use per VM.
           The default value is <code>536870912</code> (512&nbsp;MB).
           <p class="note"><strong>Note</strong>:
-            This field corresponds with <code>fim.memory_limit</code> in <%= vars.product_abbr %> v1.4 and earlier.
+            This field corresponds to <code>fim.memory_limit</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
         </td>
       </tr>
@@ -157,18 +158,18 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       </tr>
       <tr>
         <td><strong>Enforce CPU limit</strong></td>
-        <td>Select the enforcement policy for the <strong>CPU limit</strong>:
+        <td>Select the enforcement policy for the <strong>>CPU limit (percentage)</strong>:
           <ul>
-            <li><strong>Always</strong>: Ensures the <strong>CPU limit</strong> is always enforced</li>
+            <li><strong>Always</strong>: Ensures the <strong>>CPU limit (percentage)</strong> is always enforced</li>
             <li><strong>When other processes are using CPU resources</strong>: Permits the CPU usage to
-              exceed the limit set by <strong>CPU limit</strong> if idle CPU cycles are available</li>
+              exceed the limit set by <strong>>CPU limit (percentage)</strong> if idle CPU cycles are available</li>
           </ul>
 
           The default setting is <strong>When other processes are using CPU resources</strong>.
 
           <p class="note warning"><strong>Warning: </strong>
             If <strong>Enforce CPU limit</strong> is set <strong>Always</strong>,
-            verify that the <strong>CPU limit</strong> is set high enough for <%= vars.product_abbr %> to
+            verify that the <strong>>CPU limit (percentage)</strong> is set high enough for <%= vars.product_abbr %> to
             execute correctly.
             If the limit is too strict, <%= vars.product_abbr %> fails to start.
           </p>
@@ -282,7 +283,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td><strong>Watchlist</strong></td>
         <td>
           Create a list of file paths to monitor for file system events.
-          Use <strong>Add</strong> to add file paths to the list,
+          Click <strong>Add</strong> to add file paths to the list,
           and use the trash can icon to remove file paths from the list.
           <br><br>
           For more information, see <a href="#dirs">Watchlist</a> below.
@@ -296,7 +297,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td>
           Create a list of file paths to monitor for file system events per container on
           the Windows Diego Cell.
-          Use <strong>Add</strong> to add file paths to the list,
+          Click <strong>Add</strong> to add file paths to the list,
           and use the trash can icon to remove file paths from the list.
           For example, to monitor file system events for app files,
           enter <code>C:\Users\vcap\app</code>.
@@ -318,7 +319,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td><strong>Ignore patterns</strong></td>
         <td>
           Create a list of files that you want <%= vars.product_abbr %> to ignore.
-          Use <strong>Add</strong> to add files to the list,
+          Click <strong>Add</strong> to add files to the list,
           and use the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
@@ -347,7 +348,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td><strong>Low severity tagging for frequently changed files</strong></td>
         <td>
           Create a list of files to be marked as low severity.
-          Use <strong>Add</strong> to add files to the list,
+          Click <strong>Add</strong> to add files to the list,
           and use the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
@@ -607,7 +608,7 @@ Below is the default list of file paths in **Watchlist** section of **FIM Config
   <col width="40%">
   <col width="60%">
   <tr>
-    <th></th>
+    <th>Component</th>
     <th>File Paths</th>
   </tr>
   <tr>
@@ -717,7 +718,7 @@ Below is the default list in **Ignore Patterns** section of **FIM Configuration 
   <col width="40%">
   <col width="60%">
   <tr>
-    <th></th>
+    <th>Scenario</th>
     <th>List</th>
   </tr>
   <tr>
@@ -785,7 +786,7 @@ section of **FIM Configuration for Ubuntu**.
   <col width="40%">
   <col width="60%">
   <tr>
-    <th></th>
+    <th>Scenario</th>
     <th>List</th>
   </tr>
   <tr>
@@ -1075,7 +1076,7 @@ The table below describes the key-value pairs that the metadata uses:
 
   <tr>
     <td><code>user</code></td>
-    <td>The username that corresponds with the <code>uid</code>.
+    <td>The username that corresponds to the <code>uid</code>.
       If the <code>uid</code> lookup fails, this is set to <code>"unknown"</code>.</td>
   </tr>
 
@@ -1086,7 +1087,7 @@ The table below describes the key-value pairs that the metadata uses:
 
   <tr>
     <td><code>group</code></td>
-    <td>The group name that corresponds with the <code>gid</code>.
+    <td>The group name that corresponds to the <code>gid</code>.
       If the <code>gid</code> lookup fails, this is set to  <code>"unknown"</code>.</td>
   </tr>
 </table>
@@ -1222,7 +1223,7 @@ to **Disable**.
     2019/12/20 18:23:47 Num files evicted: 0
     ```
 
-1. Record the number after `Num files added` for some of your VMS.
+1. Record the number after `Num files added` for some of your VMs.
 This number indicates how many files would be added to the in&#8209;memory cache if it was enabled.
 
 1. Set **In&#8209;memory cache to reduce noise when files do not change** to **Enable**.
