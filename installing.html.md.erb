@@ -192,7 +192,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
           appears after you select the option.
           <br><br>
-          For more information, see <a href="#digests">Calculate File Hashes</a> below.
+          For more information, see <a href="#digests">File Digests</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digests</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -367,7 +367,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           If you enable digests, a field for
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
           appears after you select the option.<br><br>
-          For more information, see <a href="#digests">Calculate File Hashes</a> below.
+          For more information, see <a href="#digests">File Digests</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digests</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -953,14 +953,222 @@ format: "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Digests}} {{.Ts}}"
 /bin/binary plymouth CREATE 1 sha256=da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
 ```
 
-##<a id="digests"></a>Calculate File Hashes
+##<a id="digests"></a>File Digests
 
 <%= vars.product_abbr %> supports hashing monitored files on <code>WRITE</code> or <code>CREATE</code> events
 using the `sha256` algorithm.
+If you enable digests, <%= vars.product_abbr %> includes the calculated hash for the file in the logs.
+
+If you want to show that content has changed or check which version of the file is mapped to a log entry,
+you can calculate the `sha256` value of a file and compare it to the value in the log.
+
 Hashing is disabled by default.
 
-
-##<a id="digest_threshold"></a>File Size Threshold
-
+<<<<<<< HEAD
 <%= vars.product_abbr %> sets a threshold on the size of files, in bytes, to be hashed.
 The default value is `10000000` bytes.
+=======
+
+##<a id="metadata"></a> Metadata
+
+<p class="note"><strong>Note:</strong> Metadata is currently only supported on Linux.
+</p>
+
+<%= vars.product_abbr %> adds security metadata to `CREATE` and `CHMOD` file events.
+The table below describes the key-value pairs that the metadata uses:
+
+
+<table>
+  <tr>
+    <th width="75">Key</th>
+    <th>Description</th>
+  </tr>
+
+  <tr>
+    <td><code>mode</code></td>
+    <td>This key encodes Unix file system permissions and permissions behavior. <br><br>
+      The output for <code>setuid</code>, <code>getgid</code>, and sticky bit flags differ
+      from the standard representation in the output of the <code>ls</code> command.
+      <br>A file with all three flags set has an output similar to <code>ugtr-xr--r-- </code>.
+        <ul>
+          <li><code>u</code> indicates that <code>setuid</code> is set.</li>
+          <li> <code>g</code> indicates that <code>setgid</code> is set.</li>
+          <li><code>t</code> indicates that sticky bit is set.</li>
+        </ul>
+        The normal output of the <code>ls</code> command for the same file is <code>-r-sr-Sr-T</code>.
+
+    </td>
+  </tr>
+
+  <tr>
+    <td><code>uid</code></td>
+    <td>The user ID of the owner of the file.</td>
+  </tr>
+
+  <tr>
+    <td><code>user</code></td>
+    <td>The username that corresponds to the <code>uid</code>.
+      If the <code>uid</code> lookup fails, this is set to <code>"unknown"</code>.</td>
+  </tr>
+
+  <tr>
+    <td><code>gid</code></td>
+    <td>The group ID of the file.</td>
+  </tr>
+
+  <tr>
+    <td><code>group</code></td>
+    <td>The group name that corresponds to the <code>gid</code>.
+      If the <code>gid</code> lookup fails, this is set to  <code>"unknown"</code>.</td>
+  </tr>
+</table>
+
+
+
+
+##<a id="in-memory-cache"></a> In&#8209;Memory Cache
+
+<p class="note"><strong>Note:</strong>
+  In&#8209;Memory Cache is currently only supported on Linux.
+</p>
+
+When you enable the in&#8209;memory cache, the frequency of logged file events is reduced
+because trivial changes to files are not logged. This feature also enables
+you to compare the current security metadata of a file with the last known version in a `CHMOD` event.
+
+<p class="note"><strong>Note:</strong>
+  If you enable the in&#8209;memory cache, <%= vars.product_abbr %> uses additional memory.
+  You can change the additional memory cost by configuring the cache size.
+  See <a href="#in-memory-cache_size">In&#8209;Memory Cache Size</a> below.
+</p>
+
+The table below describes the file events that are logged and ignored
+for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
+
+<table>
+
+  <tr>
+    <th width="75">File Event</th>
+    <th>Logged Events</th>
+    <th>Ignored Events</th>
+  </tr>
+
+  <tr>
+    <td><code>CHMOD</code></td>
+    <td>
+      <ul>
+        <li>Changes to the file mode</li>
+        <li>Changes to user file ownership and group file ownership</li>
+        <li>An aggregation of file mode and file ownership changes.
+          Only the current and last known version are logged.
+          For example, if only the file mode changes, the metadata only includes
+          <code>mode</code> and <code>oldMode</code>.</li>
+      </ul>
+    </td>
+
+    <td>
+      <ul>
+        <li>File events that are not changes to the file mode or ownership.
+          This includes changes to file attributes that do not indicate security threats,
+          such as timestamp changes.</li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td><code>WRITE</code></td>
+    <td>
+        <ul>
+          <li>If <strong>Log file digest for write/create events</strong> is set to <strong>Disable</strong>,
+            all <code>WRITE</code> events are logged.</li>
+        </ul>
+    </td>
+
+    <td>
+        <ul>
+          <li>If <strong>Log file digest for write/create events</strong> is set to <strong>Enable</strong>
+            and the hashed SHA256 file content has not changed from the last known hash,
+            <code>WRITE</code> events are not logged.
+            This can happen if a file is overwritten with contents that are identical to
+            the previous contents.</li>
+        </ul>
+    </td>
+  </tr>
+</table>
+
+<p class="note"><strong>Note:</strong> If the cache is full,
+  because <strong>Maximum cache size (in number of files)</strong> is too small,
+  <%= vars.product_abbr %> logs file events as if the cache was disabled.
+</p>
+
+##<a id="in-memory-cache_size"></a> In&#8209;Memory Cache Size
+
+The in&#8209;memory cache size is the maximum number of files that <%= vars.product_abbr %>
+can store at once. If there are more files being watched than can fit into the cache,
+the cache removes the least-recently accessed file. If the cache removes a file,
+the next time the file is accessed,
+<%= vars.product_abbr %> logs it as if the cache was disabled.
+
+On startup, <%= vars.product_abbr %> creates a cache consisting of all
+files that are descendants of the directories that are configured in <strong>Watchlist</strong>.
+The cache does not store full files and only stores relevant metadata
+about each file.
+
+For example, if <strong>Watchlist</strong> is set to monitor the following directories:
+
+```
+/A
+/B
+```
+
+And the file system has the following structure:
+
+```
+/
+├── A
+│   ├── 1
+│   ├── 2
+│   └── C
+│       └── 3
+└── B
+    └── 4
+```
+
+Then the cache stores seven files: `A`, `B`, `C`, `1`, `2`, `3`, `4`.
+
+###<a id="configure-cache_size"></a> Configure Cache Size
+
+To determine how large to set **Maximum cache size (in number of files)**:
+
+1. Set **In&#8209;memory cache to reduce noise when files do not change**
+to **Disable**.
+
+1.  Navigate to **Installation Dashboard** > **Review Pending Changes** and click **Apply Changes**.
+
+1. View the <%= vars.product_abbr %> `stderr` logs for some of your VMs. These can be found in
+ `/var/vcap/sys/log/fim/fim.stderr.log`. The logs look similar to the following:
+
+    ```
+    ...
+    2019/12/20 18:23:47 Num files added: 71011
+    2019/12/20 18:23:47 Num files evicted: 0
+    ```
+
+1. Record the number after `Num files added` for some of your VMs.
+This number indicates how many files would be added to the in&#8209;memory cache if it was enabled.
+
+1. Set **In&#8209;memory cache to reduce noise when files do not change** to **Enable**.
+
+1. Set **Maximum cache size (in number of files)** to 1.5 times
+the largest number you recorded. This accommodates for any new files that are created.
+
+1. Set **Max memory usage (in bytes)** to a value that is
+large enough to account for the additional memory cost for the cache.
+For example, 200,000 files cost approximately 100&nbsp;MB in memory.
+
+1. Repeat steps 2 and 3.
+
+1. Record the number after `Num files evicted`. This indicates how many files
+could not fit into the cache. If this number is non-zero, consider increasing
+**Maximum cache size (in number of files)** to make room for these files.
+>>>>>>> 888f7b0... Add more info to file digest section [#170132423]
