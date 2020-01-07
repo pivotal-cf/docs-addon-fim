@@ -78,7 +78,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           Click <strong>Add</strong> to add files to the list,
           and click the trash can icon to remove files from the list.
           <br><br>
-          The items that you add must use golang-flavored path regular expressions.
+          The items that you add must use Go-flavored path regular expressions.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           <br><br>
           For more information, see <a href="#output-ignore">Ignore Patterns</a> below.
@@ -94,7 +94,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           Click <strong>Add</strong> to add files to the list,
           and click the trash can icon to remove files from the list.
           <br><br>
-          The items that you add must use golang-flavored path regular expressions.
+          The items that you add must use Go-flavored path regular expressions.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           <br><br>
           For more information, see <a href="#output-low">Low Severity Events</a> below.
@@ -290,7 +290,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           Click <strong>Add</strong> to add files to the list,
           and click the trash can icon to remove files from the list.
           <br><br>
-          The items that you add must use golang-flavored path regular expressions.
+          The items that you add must use Go-flavored path regular expressions.
           When defining <strong>Ignore patterns</strong> for Windows, you must replace all
           single back slashes with double back slashes.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
@@ -319,7 +319,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           Click <strong>Add</strong> to add files to the list,
           and click the trash can icon to remove files from the list.
           <br><br>
-          The items that you add must use golang-flavored path regular expressions.
+          The items that you add must use Go-flavored path regular expressions.
           When defining <strong>Low severity tagging for frequently changed files</strong> for Windows, you must
           replace all single back slashes with double back slashes.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
@@ -808,7 +808,7 @@ For example, to mark all files in the directory `C:\var\vcap\bosh\ignore_me\` as
 ##<a id="format"></a>Output Log Format
 
 By default, <%= vars.product_abbr %> generates messages in the Common Event Format.
-You can configure the output format as a golang text template using the **Output log format** field.
+You can configure the output format as a Go text template using the **Output log format** field.
 
 The default value of **Output log format** is:
 
