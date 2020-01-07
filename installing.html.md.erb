@@ -9,7 +9,7 @@ This topic describes how to install <%= vars.product_full %>
 (<%= vars.product_abbr %>).
 
 <p class="note"><strong>Note:</strong>
-  When you install the <%= vars.product_abbr %> tile using Ops Manager,
+  When you install the <%= vars.product_abbr %> tile using <%= vars.ops_manager %>,
   <%= vars.product_abbr %> does not monitor the files on your BOSH Director.
   To apply <%= vars.product_abbr %> to the BOSH Director VM,
   see <a href="./installing-bosh.html">Installing File Integrity Monitoring on BOSH Director</a>.
@@ -48,7 +48,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
 
 1. Select **FIM Configuration for Ubuntu**.
 
-  ![](linux-config.png)
+    ![FIM Configuration for Ubuntu section of the FIM configuration in Ops Manager.](linux-config.png)
+    [Click here to view a larger version of this image.](./images/linux-config.png)
 
 1. Configure the following fields:
 
@@ -60,9 +61,9 @@ To configure <%= vars.product_abbr %> for Linux VMs:
         <td>
           Create a list of file paths to monitor for file system events.
           Click <strong>Add</strong> to add file paths to the list,
-          and use the trash can icon to remove file paths from the list.
+          and click the trash can icon to remove file paths from the list.
           <br><br>
-          For more information, see <a href="#dirs">Watchlist</a>.
+          For more information, see <a href="#dirs">Watchlist</a> below.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -75,12 +76,12 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           Events for files matching any of the provided regular expressions are
           not included in the logs.
           Click <strong>Add</strong> to add files to the list,
-          and use the trash can icon to remove files from the list.
+          and click the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           <br><br>
-          For more information, see <a href="#output-ignore">Ignore Patterns</a>.
+          For more information, see <a href="#output-ignore">Ignore Patterns</a> below.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.ignored_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -91,12 +92,12 @@ To configure <%= vars.product_abbr %> for Linux VMs:
         <td>
           Create a list of files to be marked as low severity.
           Click <strong>Add</strong> to add files to the list,
-          and use the trash can icon to remove files from the list.
+          and click the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           <br><br>
-          For more information, see <a href="#output-low">Low Severity Events</a>.
+          For more information, see <a href="#output-low">Low Severity Events</a> below.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.low_severity_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -109,7 +110,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           This template must be compatible with the golang package <code>text/template</code>.
           <br><br>
           For more information about the <strong>Output log format</strong> field,
-          see <a href="#format">Output Log Format</a>.
+          see <a href="#format">Output Log Format</a> below.
           <p class="note"><strong>Note: </strong>
             This field corresponds to <code>fim.format</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -191,7 +192,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
           appears after you select the option.
           <br><br>
-          For more information, see <a href="#digests">Calculate File Hashes</a>.
+          For more information, see <a href="#digests">Calculate File Hashes</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digests</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -208,7 +209,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           This field only appears if you have selected <strong>Enable</strong> for <strong>Log file digest for write/create events</strong>.
           The default value is <code>10000000</code>.
           <br><br>
-          For more information, see <a href="#digest_threshold">File Size Threshold</a>.
+          For more information, see <a href="#digest_threshold">File Size Threshold</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digest_threshold</code> in
             <%= vars.product_abbr %> v1.4 and earlier.<br>
@@ -227,7 +228,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
 1. Click **Save**.
 
 
-## <a id='configure-windows'></a> Configure <%= vars.product_abbr %> for Windows (Beta)
+## <a id='configure-windows'></a> Configure <%= vars.product_abbr %> for Windows (beta)
 
 <p class="note warning"><strong>Warning: </strong>
   <%= vars.product_abbr %> for Windows is currently in beta.
@@ -238,7 +239,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
 To configure <%= vars.product_abbr %> for Windows VMs:
 
 1. Select **FIM Configuration for Windows (Beta)**.
-![](windows-config.png)
+![FIM Configuration for Windows section of the FIM configuration in Ops Manager.](windows-config.png)
+[Click here to view a larger version of this image.](./images/windows-config.png)
 
 1. Configure the following fields:
 
@@ -250,7 +252,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td>
           Create a list of file paths to monitor for file system events.
           Click <strong>Add</strong> to add file paths to the list,
-          and use the trash can icon to remove file paths from the list.
+          and click the trash can icon to remove file paths from the list.
           <br><br>
           For more information, see <a href="#dirs">Watchlist</a> below.
           <p class="note"><strong>Note:</strong>
@@ -264,7 +266,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           Create a list of file paths to monitor for file system events per container on
           the Windows Diego Cell.
           Click <strong>Add</strong> to add file paths to the list,
-          and use the trash can icon to remove file paths from the list.
+          and click the trash can icon to remove file paths from the list.
           For example, to monitor file system events for app files,
           enter <code>C:\Users\vcap\app</code>.
           <br><br>
@@ -286,7 +288,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td>
           Create a list of files that you want <%= vars.product_abbr %> to ignore.
           Click <strong>Add</strong> to add files to the list,
-          and use the trash can icon to remove files from the list.
+          and click the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
           When defining <strong>Ignore patterns</strong> for Windows, you must replace all
@@ -295,7 +297,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           Events for files matching any of the provided regular expressions are
           not included in the logs.
           <br><br>
-          For more information, see <a href="#output-ignore">Ignore Patterns</a>.
+          For more information, see <a href="#output-ignore">Ignore Patterns</a> below.
           <p class="note"><strong>Note: </strong>
             To ignore events for files in containers, you must enter regular expressions that are
             relative to the file system for the Diego Cell, rather than the container.
@@ -315,14 +317,14 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td>
           Create a list of files to be marked as low severity.
           Click <strong>Add</strong> to add files to the list,
-          and use the trash can icon to remove files from the list.
+          and click the trash can icon to remove files from the list.
           <br><br>
           The items that you add must use golang-flavored path regular expressions.
           When defining <strong>Low severity tagging for frequently changed files</strong> for Windows, you must
           replace all single back slashes with double back slashes.
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           <br><br>
-          For more information, see <a href="#output-low">Low Severity Events</a>.
+          For more information, see <a href="#output-low">Low Severity Events</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.low_severity_patterns</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -334,7 +336,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         <td>
           Enter a template for log lines.
           This template must be compatible with the golang package <code>text/template</code>.<br><br>
-          For more information, see <a href="#format">Output Log Format</a>.
+          For more information, see <a href="#format">Output Log Format</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.format</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -365,7 +367,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           If you enable digests, a field for
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
           appears after you select the option.<br><br>
-          For more information, see <a href="#digests">Calculate File Hashes</a>.
+          For more information, see <a href="#digests">Calculate File Hashes</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digests</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -381,7 +383,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           for <%= vars.product_abbr %> to hash.
           This field only appears if you have selected <strong>Enable</strong> for <strong>Log file digest for write/create events</strong>.
           The default value is <code>10000000</code>.<br><br>
-          For more information, see <a href="#digest_threshold">File Size Threshold</a>.
+          For more information, see <a href="#digest_threshold">File Size Threshold</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digest_threshold</code> in
             <%= vars.product_abbr %> v1.4 and earlier.<br>
@@ -466,7 +468,7 @@ To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes wo
 
 1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
 
-1. Add the PKS container directory `/var/vcap/store/docker/docker/` to the **Watchlist** section.
+1. Add the <%= vars.k8s_runtime %> container directory `/var/vcap/store/docker/docker/` to the **Watchlist** section.
   <p class="note"><strong>Note:</strong>
     <%= vars.product_abbr %> writes log messages when files and directories in the
     <code>/var/vcap/store/docker/docker/overlay2/UUID/diff</code> directory are created, removed, or modified.
@@ -569,7 +571,6 @@ and removing items in the **Watchlist** section.
 
 Below is the default list of file paths in **Watchlist** section of **FIM Configuration for Ubuntu**.
 
-<%# check the items in the list below matches the list in the FIM UI %>
 <table>
   <col width="40%">
   <col width="60%">
@@ -580,10 +581,11 @@ Below is the default list of file paths in **Watchlist** section of **FIM Config
   <tr>
     <td>System binaries and configuration</td>
     <td>
+      <code>/boot/grub</code><br>
+      <code>/root</code><br>
       <code>/bin</code><br>
       <code>/etc</code><br>
       <code>/lib</code><br>
-      <code>/lib32</code><br>
       <code>/lib64</code><br>
       <code>/opt</code><br>
       <code>/sbin</code><br>
@@ -612,7 +614,6 @@ Below is the default list of file paths in **Watchlist** section of **FIM Config
 
 Below is the default list of file paths in **Watchlist** section of **FIM Configuration for Windows**.
 
-<%# check the items in the list below matches the list in the FIM UI %>
 - `C:\Windows\System32`
 - `C:\Program Files`
 - `C:\Program Files (x86)`
@@ -679,7 +680,6 @@ Use path regular expressions.
 
 Below is the default list in **Ignore Patterns** section of **FIM Configuration for Ubuntu**.
 
-<%# check the items in the list below matches the list in the FIM UI %>
 <table>
   <col width="40%">
   <col width="60%">
@@ -841,12 +841,12 @@ The key-values pairs in the final field of a CEF file log carry the following me
    The possible values of the two fields are described in the table below:
 
     <table class="nice">
-        <th width="5%">opname</th>
+        <th width="15%">opname</th>
         <th width="5%">optype</th>
-        <th width="45%">Example Linux Trigger</th>
+        <th width="35%">Example Linux Trigger</th>
         <th width="45%">Example Windows Trigger</th>
         <tr>
-            <td>CREATE</td>
+            <td><code>CREATE</code></td>
             <td align="center">1</td>
             <td>
               <code>touch newfile.txt</code>
@@ -862,7 +862,7 @@ The key-values pairs in the final field of a CEF file log carry the following me
             </td>
         </tr>
         <tr>
-            <td>WRITE</td>
+            <td><code>WRITE</code></td>
             <td align="center">2</td>
             <td>
               <code>echo 'hello world' >> file.txt</code>
@@ -872,7 +872,7 @@ The key-values pairs in the final field of a CEF file log carry the following me
             </td>
         </tr>
         <tr>
-            <td>REMOVE</td>
+            <td><code>REMOVE</code></td>
             <td align="center">4</td>
             <td>
               <code>rm file.txt</code>
@@ -882,7 +882,7 @@ The key-values pairs in the final field of a CEF file log carry the following me
             </td>
         </tr>
         <tr>
-            <td>RENAME</td>
+            <td><code>RENAME</code></td>
             <td align="center">8</td>
             <td>
               <code>mv file.txt file.txt.orig</code>
@@ -892,7 +892,7 @@ The key-values pairs in the final field of a CEF file log carry the following me
             </td>
         </tr>
         <tr>
-            <td>CHMOD</td>
+            <td><code>CHMOD</code></td>
             <td align="center">16</td>
             <td>
               <code>chmod 0400 file.txt</code>
@@ -955,7 +955,7 @@ format: "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Digests}} {{.Ts}}"
 
 ##<a id="digests"></a>Calculate File Hashes
 
-<%= vars.product_abbr %> supports hashing monitored files on WRITE or CREATE events
+<%= vars.product_abbr %> supports hashing monitored files on <code>WRITE</code> or <code>CREATE</code> events
 using the `sha256` algorithm.
 Hashing is disabled by default.
 
