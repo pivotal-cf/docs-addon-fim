@@ -192,7 +192,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
           appears.
           <br><br>
-          For more information, see <a href="#digests">Calculate File Hashes</a> below.
+          For more information, see <a href="#digests">File Digests</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digests</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -401,7 +401,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           If you enable digests, a field for
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
           appears after you select the option.<br><br>
-          For more information, see <a href="#digests">Calculate File Hashes</a> below.
+          For more information, see <a href="#digests">File Digests</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digests</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
@@ -1026,17 +1026,17 @@ format: "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Metadata}} {{.Diges
 /bin/binary plymouth CREATE 1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" sha256=da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
 ```
 
-##<a id="digests"></a>Calculate File Hashes
+##<a id="digests"></a>File Digests
 
 <%= vars.product_abbr %> supports hashing monitored files on <code>WRITE</code> or <code>CREATE</code> events
 using the `sha256` algorithm.
+If you enable digests, <%= vars.product_abbr %> includes the calculated hash for the file in the logs.
+
+If you want to show that content has changed or check which version of the file is mapped to a log entry,
+you can calculate the `sha256` value of a file and compare it to the value in the log.
+
 Hashing is disabled by default.
 
-
-##<a id="digest_threshold"></a>File Size Threshold
-
-<%= vars.product_abbr %> sets a threshold on the size of files, in bytes, to be hashed.
-The default value is `10000000` bytes.
 
 ##<a id="metadata"></a> Metadata
 
