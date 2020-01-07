@@ -159,18 +159,18 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       </tr>
       <tr>
         <td><strong>Enforce CPU limit</strong></td>
-        <td>Select the enforcement policy for the <strong>>CPU limit (percentage)</strong>:
+        <td>Select the enforcement policy for the <strong>CPU limit (percentage)</strong>:
           <ul>
-            <li><strong>Always</strong>: Ensures the <strong>>CPU limit (percentage)</strong> is always enforced</li>
+            <li><strong>Always</strong>: Ensures the <strong>CPU limit (percentage)</strong> is always enforced</li>
             <li><strong>When other processes are using CPU resources</strong>: Permits the CPU usage to
-              exceed the limit set by <strong>>CPU limit (percentage)</strong> if idle CPU cycles are available</li>
+              exceed the limit set by <strong>CPU limit (percentage)</strong> if idle CPU cycles are available</li>
           </ul>
 
           The default setting is <strong>When other processes are using CPU resources</strong>.
 
           <p class="note warning"><strong>Warning: </strong>
             If <strong>Enforce CPU limit</strong> is set <strong>Always</strong>,
-            verify that the <strong>>CPU limit (percentage)</strong> is set high enough for <%= vars.product_abbr %> to
+            verify that the <strong>CPU limit (percentage)</strong> is set high enough for <%= vars.product_abbr %> to
             execute correctly.
             If the limit is too strict, <%= vars.product_abbr %> fails to start.
           </p>
