@@ -594,14 +594,17 @@ To verify the installation for Windows:
 CEF:0|cloud\_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="C:\\var\\vcap\\data\\jobs\\sample\_file" hostname="no-job_1/ebee34c1-3300-4f5d-9557-bbef845d608c" opname="CREATE" optype=1 ts=1569953512 severity=5
 </pre>
 
+## <a id="concepts"></a> Concepts Related to Configuring <%= vars.product_abbr %>
 
-##<a id="dirs"></a> Watchlist
+Reference the following sections when configuring <%= vars.product_abbr %>.
+
+###<a id="dirs"></a> Watchlist
 
 <%= vars.product_abbr %> monitors a set of critical system directories.
 You can configure the directories that <%= vars.product_abbr %> monitors by adding
 and removing items in the **Watchlist** section.
 
-###<a name="linux-dirs"></a> Watchlist for Linux
+####<a name="linux-dirs"></a> Watchlist for Linux
 
 Below is the default list of file paths in **Watchlist** section of **FIM Configuration for Ubuntu**.
 
@@ -644,7 +647,7 @@ Below is the default list of file paths in **Watchlist** section of **FIM Config
   </tr>
 </table>
 
-###<a name="windows-dirs"></a> Watchlist for Windows
+####<a name="windows-dirs"></a> Watchlist for Windows
 
 Below is the default list of file paths in **Watchlist** section of **FIM Configuration for Windows**.
 
@@ -656,7 +659,7 @@ Below is the default list of file paths in **Watchlist** section of **FIM Config
 - `C:\var\vcap\data\jobs`
 
 
-##<a id="output-logs"></a>Event Logging
+###<a id="output-logs"></a>Event Logging
 
 <%= vars.product_abbr %> logs events that occur.
 You can use these samples to configure a Security Information and Event Management (SIEM)
@@ -702,7 +705,7 @@ Low severity events can be used to filter out business-as-usual events.
 This allows you to isolate unexpected events by looking for severity <code>5</code>.
 </p>
 
-##<a id="output-ignore"></a>Ignore Patterns
+###<a id="output-ignore"></a>Ignore Patterns
 
 Some monitored directories might contain files that you do not want
 <%= vars.product_abbr %> to monitor, such as files that change frequently.
@@ -710,7 +713,7 @@ You can configure <%= vars.product_abbr %> to ignore these events by adding and
 removing items in the **Ignore patterns** section.
 Use path regular expressions.
 
-###<a name="linux-ignore"></a> Ignore Patterns for Linux
+####<a name="linux-ignore"></a> Ignore Patterns for Linux
 
 Below is the default list in **Ignore Patterns** section of **FIM Configuration for Ubuntu**.
 
@@ -750,7 +753,7 @@ Below is the default list in **Ignore Patterns** section of **FIM Configuration 
   </tr>
 </table>
 
-###<a name="windows-ignore"></a> Ignore Patterns for Windows
+####<a name="windows-ignore"></a> Ignore Patterns for Windows
 
 <p class="note"><strong>Note</strong>:
 There is currently no default value for <strong>Ignored patterns</strong> for Windows.
@@ -765,7 +768,7 @@ For example, to ignore all files in the directory `C:\var\vcap\bosh\ignore_me\`,
 ```
 
 
-##<a id="output-low"></a>Low Severity Events
+###<a id="output-low"></a>Low Severity Events
 
 Some monitored directories might contain files that only change occasionally
 or files that update frequently but are low impact.
@@ -777,7 +780,7 @@ Events for files matching any of the provided regular expressions
 are logged with severity <code>3</code>, instead of the default value of <code>5</code>.
 This can be useful to filter out business-as-usual events.
 
-###<a name="linux-output-low"></a> Low Severity Tagging for Frequently Changed Files for Linux
+####<a name="linux-output-low"></a> Low Severity Tagging for Frequently Changed Files for Linux
 
 Below is the default list in **Low severity tagging for frequently changed files**
 section of **FIM Configuration for Ubuntu**.
@@ -825,7 +828,7 @@ section of **FIM Configuration for Ubuntu**.
   </tr>
 </table>
 
-###<a name="windows-output-low"></a> Low Severity Tagging for Frequently Changed Files for Windows
+####<a name="windows-output-low"></a> Low Severity Tagging for Frequently Changed Files for Windows
 
 <p class="note"><strong>Note: </strong>
 There is currently no default value for <strong>Low severity tagging for frequently changed files</strong> for Windows.
@@ -839,7 +842,7 @@ For example, to mark all files in the directory `C:\var\vcap\bosh\ignore_me\` as
 ^C:\\var\\vcap\\bosh\\ignore_me\\.*$
 ```
 
-##<a id="format"></a>Output Log Format
+###<a id="format"></a>Output Log Format
 
 By default, <%= vars.product_abbr %> generates messages in the Common Event Format.
 You can configure the output format as a Go text template using the **Output log format** field.
@@ -945,7 +948,7 @@ The key-values pairs in the final field of a CEF file log carry the following me
 
 Other template values are listed below.
 
-###<a id="json"></a>JSON
+####<a id="json"></a>JSON
 The `{{.Json}}` string serializes an event into a standard JSON dictionary.<br>
 Example:
 
@@ -953,7 +956,7 @@ Example:
 {"fname":"/bin/binary","hostname":"plymouth","opname":"CREATE","optype":1,"metadata":{"mode": "-rw-r--r--","uid":"0","user":"root","gid":"0","group":"root"},"ts":1475195084}
 ```
 
-###<a id="keyvalues"></a>Key-Values
+####<a id="keyvalues"></a>Key-Values
 The `{{.KeyValues}}` string serializes an event into a series of `key=value` fields.<br>
 Example:
 
@@ -961,7 +964,7 @@ Example:
 fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1475195258
 ```
 
-###<a id="fields"></a>Individual Fields
+####<a id="fields"></a>Individual Fields
 
 <table class="nice">
   <tr>
@@ -1026,7 +1029,7 @@ format: "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Metadata}} {{.Diges
 /bin/binary plymouth CREATE 1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" sha256=da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
 ```
 
-##<a id="digests"></a>File Digests
+###<a id="digests"></a>File Digests
 
 <%= vars.product_abbr %> supports hashing monitored files on <code>WRITE</code> or <code>CREATE</code> events
 using the `sha256` algorithm.
@@ -1040,7 +1043,7 @@ Hashing is disabled by default.
 <%= vars.product_abbr %> sets a threshold on the size of files, in bytes, to be hashed.
 The default value is `10000000` bytes.
 
-##<a id="metadata"></a> Metadata
+###<a id="metadata"></a> Metadata
 
 <p class="note"><strong>Note:</strong> Metadata is currently only supported on Linux.
 </p>
@@ -1097,7 +1100,7 @@ The table below describes the key-value pairs that the metadata uses:
 
 
 
-##<a id="in-memory-cache"></a> In&#8209;Memory Cache
+###<a id="in-memory-cache"></a> In&#8209;Memory Cache
 
 <p class="note"><strong>Note:</strong>
   In&#8209;Memory Cache is currently only supported on Linux.
@@ -1172,7 +1175,7 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
   <%= vars.product_abbr %> logs file events as if the cache was disabled.
 </p>
 
-##<a id="in-memory-cache_size"></a> In&#8209;Memory Cache Size
+###<a id="in-memory-cache_size"></a> In&#8209;Memory Cache Size
 
 The in&#8209;memory cache size is the maximum number of files that <%= vars.product_abbr %>
 can store at once. If there are more files being watched than can fit into the cache,
@@ -1206,8 +1209,6 @@ And the file system has the following structure:
 ```
 
 Then the cache stores seven files: `A`, `B`, `C`, `1`, `2`, `3`, `4`.
-
-###<a id="configure-cache_size"></a> Configure Cache Size
 
 To determine how large to set **Maximum cache size (in number of files)**:
 
