@@ -5,7 +5,9 @@ owner: Security Engineering
 
 <strong><%= modified_date %></strong>
 
-<p class="note"><strong>Note:</strong> Pivotal has renamed <i>File Integrity Monitoring Add-on for PCF</i> to <i>Pivotal File Integrity Monitoring</i>.
+<p class="note">
+  <strong>Note:</strong> Pivotal has renamed File Integrity Monitoring Add-on for PCF.
+  The new name is <%= vars.product_full %>.
 </p>
 
 <%= partial '../../fim/partials/pcf-name-change' %>
@@ -14,26 +16,22 @@ This topic contains release notes for <%= vars.product_full %> (<%= vars.product
 
 ## <a id="2-0-0"></a> v2.0.0
 
-**Release Date**: XXXX XX, 2019
+**Release Date**: January 7, 2019
 
 ### Features
 
 New features and changes in this release:
 
 * <%= vars.product_abbr %> is now a tile.
-For information about upgrading from <%= vars.product_abbr %> v1.x, see [Upgrading <%= vars.product_short %>](./upgrading.html).
+For information about upgrading from <%= vars.product_abbr %> v1.x, see
+[Upgrading <%= vars.product_short %>](./upgrading.html).
 
 * <%= vars.product_abbr %> for Windows can monitor Garden containers on Windows Diego Cells.
 For more information, see [Monitor Windows Garden Containers](./installing.html#garden-windows).
-<p class="note warning"><strong>Warning: </strong>
-  <%= vars.product_abbr %> for Windows is currently in beta.
+
+<p class="note warning">
+  <strong>Warning:</strong> <%= vars.product_abbr %> for Windows is currently in beta.
 </p>
-
-### Known Issues
-
-This release has the following known issue:
-
-*
 
 ## <a id="view"></a> View Release Notes for Another Version
 
