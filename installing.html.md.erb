@@ -208,8 +208,6 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           for <%= vars.product_abbr %> to hash.
           This field only appears if you have selected <strong>Enable</strong> for <strong>Log file digest for write/create events</strong>.
           The default value is <code>10000000</code>.
-          <br><br>
-          For more information, see <a href="#digest_threshold">File Size Threshold</a> below.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digest_threshold</code> in
             <%= vars.product_abbr %> v1.4 and earlier.<br>
@@ -416,8 +414,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           Enter a positive value for the threshold for the maximum size of files
           for <%= vars.product_abbr %> to hash.
           This field only appears if you have selected <strong>Enable</strong> for <strong>Log file digest for write/create events</strong>.
-          The default value is <code>10000000</code>.<br><br>
-          For more information, see <a href="#digest_threshold">File Size Threshold</a> below.
+          The default value is <code>10000000</code>.
           <p class="note"><strong>Note</strong>:
             This field corresponds to <code>fim.digest_threshold</code> in
             <%= vars.product_abbr %> v1.4 and earlier.<br>
@@ -658,53 +655,6 @@ Below is the default list of file paths in **Watchlist** section of **FIM Config
 - `C:\var\vcap\data\packages`
 - `C:\var\vcap\data\jobs`
 
-
-###<a id="output-logs"></a>Event Logging
-
-<%= vars.product_abbr %> logs events that occur.
-You can use these samples to configure a Security Information and Event Management (SIEM)
-system, to verify regular activity and generate alerts for unauthorized changes to a file.
-
-These logs appear in the following format:
-
-```
-CEF:0|cloud_foundry|fim|1.0.0|OPERATION-TYPE|file integrity monitoring event|SEVERITY| fname="ABSOLUTE-PATH" hostname="BOSH-VM" opname="OPERATION-NAME" optype=OPERATION-TYPE ts=TIMESTAMP severity=SEVERITY
-```
-
-Where:
-
-* `OPERATION-TYPE` and `OPERATION-NAME` are one of the below:
-    * `1`, which is `CREATE`
-    * `2`, which is `WRITE`
-    * `4`, which is `REMOVE`
-    * `8`, which is `RENAME`
-    * `16`, which is `CHMOD`
-
-* `SEVERITY` is one of the following severity levels:
-    * `0`, which is used for heartbeats
-    * `3`, which is used for low severity events
-    * `5`, which is used for all other events
-
-* `ABSOLUTE-PATH` is the absolute path to the file, for example `/directory/file`
-
-* `BOSH-VM` is the BOSH VM name, for example `/directory/vm-name`
-
-* `TIMESTAMP` is the timestamp in Unix epoch format.
-
-For example:
-<pre class="terminal">
-CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|3| fname="/test/file01" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" opname="CREATE" optype=1 ts=1546535400 severity=3
-
-CEF:0|cloud_foundry|fim|1.0.0|2|file integrity monitoring event|5| fname="/test/file02" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" opname="WRITE" optype=2 ts=1546535520 severity=5
-</pre>
-
-For an example of every type of <%= vars.product_abbr %> log message that can be configured, see [Examples of <%= vars.product_abbr %> Log Messages](./log-examples.html).
-
-<p class="note"><strong>Note</strong>:
-Low severity events can be used to filter out business-as-usual events.
-This allows you to isolate unexpected events by looking for severity <code>5</code>.
-</p>
-
 ###<a id="output-ignore"></a>Ignore Patterns
 
 Some monitored directories might contain files that you do not want
@@ -776,9 +726,13 @@ You can configure <%= vars.product_abbr %> to log events at a lower severity
 by adding and removing items in the **Low severity tagging for frequently changed
 files** section. Use path regular expressions.
 
-Events for files matching any of the provided regular expressions
-are logged with severity <code>3</code>, instead of the default value of <code>5</code>.
-This can be useful to filter out business-as-usual events.
+Severity can be one of the following severity levels:
+
+  * `0`: Used for heartbeats.
+  * `3`: Used for low severity events. These events are for files that match any of the provided regular expressions. This can be useful to filter out business-as-usual events.
+  * `5`: Used for all other events. This is the default severity.
+
+
 
 ####<a name="linux-output-low"></a> Low Severity Tagging for Frequently Changed Files for Linux
 
@@ -855,116 +809,58 @@ The default value of **Output log format** is:
 
 This example output shows what log lines look like with the default **Output log format** configuration:
 
-```
+<pre class="terminal">
 CEF:0|cloud_foundry|fim|1.0.0|0|file integrity monitoring event|0| fname="" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="FILESNITCH_CHECKIN" optype=0 ts=1492715822 severity=0
 CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/passwd.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1492715822 severity=5
 CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/passwd.17721" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822 severity=5
 CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/group.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1492715822 severity=5
 CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/group.17721" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822 severity=5
 CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/gshadow.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1492715822 severity=5
-```
+</pre>
 
 <p class="note"><strong>Note</strong>:
   The <code>FILESNITCH CHECKIN</code> message is a logging marker that indicates
   <code>filesnitch</code> is operational in the absence of any file system events.
 </p>
 
-The key-values pairs in the final field of a CEF file log carry the following meaning:
-
-* `fname` is the name of the affected file.
-* `hostname` is the hostname of the VM on which the file event originated.
-* `ts` is the point in time at which <%= vars.product_abbr %> received the file event.
-* `optype` and `opname` are the type of file operation in the numeric and textual format, respectively.
-   The possible values of the two fields are described in the table below:
-
-    <table class="nice">
-        <th width="15%">opname</th>
-        <th width="5%">optype</th>
-        <th width="35%">Example Linux Trigger</th>
-        <th width="45%">Example Windows Trigger</th>
-        <tr>
-            <td><code>CREATE</code></td>
-            <td align="center">1</td>
-            <td>
-              <code>touch newfile.txt</code>
-              <br>
-              <br>
-              <code>echo 'content' > newfile2.txt</code>
-            </td>
-            <td>
-              <code>Powershell New-Item -type File newfile.txt</code>
-              <br>
-              <br>
-              <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
-            </td>
-        </tr>
-        <tr>
-            <td><code>WRITE</code></td>
-            <td align="center">2</td>
-            <td>
-              <code>echo 'hello world' >> file.txt</code>
-            </td>
-            <td>
-              <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
-            </td>
-        </tr>
-        <tr>
-            <td><code>REMOVE</code></td>
-            <td align="center">4</td>
-            <td>
-              <code>rm file.txt</code>
-            </td>
-            <td>
-              <code>Powershell rm file.txt</code>
-            </td>
-        </tr>
-        <tr>
-            <td><code>RENAME</code></td>
-            <td align="center">8</td>
-            <td>
-              <code>mv file.txt file.txt.orig</code>
-            </td>
-            <td>
-              <code>Powershell mv file.txt file.txt.orig</code>
-            </td>
-        </tr>
-        <tr>
-            <td><code>CHMOD</code></td>
-            <td align="center">16</td>
-            <td>
-              <code>chmod 0400 file.txt</code>
-            </td>
-            <td>
-              <code>Powershell icacls file.txt /grant administrators:F</code>
-            </td>
-        </tr>
-    </table>
-
-
-<p class="note"><strong>Note: </strong>
-  <%= vars.product_abbr %> on Windows reports <code>WRITE</code> and <code>CHMOD</code>
-  together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.
-</p>
 
 Other template values are listed below.
 
 ####<a id="json"></a>JSON
-The `{{.Json}}` string serializes an event into a standard JSON dictionary.<br>
-Example:
 
-```json
+The `{{.Json}}` string serializes an event into a standard JSON dictionary.<br>
+
+Example log:
+
+<pre class="terminal">
 {"fname":"/bin/binary","hostname":"plymouth","opname":"CREATE","optype":1,"metadata":{"mode": "-rw-r--r--","uid":"0","user":"root","gid":"0","group":"root"},"ts":1475195084}
-```
+</pre>
 
 ####<a id="keyvalues"></a>Key-Values
-The `{{.KeyValues}}` string serializes an event into a series of `key=value` fields.<br>
-Example:
 
-```
+The `{{.KeyValues}}` string serializes an event into a series of key-value pairs.<br>
+
+Example log:
+
+<pre class="terminal">
 fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1475195258
-```
+</pre>
 
 ####<a id="fields"></a>Individual Fields
+
+You can use individual fields to create a custom log template. For example:
+
+```
+"{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Metadata}} {{.Digests}} {{.Ts}}"
+```
+
+Example log using the above format:
+
+<pre class="terminal">
+/bin/binary plymouth CREATE 1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" sha256=da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
+</pre>
+
+The table below lists the fields you can use:
 
 <table class="nice">
   <tr>
@@ -1017,17 +913,78 @@ fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 mode="-rw-r--r-
 </table>
 
 
-For example, the following variable definition...
+`optype` and `opname` are the type of file operation in the numeric and textual format, respectively.
+ The possible values of the two fields are described in the table below:
 
-```
-format: "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Metadata}} {{.Digests}} {{.Ts}}"
-```
+<table class="nice">
+    <th width="15%">opname</th>
+    <th width="5%">optype</th>
+    <th width="35%">Example Linux Trigger</th>
+    <th width="45%">Example Windows Trigger</th>
+    <tr>
+        <td><code>CREATE</code></td>
+        <td align="center">1</td>
+        <td>
+          <code>touch newfile.txt</code>
+          <br>
+          <br>
+          <code>echo 'content' > newfile2.txt</code>
+        </td>
+        <td>
+          <code>Powershell New-Item -type File newfile.txt</code>
+          <br>
+          <br>
+          <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
+        </td>
+    </tr>
+    <tr>
+        <td><code>WRITE</code></td>
+        <td align="center">2</td>
+        <td>
+          <code>echo 'hello world' >> file.txt</code>
+        </td>
+        <td>
+          <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
+        </td>
+    </tr>
+    <tr>
+        <td><code>REMOVE</code></td>
+        <td align="center">4</td>
+        <td>
+          <code>rm file.txt</code>
+        </td>
+        <td>
+          <code>Powershell rm file.txt</code>
+        </td>
+    </tr>
+    <tr>
+        <td><code>RENAME</code></td>
+        <td align="center">8</td>
+        <td>
+          <code>mv file.txt file.txt.orig</code>
+        </td>
+        <td>
+          <code>Powershell mv file.txt file.txt.orig</code>
+        </td>
+    </tr>
+    <tr>
+        <td><code>CHMOD</code></td>
+        <td align="center">16</td>
+        <td>
+          <code>chmod 0400 file.txt</code>
+        </td>
+        <td>
+          <code>Powershell icacls file.txt /grant administrators:F</code>
+        </td>
+    </tr>
+</table>
 
-...produces this:
 
-```
-/bin/binary plymouth CREATE 1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" sha256=da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
-```
+<p class="note"><strong>Note: </strong>
+  <%= vars.product_abbr %> on Windows reports <code>WRITE</code> and <code>CHMOD</code>
+  together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.
+</p>
+
 
 ###<a id="digests"></a>File Digests
 
