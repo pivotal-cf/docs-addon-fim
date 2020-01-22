@@ -18,7 +18,7 @@ To complete the FIM installation:
 See [Operators](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator)
 in the Pivotal Cloud Foundry documentation.
 
-* You must have Ops Manager v2.0 or later.
+* You must have <%= vars.ops_manager_full %> v2.0 or later.
 
 ##<a id="create-mfest"></a>Create the FIM Manifest
 
@@ -129,7 +129,7 @@ To use these properties, place the following text under the `fim` subsection of
 
 ##<a id="download"></a>Download the FIM Add-on
 
-To download the FIM Add-on software binary file and move it to your Ops Manager
+To download the FIM Add-on software binary file and move it to your <%= vars.ops_manager %>
 VM, follow the steps below. If you intend to run the FIM
 Add-on on a PCF deployment that includes services or components that use Ubuntu
 Xenial stemcells, download FIM Add-on v1.2.22 or later.
@@ -137,7 +137,7 @@ Xenial stemcells, download FIM Add-on v1.2.22 or later.
 1. Download the FIM Add-on software binary file from
 [Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
 
-2. Copy the binary file to your Ops Manager VM by running the following command:
+2. Copy the binary file to your <%= vars.ops_manager %> VM by running the following command:
 
     ```
     scp -i PATH-TO-PRIVATE-KEY fim-release.tgz ubuntu@YOUR-OPS-MANAGER-VM-IP:
@@ -146,7 +146,7 @@ Xenial stemcells, download FIM Add-on v1.2.22 or later.
 
     <pre class="terminal">$ scp -i ~/.ssh/my-key.pem fim-1.2.23.tar.gz ubuntu@192.0.2.0:</pre>
 
-3. Copy the FIM runtime configuration `fim.yml` file to your Ops Manager instance by running the following command:
+3. Copy the FIM runtime configuration `fim.yml` file to your <%= vars.ops_manager %> instance by running the following command:
 
     ```
     scp -i PATH-TO-PRIVATE-KEY fim.yml ubuntu@YOUR-OPS-MANAGER-VM-IP:
@@ -156,9 +156,9 @@ Xenial stemcells, download FIM Add-on v1.2.22 or later.
 
     <pre class="terminal">$ scp -i ~/.ssh/my-key.pem fim.yml ubuntu@192.0.2.0:</pre>
 
-4. [Log in to the Ops Manager VM with SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
+4. [Log in to the <%= vars.ops_manager %> VM with SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
 
-5. Navigate to the location of the binary file on the Ops Manager VM by running the following command:
+5. Navigate to the location of the binary file on the <%= vars.ops_manager %> VM by running the following command:
 
     ```
     cd PATH-TO-BINARY-FILE
@@ -223,10 +223,10 @@ Perform the following steps to deploy the FIM Add-on:
     ...
     </pre>
 
-1. Navigate to the **Installation Dashboard** in Ops Manager.
+1. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %>.
 
-1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
-   For more information about this Ops Manager page,
+1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
+   For more information about this <%= vars.ops_manager %> page,
    see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes**.

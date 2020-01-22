@@ -9,7 +9,7 @@ This topic describes how to upgrade the File Integrity Monitoring Add-on for PCF
 
 For example, read this topic to learn how to upgrade from FIM Add-on v1.2.17 to v1.2.23.
 
-<p class="note warning"><strong>IMPORTANT: </strong> If you are deploying any product tiles that use Xenial stemcells, 
+<p class="note warning"><strong>IMPORTANT: </strong> If you are deploying any product tiles that use Xenial stemcells,
 you must upgrade the FIM Add-on for PCF to v1.2.22 or later.</p>
 
 ##<a id="assume"></a>Prerequisites
@@ -25,10 +25,10 @@ To upgrade the FIM Add-on to a later version, do the following:
 1. Download the FIM add-on software binary
    from the [Pivotal Network](https://network.pivotal.io/products/p-fim-addon) to your local machine.
 
-3. SSH into the Ops Manager VM.
-   For how to do this, see [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
+3. SSH into the <%= vars.ops_manager_full %> VM.
+   For how to do this, see [SSH into <%= vars.ops_manager %>](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
 
-3. To retrieve the current runtime config file for editing, 
+3. To retrieve the current runtime config file for editing,
    run the following command:
 
     ```
@@ -37,10 +37,10 @@ To upgrade the FIM Add-on to a later version, do the following:
 
     For example:
 
-    <pre class="terminal">$ bosh -e my-env runtime-config --name fim > /tmp/fim.yml</pre> 
+    <pre class="terminal">$ bosh -e my-env runtime-config --name fim > /tmp/fim.yml</pre>
 
 
-2. To copy the software binary to your Ops Manager VM, run the following command:
+2. To copy the software binary to your <%= vars.ops_manager %> VM, run the following command:
 
     ```
     scp -i PATH-TO-PRIVATE-KEY fim-VERSION.tgz ubuntu@YOUR-OPS-MANAGER-VM-IP:
@@ -48,7 +48,7 @@ To upgrade the FIM Add-on to a later version, do the following:
 
     For example:
 
-    <pre class="terminal">$ cp -i ~/.ssh/my-key.pem ~/Downloads/fim-1.2.23.tgz ubuntu<span>@</span>192.168.0.2: </pre> 
+    <pre class="terminal">$ cp -i ~/.ssh/my-key.pem ~/Downloads/fim-1.2.23.tgz ubuntu<span>@</span>192.168.0.2: </pre>
 
 
 5. Upload the latest FIM release, run the following command:
@@ -72,7 +72,7 @@ To upgrade the FIM Add-on to a later version, do the following:
     ```
 
 7. Verify that your FIM runtime config includes an `addon` element for both Trusty and Xenial stemcells. <br/><br/>
-    
+
     Your runtime config must contain the following section:
 
     ```
@@ -85,9 +85,9 @@ To upgrade the FIM Add-on to a later version, do the following:
       include:
         stemcell:
         - os: ubuntu-xenial
-    ``` 
+    ```
 
-    For more information about adding this section, 
+    For more information about adding this section,
     see [Updating FIM Add-on for PCF to Run with Xenial Stemcells](updating-for-xenial.html).
 
 8. To update the runtime config, run the following command:
@@ -125,10 +125,10 @@ To upgrade the FIM Add-on to a later version, do the following:
     ...
     </pre>
 
-10. Navigate to the **Installation Dashboard** in Ops Manager.
+10. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %>.
 
-11. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
-   For more information about this Ops Manager page, 
+11. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
+   For more information about this <%= vars.ops_manager %> page,
    see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 12. Click **Apply Changes**.
