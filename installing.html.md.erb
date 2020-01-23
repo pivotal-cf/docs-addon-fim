@@ -767,13 +767,16 @@ For example, to mark all files in the directory `C:\var\vcap\bosh\ignore_me\` as
 By default, <%= vars.product_abbr %> generates messages in the Common Event Format.
 You can configure the output format as a Go text template using the **Output log format** field.
 
+
+####<a id="default-output"></a>Default Format
+
 The default value of **Output log format** is:
 
 ```
 "CEF:0|cloud_foundry|fim|1.0.0|{{.Optype}}|file integrity monitoring event|{{.Severity}}| {{.KeyValues}}"
 ```
 
-This example output shows what log lines look like with the default **Output log format** configuration:
+Example output using the default **Output log format** configuration:
 
 <pre class="terminal">
 CEF:0|cloud_foundry|fim|1.0.0|0|file integrity monitoring event|0| fname="" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="FILESNITCH_CHECKIN" optype=0 ts=1492715822 severity=0
@@ -790,159 +793,147 @@ CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/g
 </p>
 
 
-Other template values are listed below.
+####<a id="custom-output"></a>Custom Format
 
-####<a id="json"></a>JSON
+You can use individual fields to configure the log format.
+Each individual field, is a named property provided by FIM that will be replaced during the logging action.
 
-The `{{.Json}}` string serializes an event into a standard JSON dictionary.<br>
-
-Example log:
-
-<pre class="terminal">
-{"fname":"/bin/binary","hostname":"plymouth","opname":"CREATE","optype":1,"ts":1475195084}
-</pre>
-
-####<a id="keyvalues"></a>Key-Values
-
-The `{{.KeyValues}}` string serializes an event into a series of key-value pairs.<br>
-
-Example log:
-
-<pre class="terminal">
-fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 ts=1475195258
-</pre>
-
-####<a id="fields"></a>Individual Fields
-
-You can use individual fields to create a custom log template. For example:
+For example:
 
 ```
 "{{.Fname}} {{.Hostname}} {{.OpName}} {{.OpType}} {{.Digests}} {{.Ts}}"
 ```
 
-Example log using the above format:
+Example output using the above configuration:
 
 <pre class="terminal">
 /bin/binary plymouth CREATE 1 sha256=da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
 </pre>
 
-The table below lists the fields you can use:
+The table below lists the template values you can use:
 
 <table class="nice">
   <tr>
-    <th width="140">Template</th>
-    <th>Description</th>
+    <th width="21%">Template</th>
+    <th width="79">Description</th>
   </tr>
-
-
   <tr>
     <td><code>{{.Fname}}</code></td>
-    <td>Name of the affected file</td>
+    <td>Name of the affected file.</td>
   </tr>
-
   <tr>
     <td><code>{{.Hostname}}</code></td>
-    <td>Hostname of the VM on which the file event originated</td>
+    <td>Hostname of the VM on which the file event originated.</td>
   </tr>
-
   <tr>
     <td><code>{{.OpName}}</code></td>
-    <td>Type of file operation in textual format</td>
+    <td>Type of file operation in textual format. For more information, see .</td>
   </tr>
-
   <tr>
     <td><code>{{.OpType}}</code></td>
-    <td>Type of file operation in numeric format</td>
+    <td>Type of file operation in numeric format.</td>
   </tr>
-
   <tr>
     <td><code>{{.Severity}}</code></td>
-    <td>Level of importance attributed to the event</td>
+    <td>Level of importance attributed to the event.</td>
   </tr>
-
   <tr>
     <td><code>{{.Ts}}</code></td>
-    <td>Point in time at which <%= vars.product_abbr %> received the file event</td>
+    <td>Point in time at which <%= vars.product_abbr %> received the file event.</td>
   </tr>
-
   <tr>
     <td><code>{{.Digests}}</code></td>
-    <td>Key-value pairs of hash algorithms and the hash of the modified file</td>
+    <td>Key-value pairs of hash algorithms and the hash of the modified file.</td>
+  </tr>
+  <tr>
+    <td><code>{{.Json}}</code></td>
+    <td>
+      This string serializes an event into a standard JSON dictionary.<br>
+      Example output:
+      <pre class="terminal">{"fname":"/bin/binary","hostname":"plymouth","opname":"CREATE","optype":1,"metadata":{"mode": "-rw-r--r--","uid":"0","user":"root","gid":"0","group":"root"},"ts":1475195084}</pre>
+    </td>
+  </tr>
+  <tr>
+    <td><code>{{.KeyValues}}</code></td>
+    <td>
+      This string serializes an event into a series of key-value pairs.
+      Example output:
+      <pre class="terminal">fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1475195258</pre>
+    </td>
   </tr>
 </table>
 
-
-`optype` and `opname` are the type of file operation in the numeric and textual format, respectively.
- The possible values of the two fields are described in the table below:
+Opname and optype are the type of file operation in textual and numeric format, respectively.
+For the possible values of the two fields see the table below:
 
 <table class="nice">
-    <th width="15%">opname</th>
-    <th width="5%">optype</th>
-    <th width="35%">Example Linux Trigger</th>
-    <th width="45%">Example Windows Trigger</th>
-    <tr>
-        <td><code>CREATE</code></td>
-        <td align="center">1</td>
-        <td>
-          <code>touch newfile.txt</code>
-          <br>
-          <br>
-          <code>echo 'content' > newfile2.txt</code>
-        </td>
-        <td>
-          <code>Powershell New-Item -type File newfile.txt</code>
-          <br>
-          <br>
-          <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
-        </td>
-    </tr>
-    <tr>
-        <td><code>WRITE</code></td>
-        <td align="center">2</td>
-        <td>
-          <code>echo 'hello world' >> file.txt</code>
-        </td>
-        <td>
-          <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
-        </td>
-    </tr>
-    <tr>
-        <td><code>REMOVE</code></td>
-        <td align="center">4</td>
-        <td>
-          <code>rm file.txt</code>
-        </td>
-        <td>
-          <code>Powershell rm file.txt</code>
-        </td>
-    </tr>
-    <tr>
-        <td><code>RENAME</code></td>
-        <td align="center">8</td>
-        <td>
-          <code>mv file.txt file.txt.orig</code>
-        </td>
-        <td>
-          <code>Powershell mv file.txt file.txt.orig</code>
-        </td>
-    </tr>
-    <tr>
-        <td><code>CHMOD</code></td>
-        <td align="center">16</td>
-        <td>
-          <code>chmod 0400 file.txt</code>
-        </td>
-        <td>
-          <code>Powershell icacls file.txt /grant administrators:F</code>
-        </td>
-    </tr>
+   <th width="15%">opname</th>
+   <th width="5%">optype</th>
+   <th width="35%">Example Linux Trigger</th>
+   <th width="45%">Example Windows Trigger</th>
+   <tr>
+       <td><code>CREATE</code></td>
+       <td align="center">1</td>
+       <td>
+         <code>touch newfile.txt</code>
+         <br>
+         <br>
+         <code>echo 'content' > newfile2.txt</code>
+       </td>
+       <td>
+         <code>Powershell New-Item -type File newfile.txt</code>
+         <br>
+         <br>
+         <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
+       </td>
+   </tr>
+   <tr>
+       <td><code>WRITE</code></td>
+       <td align="center">2</td>
+       <td>
+         <code>echo 'hello world' >> file.txt</code>
+       </td>
+       <td>
+         <code>Powershell Add-Content -Path newfile.txt -Value 'content'</code>
+       </td>
+   </tr>
+   <tr>
+       <td><code>REMOVE</code></td>
+       <td align="center">4</td>
+       <td>
+         <code>rm file.txt</code>
+       </td>
+       <td>
+         <code>Powershell rm file.txt</code>
+       </td>
+   </tr>
+   <tr>
+       <td><code>RENAME</code></td>
+       <td align="center">8</td>
+       <td>
+         <code>mv file.txt file.txt.orig</code>
+       </td>
+       <td>
+         <code>Powershell mv file.txt file.txt.orig</code>
+       </td>
+   </tr>
+   <tr>
+       <td><code>CHMOD</code></td>
+       <td align="center">16</td>
+       <td>
+         <code>chmod 0400 file.txt</code>
+       </td>
+       <td>
+         <code>Powershell icacls file.txt /grant administrators:F</code>
+       </td>
+   </tr>
 </table>
-
 
 <p class="note"><strong>Note: </strong>
   <%= vars.product_abbr %> on Windows reports <code>WRITE</code> and <code>CHMOD</code>
   together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.
 </p>
+
 
 
 ###<a id="digests"></a>File Digests
