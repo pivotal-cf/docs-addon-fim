@@ -54,8 +54,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
 1. Configure the following fields:
 
     <table class="nice">
-      <th>Field</th>
-      <th>Description</th>
+      <th width="20%">Field</th>
+      <th width="80%">Description</th>
       <tr>
         <td><strong>Watchlist</strong></td>
         <td>
@@ -277,8 +277,8 @@ To configure <%= vars.product_abbr %> for Windows VMs:
 1. Configure the following fields:
 
     <table class="nice">
-      <th>Field</th>
-      <th>Description</th>
+      <th width="20%">Field</th>
+      <th width="80%">Description</th>
       <tr>
         <td><strong>Watchlist</strong></td>
         <td>
@@ -606,11 +606,9 @@ and removing items in the **Watchlist** section.
 Below is the default list of file paths in **Watchlist** section of **FIM Configuration for Ubuntu**.
 
 <table>
-  <col width="40%">
-  <col width="60%">
   <tr>
-    <th>Component</th>
-    <th>File Paths</th>
+    <th width="40%">Component</th>
+    <th width="60%">File Paths</th>
   </tr>
   <tr>
     <td>System binaries and configuration</td>
@@ -849,9 +847,14 @@ Example output using the above configuration:
 The table below lists the template values you can use:
 
 <table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
   <tr>
     <th width="21%">Template</th>
-    <th width="79">Description</th>
+    <th width="79%">Description</th>
   </tr>
   <tr>
     <td><code>{{.Fname}}</code></td>
@@ -912,8 +915,8 @@ For the possible values of the two fields see the table below:
 
 <table class="nice">
    <th width="15%">opname</th>
-   <th width="5%">optype</th>
-   <th width="35%">Example Linux Trigger</th>
+   <th width="10%">optype</th>
+   <th width="30%">Example Linux Trigger</th>
    <th width="45%">Example Windows Trigger</th>
    <tr>
        <td><code>CREATE</code></td>
