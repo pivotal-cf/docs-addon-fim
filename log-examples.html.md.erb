@@ -55,13 +55,13 @@ CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|3| fname="/test/
 CEF:0|cloud_foundry|fim|1.0.0|2|file integrity monitoring event|5| fname="/test/file02" hostname="fim/a6fbc720-cfd1-47fc-a257-c211704924a6" opname="WRITE" optype=2 ts=1546535520 severity=5
 </pre>
 
-<p class="note"><strong>Note</strong>:
-Low severity events can be used to filter out business-as-usual events.
+<p class="note"><strong>Note:</strong>
+You can use low severity events to filter out business-as-usual events.
 This allows you to isolate unexpected events by looking for severity <code>5</code>.
 You can configure this in the tile using <strong>Low severity tagging for frequently changed files</strong>.<br><br>
 For instructions on how to configure which files produce low severity events, see
-<a href="./installing.html#configure-ubuntu">Configure FIM for Linux</a> and
-<a href="./installing.html#configure-windows">Configure FIM for Windows</a>.
+<a href="./installing.html#configure-ubuntu">Configure <%= vars.product_abbr %> for Linux</a> and
+<a href="./installing.html#configure-windows">Configure <%= vars.product_abbr %> for Windows</a>.
 </p>
 
 ###<a id="output-logs"></a> Custom Log Format
