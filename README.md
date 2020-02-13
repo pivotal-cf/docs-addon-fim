@@ -6,11 +6,11 @@ This repo is published as part of the pcfservices book.
 
 # Branch Information
 
-As of January 7, 2020:
+As of January 13, 2020:
 
 | Branch name… | Documents version… | Publishes to… |
 |-------------|----------------|----------------|
-| master      | v2.1.x     | https://docs-pcf-staging.cfapps.io/addon-fim/1-n/ |
+| master      | v2.1.x     | https://docs-pcf-staging.cfapps.io/addon-fim/2-n/ |
 | v2.0        | v2.0.x     | https://docs-pcf-staging.cfapps.io/addon-fim/2-0/ |
 | v1.4        | v1.4.x     | https://docs-pcf-staging.cfapps.io/addon-fim/1-4/ |
 | v1.3        | v1.3.x     | https://docs-pcf-staging.cfapps.io/addon-fim/1-3/ |
