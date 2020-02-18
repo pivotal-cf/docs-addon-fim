@@ -847,45 +847,41 @@ Example output using the above configuration:
 The table below lists the template values you can use:
 
 <style>
-main table pre {
-  width:555px;
-  overflow:auto;
-}
+  main table {
+    table-layout: fixed;
+  }
 </style>
-
 <table class="nice">
-  <style>
-    main table {
-      table-layout: fixed;
-    }
-  </style>
   <tr>
     <th width="25%">Template</th>
     <th width="75%">Description</th>
   </tr>
   <tr>
     <td><code>{{.Fname}}</code></td>
-    <td>Name of the affected file.</td>
+    <td>The name of the affected file.</td>
   </tr>
   <tr>
     <td><code>{{.Hostname}}</code></td>
-    <td>Hostname of the VM on which the file event originated.</td>
+    <td>The hostname of the VM on which the file event originated.</td>
   </tr>
   <tr>
     <td><code>{{.OpName}}</code></td>
-    <td>Type of file operation in textual format. For more information, see .</td>
+    <td>The type of file operation in textual format.
+      For more information about opname, see <a href="#file-operation">Opname and Optype</a> below.</td>
   </tr>
   <tr>
     <td><code>{{.OpType}}</code></td>
-    <td>Type of file operation in numeric format.</td>
+    <td>The type of file operation in numeric format.
+      For more information about optype, see <a href="#file-operation">Opname and Optype</a> below.</td>
   </tr>
   <tr>
     <td><code>{{.Severity}}</code></td>
-    <td>Level of importance attributed to the event.</td>
+    <td>The level of importance attributed to the event.
+      For the severity levels, see <a href="#output-low">Low Severity Events</a> above. </td>
   </tr>
   <tr>
     <td><code>{{.Ts}}</code></td>
-    <td>Point in time at which <%= vars.product_abbr %> received the file event.</td>
+    <td>The point in time at which <%= vars.product_abbr %> received the file event in Unix epoch format.</td>
   </tr>
   <tr>
     <td><code>{{.Metadata}}</code></td>
@@ -893,17 +889,21 @@ main table pre {
       Key-value pairs of file mode and ownership metadata for <code>CREATE</code> and <code>CHMOD</code> events. <br>
       The information includes the file mode, owner, and group. <br>
       Metadata is only supported on Linux.
+      For more information, see <a href="#metadata">Metadata</a> below.
     </td>
   </tr>
   <tr>
     <td><code>{{.Digests}}</code></td>
-    <td>Key-value pairs of hash algorithms and the hash of the modified file.</td>
+    <td>Key-value pairs of hash algorithms and the hash of the modified file.
+      For more information, see <a href="#digests">File Digests</a> below.</td>
   </tr>
   <tr>
     <td><code>{{.Json}}</code></td>
     <td>
-      This string serializes an event into a standard JSON dictionary.<br>
-      Example output:
+      This string serializes an event into a standard JSON dictionary.
+      The string is in the following format:
+      <pre><code>{"fname":"ABSOLUTE-PATH","hostname":"BOSH-VM","opname":"OPERATION-NAME","optype":OPERATION-TYPE,"metadata":{mode=FILE-MODE uid=USER-ID user="USER" gid=GROUP-ID group="GROUP"},"ts":TIMESTAMP}</code></pre>
+      For example:
       <pre class="terminal">{"fname":"/bin/binary","hostname":"plymouth","opname":"CREATE","optype":1,"metadata":{"mode": "-rw-r--r--","uid":"0","user":"root","gid":"0","group":"root"},"ts":1475195084}</pre>
     </td>
   </tr>
@@ -911,11 +911,15 @@ main table pre {
     <td><code>{{.KeyValues}}</code></td>
     <td>
       This string serializes an event into a series of key-value pairs.
-      Example output:
+      The string is in the following format:
+      <pre><code>fname="ABSOLUTE-PATH" hostname="BOSH-VM" opname="OPERATION-NAME" optype=OPERATION-TYPE mode=FILE-MODE uid=USER-ID user="USER" gid=GROUP-ID group="GROUP" ts=TIMESTAMP</code></pre>
+      For example:
       <pre class="terminal">fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1475195258</pre>
     </td>
   </tr>
 </table>
+
+####<a id="file-operation"></a>Opname and Optype
 
 Opname and optype are the type of file operation in textual and numeric format, respectively.
 For the possible values of the two fields see the table below:
@@ -987,8 +991,6 @@ For the possible values of the two fields see the table below:
   <%= vars.product_abbr %> on Windows reports <code>WRITE</code> and <code>CHMOD</code>
   together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.
 </p>
-
-
 
 ###<a id="digests"></a>File Digests
 
