@@ -117,7 +117,9 @@ To configure <%= vars.product_abbr %> for Linux VMs:
         </td>
       </tr>
       <tr>
-        <td><strong>Heartbeat interval (in seconds)</strong></td>
+        <td>
+          <a name='heartbeat-linux'></a>
+          <strong>Heartbeat interval (in seconds)</strong></td>
         <td>
           Set the heartbeat interval as follows:
           <ul>
@@ -226,7 +228,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
 1. Click **Save**.
 
 
-## <a id='configure-windows'></a> Configure <%= vars.product_abbr %> for Windows (beta)
+## <a id='configure-windows'></a> Configure <%= vars.product_abbr %> for Windows (Beta)
 
 <p class="note warning"><strong>Warning: </strong>
   <%= vars.product_abbr %> for Windows is currently in beta.
@@ -341,7 +343,9 @@ To configure <%= vars.product_abbr %> for Windows VMs:
         </td>
       </tr>
       <tr>
-        <td><strong>Heartbeat interval (in seconds)</strong></td>
+        <td>
+          <a name='heartbeat-windows'></a>
+          <strong>Heartbeat interval (in seconds)</strong></td>
         <td>
           Set the heartbeat interval as follows:
           <ul>
@@ -452,7 +456,7 @@ To configure <%= vars.product_abbr %> to monitor Garden containers:
 To configure <%= vars.product_abbr %> to monitor Windows Garden containers:
 
 1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %>
-Configuration for Windows (beta)**.
+Configuration for Windows (Beta)**.
 
 1. Add at least one directory to the **Container Watchlist** section.
 Pivotal recommends that you add `C:\Users\vcap\app`, which is the directory for app files.
@@ -879,10 +883,28 @@ Opname and optype are the type of file operation in textual and numeric format, 
 For the possible values of the two fields see the table below:
 
 <table class="nice">
-   <th width="15%">opname</th>
-   <th width="15%">optype</th>
-   <th width="30%">Example Linux Trigger</th>
-   <th width="40%">Example Windows Trigger</th>
+   <th width="17%">opname</th>
+   <th width="10%">optype</th>
+   <th width="35%">Example Linux Trigger</th>
+   <th width="38%">Example Windows Trigger</th>
+   <tr>
+     <td><code>FILESNITCH_CHECKIN</code></td>
+     <td align="center">0</td>
+     <td>
+       This is a heartbeat message written to the log.
+       This occurs during every <b>Heartbeat interval</b>.<br><br>
+       The default interval is <code>600</code> seconds.
+       To configure this property,
+       see <a href="#heartbeat-linux">Configure FIM for Linux</a>.
+     </td>
+     <td>
+       This is a heartbeat message written to the log.
+       This occurs during every <b>Heartbeat interval</b>.<br><br>
+       The default interval is <code>600</code> seconds.
+       To configure this property,
+       see <a href="#heartbeat-windows">Configure FIM for Windows (Beta)</a>.
+     </td>
+  </tr>
    <tr>
        <td><code>CREATE</code></td>
        <td align="center">1</td>
