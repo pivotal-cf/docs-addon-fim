@@ -147,6 +147,16 @@ To configure <%= vars.product_abbr %> for Linux VMs:
         </td>
       </tr>
       <tr>
+      <tr>
+        <td><strong>Bosh Context Adaptor</strong></td>
+        <td>
+          Choose whether to enable a context adaptor to understand all the bosh triggered event. If enabled, it will lower the severity of all the files events triggered by bosh activities to 3.
+        </td>
+          <p class="note"><strong>Note</strong>:
+            This feature may only apply the default configuration.
+          </p>
+      </tr>
+      <tr>
         <td><strong>CPU limit (percentage)</strong></td>
         <td>
           Set the percentage of CPU that the <%= vars.product_abbr %> process can use.
