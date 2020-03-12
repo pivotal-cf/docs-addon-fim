@@ -106,7 +106,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       <tr>
         <td><strong>Output log format</strong></td>
         <td>
-          Enter a template for log lines.
+          Enter a template for log entries.
           This template must be compatible with the golang package <code>text/template</code>.
           <br><br>
           For more information about the <strong>Output log format</strong> field,
@@ -148,9 +148,10 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       </tr>
       <tr>
       <tr>
-        <td><strong>Bosh Context Adaptor</strong></td>
+        <td><strong>BOSH Context Adapter</strong></td>
         <td>
-          Choose whether to enable a context adaptor to understand all the bosh triggered event. If enabled, it will lower the severity of all the files events triggered by bosh activities to 3.
+          Enable a context adapter to understand all the BOSH triggered events.
+          If enabled, it lowers the severity of all the file events triggered by BOSH activities to three.
         </td>
           <p class="note"><strong>Note</strong>:
             This feature may only apply the default configuration.
@@ -378,7 +379,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
       <tr>
         <td><strong>Output log format</strong></td>
         <td>
-          Enter a template for log lines.
+          Enter a template for log entries.
           This template must be compatible with the golang package <code>text/template</code>.<br><br>
           For more information, see <a href="#format">Output Log Format</a> below.
           <p class="note"><strong>Note</strong>:
@@ -513,7 +514,7 @@ To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes wo
 
 1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
 
-1. Add the PKS container directory `/var/vcap/store/docker/docker/` to the **Watchlist** section.
+1. Add the <%= vars.k8s_runtime_full %> container directory `/var/vcap/store/docker/docker/` to the **Watchlist** section.
   <p class="note"><strong>Note:</strong>
     <%= vars.product_abbr %> writes log messages when files and directories in the
     <code>/var/vcap/store/docker/docker/overlay2/UUID/diff</code> directory are created, removed, or modified.
@@ -738,10 +739,12 @@ You can configure <%= vars.product_abbr %> to log events at a lower severity
 by adding and removing items in the **Low severity tagging for frequently changed
 files** section. Use path regular expressions.
 
-Severity can be one of the following severity levels:
+There are three possible severity levels:
 
   * `0`: Used for heartbeats.
-  * `3`: Used for low severity events. These events are for files that match any of the provided regular expressions. This can be useful to filter out business-as-usual events.
+  * `3`: Used for low severity events. These events are for files that match
+  any of the provided regular expressions. This setting filters out
+  business-as-usual events.
   * `5`: Used for all other events. This is the default severity.
 
 
@@ -844,7 +847,8 @@ CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/g
 ####<a id="custom-format"></a>Custom Format
 
 You can use individual fields to configure the log format.
-Each individual field, is a named property provided by FIM that will be replaced during the logging action.
+Each individual field is a named property, provided by <%= vars.product_abbr %>,
+that is replaced during the logging action.
 
 For example:
 
@@ -951,14 +955,14 @@ For the possible values of the two fields see the table below:
        This occurs during every <b>Heartbeat interval</b>.<br><br>
        The default interval is <code>600</code> seconds.
        To configure this property,
-       see <a href="#heartbeat-linux">Configure FIM for Linux</a>.
+       see <a href="#heartbeat-linux">Configure <%= vars.product_abbr %> for Linux</a> above.
      </td>
      <td>
        This is a heartbeat message written to the log.
        This occurs during every <b>Heartbeat interval</b>.<br><br>
        The default interval is <code>600</code> seconds.
        To configure this property,
-       see <a href="#heartbeat-windows">Configure FIM for Windows (Beta)</a>.
+       see <a href="#heartbeat-windows">Configure <%= vars.product_abbr %> for Windows (Beta)</a> above.
      </td>
   </tr>
    <tr>
@@ -1030,7 +1034,7 @@ For the possible values of the two fields see the table below:
 using the `sha256` algorithm.
 If you enable digests, <%= vars.product_abbr %> includes the calculated hash for the file in the logs.
 
-If you want to show that content has changed or check which version of the file is mapped to a log entry,
+To show that content has changed, or check which version of the file is mapped to a log entry,
 you can calculate the `sha256` value of a file and compare it to the value in the log.
 
 Hashing is disabled by default.
@@ -1203,7 +1207,7 @@ And the file system has the following structure:
     └── 4
 ```
 
-Then the cache stores seven files: `A`, `B`, `C`, `1`, `2`, `3`, `4`.
+Then the cache stores seven files: `A`, `B`, `C`, `1`, `2`, `3`, and `4`.
 
 To determine how large to set **Maximum cache size (in number of files)**:
 
@@ -1212,7 +1216,7 @@ to **Disable**.
 
 1.  Navigate to **Installation Dashboard** > **Review Pending Changes** and click **Apply Changes**.
 
-1. View the <%= vars.product_abbr %> `stderr` logs for some of your VMs. These can be found in
+1. View the <%= vars.product_abbr %> `stderr` logs for some of your VMs. These are in
  `/var/vcap/sys/log/fim/fim.stderr.log`. The logs look similar to the following:
 
     ```
