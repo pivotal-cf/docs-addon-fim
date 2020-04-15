@@ -18,12 +18,12 @@ This topic describes how to install <%= vars.product_full %>
 
 ##<a id="prereqs"></a>Prerequisites
 
-* You must be a <%= vars.platform_name %> operator with admin rights.
-See [Operators](https://docs.pivotal.io/pivotalcf/customizing/user-types.html#operator)
-in the <%= vars.platform_name %> documentation.
+Before you install <%= vars.product_abbr %>, you must have:
 
-* **<%= vars.ops_manager_full %> (<%= vars.ops_manager %>)**.
-For compatible versions, see the [Product Snapshot](./index.html#snapshot).
+* A <%= vars.ops_manager %> operator user account with admin rights.
+See [<%= vars.ops_manager %> Operators](https://docs.pivotal.io/platform/customizing/platform-operators.html).
+
+* **<%= vars.ops_manager %>**. For compatible versions, see the [Product Snapshot](./index.html#snapshot).
 
 ## <a id='install-addon'></a> Install <%= vars.product_abbr %>
 
@@ -33,7 +33,7 @@ To install the <%= vars.product_abbr %> file on the <%= vars.ops_manager %> Inst
   you must follow the instructions in <a href="./upgrading.html">Upgrading <%= vars.product_abbr %></a>.
 </p>
 
-1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-fim-addon).
+1. Download the product file from [<%= vars.product_network %>](https://network.pivotal.io/products/p-fim-addon).
 
 1. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click **Import a Product** to upload the product file.
 
@@ -502,7 +502,7 @@ To configure <%= vars.product_abbr %> to monitor Windows Garden containers:
 Configuration for Windows (Beta)**.
 
 1. Add at least one directory to the **Container Watchlist** section.
-Pivotal recommends that you add `C:\Users\vcap\app`, which is the directory for app files.
+VMware recommends that you add `C:\Users\vcap\app`, which is the directory for app files.
 
 1. Click **Save**.
 
@@ -542,7 +542,7 @@ See [syslog-release](https://github.com/cloudfoundry/syslog-release) in GitHub f
   When you configure syslog forwarding, ensure there is enough disk space for the logs.
   Ensure that the log rotation is frequent enough.
   If in doubt, rotate the logs hourly or when they reach a certain size.
-  Pivotal recommends forwarding logs to a remote syslog aggregation system.
+  VMware recommends forwarding logs to a remote syslog aggregation system.
 </p>
 
 ##<a id="deploy"></a> Apply Changes from Your Configuration

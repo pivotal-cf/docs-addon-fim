@@ -8,7 +8,7 @@ owner: Security Engineering
 This topic describes how to install <%= vars.product_full %>
 (<%= vars.product_abbr %>) on BOSH Director.
 
-When you install the <%= vars.product_abbr %> tile using <%= vars.ops_manager_full %>,
+When you install the <%= vars.product_abbr %> tile using <%= vars.ops_manager %>,
 <%= vars.product_abbr %> does not monitor the files on your BOSH Director.
 To apply <%= vars.product_abbr %> to the BOSH Director VM, you must do the below procedures.
 
@@ -16,10 +16,10 @@ To apply <%= vars.product_abbr %> to the BOSH Director VM, you must do the below
 
 Before you install <%= vars.product_abbr %>, you must have:
 
-* A <%= vars.platform_name %> operator user account with admin rights.
-See [Pivotal Platform Operators](https://docs.pivotal.io/platform/customizing/platform-operators.html).
+* A <%= vars.ops_manager %> operator user account with admin rights.
+See [<%= vars.ops_manager %> Operators](https://docs.pivotal.io/platform/customizing/platform-operators.html).
 
-* <%= vars.ops_manager_full %> v2.5 or later.
+* **<%= vars.ops_manager %>**. For compatible versions, see the [Product Snapshot](./index.html#snapshot).
 
 * A web server accessible from <%= vars.ops_manager %> to serve the <%= vars.product_abbr %> binary.
 
@@ -28,7 +28,7 @@ See [Pivotal Platform Operators](https://docs.pivotal.io/platform/customizing/pl
 To install <%= vars.product_abbr %> on your BOSH Director:
 
 1. Download the <%= vars.product_abbr %> tile from
-[Pivotal Network](https://network.pivotal.io/products/p-fim-addon).
+[<%= vars.product_network %>](https://network.pivotal.io/products/p-fim-addon).
 
 1. Untar the <%= vars.product_abbr %> tile by running:
 
