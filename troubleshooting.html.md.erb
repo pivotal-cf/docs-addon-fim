@@ -28,7 +28,8 @@ which generates corresponding <%= vars.product_abbr %> syslog activity during th
 <%= vars.product_abbr %> watches for unexpected file changes in all the directories that you configure it to monitor.
 The default manifest configuration monitors files in many critical directories including `/var/vcap/data/jobs`
  and `/var/vcap/data/packages`.
-These directories are critical to the normal operation of <%= vars.platform_name %> and are monitored because they are not expected to change during operation of the platform (between BOSH deploys).
+These directories are critical to the normal operation of BOSH Linux VMs, and are
+monitored because they are not expected to change between BOSH deploys.
 
 Syslog messages generated during a BOSH deploy report file changes in the `jobs` and `packages` directories in `/var/vcap/...`.  BOSH
 deploys update the files in these directories. Thus, <%= vars.product_abbr %> reports file-system events that are expected.
