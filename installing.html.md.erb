@@ -526,7 +526,7 @@ To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes wo
 ##<a id="alerts"></a> Configure Forwarding for <%= vars.product_abbr %> Alerts
 
 <%= vars.product_abbr %> writes all alerts to the BOSH logs for the VMs in your deployment.
-These logs are located at `/var/log/syslog` and
+These logs are located at `/var/log/syslog` in linux system , while in windows these logs located in
 `C:\var\vcap\sys\log\fim-windows\filesnitch\job-service-wrapper.out.log`.
 
 You can use syslog forwarding to forward the alerts to a syslog aggregator.
