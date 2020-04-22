@@ -14,8 +14,10 @@ system, to verify regular activity and generate alerts for file system operation
 ##<a id="logs"></a> Log Output Destination
 
 <%= vars.product_abbr %> produces many different logs depending on what operation is being performed.
-You can find these logs at `/var/log/syslog` in linux system, while in windows these logs are located in
-`C:\var\vcap\sys\log\fim-windows\filesnitch\job-service-wrapper.out.log`.
+
+* In Linux, these logs are located in `/var/log/syslog`.
+* In Windows these logs are located in `C:\var\vcap\sys\log\fim-windows\filesnitch\job-service-wrapper.out.log`.
+
 
 ##<a id="output-logs"></a> Log Format
 
@@ -101,8 +103,7 @@ see [Monitor Containers with <%= vars.product_abbr %>](./installing.html#monitor
 
 All the file event triggered by bosh will be labelled as `bosh-triggered event`. An example will be shown below.
 <pre class="terminal">
-CEF:0|cloud_foundry|fim|1.0.0|16|file integrity monitoring event|3| bosh-triggered event| 
-fname="/var/vcap/data/jobs/vxlan-policy-agent/1d6231f203386fa2313a4a12ed058d5f423757df/bin" 
+CEF:0|cloud_foundry|fim|1.0.0|16|file integrity monitoring event|3| bosh-triggered event|
+fname="/var/vcap/data/jobs/vxlan-policy-agent/1d6231f203386fa2313a4a12ed058d5f423757df/bin"
 hostname="diego_cell/a91f1807-ae87-47f6-ae65-14a5767332d5" opname="CHMOD" optype=16 mode="drwxr-x---" uid=0 user="root" gid=1000 group="vcap" ts=1583521619 severity=3
 </pre>
-
