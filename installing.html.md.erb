@@ -483,23 +483,25 @@ To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes wo
 ##<a id="alerts"></a> Configure Forwarding for <%= vars.product_abbr %> Alerts
 
 <%= vars.product_abbr %> writes all alerts to the BOSH logs for the VMs in your deployment.
-These logs are located at `/var/vcap/sys/log/fim/fim.stdout.log` and
-`C:\var\vcap\sys\log\fim-windows\filesnitch\job-service-wrapper.out.log`.
+
+* In Linux, these logs are located in `/var/vcap/sys/log/fim/fim.stdout.log`.
+* In Windows these logs are located in `C:\var\vcap\sys\log\fim-windows\filesnitch\job-service-wrapper.out.log`.
 
 You can use syslog forwarding to forward the alerts to a syslog aggregator.
 
-* **Using the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile**:
-Follow the steps to configure system logging in <%= vars.app_runtime_abbr %> in [Configuring Logging in <%= vars.app_runtime_abbr %>](https://docs.pivotal.io/pivotalcf/2-4/opsguide/logging-config-opsman.html).
-The syslog aggregator that you specify receives all alerts generated on <%= vars.app_runtime_abbr %> VMs, including the <%= vars.product_abbr %> alerts.
+* **If you are using the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile**:
+The syslog aggregator that you specify receives all alerts generated on <%= vars.app_runtime_abbr %>,
+including the <%= vars.product_abbr %> alerts.
+To configure system logging, follow the procedure in [Configuring Logging in <%= vars.app_runtime_abbr %>](https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html).
 
-* **Using the syslog BOSH release**: You can use the syslog BOSH release to forward system logs.
-See [syslog-release](https://github.com/cloudfoundry/syslog-release) in GitHub for instructions.
+* **If you are using the syslog BOSH release**: You can use the syslog BOSH release to forward system logs.
+For more information, see [syslog-release](https://github.com/cloudfoundry/syslog-release) in GitHub.
 
 <p class="note"><strong>Note:</strong>
-  When you configure syslog forwarding, ensure there is enough disk space for the logs.
-  Ensure that the log rotation is frequent enough.
-  If in doubt, rotate the logs hourly or when they reach a certain size.
-  Pivotal recommends forwarding logs to a remote syslog aggregation system.
+  When you configure syslog forwarding, ensure there is enough disk space for the logs,
+  and that they rotate frequently.
+  If you are not sure how often to rotate the logs, configure the rotation to occur either hourly, or when they reach a certain configured size.
+  VMware recommends forwarding logs to a remote syslog aggregation system.
 </p>
 
 ##<a id="deploy"></a> Apply Changes from Your Configuration
