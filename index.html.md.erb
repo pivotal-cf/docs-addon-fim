@@ -74,3 +74,38 @@ The following table provides version and version-support information about <%= v
 * Windows support is in beta
 * If you are upgrading from <%= vars.product_abbr %> v1.4, you must manually uninstall the runtime configs.
 For more information, see [Upgrading <%= vars.product_short %>](./uninstalling.html).
+
+##<a id="architecture"></a> <%= vars.product_short %> Architecture
+###<a id="bcaf"></a>BOSH Context Adaptor for FIM (BCAF)
+
+The BOSH Context Adaptor for FIM (BCAF) observes the BOSH Agent log, which is located at `/var/vcap/bosh/log/current`. Once the BOSH Agent receives an event from the BOSH Director, it has corresponding logs. BCAF will analyze the start and end of the events, and lower the severity of any BOSH-related paths in the Event Logger. These are then output into `/var/vcap/sys/log/fim/fim.stdout.log`.
+
+This diagram illustrates how the BOSH Context Adaptor analyzes BOSH events:
+
+[//]: https://docs.google.com/presentation/d/18BpGdRZVkZmdiWhkU-0mc0z0t_p02NT6B0X4kv6Ii_c/edit#slide=id.g84f09073e3_0_58
+![INSERT ALT TEXT HERE](arch-bcaf.png)
+
+In this example, the BOSH Director starts an event and sends it to the BOSH Agent.
+The BOSH Agent sends the `mkdir` and `touch` events to `fsnotify` and begins to log in the BOSH Agent log:
+
+    TimeStamp 1: BOSH event started
+    …
+    ...
+    …
+    …
+    TimeStamp ?: BOSH event finished
+
+BCAF analyzes the events taking place in the BOSH Agent log.
+It observes that ``/var/vcap/alice` and `bob.txt` are related during the `mkdir` event
+The Context Adaptor notifies the Event Logger that these are BOSH events and changes the severity level to `3`.
+
+The log output from the Event Logger reflects this change:
+
+    …
+    …
+    /var/vcap/alice is created [it is related to a normal BOSH event && severity is LOW]
+    …
+    bob.txt is created [it is related to a normal BOSH event && severity is LOW]
+    ……..
+
+For an example log message, see [Example of Log Message Identified by BCAF](./log-examples.html#container-examples).
