@@ -30,6 +30,11 @@ For information about configuring the log format, see [Output Log Format](./inst
 
 This section contains sample log messages emitted by <%= vars.product_abbr %>.
 You can use these samples to configure a Security Information and Event Management (SIEM) system.
+These include:
+
+	* Examples of log messages output by FIM
+	* Examples of FIM log messages output by containers
+	* An example of a log message output by the BOSH Context Adaptor for FIM (BCAF)
 
 ###<a id="fim-logs-messages"></a> <%= vars.product_abbr %> Log Message Types
 
@@ -99,11 +104,14 @@ hostname="worker/d1d67195-ad42-4025-83e9-0d43a193ad53" opname="CREATE" optype=1 
 For how to configure <%= vars.product_abbr %> to monitor containers,
 see [Monitor Containers with <%= vars.product_abbr %>](./installing.html#monitor-containers).
 
-###<a id="container-examples"></a> Examples of Log Messages Identified by Context Adaptor
+###<a id="container-examples"></a> Examples of Log Messages Identified by BCAF
 
-All the file event triggered by bosh will be labelled as `bosh-triggered event`. An example will be shown below.
+All file events triggered by BOSH are labelled as a `bosh-triggered event`:
+
 <pre class="terminal">
 CEF:0|cloud_foundry|fim|1.0.0|16|file integrity monitoring event|3| bosh-triggered event|
 fname="/var/vcap/data/jobs/vxlan-policy-agent/1d6231f203386fa2313a4a12ed058d5f423757df/bin"
 hostname="diego_cell/a91f1807-ae87-47f6-ae65-14a5767332d5" opname="CHMOD" optype=16 mode="drwxr-x---" uid=0 user="root" gid=1000 group="vcap" ts=1583521619 severity=3
 </pre>
+
+For more information about this process, see [BOSH Context Adaptor for FIM (BCAF)](./index.html#bcaf).
