@@ -76,38 +76,51 @@ The following table provides version and version-support information about <%= v
 For more information, see [Upgrading <%= vars.product_short %>](./uninstalling.html).
 
 ##<a id="architecture"></a> <%= vars.product_short %> Architecture
-###<a id="bcaf"></a>BOSH Context Adaptor for FIM (BCAF)
 
-The BOSH Context Adaptor for FIM (BCAF) is a feature that reduces the number of logs that an operator needs to review. It does this by notifying the Event Logger of BOSH events, and lowers the severity of those events, to allow Operators to focus on high severity events.
+###<a id="bcaf"></a>BOSH Context Adaptor for <%= vars.product_short %> (BCAF)
 
-This is done by observing what is logged by the BOSH Agent, which is located at `/var/vcap/bosh/log/current`. Once the BOSH Agent receives an event from the BOSH Director, the Agent starts generating logs corresponding to the events. BCAF will analyze the start and end of the events, and lower the severity of any BOSH-related paths in the Event Logger. These events are then output into `/var/vcap/sys/log/fim/fim.stdout.log`.
+The BOSH Context Adaptor for <%= vars.product_short %> (BCAF) is a feature that
+reduces the number of logs that an operator needs to review.
+It notifies the Event Logger about BOSH events and lowers the severity of those events.
+This allows operators to focus on high severity events.
+
+BCAF does this by observing BOSH Agent log entries, which are located at `/var/vcap/bosh/log/current`.
+When the BOSH Agent receives an event from the BOSH Director, the Agent begins to
+generate logs corresponding to the events.
+BCAF analyzes the start and end of the events, and lowers the severity of any
+BOSH-related paths in the Event Logger.
+These events are then output into `/var/vcap/sys/log/fim/fim.stdout.log`.
 
 This diagram illustrates how the BOSH Context Adaptor analyzes BOSH events:
 
-[//]: https://docs.google.com/presentation/d/18BpGdRZVkZmdiWhkU-0mc0z0t_p02NT6B0X4kv6Ii_c/edit#slide=id.g84f09073e3_0_58
-![INSERT ALT TEXT HERE](arch-bcaf.png)
+<%# https://docs.google.com/presentation/d/18BpGdRZVkZmdiWhkU-0mc0z0t_p02NT6B0X4kv6Ii_c/edit#slide=id.g84f09073e3_0_58 %>
+
+![This image is described in the text below](arch-bcaf.png)
+<a href="./images/arch-bcaf.png" target="_blank">View a larger version of this image</a>
 
 In this example, the BOSH Director starts an event and sends it to the BOSH Agent.
-The BOSH Agent sends the `mkdir` and `touch` events to `fsnotify` and begins to log in the BOSH Agent log:
+The BOSH Agent sends the `mkdir` and `touch` events to `fsnotify` and begins to log the events in the BOSH Agent log.
 
-    TimeStamp 1: BOSH event started
-    ...
-    ...
-    ...
-    ...
-    TimeStamp ?: BOSH event finished
+For example:
 
-BCAF analyzes the events taking place in the BOSH Agent log.
-It observes that `/var/vcap/alice` and `bob.txt` are related during the `mkdir` event.
-The Context Adaptor notifies the Event Logger that these are BOSH events and changes the severity level to `3`.
+<pre class="terminal">
+TimeStamp 1: BOSH event started
+...
+TimeStamp N: BOSH event finished
+</pre>
+
+The Context Adaptor analyzes the events taking place in the BOSH Agent log.
+It observes that the directory `/var/vcap/alice` and file `bob.txt` are related during the `mkdir` event.
+It then notifies the Event Logger that these are BOSH events and changes the severity level to `3`.
 
 The log output from the Event Logger reflects this change:
 
-    ...
-    ...
-    /var/vcap/alice is created [it is related to a normal BOSH event && severity is LOW]
-    ...
-    bob.txt is created [it is related to a normal BOSH event && severity is LOW]
-    ......
+<pre class="terminal">
+...
+/var/vcap/alice is created [it is related to a normal BOSH event && severity is LOW]
+...
+bob.txt is created [it is related to a normal BOSH event && severity is LOW]
+...
+</pre>
 
 For an example log message, see [Example of Log Message Identified by BCAF](./log-examples.html#container-examples).
