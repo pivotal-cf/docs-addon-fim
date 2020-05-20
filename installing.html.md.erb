@@ -148,14 +148,6 @@ To configure <%= vars.product_abbr %> for Linux VMs:
       </tr>
       <tr>
       <tr>
-        <td><strong>BOSH Context Adapter</strong></td>
-        <td>
-          Enable a context adapter to recognize BOSH triggered events.
-          If enabled, it lowers the severity of file events triggered by
-          BOSH activities to three.
-        </td>
-      </tr>
-      <tr>
         <td><strong>CPU limit (percentage)</strong></td>
         <td>
           Set the percentage of CPU that the <%= vars.product_abbr %> process can use.
@@ -223,6 +215,14 @@ To configure <%= vars.product_abbr %> for Linux VMs:
             This field corresponds to <code>fim.digest_threshold</code> in
             <%= vars.product_abbr %> v1.4 and earlier.<br>
           </p>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>BOSH Context Adapter</strong></td>
+        <td>
+          Enable a context adapter to recognize BOSH triggered events.
+          If enabled, it lowers the severity of file events triggered by
+          BOSH activities to three.
         </td>
       </tr>
       <tr>
