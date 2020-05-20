@@ -9,7 +9,7 @@ This topic contains release notes for <%= vars.product_full %> (<%= vars.product
 
 <%= partial vars.path_to_partials + "/upgrade-planner" %>
 
-## <a id="2-1-0"></a> v2.1.0
+## <a id="2-1-0"></a> v2.1.3
 
 **Release Date**: May 20, 2020
 
@@ -17,13 +17,16 @@ This topic contains release notes for <%= vars.product_full %> (<%= vars.product
 
 New features and changes in this release:
 
+* **Adds the BOSH Context Adaptor for <%= vars.product_abbr %> (BCAF):**
+If you enable this feature, BCAF detects bosh triggered events and lowers the severity in the log to `3`.
+For more information, see [BOSH Context Adaptor for <%= vars.product_short %> (BCAF)](./index.html#bcaf).
+
+* **Adds support for an in&#8209;memory cache on Linux to store security metadata for files:**
+If you enable this feature, <%= vars.product_abbr %> uses more memory, but reduces the number of trivial file events that are logged.
+For more information, see [In-Memory Cache](./installing.html#in-memory-cache).
+
 * Adds security metadata for `CREATE` and `CHMOD` events on Linux.
 For more information, see [Metadata](./installing.html#metadata).
-
-* Adds support for an in&#8209;memory cache on Linux to store security metadata for files.
-If you enable this feature, <%= vars.product_abbr %> uses more memory, but reduces the number of trivial file
-events that are logged.
-For more information, see [In-Memory Cache](./installing.html#in-memory-cache).
 
 ### Known Issues
 
