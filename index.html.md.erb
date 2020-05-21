@@ -110,17 +110,29 @@ TimeStamp N: BOSH event finished
 </pre>
 
 The Context Adaptor analyzes the events taking place in the BOSH Agent log.
-It observes that the directory `/var/vcap/alice` and file `bob.txt` are related during the `mkdir` event.
+It observes that the directory `/var/vcap/foo` and file `bar.txt` are related during the `mkdir` event.
 It then notifies the Event Logger that these are BOSH events and changes the severity level to `3`.
 
 The log output from the Event Logger reflects this change:
 
 <pre class="terminal">
 ...
-/var/vcap/alice is created [it is related to a normal BOSH event && severity is LOW]
+/var/vcap/foo is created [it is related to a normal BOSH event && severity is LOW]
 ...
-bob.txt is created [it is related to a normal BOSH event && severity is LOW]
+bar.txt is created [it is related to a normal BOSH event && severity is LOW]
 ...
 </pre>
 
 For an example log message, see [Example of Log Message Identified by BCAF](./log-examples.html#container-examples).
+
+<p class="note">
+  <strong>Note:</strong> BOSH events can be started by either a User or Ops Manager.
+If a user initiates a BOSH deploy, this can create files (<code>touch</code>)
+and make directories (<code>mkdir</code>).<br><br>
+
+If a user performs an SSH onto a VM, and they perform a <code>touch</code> or <code>mkdir</code>,
+that is not a "BOSH triggered event", and is not detected by BCAF.
+
+The initial action of doing an SSH will be a detected by BCAF,
+but any commands done afterwards during the SSH session will not be detected.
+</p>
