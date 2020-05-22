@@ -127,12 +127,13 @@ For an example log message, see [Example of Log Message Identified by BCAF](./lo
 
 <p class="note">
   <strong>Note:</strong> BOSH events can be started by either a User or Ops Manager.
-If a user initiates a BOSH deploy, this can create files (<code>touch</code>)
-and make directories (<code>mkdir</code>).<br><br>
+For example, if a user initiates a BOSH deploy, this can create files and make directories.<br><br>
 
-If a user performs an SSH onto a VM, and they perform a <code>touch</code> or <code>mkdir</code>,
+Also, the initial action of doing an SSH through BOSH will be detected by BCAF,
+but any commands done afterwards within the SSH session will not be detected.
+
+If a user performs an SSH onto a VM, and creates files or directories,
 that is not a "BOSH triggered event", and is not detected by BCAF.
 
-The initial action of doing an SSH will be a detected by BCAF,
-but any commands done afterwards during the SSH session will not be detected.
+
 </p>
