@@ -126,14 +126,14 @@ bar.txt is created [it is related to a normal BOSH event && severity is LOW]
 For an example log message, see [Example of Log Message Identified by BCAF](./log-examples.html#container-examples).
 
 <p class="note">
-  <strong>Note:</strong> BOSH events can be started by either a User or Ops Manager.
+  <strong>Note:</strong> BOSH events can be started by either a user or Ops Manager.
 For example, if a user initiates a BOSH deploy, this can create files and make directories.<br><br>
 
-Also, the initial action of doing an SSH through BOSH will be detected by BCAF,
-but any commands done afterwards within the SSH session will not be detected.
+Also, BCAF detects the initial action of doing an SSH through BOSH,
+but does not detect any commands run afterwards within the SSH session.
 
-If a user performs an SSH onto a VM, and creates files or directories,
-that is not a "BOSH triggered event", and is not detected by BCAF.
+If a user performs an SSH onto a VM and creates files or directories,
+that is not a "BOSH triggered event" and is not detected by BCAF.
 
 
 </p>
