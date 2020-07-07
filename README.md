@@ -1,8 +1,8 @@
 # File Integrity Monitoring
 
-## About this Repo
 
-This repo contains documentation for File Integrity Monitoring.
+## About this Repo
+This repo contains documentation for File Integrity Monitoring for VMware Tanzu.
 
 ## Branch Information
 
@@ -27,7 +27,7 @@ The live branches publish using the docs-book-addon-fim repo and are in these pi
 
 ## Style Guide
 
-Full name of the add-on for first use on the page: File Integrity Monitoring (FIM)
+Full name of the add-on for first use on the page: File Integrity Monitoring for VMware Tanzu (FIM)
 
 Subsequent use on the page: "File Integrity Monitoring" or "FIM"
 
