@@ -1,6 +1,6 @@
 # About this Repo
 
-This repo contains documentation for File Integrity Monitoring.
+This repo contains documentation for File Integrity Monitoring for VMware Tanzu.
 
 This repo is published as part of the pcfservices book.
 
@@ -27,7 +27,7 @@ docs-book-addon-fim
 
 # Style Guide
 
-Full name of the add-on for first use on the page: File Integrity Monitoring (FIM)
+Full name of the add-on for first use on the page: File Integrity Monitoring for VMware Tanzu (FIM)
 
 Subsequent use on the page: "File Integrity Monitoring" or "FIM"
 
