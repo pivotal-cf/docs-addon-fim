@@ -439,13 +439,13 @@ To configure <%= vars.product_abbr %> to monitor Garden containers:
     see [Volumes](https://docs.pivotal.io/pivotalcf/concepts/grootfs-disk.html#volumes).
 
 2. Add the following pattern to the **Ignore patterns** section:
-    - `^/var/vcap/data/grootfs/store/(un)?privileged/images/[\w-]+/rootfs/.*$`
+    - `^/var/vcap/data/grootfs/store/(un)?privileged/volumes/[\w-]+/rootfs/.*$`
 
     <p class="note"><strong>Note:</strong>
       When files in the Garden containers are modified, changes are made to both
       the <code>diff</code> and <code>rootfs</code> directories.
       Adding this ignore pattern means that <%= vars.product_abbr %> ignores
-      files and directories in the <code>/var/vcap/data/grootfs/store/unprivileged/images/UUID/diff</code>
+      files and directories in the <code>/var/vcap/data/grootfs/store/unprivileged/volumes/UUID/diff</code>
       directory, where <code>UUID</code> is the ID of the container.
     </p>
 
