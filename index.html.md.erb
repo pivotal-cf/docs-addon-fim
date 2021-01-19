@@ -139,9 +139,10 @@ For an example log entry, see
 
 <p class="note">
   <strong>Note:</strong> A user or <%= vars.ops_manager %> can start BOSH events.
-  For example, a user can initiate a BOSH deploy to create files and make directories.<br><br>
-  Also, BCAF detects the initial action of doing an SSH through BOSH, but any commands performed
-  afterwards within the SSH session are not detected.
-  If a user performs an SSH onto a VM, and creates files or directories, that is not a
-  "BOSH triggered event", and BCAF does not detect it.
+  For example, if a user initiates a BOSH deploy, this can create files and make directories.
+  <br><br>
+  Also, BCAF detects the initial action of doing an SSH through BOSH, but does
+  not detect any commands run afterwards within the SSH session.
+  If a user performs an SSH onto a VM and creates files or directories, that is not a
+  "BOSH triggered event" and BCAF does not detect it.
 </p>
