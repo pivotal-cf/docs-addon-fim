@@ -274,17 +274,11 @@ To configure <%= vars.product_abbr %> for Linux VMs:
 1. Click **Save**.
 
 
-## <a id='configure-windows'></a> Configure <%= vars.product_abbr %> for Windows (Beta)
-
-<p class="note warning"><strong>Warning: </strong>
-  <%= vars.product_abbr %> for Windows is currently in beta.
-  To disable installing <%= vars.product_abbr %> on Windows VMs, follow the steps in
-  <a href="#disable-windows">Disable Windows</a> below.
-</p>
+## <a id='configure-windows'></a> Configure <%= vars.product_abbr %> for Windows
 
 To configure <%= vars.product_abbr %> for Windows VMs:
 
-1. Select **FIM Configuration for Windows (Beta)**.
+1. Select **FIM Configuration for Windows**.
 ![FIM Configuration for Windows section of the FIM configuration in Ops Manager.](windows-config.png)
 [Click here to view a larger version of this image.](./images/windows-config.png)
 
@@ -453,7 +447,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
 
 To disable installing <%= vars.product_abbr %> on Windows VMs:
 
-1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Windows (Beta)**.
+1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Windows**.
 
 1. Add the instance group **windows\_diego\_cell** to the field
 **List of instance group names that will be excluded from deployment**.
@@ -502,7 +496,7 @@ To configure <%= vars.product_abbr %> to monitor Garden containers:
 To configure <%= vars.product_abbr %> to monitor Windows Garden containers:
 
 1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %>
-Configuration for Windows (Beta)**.
+Configuration for Windows**.
 
 1. Add at least one directory to the **Container Watchlist** section.
 VMware recommends that you add `C:\Users\vcap\app`, which is the directory for app files.
@@ -965,7 +959,7 @@ For the possible values of the two fields see the table below:
        This occurs during every <b>Heartbeat interval</b>.<br><br>
        The default interval is <code>600</code> seconds.
        To configure this property,
-       see <a href="#heartbeat-windows">Configure <%= vars.product_abbr %> for Windows (Beta)</a> above.
+       see <a href="#heartbeat-windows">Configure <%= vars.product_abbr %> for Windows</a> above.
      </td>
   </tr>
    <tr>
