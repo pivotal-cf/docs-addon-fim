@@ -30,7 +30,7 @@ For more information, see [In-Memory Cache](./installing.html#in-memory-cache).
 This release has the following known issue:
 
 * `user` and `group` security metadata might not be accurate for files in containers on
-<%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) and <%= vars.k8s_runtime_full %>
+<%= vars.app_runtime_first %> and <%= vars.k8s_runtime_full %>
 (<%= vars.k8s_runtime_abbr %>).
 However, you can determine the correct username and group name for a file from the `uid` and `gid` metadata keys.
 For more information, see [Metadata](./installing.html#metadata).

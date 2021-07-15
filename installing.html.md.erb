@@ -458,7 +458,7 @@ To disable installing <%= vars.product_abbr %> on Windows VMs:
 
 You can use <%= vars.product_abbr %> to monitor:
 
-* Garden containers on the Diego Cell VMs in <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
+* Garden containers on the Diego Cell VMs in <%= vars.app_runtime_first %>
 * Containers on the Diego Windows Cell VMs in <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
 * Containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>)
 
@@ -529,7 +529,7 @@ To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes wo
 
 You can use syslog forwarding to forward the alerts to a syslog aggregator.
 
-* **If you are using the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile**:
+* **If you are using the <%= vars.app_runtime_first %> tile**:
 The syslog aggregator that you specify receives all alerts generated on <%= vars.app_runtime_abbr %>,
 including the <%= vars.product_abbr %> alerts.
 To configure system logging, follow the procedure in [Configuring Logging in <%= vars.app_runtime_abbr %>](https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html).
