@@ -9,6 +9,25 @@ This topic contains release notes for <%= vars.product_full %> (<%= vars.product
 
 <%= partial vars.path_to_partials + "/upgrade-planner" %>
 
+## <a id="2-1-8"></a> v2.1.8
+**Release Date: ####**
+
+### Features
+New features and changes in this release:
+
+* Latest patches for all Go dependencies.
+* Updates golang dependency to v1.16 for both Linux and Windows.
+
+### Known Issues
+
+This release has the following known issue:
+
+* `user` and `group` security metadata might not be accurate for files in containers on
+  <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) and <%= vars.k8s_runtime_full %>
+  (<%= vars.k8s_runtime_abbr %>).
+  However, you can determine the correct username and group name for a file from the `uid` and `gid` metadata keys.
+  For more information, see [Metadata](./installing.html#metadata).
+
 ## <a id="2-1-5"></a> v2.1.5
 **Release Date: January 25, 2021**
 
