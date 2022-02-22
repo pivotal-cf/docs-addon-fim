@@ -30,29 +30,29 @@ To install <%= vars.product_abbr %> on your BOSH Director:
 1. Download the <%= vars.product_abbr %> tile from
 [<%= vars.product_network %>](https://network.pivotal.io/products/p-fim-addon).
 
-1. Untar the <%= vars.product_abbr %> tile by running:
+1. Unzip the <%= vars.product_abbr %> tile by running:
 
     ```
-    tar zxvf p-fim-X.X.X.pivotal -C PATH-TO-UNTAR
+    unzip p-fim-X.X.X.pivotal -d PATH-TO-UNZIP
     ```
 
     For example:
 
     <pre class="terminal">
-    $ tar zxvf p-fim-2.0.0.pivotal -C /tmp
+    $ unzip p-fim-2.0.0.pivotal -d /tmp
     </pre>
 
 1. Find and record the SHA checksum for the binary file by running:
 
     ```
-    shasum PATH-TO-UNTAR/releases/fim-X.X.X.tgz
+    shasum PATH-TO-UNZIP/releases/fim-X.X.X.pivotal
     ```
 
     For example:
 
     <pre class="terminal">
-    $ shasum /tmp/releases/fim-2.0.0.tgz
-    5edf5fd2f9bf8e876b6bdc871e53b5db97593b21 fim-2.0.0.tgz
+    $ shasum /tmp/releases/fim-2.0.0.pivotal
+    5edf5fd2f9bf8e876b6bdc871e53b5db97593b21 fim-2.0.0.pivotal
     </pre>
 
 1. Copy the binary file to your web server.
