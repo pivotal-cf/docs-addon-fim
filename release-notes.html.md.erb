@@ -10,19 +10,35 @@ This topic contains release notes for <%= vars.product_full %> (<%= vars.product
 <%= partial vars.path_to_partials + "/upgrade-planner" %>
 
 ## <a id='releases'></a> Releases
+
 ### <a id='2-1-10'></a> v2.1.10
 
 **Release Date**: February 18, 2022
 
 #### Maintenance Changes
 
-* Validated compatibility with TAS 2.12
-* Various internal technical improvements (CI, etc)
+Maintenance changes in this release:
+
+* Validated compatibility with <%= vars.app_runtime_full %> v2.12.
+* Various internal technical improvements, for example, to the CI.
 
 #### Dependencies
 
-* **filesnitch:** Updated to v`3017d46`.<br>For more information, see [filesnitch](https://github.com/pivotal-cf/filesnitch).
+This release updates the following dependencies:
 
+* **filesnitch:** Updated to v`3017d46`.<br>
+For more information, see [filesnitch](https://github.com/pivotal-cf/filesnitch).
+
+#### Known Issues
+
+This release has the following known issue:
+
+* `user` and `group` security metadata might not be accurate for files in containers on
+  <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) and <%= vars.k8s_runtime_full %>
+  (<%= vars.k8s_runtime_abbr %>).
+  However, you can determine the correct username and group name for a file from the `uid` and `gid`
+  metadata keys.
+  For more information, see [Metadata](installing.html#metadata).
 
 
 ### <a id="2-1-8"></a> v2.1.8
