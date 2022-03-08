@@ -80,8 +80,8 @@ To install <%= vars.product_abbr %> on your BOSH Director:
     ```
 
     Where:
-    + `FIM-BINARY-URL` is the URL to the binary file on your web server.
-    + `FIM-SHA1` is the SHA checksum for the binary file you recorded in the above step.
+        + `FIM-BINARY-URL` is the URL to the binary file on your web server.
+        + `FIM-SHA1` is the SHA checksum for the binary file you recorded in the above step.
 
     The output of the above command looks similar to the following:
 
@@ -142,25 +142,25 @@ To verify that <%= vars.product_abbr %> is running on your BOSH Director:
 
     For example:
 
-    <pre class=terminal>bosh/0:~$ sudo monit summary
-    The Monit daemon 5.2.5 uptime: 4m
-
-    Process 'system-metrics-server'     running
-    Process 'nats'                      running
-    Process 'postgres'                  running
-    Process 'director'                  running
-    Process 'worker_1'                  running
-    Process 'worker_2'                  running
-    Process 'worker_3'                  running
-    Process 'director_scheduler'        running
-    Process 'director_sync_dns'         running
-    Process 'director_nginx'            running
-    Process 'health_monitor'            running
-    Process 'uaa'                       running
-    Process 'credhub'                   running
-    Process 'blobstore_nginx'           running
-    Process 'fim'                       running
-    System 'system_localhost'           running
+    <pre>
+    bosh/0:~$ sudo monit summary<br>
+    The Monit daemon 5.2.5 uptime: 4m<br>
+    Process 'system-metrics-server'     running<br>
+    Process 'nats'                      running<br>
+    Process 'postgres'                  running<br>
+    Process 'director'                  running<br>
+    Process 'worker_1'                  running<br>
+    Process 'worker_2'                  running<br>
+    Process 'worker_3'                  running<br>
+    Process 'director_scheduler'        running<br>
+    Process 'director_sync_dns'         running<br>
+    Process 'director_nginx'            running<br>
+    Process 'health_monitor'            running<br>
+    Process 'uaa'                       running<br>
+    Process 'credhub'                   running<br>
+    Process 'blobstore_nginx'           running<br>
+    Process 'fim'                       running<br>
+    System 'system_localhost'           running<br>
     </pre>
 
 3. Confirm that `fim` is present in the above output.
