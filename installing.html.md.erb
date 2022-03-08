@@ -910,7 +910,7 @@ The table below lists the template values you can use:
     <td>
       This string serializes an event into a standard JSON dictionary.
       The string is in the following format:
-      <pre><code>{"fname":"ABSOLUTE-PATH","hostname":"BOSH-VM","opname":"OPERATION-NAME","optype":OPERATION-TYPE,"metadata":{mode=FILE-MODE uid=USER-ID user="USER" gid=GROUP-ID group="GROUP"},"ts":TIMESTAMP}</code></pre>
+      <code>{"fname":"ABSOLUTE-PATH","hostname":"BOSH-VM","opname":"OPERATION-NAME","optype":OPERATION-TYPE,"metadata":{mode=FILE-MODE uid=USER-ID user="USER" gid=GROUP-ID group="GROUP"},"ts":TIMESTAMP}</code>
       For example:
       <pre class="terminal">{"fname":"/bin/binary","hostname":"plymouth","opname":"CREATE","optype":1,"metadata":{"mode": "-rw-r--r--","uid":"0","user":"root","gid":"0","group":"root"},"ts":1475195084}</pre>
     </td>
@@ -918,6 +918,11 @@ The table below lists the template values you can use:
   <tr>
     <td><code>{{.KeyValues}}</code></td>
     <td>
+      This string serializes an event into a series of key-value pairs.
+      The string is in the following format:
+      <code>fname="ABSOLUTE-PATH" hostname="BOSH-VM" opname="OPERATION-NAME" optype=OPERATION-TYPE mode=FILE-MODE uid=USER-ID user="USER" gid=GROUP-ID group="GROUP" ts=TIMESTAMP</code>
+      For example:
+      <pre class="terminal">fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1475195258</pre>
     </td>
   </tr>
 </table>
