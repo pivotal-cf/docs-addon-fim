@@ -1108,13 +1108,11 @@ The table below describes the file events that are logged and ignored
 for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
 
 <table>
-
   <tr>
     <th width="75">File Event</th>
     <th>Logged Events</th>
     <th>Ignored Events</th>
   </tr>
-
   <tr>
     <td><code>CHMOD</code></td>
     <td>
@@ -1127,7 +1125,6 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
           <code>mode</code> and <code>oldMode</code>.</li>
       </ul>
     </td>
-
     <td>
       <ul>
         <li>File events that are not changes to the file mode or ownership.
@@ -1136,7 +1133,6 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
       </ul>
     </td>
   </tr>
-
   <tr>
     <td><code>WRITE</code></td>
     <td>
@@ -1145,7 +1141,6 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
             all <code>WRITE</code> events are logged.</li>
         </ul>
     </td>
-
     <td>
         <ul>
           <li>If <strong>Log file digest for write/create events</strong> is set to <strong>Enable</strong>
