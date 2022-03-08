@@ -168,7 +168,9 @@ To configure <%= vars.product_abbr %> for Linux VMs:
             <li><strong>When other processes are using CPU resources</strong>: Permits the CPU usage to
               exceed the limit set by <strong>CPU limit (percentage)</strong> if idle CPU cycles are available</li>
           </ul>
+
           The default setting is <strong>When other processes are using CPU resources</strong>.
+
           <p class="note warning"><strong>Warning: </strong>
             If <strong>Enforce CPU limit</strong> is set <strong>Always</strong>,
             verify that the <strong>CPU limit (percentage)</strong> is set high enough for <%= vars.product_abbr %> to
@@ -222,6 +224,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           If enabled, it lowers the severity of file events triggered by
           BOSH activities to three.
           The default value is <strong>Disabled</strong>.<br><br>
+
           For more information, see <a href="./index.html#bcaf">BOSH Context Adaptor for <%= vars.product_short %> (BCAF)</a>.
         </td>
       </tr>
@@ -232,6 +235,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           When you select this option, a field for <strong>Maximum cache size (number of files)</strong> appears.
           <br><br>
           For more information about the in&#8209;memory cache, see <a href="#in-memory-cache">In&#8209;Memory Cache</a> below.
+
           <p class="note"><strong>Note</strong>:
             <strong>In&#8209;memory cache to reduce noise when files do not change</strong> is currently only supported on Linux.
             The default value is <strong>Disabled</strong>.
@@ -249,6 +253,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           up to roughly 100&nbsp;MB.
           <br><br>
           For more information, see <a href="#in-memory-cache_size">In&#8209;Memory Cache Size</a> below.
+
           <p class="note"><strong>Note</strong>:
             Enabling the in&#8209;memory cache causes <%= vars.product_abbr %> to use additional memory.
             Ensure that <strong>Maximum cache size (number of files)</strong> is configured with
@@ -307,6 +312,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           <br><br>
           If you do not enter a file path,
           <%= vars.product_abbr %> does not monitor any file system events for containers.
+
           <p class="note"><strong>Note:</strong>
             The file path for generated logs from container events is relative to
             the file system for the Diego Cell, rather than the container. <br><br>
@@ -336,6 +342,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
             To ignore events for files in containers, you must enter regular expressions that are
             relative to the file system for the Diego Cell, rather than the container.
             To do this, enter regular expressions that start with <code>^C:\\proc\\[^\\]+\\root</code>.<br><br>
+
             For example, to ignore all files in containers in the directory <code>C:\Users\vcap\app</code>,
             enter <code>^C:\\proc\\[^\\]+\\root\\Users\\vcap\\app\\.*$</code>.
           </p>
@@ -820,11 +827,11 @@ The default value of **Output log format** is:
 Example output using the default **Output log format** configuration:
 
 <pre class="terminal">
-CEF:0|cloud_foundry|fim|1.0.0|0|file integrity monitoring event|0| fname="" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="FILESNITCH CHECKIN" optype=0 ts=1492715822 severity=0<br>
-CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/passwd.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1492715822 severity=5<br>
-CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/passwd.17721" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822 severity=5<br>
-CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/group.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1492715822 severity=5<br>
-CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/group.17721" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822 severity=5<br>
+CEF:0|cloud_foundry|fim|1.0.0|0|file integrity monitoring event|0| fname="" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="FILESNITCH CHECKIN" optype=0 ts=1492715822 severity=0
+CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/passwd.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1492715822 severity=5
+CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/passwd.17721" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822 severity=5
+CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/group.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1492715822 severity=5
+CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/group.17721" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="REMOVE" optype=4 ts=1492715822 severity=5
 CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/gshadow.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1492715822 severity=5
 </pre>
 
@@ -910,7 +917,7 @@ The table below lists the template values you can use:
     <td>
       This string serializes an event into a standard JSON dictionary.
       The string is in the following format:
-      <pre class="terminal">{"fname":"ABSOLUTE-PATH","hostname":"BOSH-VM","opname":"OPERATION-NAME","optype":OPERATION-TYPE,"metadata":{mode=FILE-MODE uid=USER-ID user="USER" gid=GROUP-ID group="GROUP"},"ts":TIMESTAMP}</pre>
+      <pre><code>{"fname":"ABSOLUTE-PATH","hostname":"BOSH-VM","opname":"OPERATION-NAME","optype":OPERATION-TYPE,"metadata":{mode=FILE-MODE uid=USER-ID user="USER" gid=GROUP-ID group="GROUP"},"ts":TIMESTAMP}</code></pre>
       For example:
       <pre class="terminal">{"fname":"/bin/binary","hostname":"plymouth","opname":"CREATE","optype":1,"metadata":{"mode": "-rw-r--r--","uid":"0","user":"root","gid":"0","group":"root"},"ts":1475195084}</pre>
     </td>
@@ -920,7 +927,7 @@ The table below lists the template values you can use:
     <td>
       This string serializes an event into a series of key-value pairs.
       The string is in the following format:
-      <pre class="terminal">fname="ABSOLUTE-PATH" hostname="BOSH-VM" opname="OPERATION-NAME" optype=OPERATION-TYPE mode=FILE-MODE uid=USER-ID user="USER" gid=GROUP-ID group="GROUP" ts=TIMESTAMP</pre>
+      <pre><code>fname="ABSOLUTE-PATH" hostname="BOSH-VM" opname="OPERATION-NAME" optype=OPERATION-TYPE mode=FILE-MODE uid=USER-ID user="USER" gid=GROUP-ID group="GROUP" ts=TIMESTAMP</code></pre>
       For example:
       <pre class="terminal">fname="/bin/binary" hostname="plymouth" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1475195258</pre>
     </td>
@@ -1059,6 +1066,7 @@ The table below describes the key-value pairs that the metadata uses:
           <li><code>t</code> indicates that sticky bit is set.</li>
         </ul>
         The normal output of the <code>ls</code> command for the same file is <code>-r-sr-Sr-T</code>.
+
     </td>
   </tr>
 
@@ -1108,11 +1116,13 @@ The table below describes the file events that are logged and ignored
 for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
 
 <table>
+
   <tr>
     <th width="75">File Event</th>
     <th>Logged Events</th>
     <th>Ignored Events</th>
   </tr>
+
   <tr>
     <td><code>CHMOD</code></td>
     <td>
@@ -1125,6 +1135,7 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
           <code>mode</code> and <code>oldMode</code>.</li>
       </ul>
     </td>
+
     <td>
       <ul>
         <li>File events that are not changes to the file mode or ownership.
@@ -1133,6 +1144,7 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
       </ul>
     </td>
   </tr>
+
   <tr>
     <td><code>WRITE</code></td>
     <td>
@@ -1141,6 +1153,7 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
             all <code>WRITE</code> events are logged.</li>
         </ul>
     </td>
+
     <td>
         <ul>
           <li>If <strong>Log file digest for write/create events</strong> is set to <strong>Enable</strong>
