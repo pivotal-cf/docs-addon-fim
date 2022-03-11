@@ -80,40 +80,42 @@ To install <%= vars.product_abbr %> on your BOSH Director:
     ```
 
     Where:
+
     + `FIM-BINARY-URL` is the URL to the binary file on your web server.
     + `FIM-SHA1` is the SHA checksum for the binary file you recorded in the above step.
 
     The output of the above command looks similar to the following:
 
-    <pre class="terminal">Status: 201 Created
-    Cache-Control: no-cache, no-store
-    Connection: keep-alive
-    Content-Type: application/json; charset=utf-8
-    Date: Mon, 04 Nov 2019 17:09:08 GMT
-    Expires: Fri, 01 Jan 1990 00:00:00 GMT
-    Pragma: no-cache
-    Referrer-Policy: strict-origin-when-cross-origin
-    Server: Ops Manager
-    Strict-Transport-Security: max-age=31536000; includeSubDomains
-    X-Content-Type-Options: nosniff
-    X-Download-Options: noopen
-    X-Frame-Options: SAMEORIGIN
-    X-Permitted-Cross-Domain-Policies: none
-    X-Request-Id: 7d961c91-b7d6-428c-a68d-c36c9059f7f9
-    X-Runtime: 0.220906
-    X-Xss-Protection: 1; mode=block
-    {
-      "add_job_to_instance_group": {
-        "instance_group": "bosh",
-        "job_name": "fim",
-        "release_name": "fim",
-        "release_url": "http://localhost:4567/fim-1.5.0.tgz",
-        "release_sha1": "15c52a9e56ca8e796dd61b55a48d962e2f4e763b",
-        "job_properties": {
-          "fim": {}
-        },
-        "guid": "op-653b1111a60a",
-        "product_guid": "p-bosh-eb686414b9fa37183507"
+    <pre class="terminal">
+    Status: 201 Created<br>
+    Cache-Control: no-cache, no-store<br>
+    Connection: keep-alive<br>
+    Content-Type: application/json; charset=utf-8<br>
+    Date: Mon, 04 Nov 2019 17:09:08 GMT<br>
+    Expires: Fri, 01 Jan 1990 00:00:00 GMT<br>
+    Pragma: no-cache<br>
+    Referrer-Policy: strict-origin-when-cross-origin<br>
+    Server: Ops Manager<br>
+    Strict-Transport-Security: max-age=31536000; includeSubDomains<br>
+    X-Content-Type-Options: nosniff<br>
+    X-Download-Options: noopen<br>
+    X-Frame-Options: SAMEORIGIN<br>
+    X-Permitted-Cross-Domain-Policies: none<br>
+    X-Request-Id: 7d961c91-b7d6-428c-a68d-c36c9059f7f9<br>
+    X-Runtime: 0.220906<br>
+    X-Xss-Protection: 1; mode=block<br>
+    {<br>
+      "add_job_to_instance_group": {<br>
+        "instance_group": "bosh",<br>
+        "job_name": "fim",<br>
+        "release_name": "fim",<br>
+        "release_url": "http://localhost:4567/fim-1.5.0.tgz",<br>
+        "release_sha1": "15c52a9e56ca8e796dd61b55a48d962e2f4e763b",<br>
+        "job_properties": {<br>
+          "fim": {}<br>
+        },<br>
+        "guid": "op-653b1111a60a",<br>
+        "product_guid": "p-bosh-eb686414b9fa37183507"<br>
       }
     }
   </pre>
