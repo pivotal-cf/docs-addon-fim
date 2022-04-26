@@ -73,8 +73,6 @@ The following table provides version and version-support information about <%= v
 <%= vars.product_short %> has the following limitations:
 
 * If you are upgrading from <%= vars.product_abbr %> v1.4, you must manually uninstall the runtime configs.
-For more information, see [Upgrading <%= vars.product_short %>](./uninstalling.html).
-
 
 ## <a id="architecture"></a> <%= vars.product_short %> Architecture
 
@@ -99,7 +97,7 @@ This diagram illustrates how the BOSH Context Adaptor analyzes BOSH events:
 
 ![Diagram depicting the BOSH Director starting an event and sending it to the BOSH Agent.
 The BOSH Agent sends the mkdir and touch events to fsnotify and begins to log the events in the
-BOSH Agent log.](arch-bcaf.png)
+BOSH Agent log.](./images/arch-bcaf.png)
 <a href="./images/arch-bcaf.png" target="_blank">View a larger version of this image</a>
 
 In the example shown in the diagram above, the BOSH Director starts an event and sends it to the BOSH
@@ -109,8 +107,8 @@ in the BOSH Agent log.
 For example:
 
 <pre class="terminal">
-TimeStamp 1: BOSH event started
-...
+TimeStamp 1: BOSH event started<br>
+...<br>
 TimeStamp N: BOSH event finished
 </pre>
 
@@ -122,10 +120,10 @@ It then notifies the Event Logger that these are BOSH events and changes the sev
 The log output from the Event Logger reflects this change:
 
 <pre class="terminal">
-...
-/var/vcap/foo is created [it is related to a normal BOSH event && severity is LOW]
-...
-bar.txt is created [it is related to a normal BOSH event && severity is LOW]
+...<br>
+/var/vcap/foo is created [it is related to a normal BOSH event && severity is LOW]<br>
+...<br>
+bar.txt is created [it is related to a normal BOSH event && severity is LOW]<br>
 ...
 </pre>
 
