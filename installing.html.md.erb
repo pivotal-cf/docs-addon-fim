@@ -453,7 +453,6 @@ You can use <%= vars.product_abbr %> to monitor:
 
 * Garden containers on the Diego Cell VMs in <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
 * Containers on the Diego Windows Cell VMs in <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
-* Containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>)
 
 For an example log message, see [Examples of Log Messages from Containers](./log-examples.html#container-examples).
 
@@ -493,22 +492,6 @@ Configuration for Windows**.
 
 1. Add at least one directory to the **Container Watchlist** section.
 VMware recommends that you add `C:\Users\vcap\app`, which is the directory for app files.
-
-1. Click **Save**.
-
-###<a id="pks"></a> Monitor Containers in <%= vars.k8s_runtime_abbr %>
-
-To configure <%= vars.product_abbr %> to monitor containers on the Kubernetes worker node VMs in <%= vars.k8s_runtime_abbr %>:
-
-1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Ubuntu**.
-
-1. Add the <%= vars.k8s_runtime_full %> container directory `/var/vcap/store/docker/docker/` to the **Watchlist** section.
-  <p class="note"><strong>Note:</strong>
-    <%= vars.product_abbr %> writes log messages when files and directories in the
-    <code>/var/vcap/store/docker/docker/overlay2/UUID/diff</code> directory are created, removed, or modified.
-    <code>UUID</code> is the ID of the container.
-  </p>
-
 
 1. Click **Save**.
 
