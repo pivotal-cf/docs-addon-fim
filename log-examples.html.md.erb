@@ -94,13 +94,6 @@ fname="C:\\proc\\8174\\root\\Users\\vcap\\app\\test.html"
 hostname="windows_diego_cell/be1f4854-299d-47d1-98eb-60b0741a3f6b" opname="CREATE" optype=1 ts=1556218123 severity=5
 </pre>
 
-* For a Docker container in <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>)
-<pre class="terminal">
-CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5|
-fname="/var/vcap/store/docker/docker/overlay2/7e5685c735b2aa97a9680e0b81730a518e3188afbf0f9f1529e492f98ed35f1d/diff/test.html"
-hostname="worker/d1d67195-ad42-4025-83e9-0d43a193ad53" opname="CREATE" optype=1 mode="-rw-r--r--" uid=2000 user="unknown" gid=2000 group="unknown" ts=1556217648 severity=5
-</pre>
-
 For how to configure <%= vars.product_abbr %> to monitor containers,
 see [Monitor Containers with <%= vars.product_abbr %>](./installing.html#monitor-containers).
 
