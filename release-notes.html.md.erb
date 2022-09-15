@@ -10,6 +10,64 @@ This topic contains release notes for <%= vars.product_full %> (<%= vars.product
 For product versions and upgrade paths, see [Upgrade Planner](https://upgrade-planner.pivotal.io/).
 
 ## <a id='releases'></a> Releases
+### <a id='2-1-11'></a> v2.1.11
+
+**Release Date**: September 15, 2022
+
+#### Maintenance Changes
+
+* Add Jammy support (#93)
+* Add debug
+* Add job to collect provenance metadata (#83)
+* Download filesnitch deps when needed
+* Final release 2.1.10
+* Fix deploy worker script
+* Fix offline compilation issue (#97)
+* Fix script
+* Harness carvel to simplify the work to keep up with TAS (#81)
+* Make SATS use Toolsmiths envs (#80)
+* Make fim pipeline more resilient to flakiness (#79)
+* Prepare pipeline to be reset by meta-pipeline (#87)
+* Remove unused vars
+* Require windows-tools release to be passed in
+* Revert "Stop compilation for debugging"
+* Revert "Update filesnitch submodule url"
+* Revert "debugging fim windows compilation"
+* Revert "keep compilation vms around a bit more"
+* Revert "stop compilation after things happened"
+* Stop compilation for debugging
+* Stop consuming PRs in cut-fim-release job (#96)
+* Test Jammy compatibility (#90)
+* Update pipeline to test the latest TAS (#89)
+* Update pipeline to test the latest TAS (#94)
+* Update pipeline to test the latest TAS (#95)
+* Use git protocol for getting submodule (#85)
+* [DO NOT MERGE] Test without snowflake envs (#84)
+* [ci] Add norsk status
+* [ci] Remove unnecessary serial group
+* [ci] Trigger integration tests new release/tile
+* [ci] Upload stemcells needed by airgapped envs
+* [ci] check for task  inputs
+* [ci] pipeline now submits PR for release notes
+* [ci] stop asking for OSM in this pipeline
+* [ci] use non-admin creds for pivnet
+* [deploy-windows-worker] create fim release on the fly
+* [deploy-windows-worker] fix identation issues
+* [deploy-windows-worker] make blobstore creds available in env
+* [deploy-windows-worker] re-introduce fim release
+* [deploy-windows-worker] try without fim
+* [deploy-windows-worker] update fim-release path
+* [filesnitch-windows] make GOMODCACHE writeable
+* [provenance] Add revision
+* debugging fim windows compilation
+* keep compilation vms around a bit more
+* stop compilation after things happened
+
+#### Dependencies
+
+* **filesnitch:** Updated to v`55e498b`.<br>For more information, see [filesnitch](https://github.com/pivotal-cf/filesnitch).
+
+
 
 ### <a id='2-1-10'></a> v2.1.10
 
@@ -56,6 +114,64 @@ This release has the following known issue:
 ### <a id="2-1-5"></a> v2.1.5
 
 ## <a id='releases'></a> Releases
+### <a id='2-1-11'></a> v2.1.11
+
+**Release Date**: September 15, 2022
+
+#### Maintenance Changes
+
+* Add Jammy support (#93)
+* Add debug
+* Add job to collect provenance metadata (#83)
+* Download filesnitch deps when needed
+* Final release 2.1.10
+* Fix deploy worker script
+* Fix offline compilation issue (#97)
+* Fix script
+* Harness carvel to simplify the work to keep up with TAS (#81)
+* Make SATS use Toolsmiths envs (#80)
+* Make fim pipeline more resilient to flakiness (#79)
+* Prepare pipeline to be reset by meta-pipeline (#87)
+* Remove unused vars
+* Require windows-tools release to be passed in
+* Revert "Stop compilation for debugging"
+* Revert "Update filesnitch submodule url"
+* Revert "debugging fim windows compilation"
+* Revert "keep compilation vms around a bit more"
+* Revert "stop compilation after things happened"
+* Stop compilation for debugging
+* Stop consuming PRs in cut-fim-release job (#96)
+* Test Jammy compatibility (#90)
+* Update pipeline to test the latest TAS (#89)
+* Update pipeline to test the latest TAS (#94)
+* Update pipeline to test the latest TAS (#95)
+* Use git protocol for getting submodule (#85)
+* [DO NOT MERGE] Test without snowflake envs (#84)
+* [ci] Add norsk status
+* [ci] Remove unnecessary serial group
+* [ci] Trigger integration tests new release/tile
+* [ci] Upload stemcells needed by airgapped envs
+* [ci] check for task  inputs
+* [ci] pipeline now submits PR for release notes
+* [ci] stop asking for OSM in this pipeline
+* [ci] use non-admin creds for pivnet
+* [deploy-windows-worker] create fim release on the fly
+* [deploy-windows-worker] fix identation issues
+* [deploy-windows-worker] make blobstore creds available in env
+* [deploy-windows-worker] re-introduce fim release
+* [deploy-windows-worker] try without fim
+* [deploy-windows-worker] update fim-release path
+* [filesnitch-windows] make GOMODCACHE writeable
+* [provenance] Add revision
+* debugging fim windows compilation
+* keep compilation vms around a bit more
+* stop compilation after things happened
+
+#### Dependencies
+
+* **filesnitch:** Updated to v`55e498b`.<br>For more information, see [filesnitch](https://github.com/pivotal-cf/filesnitch).
+
+
 
 ### <a id='2-1-10'></a> v2.1.10
 
