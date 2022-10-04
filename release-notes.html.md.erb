@@ -11,6 +11,28 @@ For product versions and upgrade paths, see [Upgrade Planner](https://upgrade-pl
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-1-11'></a> v2.1.11
+
+**Release Date**: September 15, 2022
+
+#### Maintenance Changes
+
+* Add support for Jammy stemcell (#93)
+
+#### Dependencies
+
+* **filesnitch:** Updated to v`55e498b`.<br>For more information, see [filesnitch](https://github.com/pivotal-cf/filesnitch).
+
+#### Known Issues
+
+This release has the following known issue:
+
+* `user` and `group` security metadata might not be accurate for files in containers on
+  <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>).
+  However, you can determine the correct username and group name for a file from the `uid` and `gid`
+  metadata keys.
+  For more information, see [Metadata](installing.html#metadata).
+
 ### <a id='2-1-10'></a> v2.1.10
 
 **Release Date**: March 8, 2022
