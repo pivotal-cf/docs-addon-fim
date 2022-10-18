@@ -436,7 +436,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
 1. Click **Save**.
 
 
-###<a id="disable-windows"></a> Deactivate Windows
+###<a id="deactivate-windows"></a> Deactivate Windows
 
 To deactivate installing <%= vars.product_abbr %> on Windows VMs:
 
@@ -1138,7 +1138,7 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
 
 <p class="note"><strong>Note:</strong> If the cache is full,
   because <strong>Maximum cache size (in number of files)</strong> is too small,
-  <%= vars.product_abbr %> logs file events as if the cache was disabled.
+  <%= vars.product_abbr %> logs file events as if the cache was deactivated.
 </p>
 
 ###<a id="in-memory-cache_size"></a> In&#8209;Memory Cache Size
@@ -1147,7 +1147,7 @@ The in&#8209;memory cache size is the maximum number of files that <%= vars.prod
 can store at once. If there are more files being watched than can fit into the cache,
 the cache removes the least-recently accessed file. If the cache removes a file,
 the next time the file is accessed,
-<%= vars.product_abbr %> logs it as if the cache was disabled.
+<%= vars.product_abbr %> logs it as if the cache was deactivated.
 
 On startup, <%= vars.product_abbr %> creates a cache consisting of all
 files that are descendants of the directories that are configured in <strong>Watchlist</strong>.
