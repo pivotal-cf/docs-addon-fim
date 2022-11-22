@@ -11,6 +11,24 @@ For product versions and upgrade paths, see [Upgrade Planner](https://upgrade-pl
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-1-12'></a> v2.1.12
+
+**Release Date**: November 7, 2022
+
+#### Dependencies
+
+* **Golang**: Updated to v1.19.3
+
+#### Known Issues
+
+This release has the following known issue:
+
+* `user` and `group` security metadata might not be accurate for files in containers on
+  <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>).
+  However, you can discover the correct user name and group name for a file from the `uid` and `gid`
+  metadata keys.
+  For more information, see [Metadata](installing.html.md.erb#metadata).
+
 ### <a id='2-1-11'></a> v2.1.11
 
 **Release Date**: October 4, 2022
