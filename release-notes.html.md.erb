@@ -12,54 +12,21 @@ For product versions and upgrade paths, see [Upgrade Planner](https://upgrade-pl
 ## <a id='releases'></a> Releases
 ### <a id='2-1-13'></a> v2.1.13
 
-**Release Date**: December 7, 2022
-
-#### Maintenance Changes
-
-* Final release 2.1.13
-
-
-
-### <a id='2-1-13'></a> v2.1.13
-
-**Release Date**: December 7, 2022
-
-#### Maintenance Changes
-
-* Add release auto trigger (#108)
-* Correctly set dependencies for TanzuNet automation
-* Final release 2.1.12
-* Fix dependabot for filesnitch (#109)
-* Only allow 1 PR at a time
-* Revert "Bump github.com/fsnotify/fsnotify from 1.5.4 to 1.6.0 in /src/filesnitch"
-* Revert "Only allow 1 PR at a time"
-* Revert "Revert "Only allow 1 PR at a time""
+**Release Date**: January 6, 2022
 
 #### Dependencies
 
 * **fsnotify:** Updated to v1.6.0.<br>For more information, see [fsnotify](https://github.com/fsnotify/fsnotify).
 
+#### Known Issues
 
-### <a id='2-1-13'></a> v2.1.13
+This release has the following known issue:
 
-**Release Date**: December 7, 2022
-
-#### Maintenance Changes
-
-* Add release auto trigger (#108)
-* Correctly set dependencies for TanzuNet automation
-* Final release 2.1.12
-* Fix dependabot for filesnitch (#109)
-* Only allow 1 PR at a time
-* Revert "Bump github.com/fsnotify/fsnotify from 1.5.4 to 1.6.0 in /src/filesnitch"
-* Revert "Only allow 1 PR at a time"
-* Revert "Revert "Only allow 1 PR at a time""
-
-#### Dependencies
-
-* **fsnotify:** Updated to v1.6.0.<br>For more information, see [fsnotify](https://github.com/fsnotify/fsnotify).
-
-
+* `user` and `group` security metadata might not be accurate for files in containers on
+  <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>).
+  However, you can discover the correct user name and group name for a file from the `uid` and `gid`
+  metadata keys.
+  For more information, see [Metadata](installing.html.md.erb#metadata).
 
 ### <a id='2-1-12'></a> v2.1.12
 
