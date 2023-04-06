@@ -14,22 +14,19 @@ For product versions and upgrade paths, see [Upgrade Planner](https://upgrade-pl
 
 **Release Date**: April 5, 2023
 
-#### Maintenance Changes
+#### Dependencies
+* Golang: Updated to v1.20.2
+* golang.org/x/net: Updated to 0.7.0
 
-* Final release 2.1.21
+#### Known Issues
 
+This release has the following known issue:
 
-
-### <a id='2-1-20'></a> v2.1.20
-
-**Release Date**: April 4, 2023
-
-#### Maintenance Changes
-
-* Final release 2.1.20
-
-
-
+* `user` and `group` security metadata might not be accurate for files in containers on
+  <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>).
+  However, you can discover the correct user name and group name for a file from the `uid` and `gid`
+  metadata keys.
+  For more information, see [Metadata](installing.html.md.erb#metadata).
 
 ### <a id='2-1-13'></a> v2.1.13
 
