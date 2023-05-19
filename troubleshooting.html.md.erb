@@ -58,8 +58,10 @@ Filesystem events are not reported. The logs are empty.
 
 * Check whether `fim` is running. `monit summary` should return the following output on success.
 
-    <pre class='terminal'>The Monit daemon 5.2.5 uptime: 1d 20h 11m<br>
-    Process 'fim'                       running</pre>
+    <pre class="terminal">
+    The Monit daemon 5.2.5 uptime: 1d 20h 11m
+    Process 'fim'                       running
+    </pre>
 
 * If the process is not running, inspect the contents of `/var/vcap/sys/log/fim/fim.std*.log` files for clues.
 
