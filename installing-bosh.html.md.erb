@@ -87,35 +87,35 @@ To install <%= vars.product_abbr %> on your BOSH Director:
     The output of the above command looks similar to the following:
 
     <pre class="terminal">
-    Status: 201 Created<br>
-    Cache-Control: no-cache, no-store<br>
-    Connection: keep-alive<br>
-    Content-Type: application/json; charset=utf-8<br>
-    Date: Mon, 04 Nov 2019 17:09:08 GMT<br>
-    Expires: Fri, 01 Jan 1990 00:00:00 GMT<br>
-    Pragma: no-cache<br>
-    Referrer-Policy: strict-origin-when-cross-origin<br>
-    Server: Ops Manager<br>
-    Strict-Transport-Security: max-age=31536000; includeSubDomains<br>
-    X-Content-Type-Options: nosniff<br>
-    X-Download-Options: noopen<br>
-    X-Frame-Options: SAMEORIGIN<br>
-    X-Permitted-Cross-Domain-Policies: none<br>
-    X-Request-Id: 7d961c91-b7d6-428c-a68d-c36c9059f7f9<br>
-    X-Runtime: 0.220906<br>
-    X-Xss-Protection: 1; mode=block<br>
-    {<br>
-      "add_job_to_instance_group": {<br>
-        "instance_group": "bosh",<br>
-        "job_name": "fim",<br>
-        "release_name": "fim",<br>
-        "release_url": "http://localhost:4567/fim-1.5.0.tgz",<br>
-        "release_sha1": "15c52a9e56ca8e796dd61b55a48d962e2f4e763b",<br>
-        "job_properties": {<br>
-          "fim": {}<br>
-        },<br>
-        "guid": "op-653b1111a60a",<br>
-        "product_guid": "p-bosh-eb686414b9fa37183507"<br>
+    Status: 201 Created
+    Cache-Control: no-cache, no-store
+    Connection: keep-alive
+    Content-Type: application/json; charset=utf-8
+    Date: Mon, 04 Nov 2019 17:09:08 GMT
+    Expires: Fri, 01 Jan 1990 00:00:00 GMT
+    Pragma: no-cache
+    Referrer-Policy: strict-origin-when-cross-origin
+    Server: Ops Manager
+    Strict-Transport-Security: max-age=31536000; includeSubDomains
+    X-Content-Type-Options: nosniff
+    X-Download-Options: noopen
+    X-Frame-Options: SAMEORIGIN
+    X-Permitted-Cross-Domain-Policies: none
+    X-Request-Id: 7d961c91-b7d6-428c-a68d-c36c9059f7f9
+    X-Runtime: 0.220906
+    X-Xss-Protection: 1; mode=block
+    {
+      "add_job_to_instance_group": {
+        "instance_group": "bosh",
+        "job_name": "fim",
+        "release_name": "fim",
+        "release_url": "http://localhost:4567/fim-1.5.0.tgz",
+        "release_sha1": "15c52a9e56ca8e796dd61b55a48d962e2f4e763b",
+        "job_properties": {
+          "fim": {}
+        },
+        "guid": "op-653b1111a60a",
+        "product_guid": "p-bosh-eb686414b9fa37183507"
       }
     }
   </pre>
@@ -142,24 +142,25 @@ To verify that <%= vars.product_abbr %> is running on your BOSH Director:
     sudo monit summary
     ```
     For example:
+    
     <pre class="terminal">
-    bosh/0:~$ sudo monit summary<br>
-    The Monit daemon 5.2.5 uptime: 4m<br><br>
-    Process 'system-metrics-server'     running<br>
-    Process 'nats'                      running<br>
-    Process 'postgres'                  running<br>
-    Process 'director'                  running<br>
-    Process 'worker_1'                  running<br>
-    Process 'worker_2'                  running<br>
-    Process 'worker_3'                  running<br>
-    Process 'director_scheduler'        running<br>
-    Process 'director_sync_dns'         running<br>
-    Process 'director_nginx'            running<br>
-    Process 'health_monitor'            running<br>
-    Process 'uaa'                       running<br>
-    Process 'credhub'                   running<br>
-    Process 'blobstore_nginx'           running<br>
-    Process 'fim'                       running<br>
+    bosh/0:~$ sudo monit summary
+    The Monit daemon 5.2.5 uptime: 4m
+    Process 'system-metrics-server'     running
+    Process 'nats'                      running
+    Process 'postgres'                  running
+    Process 'director'                  running
+    Process 'worker_1'                  running
+    Process 'worker_2'                  running
+    Process 'worker_3'                  running
+    Process 'director_scheduler'        running
+    Process 'director_sync_dns'         running
+    Process 'director_nginx'            running
+    Process 'health_monitor'            running
+    Process 'uaa'                       running
+    Process 'credhub'                   running
+    Process 'blobstore_nginx'           running
+    Process 'fim'                       running
     System 'system_localhost'           running
     </pre>
 

@@ -442,7 +442,7 @@ To deactivate installing <%= vars.product_abbr %> on Windows VMs:
 
 1. In the <%= vars.product_abbr %> tile, select **<%= vars.product_abbr %> Configuration for Windows**.
 
-1. Add the instance group **windows\_diego\_cell** to the field
+1. Add the instance group **windows_diego_cell** to the field
 **List of instance group names that will be excluded from deployment**.
 
 1. Click **Save**.
@@ -552,9 +552,10 @@ To verify the installation for Linux:
     ```
 
 1. Verify in the logs that a new file has been created. For example:
-<pre class="terminal">
-CEF:0|cloud\_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/bin/hackertool" hostname="fim_1/3ad6ff1f-37e0-4b8a-80bd-d16b7f79c149" opname="CREATE" optype=1 ts=1574098829 severity=5
-</pre>
+
+    <pre class="terminal">
+    CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/bin/hackertool" hostname="fim_1/3ad6ff1f-37e0-4b8a-80bd-d16b7f79c149" opname="CREATE" optype=1 ts=1574098829 severity=5
+    </pre>
 
 <br>
 To verify the installation for Windows:
@@ -575,9 +576,10 @@ To verify the installation for Windows:
     ```
 
 1. Verify in the logs that a new file has been created. For example:
-<pre class="terminal">
-CEF:0|cloud\_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="C:\\var\\vcap\\data\\jobs\\sample\_file" hostname="no-job_1/ebee34c1-3300-4f5d-9557-bbef845d608c" opname="CREATE" optype=1 ts=1569953512 severity=5
-</pre>
+
+    <pre class="terminal">
+    CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="C:\\var\\vcap\\data\\jobs\\sample_file" hostname="no-job_1/ebee34c1-3300-4f5d-9557-bbef845d608c" opname="CREATE" optype=1 ts=1569953512 severity=5
+    </pre>
 
 ## <a id="concepts"></a> Concepts Related to Configuring <%= vars.product_abbr %>
 
