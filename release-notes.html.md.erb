@@ -14,11 +14,20 @@ For product versions and upgrade paths, see [Upgrade Planner](https://upgrade-pl
 
 **Release Date**: May 17, 2023
 
-#### Maintenance Changes
+#### Dependencies
 
-* Final release 2.1.24
+* **fsnotify** Updated to v1.6.0 
+* **golang:** Updated to v1.20.4
 
+#### Known Issues
 
+This release has the following known issue:
+
+* `user` and `group` security metadata might not be accurate for files in containers on
+  <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>).
+  However, you can discover the correct user name and group name for a file from the `uid` and `gid`
+  metadata keys.
+  For more information, see [Metadata](installing.html.md.erb#metadata).
 
 
 ### <a id='2-1-22'></a> v2.1.22
