@@ -15,16 +15,16 @@ In this README:
 
 ## Branches in this Content Repo
 
-As of May 28, 2020:
+As of May 26, 2023:
 
 | Branch name… | Documents version… | Publishes to…                          |
-|--------------|--------------------|----------------------------------------|
-| main       | next unreleased version | https://docs-staging.vmware.com/en/draft/File-Integrity-Monitoring-for-VMware-Tanzu/2.2/fim/GUID-index.html |
-| 2.1          | v2.1.x             | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/2.1/fim/GUID-index.html |
-| 2.0          | Deprecated         | https://docs.pivotal.io/addon-fim/2-0/ |
-| 1.4          | Deprecated         | https://docs.pivotal.io/addon-fim/1-4/ |
-| v1.3         | Deprecated         | https://docs.pivotal.io/addon-fim/1-3/ |
-| v1.2         | Deprecated         | https://docs.pivotal.io/addon-fim/1-2/ |
+|---------     |--------------------|----------------------------------------|
+| main | next unreleased version | https://docs-staging.vmware.com/en/draft/File-Integrity-Monitoring-for-VMware-Tanzu/2.2/fim/GUID-index.html |
+| 2.1  | v2.1.x          | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/2.1/fim/GUID-index.html |
+| 2.0  | Archived as PDF | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/2.0/fim-for-vmware-tanzu-2-0.pdf |
+| 1.4  | Archived as PDF | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/1.4/fim-for-vmware-tanzu-1-4.pdf |
+| v1.3 | Archived as PDF | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/1.3/fim-for-vmware-tanzu-1-3.pdf |
+| v1.2 | Archived as PDF | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/1.2/fim-for-vmware-tanzu-1-2.pdf |
 
 The live branches publish using the docs-book-addon-fim repo and are in these pipelines:
 
