@@ -1,34 +1,134 @@
-# About this Repo
+# File Integrity Monitoring
 
-This repo contains documentation for the File Integrity Monitoring Add-on for PCF.
+This repo contains documentation for File Integrity Monitoring for VMware Tanzu.
 
-This repo is published as part of the pcfservices book. 
+In this README: 
 
-# Branch Information
-
-As of October 2, 2018:
-
-| Branch name… | Documents version… | Publishes to… |
-|-------------|----------------|----------------|
-| master       | v1.3.x     | https://docs-pcf-staging.cfapps.io/addon-fim/1-n/ |
-| v1.2   | v1.2.x     | http://docs-pcf-staging.cfapps.io/addon-fim/1-2/ |
-
-The master branch publishes from the PCF Services book. 
-The concourse pipeline is [cf-current | pcfservices](https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-current?groups=pcfservices).
-
-But soon, the v1.2.x and v1.3.x branches will be publishing using the docs-book-addon-fim repo. 
-
-# Book Repo
-
-docs-book-addon-fim
-
-# Style Guide
-
-Full name of the add-on for first use on the page: File Integrity Monitoring Add-on for PCF (FIM Add-on)
-
-Subsequent use on the page: the FIM Add-on
-
-Remember to spell "add-on" consistently and not to capitalize it except in the formal title.
+- [Branches in this Content Repo](#branches-in-this-content-repo)
+- [Releasing a New Minor Version](#releasing-a-new-minor-version)
+- [Partials](#partials)
+- [Contributing to Documentation](#contributing-to-documentation)
+- [Publishing Docs](#publishing-docs)
+- [Troubleshooting Markdown](#troubleshooting-markdown)
+- [Style Guide](#style-guide)
 
 
+## Branches in this Content Repo
 
+As of May 26, 2023:
+
+| Branch name… | Documents version… | Publishes to…                          |
+|---------     |--------------------|----------------------------------------|
+| main | next unreleased version | https://docs-staging.vmware.com/en/draft/File-Integrity-Monitoring-for-VMware-Tanzu/2.2/fim/GUID-index.html |
+| 2.1  | v2.1.x          | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/2.1/fim/GUID-index.html |
+| 2.0  | Archived as PDF | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/2.0/fim-for-vmware-tanzu-2-0.pdf |
+| 1.4  | Archived as PDF | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/1.4/fim-for-vmware-tanzu-1-4.pdf |
+| v1.3 | Archived as PDF | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/1.3/fim-for-vmware-tanzu-1-3.pdf |
+| v1.2 | Archived as PDF | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/1.2/fim-for-vmware-tanzu-1-2.pdf |
+
+The live branches publish using the docs-book-addon-fim repo and are in these pipelines:
+
++ https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?groups=fim.
++ https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=fim-edge
+
+
+## Releasing a New Minor Version
+
+Because **main** is the latest and greatest documentation, the process would be to cut a **x.x** branch
+for the version that **main** was targeting during that time.
+
+After this point, **main** will then be the target for the next version of this product.
+
+
+## Partials
+
+Cross-product partials (if any) for these docs are single sourced from the [Docs Partials](https://github.com/pivotal-cf/docs-partials) repository.
+
+
+## Contributing to Documentation
+
+If there is some documentation to add for an unreleased patch version, then create a branch off of the **live** branch
+you intend to modify and create a pull request against that branch.
+After the version that change is targeting is released, the pull request can be merged and will be live
+the next time a documentation deployment occurs.
+
+If the documentation is meant to be target several released versions,
+then you will need to:
++ create a pull request for each individual minor version
++ or ask the technical writer to cherry-pick to particular branches/versions.
+
+For instructions on how to create a pull request on a branch and instructions on how to create a
+pull request using a fork, see
+[Creating a PR](https://docs-wiki.sc2-04-pcf1-apps.oc.vmware.com/wiki/external/create-pr.html)
+in the documentation team wiki.
+
+
+## Publishing Docs
+
+- [docworks](https://docworks.vmware.com/) is the main tool for managing docs used by writers.
+- [docsdash](https://docsdash.vmware.com/) is a deployment UI which manages the promotion from
+staging to pre-prod to production. The process below describes how to upload our docs to staging,
+replacing the publication with the same version.
+
+### Prepare Markdown Files
+- Markdown files live in this repo.
+- Images should live in an `images` directory at the same level and linked with a relative link.
+- Each page requires an entry in [config/toc.md](config/toc.md) for the table of contents.
+- Variables live in [config/template_variables.yml](config/template_variables.yml).
+
+### In Docsdash
+
+1. Wait about 1 minute for processing to complete after uploading.
+2. Go to https://docsdash.vmware.com/deployment-stage
+
+   There should be an entry with a blue link which says `Documentation` and points to staging.
+
+### Promoting to Pre-Prod and Prod
+
+**Prerequisite** Needs additional privileges - reach out to a manager on the docs team [#tanzu-docs](https://vmware.slack.com/archives/C055V2M0H) or ask a writer to do this step for you.
+
+1. Go to Staging publications in docsdash  
+  https://docsdash.vmware.com/deployment-stage
+
+2. Select a publication (make sure it's the latest version)
+
+3. Click "Deploy selected to Pre-Prod" and wait for the pop to turn green (refresh if necessary after about 10s)
+
+4. Go to Pre-Prod list  
+  https://docsdash.vmware.com/deployment-pre-prod
+
+5. Select a publication
+
+6. Click "Sign off for Release"
+
+7. Wait for your username to show up in the "Signed off by" column
+
+8. Select the publication again
+
+9. Click "Deploy selected to Prod"
+
+## Troubleshooting Markdown
+
+| Problem | List displays as a paragraph |
+|---------|-----------|
+| Symptom:| Bulleted or numbered lists look fine on GitHub but display as a single paragraph in HTML.|
+| Solution: | Add a blank line after the stem sentence and before the first item in the list.|
+
+| Problem | List numbering is broken: every item is `1.` |
+|---------|-----------|
+| Symptom:| Each numbered item in a list is a `1.` instead of `1.`, `2.`, `3.`, etc|
+| Solution: | Try removing any blank newlines within each step.|
+
+| Problem | Code boxes not showing |
+|---------|-----------|
+| Symptom:| VMware publishing system doesn't accept code tags after the three back ticks.|
+| Solution: | Make sure you're not using `shell` or `bash` or `console` or `yaml` after back ticks.|
+
+
+## Style Guide
+
+Full name of the add-on for first use on the page: File Integrity Monitoring for VMware Tanzu (FIM)
+
+Subsequent use on the page: "File Integrity Monitoring" or "FIM"
+
+_security metadata_ instead of the other phrases: _security information_ and _security attributes_.
