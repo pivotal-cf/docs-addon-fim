@@ -37,12 +37,13 @@ You can consider these syslog messages either as confirmation of a succeeding BO
 
 ### Solution
 
-Events occurring during a planned BOSH deployments are normal and can be safely ignored.
+Events occurring during planned BOSH deployments are normal and can be safely ignored.
 
-To avoid the additional syslog traffic during a BOSH deploy, customize the <%= vars.product_abbr %> release deployment manifest to narrow the scope of <%= vars.product_abbr %>
+To avoid extra syslog traffic during a BOSH deploy, customize the <%= vars.product_abbr %> release deployment manifest to narrow the scope of <%= vars.product_abbr %>
 so that it does not include directories affected by deployments.
 You can do this either before you deploy BOSH (as a temporary measure) or as part of the normal <%= vars.product_abbr %> configuration.
-Consider your threat environment and risk tolerance and configure <%= vars.product_abbr %> accordingly.
+Consider your threat environment and risk tolerance and configure <%= vars.product_abbr %>
+as required.
 
 ## <a id="fim-runtime-issues"></a><%= vars.product_abbr %> Runtime Issues
 
@@ -56,7 +57,7 @@ Filesystem events are not reported. The logs are empty.
 
 ### Solution
 
-* Check whether `fim` is running. `monit summary` should return the following output on success.
+* Check whether `fim` is running. `monit summary` returns the following output on success:
 
     <pre class="terminal">
     The Monit daemon 5.2.5 uptime: 1d 20h 11m
