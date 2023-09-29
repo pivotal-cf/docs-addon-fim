@@ -141,7 +141,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           Set a limit in bytes for the maximum amount of memory, including file cache,
           that <%= vars.product_abbr %> can use per VM.
           The default value is <code>536870912</code> (512&nbsp;MB).
-          <p class="note"><strong>Note</strong>:
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.memory_limit</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
         </td>
@@ -155,7 +155,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           The limit is set per core.
           Setting this field to <code>100</code> permits the use of one full core.
           The default value is <code>10</code>.
-          <p class="note"><strong>Note</strong>:
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.cpu_limit</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
         </td>
@@ -176,7 +176,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
             execute correctly.
             If the limit is too strict, <%= vars.product_abbr %> fails to start.
           </p>
-          <div class="note"><strong>Note</strong>:
+          <div class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.enforce_cpu_limit</code> in <%= vars.product_abbr %> v1.4 and earlier.
             <ul>
               <li><strong>Always</strong> is equivalent to <code>fim.enforce_cpu_limit == true</code></li>
@@ -195,7 +195,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           appears.
           <br><br>
           For more information, see <a href="#digests">File Digests</a> below.
-          <p class="note"><strong>Note</strong>:
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.digests</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
             Setting <strong>Log file digest for write/create events</strong> to <strong>Enable</strong>
@@ -210,7 +210,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           for <%= vars.product_abbr %> to hash.
           This field only appears if you have selected <strong>Enable</strong> for <strong>Log file digest for write/create events</strong>.
           The default value is <code>10000000</code>.
-          <p class="note"><strong>Note</strong>:
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.digest_threshold</code> in
             <%= vars.product_abbr %> v1.4 and earlier.<br>
           </p>
@@ -233,7 +233,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           When you select this option, a field for <strong>Maximum cache size (number of files)</strong> appears.
           <br><br>
           For more information about the in&#8209;memory cache, see <a href="#in-memory-cache">In&#8209;Memory Cache</a> below.
-          <p class="note"><strong>Note</strong>:
+          <p class="note"><span class="note__title">Note</span>
             <strong>In&#8209;memory cache to reduce noise when files do not change</strong> is currently only supported on Linux.
             The default value is <strong>Disabled</strong>.
           </p>
@@ -250,7 +250,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           up to roughly 100&nbsp;MB.
           <br><br>
           For more information, see <a href="#in-memory-cache_size">In&#8209;Memory Cache Size</a> below.
-          <p class="note"><strong>Note</strong>:
+          <p class="note important">
+          <span class="note__title">Important</span>
             Enabling the in&#8209;memory cache causes <%= vars.product_abbr %> to use additional memory.
             Ensure that <strong>Maximum cache size (number of files)</strong> is configured with
             an appropriate value using the instructions in
@@ -359,7 +360,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           <br><br>
           For more information, see <a href="#output-low">Low Severity Events</a> below.
-          <p class="note"><strong>Note</strong>:
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.low_severity_patterns</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -371,7 +372,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           Enter a template for log entries.
           This template must be compatible with the golang package <code>text/template</code>.<br><br>
           For more information, see <a href="#format">Output Log Format</a> below.
-          <p class="note"><strong>Note</strong>:
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.format</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
         </td>
@@ -390,7 +391,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
             <li>To deactivate the heartbeat interval, set the value to <code>0</code>.</li>
           </ul>
           The default value is <code>600</code>.
-          <p class="note"><strong>Note</strong>:
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.heartbeat_interval</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
         </td>
@@ -404,7 +405,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           <strong>A threshold of file size beyond which digests are not calculated (in bytes)</strong>
           appears after you select the option.<br><br>
           For more information, see <a href="#digests">File Digests</a> below.
-          <p class="note"><strong>Note</strong>:
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.digests</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
             Setting <strong>Log file digest for write/create events</strong> to <strong>Enable</strong>
@@ -419,7 +420,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           for <%= vars.product_abbr %> to hash.
           This field only appears if you have selected <strong>Enable</strong> for <strong>Log file digest for write/create events</strong>.
           The default value is <code>10000000</code>.
-          <p class="note"><strong>Note</strong>:
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.digest_threshold</code> in
             <%= vars.product_abbr %> v1.4 and earlier.<br>
           </p>
@@ -694,7 +695,7 @@ Below is the default list in **Ignore Patterns** section of **FIM Configuration 
 
 ####<a name="windows-ignore"></a> Ignore Patterns for Windows
 
-<p class="note"><strong>Note</strong>:
+<p class="note"><span class="note__title">Note</span>
 There is currently no default value for <strong>Ignored patterns</strong> for Windows.
 </p>
 
@@ -814,7 +815,7 @@ CEF:0|cloud_foundry|fim|1.0.0|4|file integrity monitoring event|5| fname="/etc/g
 CEF:0|cloud_foundry|fim|1.0.0|1|file integrity monitoring event|5| fname="/etc/gshadow.lock" hostname="diego_cell/8279dfa8-9f86-4bb1-8b92-65457d2ae989" opname="CREATE" optype=1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" ts=1492715822 severity=5
 </pre>
 
-<p class="note"><strong>Note</strong>:
+<p class="note"><span class="note__title">Note</span>
   The <code>FILESNITCH CHECKIN</code> message is a logging marker that indicates
   <code>filesnitch</code> is operational in the absence of any file system events.
 </p>
