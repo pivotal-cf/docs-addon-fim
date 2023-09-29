@@ -8,7 +8,7 @@ owner: Security Engineering
 This topic tells you how to install <%= vars.product_full %>
 (<%= vars.product_abbr %>).
 
-<p class="note"><strong>Note:</strong>
+<p class="note"><span class="note__title">Note</span>
   When you install the <%= vars.product_abbr %> tile using <%= vars.ops_manager %>,
   <%= vars.product_abbr %> does not monitor the files on your BOSH Director.
   To apply <%= vars.product_abbr %> to the BOSH Director VM,
@@ -29,7 +29,7 @@ See [<%= vars.ops_manager %> Operators](https://docs.pivotal.io/platform/customi
 
 To install the <%= vars.product_abbr %> file on the <%= vars.ops_manager %> Installation Dashboard:
 
-<p class="note"><strong>Note:</strong> If you are upgrading from v1.4 or earlier,
+<p class="note"><span class="note__title">Note</span> If you are upgrading from v1.4 or earlier,
   you must follow the instructions in <a href="./upgrading.html">Upgrading <%= vars.product_abbr %></a>.
 </p>
 
@@ -64,7 +64,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           and click the trash can icon to remove file paths from the list.
           <br><br>
           For more information, see <a href="#dirs">Watchlist</a> below.
-          <p class="note"><strong>Note: </strong>
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
         </td>
@@ -82,7 +82,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           <br><br>
           For more information, see <a href="#output-ignore">Ignore Patterns</a> below.
-          <p class="note"><strong>Note: </strong>
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.ignored_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
         </td>
@@ -98,7 +98,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           To test whether a regular expression is valid, you can use <a href="https://regex101.com?flavor=golang">Regex101</a>.
           <br><br>
           For more information, see <a href="#output-low">Low Severity Events</a> below.
-          <p class="note"><strong>Note: </strong>
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.low_severity_patterns</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
         </td>
@@ -111,7 +111,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           <br><br>
           For more information about the <strong>Output log format</strong> field,
           see <a href="#format">Output Log Format</a> below.
-          <p class="note"><strong>Note: </strong>
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.format</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
         </td>
@@ -130,7 +130,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
             <li>To deactivate the heartbeat interval, set the value to <code>0</code>.</li>
           </ul>
           The default value is <code>600</code>.
-          <p class="note"><strong>Note: </strong>
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.heartbeat_interval</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
         </td>
@@ -169,7 +169,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
               exceed the limit set by <strong>CPU limit (percentage)</strong> if idle CPU cycles are available</li>
           </ul>
           The default setting is <strong>When other processes are using CPU resources</strong>.
-          <p class="note warning"><strong>Warning: </strong>
+          <p class="note caution">
+          <span class="note__title">Caution</span>
             If <strong>Enforce CPU limit</strong> is set <strong>Always</strong>,
             verify that the <strong>CPU limit (percentage)</strong> is set high enough for <%= vars.product_abbr %> to
             execute correctly.
@@ -290,7 +291,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           and click the trash can icon to remove file paths from the list.
           <br><br>
           For more information, see <a href="#dirs">Watchlist</a> below.
-          <p class="note"><strong>Note:</strong>
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.dirs</code> in <%= vars.product_abbr %> v1.4 and earlier.
           </p>
         </td>
@@ -307,7 +308,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           <br><br>
           If you do not enter a file path,
           <%= vars.product_abbr %> does not monitor any file system events for containers.
-          <p class="note"><strong>Note:</strong>
+          <p class="note"><span class="note__title">Note</span>
             The file path for generated logs from container events is relative to
             the file system for the Diego Cell, rather than the container. <br><br>
             For example, a container event for the container file path
@@ -332,14 +333,14 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           not included in the logs.
           <br><br>
           For more information, see <a href="#output-ignore">Ignore Patterns</a> below.
-          <p class="note"><strong>Note: </strong>
+          <p class="note"><span class="note__title">Note</span>
             To ignore events for files in containers, you must enter regular expressions that are
             relative to the file system for the Diego Cell, rather than the container.
             To do this, enter regular expressions that start with <code>^C:\\proc\\[^\\]+\\root</code>.<br><br>
             For example, to ignore all files in containers in the directory <code>C:\Users\vcap\app</code>,
             enter <code>^C:\\proc\\[^\\]+\\root\\Users\\vcap\\app\\.*$</code>.
           </p>
-          <p class="note"><strong>Note: </strong>
+          <p class="note"><span class="note__title">Note</span>
             This field corresponds to <code>fim.ignored_patterns</code> in
             <%= vars.product_abbr %> v1.4 and earlier.
           </p>
@@ -473,7 +474,7 @@ To configure <%= vars.product_abbr %> to monitor Garden containers:
 2. Add the following pattern to the **Ignore patterns** section:
     - `^/var/vcap/data/grootfs/store/(un)?privileged/volumes/[\w-]+/rootfs/.*$`
 
-    <p class="note"><strong>Note:</strong>
+    <p class="note"><span class="note__title">Note</span>
       When files in the Garden containers are modified, changes are made to both
       the <code>diff</code> and <code>rootfs</code> directories.
       Adding this ignore pattern means that <%= vars.product_abbr %> ignores
@@ -513,12 +514,12 @@ To configure system logging, follow the procedure in [Configuring Logging in <%=
 * **If you are using the syslog BOSH release**: You can use the syslog BOSH release to forward system logs.
 For more information, see [syslog-release](https://github.com/cloudfoundry/syslog-release) in GitHub.
 
-<p class="note"><strong>Note:</strong>
-  When you configure syslog forwarding, ensure there is enough disk space for the logs,
-  and that they rotate frequently.
-  If you are not sure how often to rotate the logs, configure the rotation to occur either hourly, or when they reach a certain configured size.
-  VMware recommends forwarding logs to a remote syslog aggregation system.
-</p>
+When you configure syslog forwarding, ensure there is enough disk space for the
+logs, and that they rotate frequently. If you are not sure how often to rotate
+the logs, configure the rotation to occur either hourly, or when they reach a
+certain configured size. VMware recommends forwarding logs to a remote syslog
+aggregation system.
+
 
 ##<a id="deploy"></a> Apply Changes from Your Configuration
 
@@ -774,7 +775,7 @@ section of **FIM Configuration for Ubuntu**.
 
 ####<a name="windows-output-low"></a> Low Severity Tagging for Frequently Changed Files for Windows
 
-<p class="note"><strong>Note: </strong>
+<p class="note"><span class="note__title">Note</span>
 There is currently no default value for <strong>Low severity tagging for frequently changed files</strong> for Windows.
 </p>
 
@@ -993,7 +994,7 @@ For the possible values of the two fields see the table below:
    </tr>
 </table>
 
-<p class="note"><strong>Note: </strong>
+<p class="note"><span class="note__title">Note</span>
   <%= vars.product_abbr %> on Windows reports <code>WRITE</code> and <code>CHMOD</code>
   together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.
 </p>
@@ -1014,7 +1015,7 @@ The default value is `10000000` bytes.
 
 ###<a id="metadata"></a> Metadata
 
-<p class="note"><strong>Note:</strong> Metadata is currently only supported on Linux.
+<p class="note"><span class="note__title">Note</span> Metadata is currently only supported on Linux.
 </p>
 
 <%= vars.product_abbr %> adds security metadata to `CREATE` and `CHMOD` file events.
@@ -1070,7 +1071,7 @@ The table below describes the key-value pairs that the metadata uses:
 
 ###<a id="in-memory-cache"></a> In&#8209;Memory Cache
 
-<p class="note"><strong>Note:</strong>
+<p class="note"><span class="note__title">Note</span>
   In&#8209;Memory Cache is currently only supported on Linux.
 </p>
 
@@ -1078,7 +1079,7 @@ When you enable the in&#8209;memory cache, the frequency of logged file events i
 because trivial changes to files are not logged. This feature also enables
 you to compare the current security metadata of a file with the last known version in a `CHMOD` event.
 
-<p class="note"><strong>Note:</strong>
+<p class="note"><span class="note__title">Note</span>
   If you enable the in&#8209;memory cache, <%= vars.product_abbr %> uses additional memory.
   You can change the additional memory cost by configuring the cache size.
   See <a href="#in-memory-cache_size">In&#8209;Memory Cache Size</a> below.
@@ -1133,7 +1134,7 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
   </tr>
 </table>
 
-<p class="note"><strong>Note:</strong> If the cache is full,
+<p class="note"><span class="note__title">Note</span> If the cache is full,
   because <strong>Maximum cache size (in number of files)</strong> is too small,
   <%= vars.product_abbr %> logs file events as if the cache was deactivated.
 </p>
