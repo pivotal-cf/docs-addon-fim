@@ -7,18 +7,16 @@ owner: Security Engineering
 
 This topic tells you how to upgrade <%= vars.product_full %> (<%= vars.product_abbr %>).
 
-For product versions and upgrade paths, see [Upgrade Planner](https://upgrade-planner.pivotal.io/).
-
-##<a id="prerequisites"></a>Prerequisites
+## <a id="prerequisites"></a>Prerequisites
 
 To ensure that you have the required component versions, see the [Product Snapshot](./index.html#snapshot).
 
-##<a id="upgrade"></a> Replace <%= vars.product_abbr %> v1.x with v2.x
+## <a id="upgrade"></a> Replace <%= vars.product_abbr %> v1.x with v2.x
 
 To uninstall <%= vars.product_abbr %> v1.x and install v2.x in its place:
 
 1. SSH into the <%= vars.ops_manager %> VM.
-   For how to do this, see [SSH into <%= vars.ops_manager %>](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
+   For how to do this, see [SSH into <%= vars.ops_manager %>](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 
 1. Delete the existing runtime configs by running:
 
@@ -27,4 +25,4 @@ To uninstall <%= vars.product_abbr %> v1.x and install v2.x in its place:
     bosh -e BOSH-ENVIRONMENT delete-config --type=runtime --name=fim-windows
     ```
 
-1. Install the 2.x tile. For installation instructions, see [Installing <%= vars.product_short %>](./installing.html).
+1. Install the v2.x tile. For installation instructions, see [Installing <%= vars.product_short %>](./installing.html).

@@ -16,12 +16,12 @@ This topic tells you how to install <%= vars.product_full %>
 </p>
 
 
-##<a id="prereqs"></a>Prerequisites
+## <a id="prereqs"></a>Prerequisites
 
 Before you install <%= vars.product_abbr %>, you must have:
 
 * An <%= vars.ops_manager %> operator user account with admin rights.
-See [<%= vars.ops_manager %> Operators](https://docs.pivotal.io/platform/customizing/platform-operators.html).
+See [<%= vars.ops_manager %> Operators](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-platform-operators.html).
 
 * **<%= vars.ops_manager %>**. For compatible versions, see the [Product Snapshot](./index.html#snapshot).
 
@@ -35,7 +35,7 @@ To install the <%= vars.product_abbr %> file on the <%= vars.ops_manager %> Inst
 
 1. Download the product file from [<%= vars.product_network %>](https://network.tanzu.vmware.com/products/p-fim-addon).
 
-1. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click **Import a Product** to upload the product file.
+1. Go to the <%= vars.ops_manager %> Installation Dashboard and click **Import a Product** to upload the product file.
 
 1. Under **Import a Product**, click **+** next to the version number of <%= vars.product_abbr %>.
 This adds the tile to your staging area.
@@ -53,7 +53,8 @@ To configure <%= vars.product_abbr %> for Linux VMs:
 
 1. Configure the following fields:
 
-    <table class="nice">
+    <table class=“table”>
+    <thead>
       <th width="20%">Field</th>
       <th width="80%">Description</th>
       <tr>
@@ -69,6 +70,7 @@ To configure <%= vars.product_abbr %> for Linux VMs:
           </p>
         </td>
       </tr>
+      </thead>
       <tr>
         <td><strong>Ignore patterns</strong></td>
         <td>
@@ -276,12 +278,13 @@ To configure <%= vars.product_abbr %> for Linux VMs:
 To configure <%= vars.product_abbr %> for Windows VMs:
 
 1. Select **FIM Configuration for Windows**.
-![FIM Configuration for Windows section of the FIM configuration in Ops Manager.](./images/windows-config.png)
+![FIM Configuration for Windows section of the FIM configuration in Tanzu Operations Manager.](./images/windows-config.png)
 [Click here to view a larger version of this image.](./images/windows-config.png)
 
 1. Configure the following fields:
 
-    <table class="nice">
+    <table class=“table”>
+    <thead>
       <th width="20%">Field</th>
       <th width="80%">Description</th>
       <tr>
@@ -297,6 +300,7 @@ To configure <%= vars.product_abbr %> for Windows VMs:
           </p>
         </td>
       </tr>
+      </thead>
       <tr>
         <td><strong>Container Watchlist</strong></td>
         <td>
@@ -470,7 +474,7 @@ To configure <%= vars.product_abbr %> to monitor Garden containers:
     - `/var/vcap/data/grootfs/store/privileged/volumes/`
 
     For more information about GrootFS volumes,
-    see [Volumes](https://docs.pivotal.io/pivotalcf/concepts/grootfs-disk.html#volumes).
+    see [Volumes](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/grootfs-disk.html).
 
 2. Add the following pattern to the **Ignore patterns** section:
     - `^/var/vcap/data/grootfs/store/(un)?privileged/volumes/[\w-]+/rootfs/.*$`
@@ -510,7 +514,8 @@ You can use syslog forwarding to forward the alerts to a syslog aggregator.
 * **If you are using the <%= vars.app_runtime_first %> tile**:
 The syslog aggregator that you specify receives all alerts generated on <%= vars.app_runtime_abbr %>,
 including the <%= vars.product_abbr %> alerts.
-To configure system logging, follow the procedure in [Configuring Logging in <%= vars.app_runtime_abbr %>](https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html).
+To configure system logging, follow the procedure in [Configuring Logging
+in <%= vars.app_runtime_abbr %>](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/3.0/tas-for-vms/logging-config-opsman.html).
 
 * **If you are using the syslog BOSH release**: You can use the syslog BOSH release to forward system logs.
 For more information, see [syslog-release](https://github.com/cloudfoundry/syslog-release) in GitHub.
@@ -539,7 +544,7 @@ Your installation is not complete until you apply your configuration changes:
 To verify the installation for Linux:
 
 1. `bosh ssh` into the VMs in your deployment. For more information, see
-[BOSH SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-ssh).
+[BOSH SSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-ssh-login.html).
 
 1. Enter this command:
 
@@ -563,7 +568,7 @@ To verify the installation for Linux:
 To verify the installation for Windows:
 
 1. `bosh ssh` into the VMs in your deployment. For more information, see
-[BOSH SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-ssh).
+[BOSH SSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-ssh-login.html).
 
 1. Enter this command:
 
@@ -597,11 +602,13 @@ and removing items in the **Watchlist** section.
 
 Below is the default list of file paths in **Watchlist** section of **FIM Configuration for Ubuntu**.
 
-<table>
+<table class=“table”>
+<thead>
   <tr>
     <th width="40%">Component</th>
     <th width="60%">File Paths</th>
   </tr>
+  </thead>
   <tr>
     <td>System binaries and configuration</td>
     <td>
@@ -655,15 +662,17 @@ Use path regular expressions.
 
 ####<a name="linux-ignore"></a> Ignore Patterns for Linux
 
-Below is the default list in **Ignore Patterns** section of **FIM Configuration for Ubuntu**.
+This is the default list in **Ignore Patterns** section of **FIM Configuration for Ubuntu**.
 
-<table>
+<table class=“table”>
+<thead>
   <col width="40%">
   <col width="60%">
   <tr>
     <th>Scenario</th>
     <th>List</th>
   </tr>
+  </thead>
   <tr>
     <td>Temporary files created when an operator or errand runs <code>bosh ssh</code></td>
     <td>
@@ -728,16 +737,18 @@ There are three possible severity levels:
 
 ####<a name="linux-output-low"></a> Low Severity Tagging for Frequently Changed Files for Linux
 
-Below is the default list in **Low severity tagging for frequently changed files**
+This is the default list in **Low severity tagging for frequently changed files**
 section of **FIM Configuration for Ubuntu**.
 
-<table>
+<table class=“table”>
+<thead>
   <col width="40%">
   <col width="60%">
   <tr>
     <th>Scenario</th>
     <th>List</th>
   </tr>
+  </thead>
   <tr>
     <td>When an operator or errand runs the <code>bosh ssh</code> a new user is created</td>
     <td>
@@ -839,13 +850,15 @@ Example output using the above configuration:
 /bin/binary plymouth CREATE 1 mode="-rw-r--r--" uid=0 user="root" gid=0 group="root" sha256=da39a3ee5e6b4b0d3255bfef95601890afd80709 1475195574
 </pre>
 
-The table below lists the template values you can use:
+The following table lists the template values you can use:
 
-<table class="nice">
+<table class=“table”>
+<thead>
   <tr>
     <th width="25%">Template</th>
     <th width="75%">Description</th>
   </tr>
+  </thead>
   <tr>
     <td><code>{{.Fname}}</code></td>
     <td>The name of the affected file.</td>
@@ -912,14 +925,16 @@ The table below lists the template values you can use:
 ####<a id="file-operation"></a>Opname and Optype
 
 Opname and optype are the type of file operation in textual and numeric format, respectively.
-For the possible values of the two fields see the table below:
+For the possible values of the two fields see the following table:
 
-<table class="nice">
+<table class=“table”>
+<thead>
    <th width="17%">opname</th>
    <th width="10%">optype</th>
    <th width="35%">Example Linux Trigger</th>
    <th width="38%">Example Windows Trigger</th>
    <tr>
+   </thead>
      <td><code>FILESNITCH CHECKIN</code></td>
      <td align="center">0</td>
      <td>
@@ -1000,7 +1015,7 @@ For the possible values of the two fields see the table below:
   together as <code>WRITE|CHMOD</code>. The two operations are indistinguishable.
 </p>
 
-###<a id="digests"></a>File Digests
+### <a id="digests"></a>File Digests
 
 <%= vars.product_abbr %> supports hashing monitored files on <code>WRITE</code> or <code>CREATE</code> events
 using the `sha256` algorithm.
@@ -1014,21 +1029,22 @@ Hashing is deactivated by default.
 <%= vars.product_abbr %> sets a threshold on the size of files, in bytes, to be hashed.
 The default value is `10000000` bytes.
 
-###<a id="metadata"></a> Metadata
+### <a id="metadata"></a> Metadata
 
 <p class="note"><span class="note__title">Note</span> Metadata is currently only supported on Linux.
 </p>
 
 <%= vars.product_abbr %> adds security metadata to `CREATE` and `CHMOD` file events.
-The table below describes the key-value pairs that the metadata uses:
+The following table describes the key-value pairs that the metadata uses:
 
 
-<table>
+<table class=“table”>
+<thead>
   <tr>
     <th width="75">Key</th>
     <th>Description</th>
   </tr>
-
+  </thead>
   <tr>
     <td><code>mode</code></td>
     <td>This key encodes Unix file system permissions and permissions behavior. <br><br>
@@ -1070,7 +1086,7 @@ The table below describes the key-value pairs that the metadata uses:
 
 
 
-###<a id="in-memory-cache"></a> In&#8209;Memory Cache
+### <a id="in-memory-cache"></a> In&#8209;Memory Cache
 
 <p class="note"><span class="note__title">Note</span>
   In&#8209;Memory Cache is currently only supported on Linux.
@@ -1086,15 +1102,17 @@ you to compare the current security metadata of a file with the last known versi
   See <a href="#in-memory-cache_size">In&#8209;Memory Cache Size</a> below.
 </p>
 
-The table below describes the file events that are logged and ignored
+The following table describes the file events that are logged and ignored
 for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
 
-<table>
+  <table class=“table”>
+  <thead>
   <tr>
     <th width="75">File Event</th>
     <th>Logged Events</th>
     <th>Ignored Events</th>
   </tr>
+  </thead>
   <tr>
     <td><code>CHMOD</code></td>
     <td>
@@ -1140,7 +1158,7 @@ for `CHMOD` and `WRITE` events when the in&#8209;memory cache is enabled:
   <%= vars.product_abbr %> logs file events as if the cache was deactivated.
 </p>
 
-###<a id="in-memory-cache_size"></a> In&#8209;Memory Cache Size
+### <a id="in-memory-cache_size"></a> In&#8209;Memory Cache Size
 
 The in&#8209;memory cache size is the maximum number of files that <%= vars.product_abbr %>
 can store at once. If there are more files being watched than can fit into the cache,
@@ -1180,7 +1198,7 @@ To determine how large to set **Maximum cache size (in number of files)**:
 1. Set **In&#8209;memory cache to reduce noise when files do not change**
 to **Disable**.
 
-1.  Navigate to **Installation Dashboard** > **Review Pending Changes** and click **Apply Changes**.
+1. Navigate to **Installation Dashboard** > **Review Pending Changes** and click **Apply Changes**.
 
 1. View the <%= vars.product_abbr %> `stderr` logs for some of your VMs. These are in
  `/var/vcap/sys/log/fim/fim.stderr.log`. The logs look similar to the following:
