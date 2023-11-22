@@ -21,7 +21,7 @@ This topic tells you how to install <%= vars.product_full %>
 Before you install <%= vars.product_abbr %>, you must have:
 
 * An <%= vars.ops_manager %> operator user account with admin rights.
-See [<%= vars.ops_manager %> Operators](https://docs.pivotal.io/platform/customizing/platform-operators.html).
+See [<%= vars.ops_manager %> Operators](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-platform-operators.html).
 
 * **<%= vars.ops_manager %>**. For compatible versions, see the [Product Snapshot](./index.html#snapshot).
 
@@ -470,7 +470,7 @@ To configure <%= vars.product_abbr %> to monitor Garden containers:
     - `/var/vcap/data/grootfs/store/privileged/volumes/`
 
     For more information about GrootFS volumes,
-    see [Volumes](https://docs.pivotal.io/pivotalcf/concepts/grootfs-disk.html#volumes).
+    see [Volumes](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/5.0/tas-for-vms/examining_grootfs_disk.html).
 
 2. Add the following pattern to the **Ignore patterns** section:
     - `^/var/vcap/data/grootfs/store/(un)?privileged/volumes/[\w-]+/rootfs/.*$`
@@ -510,7 +510,7 @@ You can use syslog forwarding to forward the alerts to a syslog aggregator.
 * **If you are using the <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile**:
 The syslog aggregator that you specify receives all alerts generated on <%= vars.app_runtime_abbr %>,
 including the <%= vars.product_abbr %> alerts.
-To configure system logging, follow the procedure in [Configuring Logging in <%= vars.app_runtime_abbr %>](https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html).
+To configure system logging, follow the procedure in [Configuring Logging in <%= vars.app_runtime_abbr %>](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/3.0/tas-for-vms/logging-config-opsman.html).
 
 * **If you are using the syslog BOSH release**: You can use the syslog BOSH release to forward system logs.
 For more information, see [syslog-release](https://github.com/cloudfoundry/syslog-release) in GitHub.
@@ -539,7 +539,7 @@ Your installation is not complete until you apply your configuration changes:
 To verify the installation for Linux:
 
 1. `bosh ssh` into the VMs in your deployment. For more information, see
-[BOSH SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-ssh).
+[BOSH SSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 
 1. Enter this command:
 
@@ -563,7 +563,7 @@ To verify the installation for Linux:
 To verify the installation for Windows:
 
 1. `bosh ssh` into the VMs in your deployment. For more information, see
-[BOSH SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-ssh).
+[BOSH SSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-ssh-login.html).
 
 1. Enter this command:
 
