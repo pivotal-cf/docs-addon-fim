@@ -75,6 +75,7 @@ staging to pre-prod to production. The process below describes how to upload our
 replacing the publication with the same version.
 
 ### Prepare Markdown files
+
 - Markdown files live in this repo.
 - Images should live in an `images` directory at the same level and linked with a relative link.
 - Each page requires an entry in [config/toc.md](config/toc.md) for the table of contents.
