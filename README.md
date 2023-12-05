@@ -4,23 +4,27 @@ This repo contains documentation for File Integrity Monitoring for VMware Tanzu.
 
 In this README: 
 
-- [Branches in this Content Repo](#branches-in-this-content-repo)
-- [Releasing a New Minor Version](#releasing-a-new-minor-version)
-- [Partials](#partials)
-- [Contributing to Documentation](#contributing-to-documentation)
-- [Publishing Docs](#publishing-docs)
-- [Troubleshooting Markdown](#troubleshooting-markdown)
-- [Style Guide](#style-guide)
+- [File Integrity Monitoring](#file-integrity-monitoring)
+  - [Branches in this content repo](#branches-in-this-content-repo)
+  - [Releasing a new minor version](#releasing-a-new-minor-version)
+  - [Partials](#partials)
+  - [Contributing to documentation](#contributing-to-documentation)
+  - [Publishing docs](#publishing-docs)
+    - [Prepare Markdown files](#prepare-markdown-files)
+    - [In Docsdash](#in-docsdash)
+    - [Promoting to pre-prod and prod](#promoting-to-pre-prod-and-prod)
+  - [Troubleshooting Markdown](#troubleshooting-markdown)
+  - [Style guide](#style-guide)
 
 
-## Branches in this Content Repo
+## Branches in this content repo
 
-As of May 26, 2023:
+As of December 2023:
 
 | Branch name… | Documents version… | Publishes to…                          |
 |---------     |--------------------|----------------------------------------|
 | main | next unreleased version | https://docs-staging.vmware.com/en/draft/File-Integrity-Monitoring-for-VMware-Tanzu/2.2/fim/GUID-index.html |
-| 2.1  | v2.1.x          | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/2.1/fim/GUID-index.html |
+| 2.1  | v2.1.x          | Staging at https://docs-staging.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/2.1/fim/GUID-index.html and production at https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/2.1/fim/GUID-index.html |
 | 2.0  | Archived as PDF | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/2.0/fim-for-vmware-tanzu-2-0.pdf |
 | 1.4  | Archived as PDF | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/1.4/fim-for-vmware-tanzu-1-4.pdf |
 | v1.3 | Archived as PDF | https://docs.vmware.com/en/File-Integrity-Monitoring-for-VMware-Tanzu/1.3/fim-for-vmware-tanzu-1-3.pdf |
@@ -32,12 +36,12 @@ The live branches publish using the docs-book-addon-fim repo and are in these pi
 + https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?groups=fim-edge
 
 
-## Releasing a New Minor Version
+## Releasing a new minor version
 
-Because **main** is the latest and greatest documentation, the process would be to cut a **x.x** branch
+Because **main** is the latest documentation, the process is to cut an **x.x** branch
 for the version that **main** was targeting during that time.
 
-After this point, **main** will then be the target for the next version of this product.
+After that, **main** becomes the target for the next minor version of this product.
 
 
 ## Partials
@@ -45,9 +49,9 @@ After this point, **main** will then be the target for the next version of this 
 Cross-product partials (if any) for these docs are single sourced from the [Docs Partials](https://github.com/pivotal-cf/docs-partials) repository.
 
 
-## Contributing to Documentation
+## Contributing to documentation
 
-If there is some documentation to add for an unreleased patch version, then create a branch off of the **live** branch
+If there is documentation to add for an unreleased patch version, then create a branch off of the **live** branch
 you intend to modify and create a pull request against that branch.
 After the version that change is targeting is released, the pull request can be merged and will be live
 the next time a documentation deployment occurs.
@@ -63,14 +67,14 @@ pull request using a fork, see
 in the documentation team wiki.
 
 
-## Publishing Docs
+## Publishing docs
 
 - [docworks](https://docworks.vmware.com/) is the main tool for managing docs used by writers.
 - [docsdash](https://docsdash.vmware.com/) is a deployment UI which manages the promotion from
 staging to pre-prod to production. The process below describes how to upload our docs to staging,
 replacing the publication with the same version.
 
-### Prepare Markdown Files
+### Prepare Markdown files
 - Markdown files live in this repo.
 - Images should live in an `images` directory at the same level and linked with a relative link.
 - Each page requires an entry in [config/toc.md](config/toc.md) for the table of contents.
@@ -83,7 +87,7 @@ replacing the publication with the same version.
 
    There should be an entry with a blue link which says `Documentation` and points to staging.
 
-### Promoting to Pre-Prod and Prod
+### Promoting to pre-prod and prod
 
 **Prerequisite** Needs additional privileges - reach out to a manager on the docs team [#tanzu-docs](https://vmware.slack.com/archives/C055V2M0H) or ask a writer to do this step for you.
 
@@ -125,7 +129,7 @@ replacing the publication with the same version.
 | Solution: | Make sure you're not using `shell` or `bash` or `console` or `yaml` after back ticks.|
 
 
-## Style Guide
+## Style guide
 
 Full name of the add-on for first use on the page: File Integrity Monitoring for VMware Tanzu (FIM)
 
