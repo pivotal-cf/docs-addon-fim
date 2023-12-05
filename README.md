@@ -5,7 +5,7 @@ This repo contains documentation for File Integrity Monitoring for VMware Tanzu.
 In this README: 
 
 - [File Integrity Monitoring](#file-integrity-monitoring)
-  - [Branches in this Content Repo](#branches-in-this-content-repo)
+  - [Branches in this content repo](#branches-in-this-content-repo)
   - [Releasing a new minor version](#releasing-a-new-minor-version)
   - [Partials](#partials)
   - [Contributing to documentation](#contributing-to-documentation)
@@ -17,7 +17,7 @@ In this README:
   - [Style guide](#style-guide)
 
 
-## Branches in this Content Repo
+## Branches in this content repo
 
 As of December 2023:
 
@@ -75,6 +75,7 @@ staging to pre-prod to production. The process below describes how to upload our
 replacing the publication with the same version.
 
 ### Prepare Markdown files
+
 - Markdown files live in this repo.
 - Images should live in an `images` directory at the same level and linked with a relative link.
 - Each page requires an entry in [config/toc.md](config/toc.md) for the table of contents.
